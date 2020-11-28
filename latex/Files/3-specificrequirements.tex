@@ -3,6 +3,8 @@
 
 Here we include more details on all aspects in Section $2$ if they can be useful for the development team. 
 
+The requirements are complete if they ensure satisfaction of the goals in the context of the domain properties (Analogy with program correctness: a Program P running on a particular Computer C is correct if it satisfies the Requirements R), also the goals adequately capture all the stakeholders’ needs, and the domain represents valid properties/assumptions about the world
+
 \subsection{External interface requirements}
 \label{subsect:ecternalinterfacerequirements}
 
@@ -21,11 +23,21 @@ Here we include more details on all aspects in Section $2$ if they can be useful
 \subsection{Functional requirements}
 \label{subsect:functionalrequirements}
 
-Definition of use case diagrams, use cases and associated
-sequence/activity diagrams, and mapping on requirements.
+Definition of use case diagrams, use cases and associated sequence/activity diagrams, and mapping on requirements.
 
-Functional requirements: Describe the interactions between the system and its environment
-independent from implementation. Are the main goals the software to be has to fulfill.
+Functional requirements: Describe the interactions between the system and its environment independent from implementation. Are the main goals the software to be has to fulfill.
+
+Deriving requirements from goals: Must find the constraints on shared phenomena to be enforced by the machine to achieve the goals.
+
+this section is organized by mode, user class, feature, etc. For example:
+
+3.2 Functional Requirements
+
+3.2.1 User Class 1
+
+3.2.1.1 Functional Requirement 1.1
+
+…
 
 \subsection{Performance requirements}
 \label{subsect:performancerequirements}
@@ -42,8 +54,20 @@ independent from implementation. Are the main goals the software to be has to fu
 \subsubsection{Any other constraint}
 \label{subsubsect:anyotherconstraint}
 
-\subsection{Software system attributes [or non-functional-requirements ?]}
+\subsection{Software system attributes}
 \label{subsect:softwaresystemattributes}
+
+Nonfunctional requirements: User visible aspects of the system not directly related to functional behavior. 
+Constraints on how functionality has to be provided to the end user.
+Independent of the application domain, but the application domain determines their relevance and their prioritization.
+
+Also called Quality of Service (QoS) attributes, here are some:
+\begin{itemize}
+    \item Extremely visible properties: Performance, Reliability, Scalability, Capacity, Accuracy, Accessibility, Availability.
+    \item How the system works in unexpected/fault conditions: Robustness, Exception handling.
+    \item Systems developed with different frameworks can work together at run time: Interoperability.
+    \item Security issues: Integrity, Confidentiality.
+\end{itemize}
 
 \subsubsection{Reliability}
 \label{subsubsect:reliability}
@@ -62,3 +86,8 @@ independent from implementation. Are the main goals the software to be has to fu
 
 \subsubsection{Portability}
 \label{subsubsect:portability}
+
+\subsection{Other requirements}
+\label{subsect:otherrequirements}
+
+This section is not necessary.

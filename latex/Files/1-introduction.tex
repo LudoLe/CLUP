@@ -4,12 +4,14 @@
 \subsection{Purpose}
 \label{subsect:purpose}
 
+This section should include the goals.
+
 This document represents the Requirement Analysis and Specification Document (RASD). Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis
 
 \subsection{Scope}
 \label{subsect:scope}
 
-Scope: here we include an analysis of the world and of the shared phenomena.
+Scope: here we include an analysis of the world and of the shared phenomena. Identifies the product and application domain.
 
 \subsubsection{Description of the given problem}
 \label{subsect:descriptionofthegivenproblem}
@@ -35,11 +37,30 @@ Allow users to indicate the estimated permanence time
 \subsection{Phenomena}
 \label{subsect:phenomena}
 
+The machine: the portion of system to be developed.
+The world (a.k.a. the environment): the portion of the real-world affected by the machine.
+Requirements engineering is concerned with phenomena occurring in the world, as opposed to phenomena occurring inside the machine.
+
+Goals are prescriptive assertions formulated in terms of \textbf{world} phenomena (not necessarily shared).
+
+Domain properties/assumptions are descriptive assertions assumed to hold in the \textbf{world}.
+
+Requirements are prescriptive assertions formulated in terms of \textbf{shared} phenomena.
+
+Requirements are a bridge from the \textbf{machine} to the real \textbf{world}.
+
+Find all the possible phenomena, than, for each one specify if its shared or not and who controls it (world or machine)
+
 \subsubsection{World phenomena}
 \label{subsubsect:worldphenomena}
 
+World phenomena are phenomena that the machine can not observe.
+
 \subsubsection{Shared Phenomena}
 \label{subsubsect:sharedphenomena}
+
+Some world phenomena are shared with the machine.
+Shared phenomena can be controlled by the world and observed by the machine, or controlled by the machine andd observed by the world.
 
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
@@ -61,3 +82,5 @@ Allow users to indicate the estimated permanence time
 
 \subsection{Overview}
 \label{subsect:overview}
+
+Describes contents and structure of the remainder of the RASD
