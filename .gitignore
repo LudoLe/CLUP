@@ -11,3 +11,8 @@ latex/main.synctex.gz
 latex/main.toc
 latex/main.pdf
 .DS_Store
+latex/Files/1-introduction.aux
+latex/Files/2-overalldescription.tex.aux
+latex/Files/3-specificrequirements.tex.aux
+latex/Files/4-formalanalysisusingalloy.tex.aux
+latex/Files/5-effortspent.tex.aux
