@@ -15,6 +15,67 @@ Here you can see how to include an image in your document.
 \caption{\label{fig:metamodel2}DICE DPIM metamodel in portrait form.}
 \end{figure}
 
+\subsection{Goals}
+\label{sect:goals}
+
+Shop Manager:
+[G1] Allow a manager to sign on the system
+[G2] Allow a manager to sign in the system
+[G3] Allow a manager to register their store/stores on the system
+	[G.3.1]Allow a manager to divide their store in areas	
+	[G.3.2]Allow a manager to register the items in the areas
+	[G.3.3]Allow a manager to register the opening time of their 
+		store
+[G4] Allow a manager to make a customer join a virtual queue
+
+Customers:
+[G5]Allow a customer to join a virtual queue receiving a unique QR code for identifying themselves, whether registered or not
+[G6]Allow a customer to receive push notifications to remind them to reach the store in time for their turn
+[G7]Allow a customer to sign on the system
+[G8]Allow a customer to sign in the system
+[G9]Allow a customer to book a shopping session at a grocery store registered on the system
+	[G9.1]Allow a customer to select categories of items they are 		intending to 
+	buy
+	[G9.2]Allow a customer to select the time and duration(between 		predefined options) for they session 	
+[G10] Allow a customer to know the estimated time of a virtual queue before		joining it
+
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{Identifier} & \textbf{goal}\\
+    \hline
+    \textbf{G.1} & Allow a manager to monitor the influx of clients in their store\\
+    \textbf{G.1.1} & allow a manager to register his store on the system\\
+    \textbf{G.1.2} & Allow a customer to access a store with a QR code\\
+    \hline
+    \textbf{G.2} & Allow customers to line up in a virtual queue in order to access a grocery shop\\
+    \textbf{G.2.1} & allow a manager to get a numbered ticket to a client that represents their place in the queue\\
+    \textbf{G.2.2} & allow a customer to get a numbered ticket that represents their place in the queue\\
+    \hline
+    \textbf{G.3} & Allow a customer to book a visit\\
+    \textbf{G.3.1} & Allow users to indicate the categories of items that they intend to buy\\
+    \textbf{G.3.2} & Allow users to indicate the time they intend to go grocery shopping\\
+    \textbf{G.3.3} & Allow users to indicate the estimated permanence time \\
+    \hline
+\end{tabular}
+
+\subsection{Assumptions, dependencies and constraints}
+\label{subsect:assumptionsdependenciescostraints}
+
+\subsubsection{Domain Assumptions}
+\label{subsubsect:domainassumptions}
+
+Here we include domain assumptions.
+
+Identify the relevant environment phenomena ("relevant" with respect to the goals). They are real world properties. They do not depend on the machine.
+
+\subsubsection{Constraints}
+\label{subsubsect:contraints}
+
+Constraints: imposed by the client or the environment in which the system operates. 
+
+Anything that will limit the developer’s options (e.g. regulations, reliability, criticality, hardware limitations, parallelism, etc.)
+
+
 \subsection{Product perspective}
 \label{subsect:productperspective}
 
@@ -92,20 +153,75 @@ Registered user/User: a customer using Clup and who is registered on the system.
 Shop manager: a person who register their shop on Clup. A shop manager can register multiple shop on the system.
 Shop: a grocery shop registered on the system. It updates periodically the people present in the store and sends updates to the manager.
 
-\subsection{Assumptions, dependencies and constraints}
-\label{subsect:assumptionsdependenciescostraints}
+\subsection{Phenomena}
+\label{subsect:phenomena}
 
-\subsubsection{Domain Assumptions}
-\label{subsubsect:domainassumptions}
+[tengo questa sezione solo per me]
 
-Here we include domain assumptions.
+The machine: the portion of system to be developed.
+The world (a.k.a. the environment): the portion of the real-world affected by the machine.
+Requirements engineering is concerned with phenomena occurring in the world, as opposed to phenomena occurring inside the machine.
 
-Identify the relevant environment phenomena ("relevant" with respect to the goals). They are real world properties. They do not depend on the machine.
+Goals are prescriptive assertions formulated in terms of \textbf{world} phenomena (not necessarily shared).
+Domain properties/assumptions are descriptive assertions assumed to hold in the \textbf{world}.
+Requirements are prescriptive assertions formulated in terms of \textbf{shared} phenomena.
+Requirements are a bridge from the \textbf{machine} to the real \textbf{world}.
 
-\subsubsection{Constraints}
-\label{subsubsect:contraints}
+Find all the possible phenomena, for each one specify if its shared or not and who controls it (world or machine). 
 
-Constraints: imposed by the client or the environment in which the system operates. 
+All phenomena observed:
 
-Anything that will limit the developer’s options (e.g. regulations, reliability, criticality, hardware limitations, parallelism, etc.)
+\begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Phenomenon} & \textbf{shared} & \textbf{controlled by}\\
+    \hline
+    User downloads the app & ? & ? \\
+    Shop owner signs up to the app & ? & ? \\
+    Customer signs up to the app & ? & ? \\
+    Shop owner signs in & ? & ? \\
+    Customer signs in & ? & ? \\
+    Shop owner install a QR codes scanner & ? & ? \\
+    \hline
+    User wants to go to grocery store & ? & ? \\
+    User searches a store in the CLup app & ? & ? \\
+    User retrieve information about the queue of a shop & ? & ? \\
+    User "lines up" for a store & ? & ? \\
+    User searches information about his turn in the queue & ? & ? \\
+    User receives notifications/updates about his position in the queue & ? & ? \\
+    User receives a notification about special changes on the queue & ? & ? \\ %because of possible modifications from the manager, anche se non so se abbia senso sta cosa
+    User goes to the grocery store & ? & ? \\
+    USer enters the grocery store & ? & ? \\
+    User shows his QR code to the store's scanner before going inside & ? & ? \\
+    User does the shopping & ? & ? \\
+    User shows his QR code to the store's scanner before going out & ? & ? \\
+    User exits the grocery store & ? & ? \\
+    %TODO:
+    %Customers without CLup app reaches the store & ? & ? \\
+    %Manager enqueue a customer & ? & ? \\
+    %Manager checks esitmated queue time for customers he has put in queue & ? & ? \\
+    %Manager communicates to CLup a customer has entered the store & ? & ? \\
+    %Manager communicates to CLup an user ha exit the store & ? & ? \\
+    User leaves the queue & ? & ? \\
+    User doesn't show up & ? & ? \\
+    User shows up early & ? & ? \\
+    \hline
+    User cheks available visits for a store & ? & ? \\
+    User specifies the categories he is interested in & ? & ? \\
+    User books a visit to the grocery store & ? & ? \\
+    User checks his booked visits & ? & ? \\
+    User receives notification/reminders about an imminent booked visit & ? & ? \\
+    User receives notification about special changes on the visit & ? & ? \\
+    Booked user is added to the queue & ? & ? \\ %idea per come implementarlo: una persona fa una prenotazione, il programma automaticamente mette in coda il cliente in modo tale che il suo turno corrispona all'orario di prenotazione
+    \hline
+    Manager registers a shop & ? & ? \\
+    Manager setsup/updates the general features of his shops & ? & ? \\
+    Manager checks status/info of the queue & ? & ? \\
+    Manager checks status/info of the booked visits & ? & ? \\
+    Manager edits the queue & ? & ? \\
+    Manager edits the booked visits & ? & ? \\
+    \hline
+    The system crashes & ? & ? \\
+    \hline
+\end{tabular}
 
+\textbf{DOMANDA:} cosa cambia essere registrati o meno? E' necessario registrarsi?
