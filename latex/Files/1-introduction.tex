@@ -18,8 +18,138 @@ Scope: here we include an analysis of the world and of the shared phenomena. Ide
 
 In these trying times of global pandemic, such as a common matter as going grocery shopping has become a relevant threat for the general public health. In spite of this situation, grocery shopping still remains an essential need which has to be carried out: being so, avoiding crowding up either inside and outnside of grocery shops in order to avoid any source of hazards becomes the new main issue to focus on.\ CLup is a new software application that proposes itself to help either the grocery shop owners to adequate to the new governamental rules and grocery shop customers to protect their own health.\ Clup provides three main functionalities: a virtual queue, which has the conceptual purpose of substituing the physical lines outside of shops; a QR code identification system, which allows grocery shops managers to constantly monitor the influx of incoming people in the shop and, finally, the functionality of booking your grocery shop session on an online facility, this offers a further way to regulate people flow to shops managers and the possibility to better schedule their time to cutomers.
 
-\subsubsection{Objectives}
-\label{subsect:objectives}
+\subsubsection{Goals}
+\label{subsect:goals}
+
+Shop Manager:
+[G1] Allow a manager to sign on the system
+[G2] Allow a manager to sign in the system
+[G3] Allow a manager to register their store/stores on the system
+    [G.3.1]Allow a manager to register basic info about the shop
+	[G.3.2]Allow a manager to divide their store in areas 
+	[G.3.3]Allow a manager to register the items in the areas 
+[G4]Allow a manager to update the shop info
+[G5]Allow a manager to check the general status of his shop
+
+Customers:
+[G7]Allow a customer to join the virtual queue 
+    [G4.1] Allow a user to join the virtual queue from the app
+    [G4.2] Allow a customer to join the virtual queue from the spot*
+[G8]Allow a user to receive push notifications to remind them to reach the store in time for their turn
+[G9]Allow a customer to sign on the system
+[G10]Allow a customer to sign in the system
+[G11]Allow a customer to book a shopping session at a grocery store registered on the system
+	[G11.1]Allow a customer to select categories of items they are 		intending to 
+	buy
+	[G11.2]Allow a customer to select the time and duration(between 		predefined options) for they session 	
+[G12] Allow a customer to know the estimated time of a virtual queue before		joining it
+[G13]Allow a customer to use a QR code to access the store 
+
+
+* with the facility of a hardware support, it will be better specificed later on this document
+
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{Identifier} & \textbf{goal}\\
+    \hline
+    \textbf{G.1} & Allow a manager to monitor the influx of clients in their store\\
+    \textbf{G.1.1} & allow a manager to register his store on the system\\
+    \textbf{G.1.2} & Allow a customer to access a store with a QR code\\
+    \hline
+    \textbf{G.2} & Allow customers to line up in a virtual queue in order to access a grocery shop\\
+    \textbf{G.2.1} & allow a manager to get a numbered ticket to a client that represents their place in the queue\\
+    \textbf{G.2.2} & allow a customer to get a numbered ticket that represents their place in the queue\\
+    \hline
+    \textbf{G.3} & Allow a customer to book a visit\\
+    \textbf{G.3.1} & Allow users to indicate the categories of items that they intend to buy\\
+    \textbf{G.3.2} & Allow users to indicate the time they intend to go grocery shopping\\
+    \textbf{G.3.3} & Allow users to indicate the estimated permanence time \\
+    \hline
+\end{tabular}
+
+\subsection{Phenomena}
+\label{subsect:phenomena}
+
+The machine: the portion of system to be developed.
+The world (a.k.a. the environment): the portion of the real-world affected by the machine.
+Requirements engineering is concerned with phenomena occurring in the world, as opposed to phenomena occurring inside the machine.
+
+Goals are prescriptive assertions formulated in terms of \textbf{world} phenomena (not necessarily shared).
+Domain properties/assumptions are descriptive assertions assumed to hold in the \textbf{world}.
+Requirements are prescriptive assertions formulated in terms of \textbf{shared} phenomena.
+Requirements are a bridge from the \textbf{machine} to the real \textbf{world}.
+
+Find all the possible phenomena, for each one specify if its shared or not and who controls it (world or machine). 
+
+All phenomena observed:
+
+\begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Phenomenon} & \textbf{shared} & \textbf{controlled by}\\
+    \hline
+    User downloads the app & ? & ? \\
+    Shop owner signs up to the app & ? & ? \\
+    Customer signs up to the app & ? & ? \\
+    Shop owner signs in & ? & ? \\
+    Customer signs in & ? & ? \\
+    Shop owner install a QR codes scanner & ? & ? \\
+    \hline
+    User wants to go to grocery store & ? & ? \\
+    User searches a store in the CLup app & ? & ? \\
+    User retrieve information about the queue of a shop & ? & ? \\
+    User "lines up" for a store & ? & ? \\
+    User searches information about his turn in the queue & ? & ? \\
+    User receives notifications/updates about his position in the queue & ? & ? \\
+    User receives a notification about special changes on the queue & ? & ? \\ %because of possible modifications from the manager, anche se non so se abbia senso sta cosa
+    User goes to the grocery store & ? & ? \\
+    USer enters the grocery store & ? & ? \\
+    User shows his QR code to the store's scanner before going inside & ? & ? \\
+    User does the shopping & ? & ? \\
+    User shows his QR code to the store's scanner before going out & ? & ? \\
+    User exits the grocery store & ? & ? \\
+    
+    %TODO:
+    %Customers without CLup app reaches the store & ? & ? \\
+    %Manager enqueue a customer & ? & ? \\
+    %Manager checks esitmated queue time for customers he has put in queue & ? & ? \\
+    %Manager communicates to CLup a customer has entered the store & ? & ? \\
+    %Manager communicates to CLup an user ha exit the store & ? & ? \\
+    
+    User leaves the queue & ? & ? \\
+    User doesn't show up & ? & ? \\
+    User shows up early & ? & ? \\
+    \hline
+    User cheks available visits for a store & ? & ? \\
+    User specifies the categories he is interested in & ? & ? \\
+    User books a visit to the grocery store & ? & ? \\
+    User checks his booked visits & ? & ? \\
+    User receives notification/reminders about an imminent booked visit & ? & ? \\
+    User receives notification about special changes on the visit & ? & ? \\
+    Booked user is added to the queue & ? & ? \\ %idea per come implementarlo: una persona fa una prenotazione, il programma automaticamente mette in coda il cliente in modo tale che il suo turno corrispona all'orario di prenotazione
+    \hline
+    Manager registers a shop & ? & ? \\
+    Manager setsup/updates the general features of his shops & ? & ? \\
+    Manager checks status/info of the queue & ? & ? \\
+    Manager checks status/info of the booked visits & ? & ? \\
+    Manager edits the queue & ? & ? \\
+    Manager edits the booked visits & ? & ? \\
+    \hline
+    The system crashes & ? & ? \\
+    \hline
+\end{tabular}
+
+\textbf{DOMANDA:} cosa cambia essere registrati o meno? E' necessario registrarsi?
+
+\subsubsection{World phenomena}
+\label{subsubsect:worldphenomena}
+
+World phenomena are phenomena that the machine can not observe.
+
+\subsubsection{Shared Phenomena}
+\label{subsubsect:sharedphenomena}
+
+Some world phenomena are shared with the machine.
+Shared phenomena can be controlled by the world and observed by the machine, or controlled by the machine andd observed by t5he world.
 
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
