@@ -22,41 +22,27 @@ Shop Manager:
 [G1] Allow a manager to sign on the system
 [G2] Allow a manager to sign in the system
 [G3] Allow a manager to register their store/stores on the system
-	[G.3.1]Allow a manager to divide their store in areas	
-	[G.3.2]Allow a manager to register the items in the areas
-	[G.3.3]Allow a manager to register the opening time of their 
-		store
-[G4] Allow a manager to make a customer join a virtual queue
+    [G.3.1]Allow a manager to register basic info about the shop
+	[G.3.2]Allow a manager to divide their store in areas 
+	[G.3.3]Allow a manager to register the items in the areas 
+[G4]Allow a manager to update the shop info
+[G5]Allow a manager to check the general status of their shop
 
 Customers:
-[G5]Allow a customer to join a virtual queue receiving a unique QR code for identifying themselves, whether registered or not
-[G6]Allow a customer to receive push notifications to remind them to reach the store in time for their turn
-[G7]Allow a customer to sign on the system
-[G8]Allow a customer to sign in the system
-[G9]Allow a customer to book a shopping session at a grocery store registered on the system
-	[G9.1]Allow a customer to select categories of items they are 		intending to 
-	buy
-	[G9.2]Allow a customer to select the time and duration(between 		predefined options) for they session 	
-[G10] Allow a customer to know the estimated time of a virtual queue before		joining it
+[G6]Allow a customer to join the virtual queue from the spot*
+[G7]Allow a customer to join the virtual queue from the app
+[G8]Allow a user to sign on the system
+[G9]Allow a registered-user to sign in the system
+[G10]Allow a registered-user to book a shopping session at a grocery store
+    [G9.2]Allow a registered-user to select the time and duration(between 		predefined options) for they session 	
+    [G9.1]Allow a registered-user to select categories of items they are 	willing to 
+    buy
+[G11]Allow a registered-user to check retrieve informations about its previously booked visits
+[G12]Allow a user to retrieve informations about the congestion of shops
+[G12]Allow a customer to use a QR code to get access to the store 
 
-\begin{tabular}{|l|l|}
-    \hline
-    \textbf{Identifier} & \textbf{goal}\\
-    \hline
-    \textbf{G.1} & Allow a manager to monitor the influx of clients in their store\\
-    \textbf{G.1.1} & allow a manager to register his store on the system\\
-    \textbf{G.1.2} & Allow a customer to access a store with a QR code\\
-    \hline
-    \textbf{G.2} & Allow customers to line up in a virtual queue in order to access a grocery shop\\
-    \textbf{G.2.1} & allow a manager to get a numbered ticket to a client that represents their place in the queue\\
-    \textbf{G.2.2} & allow a customer to get a numbered ticket that represents their place in the queue\\
-    \hline
-    \textbf{G.3} & Allow a customer to book a visit\\
-    \textbf{G.3.1} & Allow users to indicate the categories of items that they intend to buy\\
-    \textbf{G.3.2} & Allow users to indicate the time they intend to go grocery shopping\\
-    \textbf{G.3.3} & Allow users to indicate the estimated permanence time \\
-    \hline
-\end{tabular}
+
+* with the facility of a hardware support, it will be better specificed later on this document.
 
 \subsection{Assumptions, dependencies and constraints}
 \label{subsect:assumptionsdependenciescostraints}
@@ -113,11 +99,7 @@ Srtucture the description in terms of:
     \item special requirements (constraints, nonfunctional requirements).
 \end{itemize}
 
-
-\subsubsection{further details on shared phenomena}
-\label{subsubsect:furtherdetailsonsharedphenomena}
-
-\subsubsection{domain model: class diagrams and statecharts}
+\subsubsection{Class diagrams and statecharts}
 \label{subsubsect:domainmodel}
 
 What should we model? The objects and people that are of interest for the given problem. The relevant phenomena. The goals, requirements, and domain assumptions.
@@ -153,10 +135,8 @@ Registered user/User: a customer using Clup and who is registered on the system.
 Shop manager: a person who register their shop on Clup. A shop manager can register multiple shop on the system.
 Shop: a grocery shop registered on the system. It updates periodically the people present in the store and sends updates to the manager.
 
-\subsection{Phenomena}
+\subsection{Phenomena [sezione provvisoria]}
 \label{subsect:phenomena}
-
-[tengo questa sezione solo per me]
 
 The machine: the portion of system to be developed.
 The world (a.k.a. the environment): the portion of the real-world affected by the machine.
@@ -195,12 +175,14 @@ All phenomena observed:
     User does the shopping & ? & ? \\
     User shows his QR code to the store's scanner before going out & ? & ? \\
     User exits the grocery store & ? & ? \\
+    
     %TODO:
     %Customers without CLup app reaches the store & ? & ? \\
     %Manager enqueue a customer & ? & ? \\
     %Manager checks esitmated queue time for customers he has put in queue & ? & ? \\
     %Manager communicates to CLup a customer has entered the store & ? & ? \\
     %Manager communicates to CLup an user ha exit the store & ? & ? \\
+    
     User leaves the queue & ? & ? \\
     User doesn't show up & ? & ? \\
     User shows up early & ? & ? \\
@@ -225,3 +207,14 @@ All phenomena observed:
 \end{tabular}
 
 \textbf{DOMANDA:} cosa cambia essere registrati o meno? E' necessario registrarsi?
+
+\subsubsection{World phenomena}
+\label{subsubsect:worldphenomena}
+
+World phenomena are phenomena that the machine can not observe.
+
+\subsubsection{Shared Phenomena}
+\label{subsubsect:sharedphenomena}
+
+Some world phenomena are shared with the machine.
+Shared phenomena can be controlled by the world and observed by the machine, or controlled by the machine andd observed by t5he world.
