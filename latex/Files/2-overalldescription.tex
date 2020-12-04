@@ -1,66 +1,146 @@
 \section{Overall description}
 \label{sect:overalldescription}
 
-Here you can see how to include an image in your document.
+%\begin{sidewaysfigure}
+%\centering
+%\includegraphics[width=\textwidth]{Images/11.png}
+%\caption{\label{fig:metamodel}DICE DPIM metamodel.}
+%\end{sidewaysfigure}
 
-\begin{sidewaysfigure}
-\centering
-\includegraphics[width=\textwidth]{Images/11.png}
-\caption{\label{fig:metamodel}DICE DPIM metamodel.}
-\end{sidewaysfigure}
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{Images/11.png}
-\caption{\label{fig:metamodel2}DICE DPIM metamodel in portrait form.}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=\textwidth]{Images/11.png}
+%\caption{\label{fig:metamodel2}DICE DPIM metamodel in portrait form.}
+%\end{figure}
 
 \subsection{Goals}
-\label{sect:goals}
+\label{subsect:goals}
 
-Shop Manager:
-[G1] Allow a manager to sign on the system
-[G2] Allow a manager to sign in the system
-[G3] Allow a manager to register their store/stores on the system
-    [G.3.1]Allow a manager to register basic info about the shop
-	[G.3.2]Allow a manager to divide their store in areas 
-	[G.3.3]Allow a manager to register the items in the areas 
-[G4]Allow a manager to update the shop info
-[G5]Allow a manager to check the general status of their shop
+The following table shows in details all the main goals that our application wants to meet. 
 
-Customers:
-[G6]Allow a customer to join the virtual queue from the spot*
-[G7]Allow a customer to join the virtual queue from the app
-[G8]Allow a user to sign on the system
-[G9]Allow a registered-user to sign in the system
-[G10]Allow a registered-user to book a shopping session at a grocery store
-    [G9.2]Allow a registered-user to select the time and duration(between 		predefined options) for they session 	
-    [G9.1]Allow a registered-user to select categories of items they are 	willing to 
-    buy
-[G11]Allow a registered-user to check retrieve informations about its previously booked visits
-[G12]Allow a user to retrieve informations about the congestion of shops
-[G12]Allow a customer to use a QR code to get access to the store 
+We managed to divide them in two main categories: goals related to the shop owners and goals related to the clients. Also, we have assigned an unique identifier to each one of them in order to be able to refer to them later in the document.
 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.1\textwidth}P{0.80\textwidth}@{}}
+        \multicolumn{2}{c}{\textbf{Shop owners}} \\
+        \toprule
+        \textbf{Identifier}& \textbf{Goal}\\
+        \midrule
+        \textbf{G1}        & Allow manager to sign on the system\\
+        \textbf{G2}        & Allow a manager to sign in the system\\
+        \textbf{G3}        & Allow a manager to register their store/stores on the system\\
+        $\;\;$    G3.1  & Allow a manager to register basic info about the shop\\
+        $\;\;$    G3.2  & Allow a manager to divide their store in areas \\
+        $\;\;$    G3.3  & Allow a manager to register the items in the areas \\
+        \textbf{G4}        & Allow a manager to update the shop info\\
+        \textbf{G5}        & Allow a manager to check the general status of their shop\\
+    \end{tabular}
+\caption{Shop owner's goals}
+\label{table:shopownersgoals}
+\end{table}
 
-* with the facility of a hardware support, it will be better specificed later on this document.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.1\textwidth}P{0.80\textwidth}@{}}
+        \multicolumn{2}{c}{\textbf{Clients}} \\
+        \toprule
+        \textbf{Identifier}& \textbf{Goal}\\
+        \midrule
+        \textbf{G6}        & Allow a customer to join the virtual queue from the spot\footnotemark\\
+        \textbf{G7}        & Allow a customer to join the virtual queue from the app\\
+        \textbf{G8}        & Allow a user to sign on the system\\
+        \textbf{G9}        & Allow a registered-user to sign in the system\\
+        \textbf{G10}       & Allow a registered-user to book a shopping session at a grocery store\\
+        $\;\;$    G10.1 & Allow a registered-user to select the time and duration(between predefined options) for they session\\ 	
+        $\;\;$    G10.2 & Allow a registered-user to select categories of items they are willing to buy\\
+        \textbf{G11}       & Allow a registered-user to check retrieve informations about its previously booked visits\\
+        \textbf{G12}       & Allow a user to retrieve informations about the congestion of shops\\
+        \textbf{G13}       & Allow a customer to use a QR code to get access to the store \\
+        \bottomrule
+    \end{tabular}
+\caption{Client's goals}
+\label{table:clientsgoals}
+\end{table}
+\footnotetext{with the facility of a hardware support, it will be better specificed later on this document.}
 
-\subsection{Assumptions, dependencies and constraints}
-\label{subsect:assumptionsdependenciescostraints}
+\subsection{Domain Assumptions}
+\label{subsect:domainassumptions}
 
-\subsubsection{Domain Assumptions}
-\label{subsubsect:domainassumptions}
+The following table list all the assumptions over which we cannot have control, but we assume as verified.
 
-Here we include domain assumptions.
+As with the goals in the section above, we provide them with an unique identifier to keep track of them in the document.
 
-Identify the relevant environment phenomena ("relevant" with respect to the goals). They are real world properties. They do not depend on the machine.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.1\textwidth}P{0.80\textwidth}@{}}
+        \toprule
+        \textbf{identifier}& \textbf{Domain Assumption}\\
+        \midrule
+        \textbf{D1}        & Data provided from GPS is valid and accurate\\
+        \textbf{D2}        & Google Maps' paths calculator makes correct time estimations\\
+        \textbf{D3}        & A person cannot get in the store without having scanned the QR code\\
+        \textbf{D4}        & A person cannot get out of the store without having scanned the QR code\\
+        \textbf{D5}        & The number of person entering the store is coherent with the data related to the QR code scanned\\
+        \textbf{D6}        & Each store registered on the system is provided with the necessary functioning hardware\\
+        \textbf{D7}        & Data provided from managers is legit\\
+        $\;\;$D7.1         & Managers provide the maximum number of person allowed in the store by the law (non penso sia da mettere, non è di nostro interesse che questo dato sia corretto secondo la legge. L'unica cosa che ci interessa è che questo dato venga inserito per forza, e possiamo occuparcene obbligando il manager a scriverlo al momento della registrazione del negozio)\\
+        $\;\;$D7.2         & Managers will provide the correct number of people that can be in a group togheder shopping by the law (stessa nota di sopra)\\
+        $\;\;$D7.3         & Managers will provide the correct address of their store\\
+        $\;\;$D7.4         & Managers will provide the correct schedule of their store\\
+        $\;\;$D7.5         & Managers will provide the correct categories of items they sell\\
+        $\;\;$D7.6         & Managers will map the categories of items in the correct areas of the shop (non ne sono ancora convinto, mi spiace.. Domani ne riparliamo)\\
+        $\;\;$D7.7         & Managers will correctly map items with the respective category\\
+        \textbf{D8}       & Areas of the shop don’t overlap\\
+        \textbf{D8}       & A customer will take the shortest path to the store when they receive the notification (anche questo non mi sembra proprio una domain assumption, però la lascerei)\\
+        \textbf{D10}       & Customers will stay in the store approximately the time they have claimed they would\\
+        \textbf{D11}       & Customers will shop the items they have claimed they would\\
+        \textbf{D12}       & Phone number are unique\\
+        \textbf{D13}       & people are not malicious against the app (well, problem solved. lol... )\\
+        \bottomrule
+    \end{tabular}
+\caption{Domain assumptions}
+\label{table:domainassumptions}
+\end{table}
 
-\subsubsection{Constraints}
-\label{subsubsect:contraints}
+\subsection{Constraints}
+\label{subsect:contraints}
 
 Constraints: imposed by the client or the environment in which the system operates. 
 
 Anything that will limit the developer’s options (e.g. regulations, reliability, criticality, hardware limitations, parallelism, etc.)
 
+\subsubsection{Regulatory policies}
+\label{subsubsect:regulatorypolicies}
+
+\begin{itemize}
+    \item ask user permission to retrieve and use GPS data
+    \item Telephone numbers and emails will not be used for commercial purpose
+    \item respect privacy law about user data
+    \item Managers can access only to anonymous data about user's booked visits or enqueued clients
+    \item 
+\end{itemize}
+
+\subsubsection{Hardware limitations}
+\label{subsubsect:hardwarelimitations}
+
+\begin{itemize}
+    \item Mobile app (requires a smartphone with internet connection and GPS, either android or ios)
+    \item Web app (requires a modern browser able to retrieve user location and with an internet connection)
+    \item QR scanner (able to scan QR codes and with an internet connection in order to communicate with our servers)
+    \item Turnstile (connected with the QR scanner)
+\end{itemize}
+
+
+\subsubsection{Interfaces to other applications}
+\label{subsubsect:interfacestootherappications}
+
+\begin{itemize}
+    \item GPS
+    \item Google Maps
+    \item QR scanners API (?)
+    \item turnstile API (?)
+\end{itemize}
 
 \subsection{Product perspective}
 \label{subsect:productperspective}
