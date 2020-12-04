@@ -4,75 +4,84 @@
 \subsection{Purpose}
 \label{subsect:purpose}
 
-This section should include the goals.
+This document represents the Requirement Analysis and Specification Document (RASD). 
 
-This document represents the Requirement Analysis and Specification Document (RASD). Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis
+Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. 
+
+This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis. (siamo sicuri solo developers? non è rivolto anche ad altri tipo investitori, designer, etc. ?).
 
 \subsection{Scope}
 \label{subsect:scope}
-
-Scope: here we include an analysis of the world and of the shared phenomena. Identifies the product and application domain.
 
 \subsubsection{Description of the given problem}
 \label{subsect:descriptionofthegivenproblem}
 
 In these trying times of global pandemic, such a common matter as going grocery shopping has become a relevant threat to public health. 
-Nethertheless, grocery shopping still remains an essential need which has to be carried out: being so, avoiding crowding up either inside and outside of grocery shops to avoid any source of hazards becomes the new main issue to focus on.\ 
-CLup is the software application we will implement in order to face this issue.
-The application proposes itself to help either the grocery shop owners to adequate to the new governmental rules and grocery shop customers to protect their own health.\ 
-In fact, Clup allows customers to book online their shopping session when and for how long they desire, letting them even specify the categories of items they are willing to buy: in this way the system will be able to grant the rules of social distancing more accurately and let the clients have an even safer experience through their shopping session.
-Clup also allows those clients who are not much of planners to join a virtual queue, which is meant to substitute the physical one, for their last minute shopping sessions. The system will permit them to monitor the queue and will even alert them when it’s time to leave in order to reach out the shop in time for their turn. 
-Indeed, Clup, using the customers’ GPS position, is able to tell the clients -only the ones who are willing to use this service, of course!- how long it will take them to get to the previously selected shop.
+Nethertheless, grocery shopping still remains an essential need which has to be carried out: being so, avoiding crowding up either inside and outside of grocery shops to avoid any source of hazards becomes the new main issue to focus on.
+
+CLup is the software application we will implement in order to face this issue. The application proposes itself to help either the grocery shop owners to adequate to the new governmental rules and grocery shop customers to protect their own health.
+
+In fact, Clup allows customers to book online their shopping sessions when and for how long they desire, letting them even specify the categories of items they are willing to buy: in this way the system will be able to grant the rules of social distancing more accurately and let the clients have an even safer experience through their shopping session.
+
+Clup also allows those clients who are not much of planners to join a virtual queue, which is meant to substitute the physical one, for their last minute shopping sessions. The system will permit them to monitor the queue and will even alert them when it’s time to leave in order to reach out the shop in time for their turn. Indeed, Clup, using the customers’ GPS position, is able to tell the clients -only the ones who are willing to use this service, of course!- how long it will take them to get to the previously selected shop.
+
 Finally, CLup will give much of a help to grocery shop owners in regulating the incoming influx of people in their shop. As a matter of fact, CLup implements a QR based system of monitoring accesses to the shops that will decide to adopt our application. This last function will be possible thanks to some hardware facilities.
 
 \subsubsection{Main funcitons}
 \label{subsect:mainfunctions}
 
-as we mentioned in the product scope, the goals of Clup are fundamentally three: 
+As we mentioned in the product scope, the goals of Clup are fundamentally three: 
+\begin{enumerate}
+    \item help the shop owners to regulate the influx of incoming people in their shops;
+    \item allow customers to join a vistual queue;
+    \item allow customers to book shopping sessions.
+\end{enumerate}
 
-1- Help the shop owners to regulate the influx of incoming people in their shops
-2- Allow customers to join a virtual queue
-3. Allow customers to book a shopping session
-
-It is important to recall herein, however, that these two purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to keep grocery customers as safe as possible and, in second instance, to help as much as possible shop owners to be able adapt to the new in force regulations.
+It is important to recall herein, however, that these purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to keep grocery customers as safe as possible and, in second instance, to help as much as possible shop owners to be able adapt to the new in force regulations.
 
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
 
 \subsubsection{Definitions}
 \label{subsect:definitions}
-Customer: a person who is going to go grocery shopping.
-User: a person who downloaded Clup but who isn't registered.
-Registered-user: a person who downloaded Clup and who is registered.
-Shop manager/ Shop owner: a grocery shop owner or manager who decided to adopt Clup system.
+
+\begin{description}
+    \item[Customer]
+    a person who is going to go grocery shopping.
+    \item[User]
+    a person who downloaded CLup but who isn't registered.
+    \item[Registered-user]
+    a person who doenloaded Clup and who is registered. 
+    \item[Shop manager or shop owner] 
+    a grocery shop owner or manager who decided to adopt CLup system. 
+\end{description}
 
 \subsubsection{Acronyms}
 \label{subsect:acronyms}
-RASD: Requirement Analysis and Specification Document.
-API: Application Programming Interface.
-GPS: Global Positioning System.
+
+\begin{description}
+    \item[RASD]
+    Requirement Analysis and Specification Document. 
+    \item[API]
+    Application Programming Interface. 
+    \item[GPS]      
+    Global Positioning System. 
+\end{description}
 
 \subsubsection{Abbreviations}
 \label{subsect:abbreviations}
-• [Gn]: n-goal.
-• [Dn]: n-domain assumption.
-• [Rn]: n-functional requirement.
 
+\begin{description}
+    \item[Gn]
+    $n^{th}$-goal. 
+    \item[Dn]
+    $n^{th}$-domain assumtion.
+    \item[Rn]  
+    $n^{th}$-functional requirement. 
+\end{description}
 
 \subsection{Revision history}
 \label{subsect:revisionhistory}
-
-\subsection{References}
-\label{subsect:references}
-• Specification Document: “Assignments AA 2020-2021.pdf”.
-• IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications.
-• GPS Performances: “http://www.gps.gov/systems/gps/performance/accuracy/".
-• Alloy Dynamic Model example: “http://homepage.cs.uiowa.edu/~tinelli/classes/181/
-Spring10/Notes/09-dynamic-models.pdf"
-• IEEE Std 830-1993 - IEEE Guide to Software Requirements Specifications.
-• IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications.
-• RASD Sample A.Y. 2016-2017
-• RASD Sample A.Y. 2015-2016
 
 
 \subsection{Overview}
