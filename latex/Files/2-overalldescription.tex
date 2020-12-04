@@ -48,13 +48,13 @@ We managed to divide them in two main categories: goals related to the shop owne
         \textbf{Identifier}& \textbf{Goal}\\
         \midrule
         \textbf{G6}        & Allow a customer to join the virtual queue from the spot\footnotemark\\
-        \textbf{G7}        & Allow a customer to join the virtual queue from the app\\
-        \textbf{G8}        & Allow a user to sign on the system\\
-        \textbf{G9}        & Allow a registered-user to sign in the system\\
-        \textbf{G10}       & Allow a registered-user to book a shopping session at a grocery store\\
-        $\;\;$    G10.1 & Allow a registered-user to select the time and duration(between predefined options) for they session\\ 	
-        $\;\;$    G10.2 & Allow a registered-user to select categories of items they are willing to buy\\
-        \textbf{G11}       & Allow a registered-user to check retrieve informations about its previously booked visits\\
+        \textbf{G7}        & Allow a user to sign on the system\\
+        \textbf{G8}        & Allow a user to sign in the system\\
+        \textbf{G9}        & Allow a user to join the virtual queue from the app\\
+        \textbf{G10}       & Allow a user to book a shopping session at a grocery store\\
+        $\;\;$    G10.1 & Allow a user to select the time and duration(between predefined options) for they session\\ 	
+        $\;\;$    G10.2 & Allow a user to select categories of items they are willing to buy\\
+        \textbf{G11}       & Allow a user to retrieve informations about its previously booked visits\\
         \textbf{G12}       & Allow a user to retrieve informations about the congestion of shops\\
         \textbf{G13}       & Allow a customer to use a QR code to get access to the store \\
         \bottomrule
@@ -81,7 +81,7 @@ As with the goals in the section above, we provide them with an unique identifie
         \textbf{D2}        & Google Maps' paths calculator makes correct time estimations\\
         \textbf{D3}        & A person cannot get in the store without having scanned the QR code\\
         \textbf{D4}        & A person cannot get out of the store without having scanned the QR code\\
-        \textbf{D5}        & The number of person entering the store is coherent with the data related to the QR code scanned\\
+        \textbf{D5}        & The number of people entering the store is coherent with the data related to the QR code scanned\\
         \textbf{D6}        & Each store registered on the system is provided with the necessary functioning hardware\\
         \textbf{D7}        & Data provided from managers is legit\\
         $\;\;$D7.1         & Managers provide the maximum number of person allowed in the store by the law (non penso sia da mettere, non è di nostro interesse che questo dato sia corretto secondo la legge. L'unica cosa che ci interessa è che questo dato venga inserito per forza, e possiamo occuparcene obbligando il manager a scriverlo al momento della registrazione del negozio)\\
@@ -92,11 +92,22 @@ As with the goals in the section above, we provide them with an unique identifie
         $\;\;$D7.6         & Managers will map the categories of items in the correct areas of the shop (non ne sono ancora convinto, mi spiace.. Domani ne riparliamo)\\
         $\;\;$D7.7         & Managers will correctly map items with the respective category\\
         \textbf{D8}       & Areas of the shop don’t overlap\\
-        \textbf{D8}       & A customer will take the shortest path to the store when they receive the notification (anche questo non mi sembra proprio una domain assumption, però la lascerei)\\
+        \textbf{D9}       & A customer will take the shortest path to the store when they receive the notification (anche questo non mi sembra proprio una domain assumption, però la lascerei)\\
         \textbf{D10}       & Customers will stay in the store approximately the time they have claimed they would\\
         \textbf{D11}       & Customers will shop the items they have claimed they would\\
         \textbf{D12}       & Phone number are unique\\
-        \textbf{D13}       & people are not malicious against the app (well, problem solved. lol... )\\
+        \textbf{D13}       & Emails are unique\\
+        \textbf{D14}       & Notification sent to the users, may them be managers or clients, will be surely received and comprehended by them\\
+        \textbf{D15}       &  people are not malicious against the app (well, problem solved. lol... )\\
+        \textbf{D16}       & Managers' emails are correctly validated by PEC system\\
+        \textbf{D17}       & Users are aware of the process required to scan a QR code\\
+
+
+
+
+
+
+
         \bottomrule
     \end{tabular}
 \caption{Domain assumptions}
@@ -210,8 +221,7 @@ Here we include anything that is relevant to clarify their needs.
 \label{subsubsect:actors}
 
 Customer: a person who grocery shops.
-Unregistered user: a customer using CLup without being registered. They can join the virtual queue and ask/receive updates.
-Registered user/User: a customer using Clup and who is registered on the system. They can join the virtual queue, book a shopping session and ask/receive updates.
+user: a customer using Clup and who is registered on the system. They can join the virtual queue, book a shopping session and ask/receive updates.
 Shop manager: a person who register their shop on Clup. A shop manager can register multiple shop on the system.
 Shop: a grocery shop registered on the system. It updates periodically the people present in the store and sends updates to the manager.
 
