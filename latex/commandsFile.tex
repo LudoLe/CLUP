@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage[english]{babel}
+
 %For LaTex syntax checking without bilding .pdf file
 %\usepackage{syntonly}
 %\syntaxonly
@@ -18,6 +20,30 @@
  headsep=7mm}
 
 \interfootnotelinepenalty=10000
+
+%paragraph spacing
+\setlength{\parskip}{1em}
+%avoid the paragraph spacing to be applied to the table of content, the list of figures and the list of tables
+\AtBeginDocument{\addtocontents{toc}{\protect\setlength{\parskip}{0pt}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\setlength{\parskip}{0pt}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\setlength{\parskip}{0pt}}}
+
+%for nice tables
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{longtable}
+
+%titles font size
+\usepackage{titlesec}
+\titleformat*{\section}{\huge\bfseries}
+\titleformat*{\subsection}{\LARGE\bfseries}
+\titleformat*{\subsubsection}{\Large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+%footnotes
+\usepackage{footnote}
 
 %To display filling dots in the TOC for all entries
 \usepackage[titles]{tocloft}
