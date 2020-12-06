@@ -151,6 +151,11 @@
 \usepackage{enumitem}
 \usepackage{amssymb}
 \usepackage[pdftex, colorlinks]{hyperref}
+%prevents internal hyperlinks default color (red), keeps links active but black
+\hypersetup{%
+  colorlinks = true,
+  linkcolor  = black
+}
 \newcommand{\comment}[1]{{\color{Red}$\blacktriangleright$ Comment: #1 $\blacktriangleleft$}}
 
 
