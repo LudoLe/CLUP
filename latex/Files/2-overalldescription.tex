@@ -207,15 +207,18 @@ In this section we want to present some usefull scenarios to better describe wha
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.15\textwidth}P{0.15\textwidth}P{0.15\textwidth}P{0.40\textwidth}@{}}
-        \multicolumn{4}{c}{\textbf{Use case name}}\\
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Actors} & \textbf{Entry condition} & \textbf{Exit condition} & \textbf{Flow of events}\\
-        ok & ok & ok & 
-        \multirow{3}{0.4\textwidth}{BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA}\\
-        \cline{1-3}
-        \textbf{Special requirements} & \multicolumn{2}{l}{\textbf{Exceptions}}\\
-        Special requirements bla bla bla & \multicolumn{2}{l}{Exceptions bla bla bla}\\
+        \textbf{Name}                 & User/Manager log in\\
+        \midrule
+        \textbf{Actors}               & user or registered-manager\\
+        \textbf{Entry condition}      & the user is already on the home page\\
+        \textbf{Flow of events}            
+        & -the actor compiles the email and password fields \\
+        & -the actor confirms by clicking the log in button\\
+        & -the system redirects the actors to the respective home pages (managers or user)\\
+        \textbf{Exit condition}       & the actors are successfully logged in and redirected to the respective home pages\\
+        \textbf{Exceptions}           & email or password inserted aren’t correct, the systems does not redirect the actor to the home page but notifies them of the error\\
         \bottomrule
     \end{tabular}
 \caption{Use case 1}
@@ -224,13 +227,16 @@ In this section we want to present some usefull scenarios to better describe wha
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.25\textwidth}P{0.25\textwidth}P{0.45\textwidth}@{}}
-        \multicolumn{3}{c}{\textbf{Use case name}}\\
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Actors} & \textbf{Entry condition} & \textbf{Flow of events}\\
-        ok & ok & BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA\\
-        \textbf{Exit condition} & \textbf{Special requirements} &\textbf{Exceptions}\\
-        ok & special requirements & exceptions bla bla bla bla bla bla bla\\
+        \textbf{Name}                 & Manager registration\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
         \bottomrule
     \end{tabular}
 \caption{Use case 2}
@@ -241,14 +247,14 @@ In this section we want to present some usefull scenarios to better describe wha
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Use case name} & name\\
+        \textbf{Name}                 & Customer registration (NON RILEVANTE)\\
         \midrule
-        \textbf{Actors} & actors \\
-        \textbf{Entry condition} & entry condition \\
-        \textbf{Flow of events} & BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA\\
-        \textbf{Exit condition} & exit condition \\
-        \textbf{Special requirements} & special requirements\\
-        \textbf{Exceptions} & exceptions\\
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
         \bottomrule
     \end{tabular}
 \caption{Use case 3}
@@ -257,16 +263,221 @@ In this section we want to present some usefull scenarios to better describe wha
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.12\textwidth}P{0.12\textwidth}P{0.30\textwidth}P{0.12\textwidth}P{0.12\textwidth}P{0.12\textwidth}@{}}
-        \multicolumn{6}{c}{\textbf{Use case name}}\\
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Actors} & \textbf{Entry condition} &\textbf{Flow of events} & \textbf{Exit condition} & \textbf{Special requirements} & \textbf{Exceptions} \\
-        actors & entry condition & BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA & exit condition & special requirements & exceptions\\
+        \textbf{Name}                 & User/Manager edit personal profile (NON RILEVANTE\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
         \bottomrule
     \end{tabular}
-\caption{Use case 3}
-\label{table:usecase3}
+\caption{Use case 4}
+\label{table:usecase4}
 \end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User check shop information/status\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 5}
+\label{table:usecase5}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User lines up\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 6}
+\label{table:usecase6}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User book a visit\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 7}
+\label{table:usecase7}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User checks the previously booked visits\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 8}
+\label{table:usecase8}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Customer line up\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 9}
+\label{table:usecase9}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Manager register new shop\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 10}
+\label{table:usecase10}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Manager update shop info\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 11}
+\label{table:usecase11}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Manager check shop status\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 12}
+\label{table:usecase12}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Manager install hardware in shop\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 13}
+\label{table:usecase13}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User/customer enter shop with QR code\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case 14}
+\label{table:usecase14}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & \\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}       & \\
+        \textbf{Exit condition}       & \\
+        \textbf{Special requirements} & \\
+        \textbf{Exceptions}           & \\
+        \bottomrule
+    \end{tabular}
+\caption{Use case }
+\label{table:usecase}
+\end{table}
+
+\clearpage
 
 \subsubsection{Class diagrams and statecharts}
 \label{subsubsect:diagrams}
