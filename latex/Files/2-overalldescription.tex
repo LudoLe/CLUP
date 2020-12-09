@@ -155,14 +155,7 @@ Anything that will limit the developer’s options (e.g. regulations, reliabilit
     \item turnstile API (?)
 \end{itemize}
 
-\subsection{Product perspective}
-\label{subsect:productperspective}
-
-Here we include scenarios and further details on the shared phenomena and a domain model (class diagrams and statecharts).
-
-Describes external interfaces: system, user, hardware, software; also operations and site adaptation, and hardware constraints
-
-\subsubsection{scenarios}
+\subsection{scenarios}
 \label{subsubsect:scenarios}
 
 In this section we want to present some usefull scenarios to better describe what people will do and experience as they try to make use of CLup services. Our intent is not to specify every possible situation, but to give the reader a general understanding of the main features of the system with a concrete description of ideal cases.
@@ -202,12 +195,12 @@ In this section we want to present some usefull scenarios to better describe wha
 \end{description}
 
 
-\subsubsection{Use cases}
+\subsection{Use cases}
 \label{subsubsect:usecases} 
 
-In this section we want to present in a structured way all the major activity concerning the interaction between the application and the actors.
+In this section we want to present all the major activities concerning the interaction between the application and the actors.
 
-For better clarity in exposure and navigation throught the document we want to introduce all the events with related links to see further details:
+We will present a table for each use case and, for the most important ones, a list of sequence diagrams that will cover all the interaction between the actors and the system in a graphical way. For better clarity in the exposure and navigation throught the document we present an organized index of all the use cases with the relatives links to tables and, if present, to sequence diagrams:
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.60\textwidth}P{0.15\textwidth}P{0.20\textwidth}@{}}
@@ -217,7 +210,7 @@ For better clarity in exposure and navigation throught the document we want to i
         \textbf{2. shop owner registration} & \ref{table:shopownerregistration} & n.d.\\
         \textbf{3. User logs in} & \ref{table:login} & n.d.\\
         \textbf{4. Manager logs in} & \ref{table:login} & n.d.\\
-        \textbf{5. User searches shop}& \ref{table:usersearchesshop} & TODO\\
+        \textbf{5. User searches shop}& \ref{table:usersearchesshop} & \ref{fig:usersearchesshop}\\
         \textbf{6. User gets more information} & \ref{table:usergetmoreinformation}& n.d.\\
         \textbf{7. User lines up} & \ref{table:userlinesup} & TODO\\
         \textbf{8. User books a visit} & \ref{table:userbooksavisit} & TODO \\
@@ -237,7 +230,7 @@ For better clarity in exposure and navigation throught the document we want to i
 \label{table:usecase1}
 \end{table}
 
-Now we will present every single one of the above use cases with a table that shows the typical interaction in a discursive way and, for the most important ones, even a sequence diagram that will show in a graphical way the interaction between the actors and the system.
+\subsubsection{Use cases tables}
 
 \begin{table}[h!]
     \centering
@@ -336,6 +329,7 @@ Now we will present every single one of the above use cases with a table that sh
         \textbf{Exit condition}       & the user successfully finds the shop he was looking for\\
         \textbf{Exceptions}           
         & - the shop searched doesn't exists or isn't adhering to CLup\\
+        & - GPS is off\\
         \textbf{Notes} & an user searches for a shop in order to get general informations or check its status or to enqueue himself or to book a visit\\
         \bottomrule
     \end{tabular}
@@ -631,10 +625,23 @@ Now we will present every single one of the above use cases with a table that sh
 \label{table:}
 \end{table}
 
+\clearpage
 
+\subsubsection{Use cases sequence diagrams}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Images/Use case - user searches a shop.png}
+    \caption{\label{fig:usersearchesshop}User searches a shop - sequence diagram}
+\end{figure}
 
 \clearpage
+\subsection{Product perspective}
+\label{subsect:productperspective}
+
+Here we include further details on the shared phenomena and a domain model (class diagrams and statecharts).
+
+Describes external interfaces: system, user, hardware, software; also operations and site adaptation, and hardware constraints
 
 \subsubsection{Class diagrams and statecharts}
 \label{subsubsect:diagrams}
