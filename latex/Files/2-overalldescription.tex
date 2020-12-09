@@ -205,96 +205,161 @@ In this section we want to present some usefull scenarios to better describe wha
 \subsubsection{Use cases}
 \label{subsubsect:usecases} 
 
+In this section we want to present in a structured way all the major activity concerning the interaction between the application and the actors.
+
+For better clarity in exposure and navigation throught the document we want to introduce all the events with related links to see further details:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.60\textwidth}P{0.15\textwidth}P{0.20\textwidth}@{}}
+        & \textbf{Table number} & \textbf{Sequence Diagram number}\\
+        \toprule
+        \textbf{1. Customer registration} & \ref{table:customerregitration} & n.d.\\
+        \textbf{2. shop owner registration} & \ref{table:shopownerregistration} & n.d.\\
+        \textbf{3. User logs in} & \ref{table:login} & n.d.\\
+        \textbf{4. Manager logs in} & \ref{table:login} & n.d.\\
+        \textbf{5. User searches shop}& \ref{table:usersearchesshop} & TODO\\
+        \textbf{6. User gets more information} & \ref{table:usergetmoreinformation}& n.d.\\
+        \textbf{7. User lines up} & \ref{table:userlinesup} & TODO\\
+        \textbf{8. User books a visit} & \ref{table:userbooksavisit} & TODO \\
+        \textbf{9. Customer lines up} & \ref{table:customerlinesup}& TODO\\
+        \textbf{10. User/customer enters shop} & TODO:\ref{table:entershop} & n.d.\\
+        \textbf{11. User/customer exits shop} & TODO:\ref{table:exitshop} & n.d.\\
+        \textbf{12. Manager registers new shop} & TODO:\ref{table:managerregisternewshop} & TODO\\
+        \textbf{13. manager updates shop info} & TODO:\ref{table:managerupdatesshopinformation} & n.d.\\
+        \textbf{14. manager checks shop status} & TODO:\ref{table:managerchecksshopstatus} & n.d.\\
+        \textbf{15. User cancels previously booked visit} & TODO:\ref{table:usercancelspreviouslybookedvisit} & TODO \\
+        \textbf{16. Customer cancels previously booked visit} & TODO:\ref{table:customercancelspreviouslybookedvisit} & n.d. \\
+        \textbf{17. Manager cancels customer's previously booked visit} & TODO:\ref{table:managercancelscustomerspreviouslybookedvisit} & n.d. \\
+        \textbf{18. User cancels previous enqueuement} & TODO:\ref{table:usercnacelspreviousenquement} & n.d. \\
+        \bottomrule
+    \end{tabular}
+\caption{All use cases}
+\label{table:usecase1}
+\end{table}
+
+Now we will present every single one of the above use cases with a table that shows the typical interaction in a discursive way and, for the most important ones, even a sequence diagram that will show in a graphical way the interaction between the actors and the system.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Customer registration\\
+        \midrule
+        \textbf{Actors}               & customer\\
+        \textbf{Entry condition}      & the customer is already on the front page of the web or mobile application\\
+        \textbf{Flow of events} 
+        & i. the customer selects the sign up option\\
+        & ii. the customer fills in all of the mandatory fields and then confirms\\
+        & iii. the system sends an SMS with a code to the customer's previously specified phone number and waits 180 seconds for an a answer\\
+        & iv. the customer validates his phone number by inserting the code\\
+        & v. the systems sends an email with a code to the customer's previously specified address and waits 180 seconds for an a answer\\
+        & vi. the customer validates his email address by inserting the code\\
+        & vii. the system create a new account and redirects the new user to his personal home page\\
+        \textbf{Exit condition}       & the customer successfully ends the registration process and becomes a new user\\
+        \textbf{Exceptions}           
+        & - timer expiration\\
+        & - wrong codes\\
+        & - email or phone number already registered or not valid\\
+        & - the customer insterts not valid informations in one or more mandatory fields\\
+        \bottomrule
+    \end{tabular}
+\caption{Customer registration}
+\label{table:customerregitration}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Shop owner registration\\
+        \midrule
+        \textbf{Actors}               & shop owner\\
+        \textbf{Entry condition}      & the shop owner is already on the front page of the web or mobile application\\
+        \textbf{Flow of events}            
+        & i. the shop owner selects the sign up option\\
+        & ii. the shop owner specifies he wants to sign up as a manager\\
+        & iii. the manager creates a personal private profile filling in all of the mandatory fields such as: name, surname, age, PEC email, telephone number, password, repeat password, \ldots and confirms\\
+        & iv. the system sends an SMS with a code to the shop owner's previously specified phone number and waits 180 seconds for an a answer\\
+        & v. the shop owner validates his phone number by inserting the code\\
+        & vi. the systems sends an email with a code to the shop owner's previously specified address and waits 180 seconds for an a answer\\
+        & vii. the shop owner validates his email address by inserting the code\\
+        & vii. the system create a new account and redirects the new manager to his personal home page\\
+        & viii. TODO\\
+        \textbf{Exit condition}       & the shop owner successfully ends the registration process and become a new manager\\
+        \textbf{Exceptions}           
+        & - timer expiration\\
+        & - wrong codes\\
+        & - email or phone number already registered or not valid\\
+        & - PEC email not verified\\
+        & - the customer insterts not valid informations in one or more mandatory fields\\
+        \bottomrule
+    \end{tabular}
+\caption{Shop owner registration}
+\label{table:shopownerregistration}
+\end{table}
+
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
         \textbf{Name}                 & User/Manager log in\\
         \midrule
-        \textbf{Actors}               & user or registered-manager\\
-        \textbf{Entry condition}      & the user is already on the home page\\
+        \textbf{Actors}               & user or manager\\
+        \textbf{Entry condition}      & the actor is already on the front page of the web or mobile application\\
         \textbf{Flow of events}            
-        & -the actor compiles the email and password fields \\
-        & -the actor confirms by clicking the log in button\\
-        & -the system redirects the actors to the respective home pages (managers or user)\\
-        \textbf{Exit condition}       & the actors are successfully logged in and redirected to the respective home pages\\
-        \textbf{Exceptions}           & email or password inserted aren’t correct, the systems does not redirect the actor to the home page but notifies them of the error\\
+        & i. the actor selects the sing in option\\
+        & ii. the actor compiles the email and password fields and confirms by clicking on the log in button \\
+        & iii. the system redirects the actors to the respective home pages\\
+        \textbf{Exit condition}       & the actors are successfully redirected to their respective personal home page\\
+        \textbf{Exceptions}           
+        & - email or password aren’t correct \\
         \bottomrule
     \end{tabular}
-\caption{Use case 1}
-\label{table:usecase1}
+\caption{User/Manager log in}
+\label{table:login}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager registration\\
+        \textbf{Name}                 & User searches a shop\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Actors}               & user\\
+        \textbf{Entry condition}      & user logged in and on his web or mobile personal home page\\
+        \textbf{Flow of events}            
+        & i. user selects the search a shop option\\
+        & ii. the system gets the user's position using GPS and after retrieving the shops adhering to CLups near him, shows them in a map and, also, in a list\\
+        & iii. the user either types the name of the shop they want to find in the search bar or navigates the map or scrolls the list\\
+        & iv. the user selects a shop\\
+        & v. the application retrieves all the necessary information about the selected shop's status and information, displays them to the user with the list of possible action the user can take: book a visit or enqueue or get more info\\
+        \textbf{Exit condition}       & the user successfully finds the shop he was looking for\\
+        \textbf{Exceptions}           
+        & - the shop searched doesn't exists or isn't adhering to CLup\\
+        \textbf{Notes} & an user searches for a shop in order to get general informations or check its status or to enqueue himself or to book a visit\\
         \bottomrule
     \end{tabular}
-\caption{Use case 2}
-\label{table:usecase2}
+\caption{User searches a shop}
+\label{table:usersearchesshop}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Customer registration (NON RILEVANTE)\\
+        \textbf{Name}                 & User gets more information\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Actors}               & user\\
+        \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
+        \textbf{Flow of events}            
+        & i. the user selects the get more info option\\
+        & ii. the system retrieves further details about the shop and displays them to the user\\
+        & iii. the user visualizes the informations\\
+        \textbf{Exit condition}       & the user can visualize the information needed\\
         \bottomrule
     \end{tabular}
-\caption{Use case 3}
-\label{table:usecase3}
-\end{table}
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
-        \toprule
-        \textbf{Name}                 & User/Manager edit personal profile (NON RILEVANTE\\
-        \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
-        \bottomrule
-    \end{tabular}
-\caption{Use case 4}
-\label{table:usecase4}
-\end{table}
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
-        \toprule
-        \textbf{Name}                 & User check shop information/status\\
-        \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
-        \bottomrule
-    \end{tabular}
-\caption{Use case 5}
-\label{table:usecase5}
+\caption{User gets more information}
+\label{table:usergetmoreinformation}
 \end{table}
 
 \begin{table}[h!]
@@ -303,162 +368,250 @@ In this section we want to present some usefull scenarios to better describe wha
         \toprule
         \textbf{Name}                 & User lines up\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Actors}               & user\\
+        \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
+        \textbf{Flow of events}            
+        & i. the user selects the line up option\\
+        & ii. the user specifies the estimated time he thinks he will spend at the shop\\
+        & iii. optionally the user either activates GPS and specifies by what mean they are going to reach the shop or specifies how much time he needs to reach the shop\\
+        & iv. if the store has divided his store in categories, the user can optionally specify what categories he is interested in\\
+        & v. the system adds the user to the queue and displays a constantly updated page with all the relevant information about the enqueuement\\
+        \textbf{Exit condition}       & the user is correctly enqueued and needs to wait for his turn\\
+        \textbf{Exceptions}           
+        & - the enqueuement is not possible\\ %some weird and really really edge cases of simmultaneus enqueuement
+        & - GPS is not active\\
+        \textbf{Notes} & the page with all the enqueuement information can be also reached by the user at any moment from his personal home page when he is currently enqueued\\
         \bottomrule
     \end{tabular}
-\caption{Use case 6}
-\label{table:usecase6}
+\caption{User lines up}
+\label{table:userlinesup}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & User book a visit\\
+        \textbf{Name}                 & User books a visit\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Actors}               & user\\
+        \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
+        \textbf{Flow of events}            
+        & i. the user selects the book a visit option\\
+        & ii. the user specifies the estimated time he thinks he will spend at the shop\\
+        & iii. if the store has divided his store in categories, the user can optionally specify what categories he is interested in\\
+        & iv. the system retrieves the possible slots and displays the options to the user\\
+        & v. the user chooses the slots he prefers and confirms\\
+        & vi. the system registers the visit, sends confirmation to the user and redirects him to a page with all the relevant infromation about the booked visit\\
+        \textbf{Exit condition}       & the user has correctly booked a visit\\
+        \textbf{Exceptions}           
+        & - the reservation is not possible\\
+        & - the user can't find any available slot\\
+        \textbf{Notes} 
+        & -the order of the various information requested to the user is important in order to let the system decide what possible slots are available\\
+        & -The page with all relevant information about the visit is easily accessible: from the user's personal home page there's an option to check all the reservation, this option leads to a page with all the reservations and by selecting one the user can reach the said page\\
         \bottomrule
     \end{tabular}
-\caption{Use case 7}
-\label{table:usecase7}
+\caption{User books a visit}
+\label{table:userbooksavisit}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & User checks the previously booked visits\\
+        \textbf{Name}                 & Customer lines up\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
-        \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Actors}               & customer\\
+        \textbf{Entry condition}      & the customer is at the entrance of the hop and have read and understood the functioning of the hardware\\
+        \textbf{Flow of events}            
+        & i. the customer visualize information about the status of the shop\\
+        & ii. the customer select the enqueue option on the totem\\
+        & iii. the customer specifies the estimated time he thinks he will spend at the shop\\
+        & iv. the system books a visit for the customer at the first available slot\\
+        & v. the totem retrieves the visit's information and prints a ticket with them\\
+        & vi. the customer takes the ticket\\
+        \textbf{Exit condition}       & the cusotmer succesfully retrieves his ticket and has a booked visit registered\\
+        \textbf{Exceptions}           
+        & - enqueuement is not possible\\
+        & - hardaware is not functioning properly\\
         \bottomrule
     \end{tabular}
-\caption{Use case 8}
-\label{table:usecase8}
+\caption{Customer lines up}
+\label{table:customerlinesup}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Customer line up\\
+        \textbf{Name}                 & User/customer enters the shop\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 9}
-\label{table:usecase9}
+\caption{}
+\label{table:entershop}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager register new shop\\
+        \textbf{Name}                 & User/customer exits the shop\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 10}
-\label{table:usecase10}
+\caption{User/customer exits the shop}
+\label{table:exitshop}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager update shop info\\
+        \textbf{Name}                 & Manager registers new shop\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 11}
-\label{table:usecase11}
+\caption{Manager registers new shop}
+\label{table:managerregisternewshop}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager check shop status\\
+        \textbf{Name}                 & Manager updates shop information\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 12}
-\label{table:usecase12}
+\caption{Manager updates shop information}
+\label{table:managerupdatesshopinformation}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager install hardware in shop\\
+        \textbf{Name}                 & Manager checks shop status\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 13}
-\label{table:usecase13}
+\caption{Manager checks shop status}
+\label{table:managerchecksshopstatus}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & User/customer enter shop with QR code\\
+        \textbf{Name}                 & User cancels previously booked visit\\
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case 14}
-\label{table:usecase14}
+\caption{User cancels previously booked visit}
+\label{table:usercancelspreviouslybookedvisit}
 \end{table}
 
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Customer cancels previously booked visit\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}            
+        & i.\\
+        \textbf{Exit condition}       & \\
+        \textbf{Exceptions}           
+        & - \\
+        \bottomrule
+    \end{tabular}
+\caption{Customer cancels previously booked visit}
+\label{table:customercancelspreviouslybookedvisit}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & Manager cancels customer’s previously booked visit\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}            
+        & i.\\
+        \textbf{Exit condition}       & \\
+        \textbf{Exceptions}           
+        & - \\
+        \bottomrule
+    \end{tabular}
+\caption{Manager cancels customer’s previously booked visit}
+\label{table:managercancelscustomerspreviouslybookedvisit}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
+        \toprule
+        \textbf{Name}                 & User cancels previous enqueuement\\
+        \midrule
+        \textbf{Actors}               & \\
+        \textbf{Entry condition}      & \\
+        \textbf{Flow of events}            
+        & i.\\
+        \textbf{Exit condition}       & \\
+        \textbf{Exceptions}           
+        & - \\
+        \bottomrule
+    \end{tabular}
+\caption{User cancels previous enqueuement}
+\label{table:usercnacelspreviousenquement}
+\end{table}
+
+%TEMPLATE:
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
@@ -467,15 +620,19 @@ In this section we want to present some usefull scenarios to better describe wha
         \midrule
         \textbf{Actors}               & \\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}       & \\
+        \textbf{Flow of events}            
+        & i.\\
         \textbf{Exit condition}       & \\
-        \textbf{Special requirements} & \\
-        \textbf{Exceptions}           & \\
+        \textbf{Exceptions}           
+        & - \\
         \bottomrule
     \end{tabular}
-\caption{Use case }
-\label{table:usecase}
+\caption{}
+\label{table:}
 \end{table}
+
+
+
 
 \clearpage
 
