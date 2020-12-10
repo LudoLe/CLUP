@@ -198,27 +198,27 @@ In this section we want to present all the major activities concerning the inter
 We will present a table for each use case and, for the most important ones, a list of sequence diagrams that will cover all the interaction between the actors and the system in a graphical way. For better clarity in the exposure and navigation throught the document we present an organized index of all the use cases with the relatives links to tables and, if present, to sequence diagrams:
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.60\textwidth}P{0.15\textwidth}P{0.20\textwidth}@{}}
-        & \textbf{Table number} & \textbf{Sequence Diagram number}\\
+    \begin{tabular}{@{}P{0.57\textwidth}P{0.20\textwidth}P{0.20\textwidth}@{}}
+        & \textbf{Description table} & \textbf{Sequence Diagram}\\
         \toprule
-        \textbf{1. Customer registration} & \ref{table:customerregitration} & n.d.\\
-        \textbf{2. shop owner registration} & \ref{table:shopownerregistration} & n.d.\\
-        \textbf{3. User logs in} & \ref{table:login} & n.d.\\
-        \textbf{4. Manager logs in} & \ref{table:login} & n.d.\\
-        \textbf{5. User searches shop}& \ref{table:usersearchesshop} & \ref{fig:usersearchesshop}\\
-        \textbf{6. User gets more information} & \ref{table:usergetmoreinformation}& n.d.\\
-        \textbf{7. User lines up} & \ref{table:userlinesup} & TODO\\
-        \textbf{8. User books a visit} & \ref{table:userbooksavisit} & TODO \\
-        \textbf{9. Customer lines up} & \ref{table:customerlinesup}& TODO\\
-        \textbf{10. User/customer enters shop} & TODO:\ref{table:entershop} & n.d.\\
-        \textbf{11. User/customer exits shop} & TODO:\ref{table:exitshop} & n.d.\\
-        \textbf{12. Manager registers new shop} & TODO:\ref{table:managerregisternewshop} & TODO\\
-        \textbf{13. manager updates shop info} & TODO:\ref{table:managerupdatesshopinformation} & n.d.\\
-        \textbf{14. manager checks shop status} & TODO:\ref{table:managerchecksshopstatus} & n.d.\\
-        \textbf{15. User cancels previously booked visit} & TODO:\ref{table:usercancelspreviouslybookedvisit} & TODO \\
-        \textbf{16. Customer cancels previously booked visit} & TODO:\ref{table:customercancelspreviouslybookedvisit} & n.d. \\
-        \textbf{17. Manager cancels customer's previously booked visit} & TODO:\ref{table:managercancelscustomerspreviouslybookedvisit} & n.d. \\
-        \textbf{18. User cancels previous enqueuement} & TODO:\ref{table:usercnacelspreviousenquement} & n.d. \\
+        \textbf{1. Customer registration} & tab.\ref{table:customerregitration} & \\
+        \textbf{2. shop owner registration} & tab.\ref{table:shopownerregistration} & \\
+        \textbf{3. User logs in} & tab.\ref{table:login} & \\
+        \textbf{4. Manager logs in} & tab.\ref{table:login} & \\
+        \textbf{5. User searches shop}& tab.\ref{table:usersearchesshop} & fig.\ref{fig:usersearchesshop}\\
+        \textbf{6. User gets more information} & tab.\ref{table:usergetmoreinformation}& \\
+        \textbf{7. User lines up} & tab.\ref{table:userlinesup} & fig.\ref{fig:userlinesup}\\
+        \textbf{8. User books a visit} & tab.\ref{table:userbooksavisit} & fig.\ref{fig:userbookavisit}\\
+        \textbf{9. Customer lines up} & tab.\ref{table:customerlinesup}& fig.\ref{fig:customerlinesup}\\
+        \textbf{10. User/customer enters shop} & tab.\ref{table:entershop} & \\
+        \textbf{11. User/customer exits shop} & tab.\ref{table:exitshop} & \\
+        \textbf{12. Manager registers new shop} & tab.\ref{table:managerregisternewshop} & \\
+        \textbf{13. manager updates shop info} & tab.\ref{table:managerupdatesshopinformation} & \\
+        \textbf{14. manager checks shop status} & tab.\ref{table:managerchecksshopstatus} & \\
+        \textbf{15. User cancels previously booked visit} & tab.\ref{table:usercancelspreviouslybookedvisit} & \\
+        \textbf{16. Customer cancels previously booked visit} & tab.\ref{table:customercnacelspreviousenqueuement} & \\
+        \textbf{17. Manager cancels customer's previously booked visit} & tab.\ref{table:managercancelscustomerspreviouslybookedvisit} & \\
+        \textbf{18. User cancels previous enqueuement} & tab.\ref{table:usercnacelspreviousenquement} & \\
         \bottomrule
     \end{tabular}
 \caption{All use cases}
@@ -435,13 +435,18 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & User/customer enters the shop\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & user, customer\\
+        \textbf{Entry condition}      & have previously enqueued or have previously booked a visit\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the actor arrives at the shop\\
+        & ii. the actor correctly places the QR code on the QR code scanner facility at the entrance of the shop\\
+        & iii. the system correctly scans the QR code\\
+        & iv. the system unlocks the turnstile\\
+        & v. the actor enters the shop\\
+        \textbf{Exit condition}       & the user/customer get inside the shop\\
         \textbf{Exceptions}           
-        & - \\
+        & - the QR code is not valid\\
+        & - the hardware is not functioning properly\\
         \bottomrule
     \end{tabular}
 \caption{}
@@ -454,13 +459,18 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & User/customer exits the shop\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & user, customer\\
+        \textbf{Entry condition}      & have previously entered the store with a QR code\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the actor arrives at the exit of the shop\\
+        & ii. the actor correctly places the QR code on the QR code scanner facility at the exit of the shop\\
+        & iii. the system correctly scans the QR code\\
+        & iv. the system unlocks the turnstile\\
+        & v. the actor exit the shop\\
+        \textbf{Exit condition}       & the user/customer get out of the shop\\
         \textbf{Exceptions}           
-        & - \\
+        & - the QR code is not valid\\
+        & - the hardware is not functioning properly\\
         \bottomrule
     \end{tabular}
 \caption{User/customer exits the shop}
@@ -473,13 +483,17 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & Manager registers new shop\\
         \midrule
-        \textbf{Actors}               & \\
+        \textbf{Actors}               & manager logged in and on his web or mobile personal home page\\
         \textbf{Entry condition}      & \\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the manager select the “REGISTER A NEW SHOP” option on the home page, a page pops up with a form to be filled in\\
+        & ii.  the manager fills in the mandatory fields (position of the shop, schedule of the shop, opening days, name of the shop, maximum number of people allowed in the shop, optionally the items sold in the shop divided in categories or, for semplicity, just the categories)\\
+        & iii. the manager submit the data inserted\\
+        & iv. the system correctly registers the shop\\
+        & v.the system sends confirmation to the manager\\
+        \textbf{Exit condition}       & the shop has been correctly registered\\
         \textbf{Exceptions}           
-        & - \\
+        & - any of the data inserted in the mandatory fields is invalid\\
         \bottomrule
     \end{tabular}
 \caption{Manager registers new shop}
@@ -492,13 +506,19 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & Manager updates shop information\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & manager\\
+        \textbf{Entry condition}      & manager logged in and on his web or mobile personal home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the manager selects the update shop info option\\
+        & ii. the system redirects the manager to a dedicated page showing all the editable informations\\
+        & iii. the manager selects the desired iformation to updadte\\
+        & iv. the manager modifies the selected information\\
+        & v. the manager confirms the update\\
+        & vi. the system updates the shop info\\
+        & vii. the system sends confirmation to the manager\\
+        \textbf{Exit condition}       & the shop informations are correctly modified\\
         \textbf{Exceptions}           
-        & - \\
+        & - some new information inserted from the manager is invalid\\
         \bottomrule
     \end{tabular}
 \caption{Manager updates shop information}
@@ -511,13 +531,13 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & Manager checks shop status\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & manager\\
+        \textbf{Entry condition}      & manager logged in and on his web or mobile personal home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
-        \textbf{Exceptions}           
-        & - \\
+        & i. the manager selects the check shop status option\\
+        & ii. the system retrieves all the informations about the shop and displays them to the manager (number of people actually inside the shop, number of people enqueued, estimated time of enqueuement, upcoming booked visits, etc)\\
+        & iii. the manager correctly visualizes such informations\\
+        \textbf{Exit condition}       & the manager correctly visualizes the shop status\\
         \bottomrule
     \end{tabular}
 \caption{Manager checks shop status}
@@ -530,13 +550,17 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & User cancels previously booked visit\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & user\\
+        \textbf{Entry condition}      & user logged in, on his web or mobile personal home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the user selectes on the check previously booked visits option\\
+        & ii. the system retrieves the user's previously booked visits\\
+        & iii. the user selects one of his previously booked visits\\
+        & iv. the user selects the cancel prenotation option\\
+        & v. the system cancels the booked visit and notifies the user of success\\
+        \textbf{Exit condition}       & the user successfully canceles the visit\\
         \textbf{Exceptions}           
-        & - \\
+        & - user has no previously booked visits\\
         \bottomrule
     \end{tabular}
 \caption{User cancels previously booked visit}
@@ -547,34 +571,40 @@ We will present a table for each use case and, for the most important ones, a li
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Customer cancels previously booked visit\\
+        \textbf{Name}                 & Customer cancels previous enqueuement\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & customer\\
+        \textbf{Entry condition}      & customer infront of the a shop totem that is displaying his home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the customer selects the cancel a booked visit option\\
+        & ii. the user insterts the code on his ticket\\
+        & iii. the system cancels the booked visit and notifies the customer of success\\
+        \textbf{Exit condition}       & the customer successfully cancels his enqueument\\
         \textbf{Exceptions}           
-        & - \\
+        & - the customer has no booked visit\\
+        & - the customer uses the ticket from an already elapsed visit\\
         \bottomrule
     \end{tabular}
-\caption{Customer cancels previously booked visit}
-\label{table:customercancelspreviouslybookedvisit}
+\caption{Customer cancels previously enqueuement}
+\label{table:customercnacelspreviousenqueuement}
 \end{table}
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager cancels customer’s previously booked visit\\
+        \textbf{Name}                 & Manager cancels customer’s previously booked visit ????? TODO: io la toglierei\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Actors}               & manager\\
+        \textbf{Entry condition}      & the manager is logged in and on his web or mobile personal home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. manager PRESS the CHECK PREVIOUSLY BOOKED VISITS button \\
+        & ii. the system ask the user to insert a serial number to retrieve the desiderd booked visit\\
+        & iii. the manager insert the serial number\\
+        & iv. the system cancel the booked visit and notifies the user of the success of action\\
+        \textbf{Exit condition}       & the booked visit is successfully canceled\\
         \textbf{Exceptions}           
-        & - \\
+        & -\\
         \bottomrule
     \end{tabular}
 \caption{Manager cancels customer’s previously booked visit}
@@ -587,37 +617,20 @@ We will present a table for each use case and, for the most important ones, a li
         \toprule
         \textbf{Name}                 & User cancels previous enqueuement\\
         \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
+        \textbf{Entry condition}      & user logged in, on his web or mobile personal home page\\
         \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
+        & i. the user selects the virtual ticket in his home page\\
+        & ii. the system retrieves and displays all the information about the ticket and the queue\\
+        & iii. the user selects the dequeue button\\
+        & iv. the system correctly dequeue the user and notifies the user of success\\
+        & v. the system notifies all the user that changed position in the queue\\
+        \textbf{Exit condition}       & the user successfully cancels the visit\\
         \textbf{Exceptions}           
-        & - \\
+        & - the user is not enqueued\\
         \bottomrule
     \end{tabular}
 \caption{User cancels previous enqueuement}
 \label{table:usercnacelspreviousenquement}
-\end{table}
-
-%TEMPLATE:
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
-        \toprule
-        \textbf{Name}                 & \\
-        \midrule
-        \textbf{Actors}               & \\
-        \textbf{Entry condition}      & \\
-        \textbf{Flow of events}            
-        & i.\\
-        \textbf{Exit condition}       & \\
-        \textbf{Exceptions}           
-        & - \\
-        \bottomrule
-    \end{tabular}
-\caption{}
-\label{table:}
 \end{table}
 
 \clearpage
@@ -626,8 +639,26 @@ We will present a table for each use case and, for the most important ones, a li
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{Images/Use case - user searches a shop.png}
+    \includegraphics[width=\textwidth]{Images/sequence diagrams/User searches a shop - SD.png}
     \caption{\label{fig:usersearchesshop}User searches a shop - sequence diagram}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Images/sequence diagrams/User lines up - SD.png}
+    \caption{\label{fig:userlinesup}User searches a shop - sequence diagram}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Images/sequence diagrams/User books a visit - SD.png}
+    \caption{\label{fig:userbookavisit}User searches a shop - sequence diagram}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Images/sequence diagrams/Customer lines up - SD.png}
+    \caption{\label{fig:customerlinesup}User searches a shop - sequence diagram}
 \end{figure}
 
 \clearpage
