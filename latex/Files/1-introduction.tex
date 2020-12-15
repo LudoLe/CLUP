@@ -6,9 +6,9 @@
 
 This document represents the Requirement Analysis and Specification Document (RASD). 
 
-Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. 
+Goals of this document are to completely describe the CLup system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. 
 
-This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis. (siamo sicuri solo developers? non è rivolto anche ad altri tipo investitori, designer, etc. ?).
+This document is addressed to who takes part in development of the first release of CLup, and his aim is to clarify and expose all the interaction between the real world and the application.
 
 \subsection{Scope}
 \label{subsect:scope}
@@ -23,68 +23,74 @@ CLup is the software application we will implement in order to face this issue. 
 
 In fact, Clup allows customers to book online their shopping sessions when and for how long they desire, letting them even specify the categories of items they are willing to buy: in this way the system will be able to grant the rules of social distancing more accurately and let the clients have an even safer experience through their shopping session.
 
-Clup also allows those clients who are not much of planners to join a virtual queue, which is meant to substitute the physical one, for their last minute shopping sessions. The system will permit them to monitor the queue and will even alert them when it’s time to leave in order to reach out the shop in time for their turn. Indeed, Clup, using the customers’ GPS position, is able to tell the clients -only the ones who are willing to use this service, of course!- how long it will take them to get to the previously selected shop.
+Clup also allows those clients who are not much of planners to join virtual queues, which are meant to substitute the physical ones, for their last minute shopping sessions. The system will permit them to monitor the queue and will even alert them when it’s time to leave in order to reach out the shop in time for their turn.
 
-Finally, CLup will give much of a help to grocery shop owners in regulating the incoming influx of people in their shop. As a matter of fact, CLup implements a QR based system of monitoring accesses to the shops that will decide to adopt our application. This last function will be possible thanks to some hardware facilities.
+Finally, CLup will give much of a help to grocery shop owners in regulating the incoming influx of people in their shop. As a matter of fact, CLup implements a QR based system of monitoring accesses to the shops that will decide to adherit to our application. 
+
+Also, CLup will be a convinient way to keep up with the evolving rules and law, giving managers the possibility to immediately customize every aspect of the system.
 
 \subsubsection{Main funcitons}
 \label{subsect:mainfunctions}
 
 As we mentioned in the product scope, the goals of Clup are fundamentally three: 
-\begin{enumerate}
-    \item help the shop owners to regulate the influx of incoming people in their shops;
-    \item allow customers to join a vistual queue;
-    \item allow customers to book shopping sessions.
+\begin{enumerate}[topsep=0pt]
+    \item help the shop owners to \textit{regulate the influx of incoming people} in their shops;
+    \item allow customers to \textit{join a virtual queue};
+    \item allow customers to \textit{book shopping sessions}.
 \end{enumerate}
 
-It is important to recall herein, however, that these purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to keep grocery customers as safe as possible and, in second instance, to help as much as possible shop owners to be able adapt to the new in force regulations.
+However, it is important to recall herein that these purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to \textit{keep grocery customers as safe as possible} and, in second instance, to \textit{help as much as possible shop owners} to be able adapt to the new in force regulations.
 
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
 
-\subsubsection{Definitions}
-\label{subsect:definitions}
+In order to to avoid any misunderstanding here we present three table to explain all the definitions, acronyms and abbreviations used throught the document.
 
-\begin{description}
-    \item[Customer]
-    a person who is going to go grocery shopping.
-    \item[User]
-    a person who downloaded CLup but who isn't registered.
-    \item[Registered-user]
-    a person who doenloaded Clup and who is registered. 
-    \item[Shop manager or shop owner] 
-    a grocery shop owner or manager who decided to adopt CLup system. 
-\end{description}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}
+        \multicolumn{2}{c}{\textbf{Definitions}}\\
+        \toprule
+        \textbf{Customer} & a person who is going to go grocery shopping and is not registered in the CLup system\\
+        \textbf{User} & a customer who downloaded Clup and is registered\\
+        \textbf{Shop owner} & a grocery shop owner or administrator who hasn't already adherit to CLup\\
+        \textbf{Manager} & a grocery shop owner or administrator who has adherit to CLup\\
+    \end{tabular}
+\caption{Definitions}
+\label{table:definitions}
+\end{table}
 
-\subsubsection{Acronyms}
-\label{subsect:acronyms}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}        
+        \multicolumn{2}{c}{\textbf{Abbreviations}}\\
+        \toprule
+        \textbf{Gn} & $n^{th}$-goal\\
+        \textbf{Dn} & $n^{th}$-domain assumtion\\
+        \textbf{Rn} & $n^{th}$-functional requirement\\
+    \end{tabular}
+\caption{Abbreviations}
+\label{table:abbreviations}
+\end{table}
 
-\begin{description}
-    \item[RASD]
-    Requirement Analysis and Specification Document. 
-    \item[API]
-    Application Programming Interface. 
-    \item[GPS]      
-    Global Positioning System. 
-\end{description}
-
-\subsubsection{Abbreviations}
-\label{subsect:abbreviations}
-
-\begin{description}
-    \item[Gn]
-    $n^{th}$-goal. 
-    \item[Dn]
-    $n^{th}$-domain assumtion.
-    \item[Rn]  
-    $n^{th}$-functional requirement. 
-\end{description}
-
-\subsection{Revision history}
-\label{subsect:revisionhistory}
-
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}
+        \multicolumn{2}{c}{\textbf{Acronyms}}\\
+        \toprule
+        \textbf{RASD} & Requirement Analysis and Specification Document\\
+        \textbf{API} & Application Programming Interface\\
+        \textbf{GPS} & Global Positioning System\\
+    \end{tabular}
+\caption{Acronyms}
+\label{table:acronyms}
+\end{table}
 
 \subsection{Overview}
 \label{subsect:overview}
 
-Describes contents and structure of the remainder of the RASD
+Here we present an overview of what the next sections of the document will adress.
+
+The \textbf{overall description} [\ref{sect:overalldescription}] section starts presenting some common scenarios [\ref{subsect:scenarios}] that give the reader a first idea of how the system works. Then the document analyzes all the goals [\ref{subsect:goals}], domain assumption [\ref{subsect:domainassumptions}] and costraints [\ref{subsect:contraints}] of the application, followed by a list of all the actors [\ref{subsect:actors}] and an in-depth-analysis of all the use cases [\ref{subsect:usecases}], highlighting the interaction between the application and the world. This following subsections contain diagrams [\ref{subsect:systemstructure}], that encapsulate an high-level view of the structure [\ref{subsubsect:applicationstructure}] and functions [\ref{subsubsect:functionsstructure}] of the system.
+
+%TODO:

@@ -5,7 +5,7 @@
 \usepackage[english]{babel}
 
 %For LaTex syntax checking without bilding .pdf file
-%\usepackage{syntonly}
+\usepackage{syntonly}
 %\syntaxonly
 
 %Page margins, header and footer positions
@@ -32,8 +32,11 @@
 \usepackage{booktabs}
 \usepackage{array}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
-\usepackage{longtable}
+\usepackage{longtable} %multi-page tables
 \usepackage{multirow}
+
+%handling floats
+\usepackage{placeins}
 
 %for placements of floats in the [H] here position
 \usepackage{here}
