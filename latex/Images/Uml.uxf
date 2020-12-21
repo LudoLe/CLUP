@@ -49,4 +49,7 @@ m2=0..1</panel_attributes><additional_attributes>10;10;240;10</additional_attrib
 m1=0..1
 m2=0..1</panel_attributes><additional_attributes>10;190;10;260;500;260;500;10</additional_attributes></element><element><id>Relation</id><coordinates><x>260</x><y>0</y><w>770</w><h>290</h></coordinates><panel_attributes>lt=-
 m1=0..n
-m2=0..1</panel_attributes><additional_attributes>10;60;10;10;730;10;730;270</additional_attributes></element></diagram>
+m2=0..1</panel_attributes><additional_attributes>10;60;10;10;730;10;730;270</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>120</y><w>430</w><h>170</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+</panel_attributes><additional_attributes>10;10;240;10;240;100;390;100;390;150</additional_attributes></element></diagram>
