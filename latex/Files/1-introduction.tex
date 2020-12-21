@@ -10,11 +10,8 @@ Goals of this document are to completely describe the CLup system in terms of fu
 
 This document is addressed to the ones who take part in the process of development of the first release of CLup and its aim is to describe the interactions between the real world and the application.
 
-\subsection{Scope}
+\subsection{Scope: description of the given problem}
 \label{subsect:scope}
-
-\subsubsection{Description of the given problem}
-\label{subsect:descriptionofthegivenproblem}
 
 In these trying times of global pandemic, such a common matter as going grocery shopping has become a relevant threat to public health. 
 Nethertheless, grocery shopping still remains an essential need which has to be carried out: being so, avoiding crowding up either inside and outside of grocery shops to avoid any source of hazards becomes the new main issue to focus on.
@@ -29,18 +26,6 @@ Finally, CLup will give much of a help to grocery shop owners in \textit{regulat
 
 Also, CLup will be a convinient way to keep up with the evolving rules and law, giving managers the possibility to immediately customize every aspect of a shop.
 
-\subsubsection{Main funcitons}
-\label{subsect:mainfunctions}
-
-As we mentioned in the product scope, the goals of Clup are fundamentally three: 
-\begin{enumerate}[topsep=0pt]
-    \item help the shop owners to \textit{regulate the influx of incoming people} in their shops;
-    \item allow customers to \textit{join a virtual queue};
-    \item allow customers to \textit{book shopping sessions}.
-\end{enumerate}
-
-However, it is important to recall herein that these purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to \textit{keep grocery customers as safe as possible} and, in second instance, to \textit{help as much as possible shop owners} to be able adapt to the new in force regulations.
-
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
 
@@ -48,11 +33,11 @@ In order to to avoid any misunderstanding here we present three tables to explai
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}
+    \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}
         \multicolumn{2}{c}{\textbf{Definitions}}\\
         \toprule
         \textbf{Customer} & a person who is going to go grocery shopping and is not registered in the CLup system\\
-        \textbf{User} & a customer who downloaded CLup and is registered\\
+        \textbf{User} & a registered client in the CLup system\\
         \textbf{Shop owner} & a grocery shop owner or administrator who hasn't already adherit to CLup\\
         \textbf{Manager} & a grocery shop owner or administrator who has adherit to CLup\\
         \textbf{Totem} & the piece of hardware that allows customers to be able to enqueue without having the app downloaded and is placed outside of the shop it is corralted with. TODO\\
@@ -63,7 +48,7 @@ In order to to avoid any misunderstanding here we present three tables to explai
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}        
+    \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}        
         \multicolumn{2}{c}{\textbf{Abbreviations}}\\
         \toprule
         \textbf{Gn} & $n^{th}$-goal\\
@@ -76,7 +61,7 @@ In order to to avoid any misunderstanding here we present three tables to explai
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{@{}P{0.15\textwidth}P{0.5\textwidth}@{}}
+    \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}
         \multicolumn{2}{c}{\textbf{Acronyms}}\\
         \toprule
         \textbf{RASD} & Requirement Analysis and Specification Document\\
