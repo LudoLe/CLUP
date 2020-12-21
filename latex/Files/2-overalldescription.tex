@@ -18,6 +18,7 @@
 \label{subsect:furtherdetailsaboutspecification}
 
 The full specification can be found at the link: \url{https://github.com/LudoLe/LermaMainettiGambera/blob/master/other%20documents/R%26DD%20Assignment%20A.Y.%202020-2021%20(2).pdf}.
+\label{specification}
 
 \subsubsection{Stakeholders}
 \label{subsubsect:stakeholders}
@@ -82,28 +83,29 @@ Now that the reader has a good understanding of the typical scenarios in wich ou
 \subsubsection{Critical aspects}
 \label{subsubsect:criticalaspects}
 
-Here we want to expose how we decided to manage aspects of the system that have been neglected in the "scope" section [\ref{subsect:scope}], and that are more solutions to problems we'll face rather than actual functions.
+Now we want to expose how we decided to manage and solve some critical aspects of the system that have been neglected in the "scope" section [\ref{subsect:scope}] and in the specification [\ref{specification}].
 
-One of the main interest of the application is that, in order to guarantee the effectiveness of our services, we need to have complete and precise data about people's entrance and exits from shops. Given this statement, we need to cover three fundamental sub-aspects:
-\begin{enumerate}[topsep=0pt]
-    \item \textit{regulate people's entrance and exits from shops};
-    \item \textit{reach the entire population of clients};
-    \item \textit{make good estimations};
-\end{enumerate}
+In order to guarantee the effectiveness of our services, our application must work with precise and complete data. All the major functions of our application are data-related, and for this reason we must explain three aspects of data that our application may have trouble working:
+\begin{itemize}[topsep=0pt]
+    \item \textit{retrieve correct data from people that interact with the system};
+    \item \textit{work with data to deliver a good service, especially regaring estimations};
+    \item \textit{make the data accessible to the entire population};
+\end{itemize}
 
-The solution to \textbf{regulate entrance and exit from shops} is to have hardware installed in shops, consisting of a \textit{QR scanner} and a \textit{turnstile}: when an user needs to enter or exit a shop, he just need to scan his QR code so that our system is informed. This mechanism will even prevent non authorized access to the store, meaning no people entering shops when is not their turn.
+The service we intend to deliver can \textit{retrive all the fundamental data} at a software level, except for the case of the entrance and  exit from shops. The solution to \textbf{regulate entrance and exit} is to have hardware installed in shops, consisting of a \textit{QR scanner} and a \textit{turnstile}: when an user needs to enter or exit a shop, he just need to scan his QR code so that our system is informed. This mechanism will even prevent non authorized access to the store, meaning no people entering shops when is not their turn.
 
-To \textbf{manage the entire population of clients} we'll provide access to our system through software for modern browser and a mobile application, covering the majority of the population. Furthermore we intend to install another hardware component, a \textit{totem}, in the shops, that will grant access to our system from the spot.
+To \textbf{reach the entire population of possible clients} we'll provide access to our system through software for modern browser and a mobile application, covering the majority of the population. Furthermore we intend to install another hardware component, a \textit{totem}, in the shops, that will grant access to our system from the spot.
 
-\textbf{Making good estimations}, is needed to deliver to the users correct informations about shop's status, and surely it is important for the user-expirience sake, but we admit a margin of error. The more we have reliable, anticipated and precise information about users movement, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real person, we can't have control over them. 
+\textbf{Making good estimations}, is needed to deliver to the end users correct informations about shop's status, and, thus, it is important for the user-expirience sake, but nevertheless, we admit a margin of error. The more we have reliable, anticipated and precise information about users movement, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real person, we can't have control over them. 
 
-The best example of estimation's problem comes from the queues: we do not have control over people's actions and so we can't ensure sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, leaving the shops with some "holes". To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system by \textit{canceling} unwanted reservations and enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
+%TODO: scritto male
+The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, leaving the shops with some "holes". To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all the possible information, such as how much time they intend to shop for, or \textit{canceling} unwanted reservations and enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
 
 Another aspect we want to highlight is the \textbf{ticket system} for booking visits and enqueuing users.
 
 Even if \textit{booking a visit} and \textit{enqueuing} seems two totally different functions to the end user, by the system's perspective they are pretty much the same thing: an user who books a visit is like if he is enqueuing for a specific hour and day, and an user who decides to enqueue himself is like if he is booking a visit as soon as possible. 
 
-Having specified these similarities, there are still some differences. A \textit{queue} is like a list that keeps track of user's turns to enter a shop and it is not a static structure, but it evolves throught time and through particular events, such as user's leaving queues or canceling booked visits or taying in shopss for more time than what specified, and more. Our system will constantly keep the queues updated and will notify the interested users of every changes. 
+Having specified these similarities, there are still some differences. A \textit{queue} is like a list that keeps track of user's turns to enter a shop and it is not a static structure, but it evolves throught time and through particular events, such as user's leaving queues or canceling booked visits or staying in shops more time than what specified, and more. Our system will constantly keep the queues updated and will notify the interested users of every changes. 
 
 Analyzing the behavior of the queue the only real difference between visit's ticket and queue's ticket comes to the surface: visit's ticket don't shift in time, they are scheduled, but queue's tickets do.
 
