@@ -1,100 +1,349 @@
-\section{Specific requirements}
+\section{Requirements}
 \label{sect:Specificrequirements}
-
-Here we include more details on all aspects in Section $2$ if they can be useful for the development team. 
-
-The requirements are complete if they ensure satisfaction of the goals in the context of the domain properties (Analogy with program correctness: a Program P running on a particular Computer C is correct if it satisfies the Requirements R), also the goals adequately capture all the stakeholders’ needs, and the domain represents valid properties/assumptions about the world
-
-\subsection{External interface requirements}
-\label{subsect:ecternalinterfacerequirements}
-
-\subsubsection{User interfaces}
-\label{subsubsect:userinterfaces}
-
-\subsubsection{Hardware interfaces}
-\label{subsubsect:hardwareinterfaces}
-
-\subsubsection{Software interfaces}
-\label{subsubsect:softwareinterfaces}
-
-\subsubsection{Communication interfaces}
-\label{subsubsect:communicationinterfaces}
 
 \subsection{Functional requirements}
 \label{subsect:functionalrequirements}
 
-Definition of use case diagrams, use cases and associated sequence/activity diagrams, and mapping on requirements.
+TODO: what abaout multiple enqueuement (precondition of requirements)?? and what about overlapping visits? we have not specified anything about it! Also only one reservation in one shop.
 
-Functional requirements: Describe the interactions between the system and its environment independent from implementation. Are the main goals the software to be has to fulfill.
+//TODO: non so dove mettere questo todo.. comunque il problema a cui pensavo è il fatto che può darsi che tipo a qualcuno si scarichi il telefono durante la spesa e quindi non possa uscire dal negozio siccome non ha più il QR code, dovremmo fare in modo che il manager possa farli uscire con dei QR code speciali, o meglio che possa reperire i QR code di una persona che lo richiede. Basterebbe fare che i QR code sono legati alla persona e fine dei problemi...
 
-Deriving requirements from goals: Must find the constraints on shared phenomena to be enforced by the machine to achieve the goals.
+\subsubsection{G1: Allow manager to sign on the system}
+\label{subsubsect:G1}
 
-this section is organized by mode, user class, feature, etc. For example:
+\begin{itemize}[topsep=0pt]
+    \item A shop owner must be able to begin the sign on process on the system. During the process the system will ask him/her to provide all the credentials and data needed. 
+    \item The system, once the manager confirms the personal data inserted, will send the manager a notification either by email and by SMS. Reception of both of these notifications need to be confirmed by the users in order for the system to allow managers to proceed with the further steps of registration.
+    \item When the sign on process is completed and the personal information provided have been verified by the system through PEC API, a new account must have been produced.
+\end{itemize}
 
-3.2 Functional Requirements
+TODO: \textbf{Domain assumptions}: [D12], [D13], [D16], [D14], [D7], [D8].
 
-3.2.1 User Class 1
+\subsubsection{G2: Allow a manager to sign in the system}
+\label{subsubsect:G2}
 
-3.2.1.1 Functional Requirement 1.1
+\begin{itemize}[topsep=0pt]
+    \item The manager must be able to begin the sign in process, providing email and password.
+    \item The system must be able to check if the provided password is correct.
+    \item The system may allow only managers who provide the corrects pairs of emails and password to log in.
+\end{itemize}
 
-…
+TODO: \textbf{Domain assumptions}: [D13].
 
-\subsection{Performance requirements}
-\label{subsect:performancerequirements}
+\subsubsection{G3: Allow a manager to register their store/stores on the system TODO: maybe is better to send a request for the registration of a new shop}
+\label{subsubsect:G3}
 
-\subsection{Design constraints}
-\label{subsect:designconstraints}
+TODO:
+\begin{itemize}[topsep=0pt]
+    \item the manager must be able to begin the process of registering a store 
+    \item the manager must provide the needed information about their shop to the system.\newline
+    Mandatory information to be provided to the system about the shop are: \newline
+    the position of the shop,
+    the opening time of the shop,
+    the opening days, 
+    the name of the shop,
+    the maximum number of people allowed in the shop,
+    maximum number of people that can access the shop together.
+    Optional information to be provided to the system about the shop are:
+    the items that are sold in the shop divided in categories or, if preferred, for simplicity, just the categories of items sold in the shop,
+    the maximum number of people allowed in each area.
+    \item The system should confirm the registration of the shop to the user
+\end{itemize}
 
-\subsubsection{Standards compliance}
-\label{subsubsect:standardscompliance}
+TODO: \textbf{Domain assumptions}: [D7], [D8], [D16].
 
-\subsubsection{Hardware limitations}
-\label{subsubsect:hardwarelimitations}
+//TODO:
+G3.1   Allow a manager to register basic info about the shop \newline
+G3.2   Allow a manager to divide their store in areas \newline
+G3.3   Allow a manager to register the items in the areas
 
-\subsubsection{Any other constraint}
-\label{subsubsect:anyotherconstraint}
+\subsubsection{G4: Allow a manager to update the shop's informations and settings}
+\label{subsubsect:G4}
 
-\subsection{Software system attributes (Non functional requirements)}
+\begin{itemize}[topsep=0pt]
+    \item The manager must be able to begin the process of updating the store informations.
+    \item The manager must select and provide the updated information about their shops for the system to update them. 
+    \item The system should confirm the updates to the manager. 
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D7], [D8], [D16].
+
+\subsubsection{G5: Allow a manager to check the status and the statistic of their shops}
+\label{subsubsect:G5}
+
+\begin{itemize}[topsep=0pt]
+    \item The manager must be able to begin the process of checking the status of an owned shop.
+    \item The system must be able to retrieve the informations required for presenting to the manager the status of the shop.\newline
+    Such information is comprehensive of:
+    \begin{itemize}[topsep=0pt]
+        \item the number of people currently in the shop,
+        \item the number of people enqueued, 
+        \item the estimated total duration of the queue,
+        \item all of the shopping session booked with the attached information of when they will happen and how long they will last.
+    \end{itemize}
+    \item The system must be able to retrieve the informations required for presenting to the manager the statistics of the shop.\newline
+    Such information is comprehensive of: TODO:
+    \begin{itemize}[topsep=0pt]
+        \item the medium time of permanence in the shop, 
+        \item the medium time of wait in the queue,
+        \item the medium number of people enqueued at a given hour
+        \item the medium number of people present in the shop at a given hour
+        \item a map of the distribution of where the customers come from (...?)
+    \end{itemize}
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D1], [D3], [D4], [D5], [D6], [D7], [D17].
+
+\subsubsection{G6: Allow a manager to cancel a previously booked shopping session for an user}
+\label{subsubsect:G6}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}:
+
+\subsubsection{G7: The system should be accessible to all kind of users and customers}
+\label{subsubsect:G7}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}:
+
+\subsubsection{G8: Allow a customer to join a virtual queue from the spot}
+\label{subsubsect:G8}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: 
+
+\subsubsection{G9: Allow a user to sign on the system}
+\label{subsubsect:G9}
+
+\begin{itemize}[topsep=0pt]
+    \item The user must be able to begin the sign on process on the system. During the process the system will ask him/her to provide all the credentials and data needed.
+    \item The system, once the user confirms the personal data inserted, will send the manager a notification either by email and by SMS. Reception of both of these notifications need to be confirmed by the users in order for the system to allow managers to proceed with the further steps of registration.
+    \item When the sign on process is completed and the personal information provided have been verified by the system, a new account must have been produced.
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D12] Phone numbers are unique, [D13] Emails are unique, [D14] notifications will be received and comprehended by users.
+
+\subsubsection{G10: Allow a user to sign in the system}
+\label{subsubsect:G10}
+
+\begin{itemize}[topsep=0pt]
+    \item The user must be able to begin the sign in process, providing email and password.
+    \item The system must be able to check if the provided password is correct.
+    \item The system may allow only users who provide the corrects pairs of emails and password to log in.
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D13] Emails are unique, [D14] notifications will be received and comprehended by users.
+
+\subsubsection{G11: Allow a user to join the virtual queue from the app or website}
+\label{subsubsect:G11}
+
+\begin{itemize}[topsep=0pt]
+    \item The user must be able to begin the process of joining the virtual queue on the system.
+    \item The system must be able to retrieve the position of the user from the GPS. TODO: non è obbligatorio.
+    \item The system must be able to retrieve the position of the shops close to the position of the user within a ray of a distance (settable by the user) of 5 km using the GPS, TODO: non è obbligatorio.
+    \item The system must be able to retrieve informations of a shop, if such shop exists, using the GPS and GMAPS API using the input given by the user.
+    \item The user must be able to select a shop from the ones provided by the system.
+    \item The user must be able to select the permanence time between the ones provided by the system.
+    \item The system must be able to retrieve the estimated time to get to the shop using Gmaps API. TODO: non è obbligatorio.
+    \item The system must be able to check if the user can join the virtual queue or if it’s demand must be rejected due to:
+                       the queue is full
+                       the time of permanence he selected overlaps with the limits of the opening time of the shop [the shop is close]
+                       TODO: sono machine phenomena, non shared phenomena.
+    in this case, the system must be able to notificate the user to the adjusted time that would allow to go them anyway before rejecting the demand
+    \item The user must be able to communicate the system whether they accept the adjusted time of permanence
+    \item The system must be able to correctly enqueue the user
+    \item The system must be able to notificate the user IF THEIR ENQUEUing demand has been accepted
+    \item The system must be able to generate a QR code ad hoc for the standing enqueuement
+    \item The system must be able to assign the said QR code to the correct user
+    \item The system must be able to notificate the user with the awaiting time 
+    \item The system must be able to notificate the user with the travel time from his position to the shop 
+    \item The system must be able to send the user a notification 5 minutes before the time to get to the shop 
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D1], [D14], [D7], [D2].
+
+\subsubsection{G12: Allow a user to book a shopping session at a grocery store}
+\label{subsubsect:G12}
+
+\begin{itemize}[topsep=0pt]
+    \item the user must be able to begin the process of  booking an online session process.
+    \item the system must be able to retrieve the position of the user from the GPS
+    \item the system must be able to retrieve the position of the shops close to the position of the user within a ray of a default distance (settable by the user) of 5 km using the GPS
+    \item the system must be able to retrieve a shop, if such shop exists, using the GPS  and GMAPS API using the input given by the user ( IE THE NAME OF THE SHOP OR THE ADDRESS )
+    \item the user must be able to select a shop from the ones provided by the system
+    \item The system must be able to retrieve the estimated time to get to the shop using Gmaps API
+    \item the user must be able to provide the needed information to the system in order to book a shopping session, such information is comprehensive of:
+    mandatory:
+    the number of people coming
+    -the date in which the shopping session will occur
+    - the hour in which the shopping session will begin -
+    -the approximate duration of the shopping session between the ones provided by the system
+    optional:
+    the categories of items they are intended to buy
+    \item if a queue exists, the system must ensure that the first available booking session for the user to select will start at least after the awaiting time of the queue
+    \item The user must be able to confirm his online shopping session
+    \item the system must be able to assign the user a QR code ad hoc for the standing booking 
+    \item the system must be able to generate a ad hoc QR code for the standing booking 
+    \item the system must be able to send the user a notification of confirmation
+    \item the system must be able to send the user a notification 5 minutes before the time to get to the shop 
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D14] notifications will be received and comprehended by users, [D1], [D2], [D3], [D4], [D5], [D6], [D7], [D8], [D9].
+
+G12.1  Allow a user to select the time and duration for they session \newline
+G12.2  Allow a user to select categories of items they are willing to buy
+
+\subsubsection{G13: Allow a user to retrieve informations about his previously booked visits}
+\label{subsubsect:G13}
+
+\begin{itemize}[topsep=0pt]
+    \item the user must be able to begin the process of checking the booked sessions
+    \item the system must be able to retrieve to the user their previous booked sessions
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D7]
+
+\subsubsection{G14: Allaw a user to retrieve informations about current enqueuements}
+\label{subsubsect:G14}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: 
+
+\subsubsection{G15: Allow a user to retrieve informations about shops}
+\label{subsubsect:G15}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: 
+
+\subsubsection{G16: Allow a users and customers to enter and exit stores with QR codes}
+\label{subsubsect:G16}
+
+\begin{itemize}[topsep=0pt]
+    \item the user is able to correctly postition the code on the scanner of the QR codes
+    \item the system must be able to correctly scan the QR code
+    \item the system must  provide entrance to users equipped with a correct QR code 
+    \item the system must provide entrance to as many users as indicated on the QR code
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D17], [D5], [D3], [D4], [D1].
+
+\subsubsection{G17: Allow a user to exit a previously joined queue}
+\label{subsubsect:G17}
+
+\begin{itemize}[topsep=0pt]
+    \item the user is able to begin the process of exiting the queue
+    \item the system must be able to correctly remove the user from the queue
+    \item the system must be able to correctly confirm the success of the operation to the user
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D17], [D13]. 
+
+\subsubsection{G18: Allow customers to line up}
+\label{subsubsect:G18}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: 
+
+\subsubsection{G19: Allow a customer to cancel a previously booked visit}
+\label{subsubsect:G19}
+
+\begin{itemize}[topsep=0pt]
+    \item TODO:
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: 
+
+\subsubsection{G20: Allow a user to cancel a previously booked visit}
+\label{subsubsect:G20}
+
+\begin{itemize}[topsep=0pt]
+    \item Allow a user to cancel a previously booked visit:
+    \item the user is able to begin the process of cancel a previously booked visit
+    \item the system must be able to correctly cancel a booked visit
+    \item the system must be able to correctly confirm the success of the operation to the user
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D17], [D13]. 
+
+\subsubsection{TODO: su google doc c'è "Allow a user to check the congestion of the shop, ma non lo abbiamo come goal...}
+\label{subsubsect:TODO}
+
+\begin{itemize}[topsep=0pt]
+    \item the user must be able to begin the process of checking the congestion of the shop
+    \item the system must be able to retrieve the position of the user from the GPS
+    \item the system must be able to retrieve the position of the shops close to the position of the user within a ray of a default distance (settable by the user) of 5 km using the GPS
+    \item the system must be able to retrieve a shop, if such shop exists, using the GPS  and GMAPS API using the input given by the user ( IE THE NAME OF THE SHOP OR THE ADDRESS )
+    \item the user must be able to select a shop from the ones provided by the system
+    \item the system must be able to retrieve to the user the number of people present in the shop in the moment in which the check is requested
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D7], [D1], [D5], [D3], [D4].
+
+\subsubsection{TODO: su google doc c'è "Allow a user to check the status of queue for a given shop", ma non lo abbiamo come goal...}
+\label{subsubsect:TODO}
+
+\begin{itemize}[topsep=0pt]
+    \item the user must be able to begin the process of checking the queue of a given shop
+    \item the system must be able to retrieve the position of the user from the GPS
+    \item the system must be able to retrieve the position of the shops close to the position of the user within a ray of a default distance (settable by the user) of 5 km using the GPS
+    \item the system must be able to retrieve a shop, if such shop exists, using the GPS  and GMAPS API using the input given by the user ( IE THE NAME OF THE SHOP OR THE ADDRESS )
+    \item the user must be able to select a shop from the ones provided by the system
+    \item the system must be able to retrieve to the user the number of people present in the queue for the shop they selected
+\end{itemize}
+
+TODO: \textbf{Domain assumptions}: [D7], [D5], [D3], [D4], [D1].
+
+\subsection{Non functional requirements}
 \label{subsect:softwaresystemattributes}
 
-Non functionals requirements ideas:
-\begin{itemize}
-    \item security issues: point/rating system to block people out. In first implementation we will not make it but we consider that a more official release will have this feature.
-    \item enqueue with a friend features
-    \item after a manager has sent a request to register a shop, he will receive a call from our team and they will organize everything that needs to be done... oppure email certificata e partita iva.. oppure boh, dobbiamo informarci
-\end{itemize}
+\subsubsection{Availability and accessibility}
+\label{subsubsect:availabilityandaccessibility}
 
-Nonfunctional requirements: User visible aspects of the system not directly related to functional behavior. 
-Constraints on how functionality has to be provided to the end user.
-Independent of the application domain, but the application domain determines their relevance and their prioritization.
+Since the the service we are providing is intended to completely replace any current method used, the system must be always available, avoiding as much as possible down times. Very small deviations from this requirement will be obviously acceptable.
 
-Also called Quality of Service (QoS) attributes, here are some:
-\begin{itemize}
-    \item Extremely visible properties: Performance, Reliability, Scalability, Capacity, Accuracy, Accessibility, Availability.
-    \item How the system works in unexpected/fault conditions: Robustness, Exception handling.
-    \item Systems developed with different frameworks can work together at run time: Interoperability.
-    \item Security issues: Integrity, Confidentiality.
-\end{itemize}
+In addition to the availability, we want to ensure accessibility to the largest variety of people possible: every person should be able to interact with our service. To ensure this property, we deliver different products: who has an internet connection and a smarthphone can easily have access to the system through the mobile app or the web app, and who doesn't have a smarthphone can also use the web app from a computer, for those who doesn't have either a smartphone or a computer there is the possibility to use a totems at the entrance of a stores.
 
-\subsubsection{Reliability}
-\label{subsubsect:reliability}
-
-\subsubsection{Availability}
-\label{subsubsect:availability}
+Also all the hardware and the software will be build with regard to all those people with disabilities, ensuring an easy navigation through the interfaces.
 
 \subsubsection{Security}
 \label{subsubsect:security}
 
-\subsubsection{Mantainability}
-\label{subsubsect:mantainability}
+The most critical data our application will handle is user's credential. Handling this aspect is one of our main goals, making sure any third party or malicious actors will never come across. 
+
+Also the application will work with metadata about users, such as position, enqueuements and booked visits, items they are willing to buy, etc. Our scope is to store only the strictly necessary to have the functions of the application works, and anything else will be transformed in anonymous data, in order to create general statistics, or discarded.
+
+We must provide security to shop's owners too, ensuring that their virtual shops will not be attacked. One of the major thread we need to face is the fact that a large amount of people can make shops unavilable by creating huge queues and booking all the posible visits on purpose. In the first release of the system, this issue will not be covered, but we'll develope the application so that counter measures can be implemented easily in the future releases.
 
 \subsubsection{Scalability}
 \label{subsubsect:scalability}
 
-\subsubsection{Portability}
-\label{subsubsect:portability}
+The reach of our system can be as low as a municipality or as high as a service for an entire nation or even more. At the first release our application will, obviously, be small, but we must build the system so that it is capable of scaling in a fast way.
 
-\subsection{Other requirements}
-\label{subsect:otherrequirements}
+Also, since the first release of the system is not going to be a final release, we'll produce the software so that extra features can be embodied eassily. An example of future feature may be something that is missing and we have not considered, or discarded on purpose to better focus on main functions, such as the possibility to enqueue with a friend.
 
-This section is not necessary.
+\subsubsection{Accuracy}
+\label{subsubsect:accuracy}
+
+CLup system will handle different types of informations, and each one requires different degrees of accuracy:
+\begin{itemize}[topsep=0pt]
+    \item \textit{Informations about shops}: the more precise the better it is. Since we are not the ones providing these informations we cannot ensure the precision, but this task is given to the shop's managers.
+    \item \textit{Informations about position}: all the informations about user's position are not needed to make our application work, but only to have some extra features. Obviously the most accurate the better, but since it is not essential, there isn't a limit required.
+\end{itemize}
