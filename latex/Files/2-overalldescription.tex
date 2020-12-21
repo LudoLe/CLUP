@@ -14,10 +14,38 @@
 %\caption{\label{fig:metamodel2}DICE DPIM metamodel in portrait form.}
 %\end{figure}
 
-\subsection{Scenarios}
-\label{subsect:scenarios}
+\subsection{Details about the specification}
+\label{subsect:furtherdetailsaboutspecification}
 
-We want to start this section by presenting some usefull scenarios in order to describe what people will do and experience as they try to make use of CLup services. Our intent is not to specify every possible situation, but to give the reader a general understanding of the main features of the system with a concrete description of ideal cases.
+The full specification can be found at the link: \url{https://github.com/LudoLe/LermaMainettiGambera/blob/master/other%20documents/R%26DD%20Assignment%20A.Y.%202020-2021%20(2).pdf}.
+
+\subsubsection{Stakeholders}
+\label{subsubsect:stakeholders}
+
+Here are listed all the potential stakeholders that will interact with CLup system:
+\begin{itemize}[topsep=0pt]
+    \item \textbf{Customers}: a customer is a person who is not registered in our system, and that will interact with our system through the totem at the entrance of the shops.
+    \item \textbf{Users}: a user is a person who is registered in our system, and that will interact with our ssystem through the mobile application or the webite.
+    \item \textbf{Shop owners}: a shop owner is a person who owns a shops and is not registered in our system.
+    \item \textbf{Managers}: a manager is a shop owner who has decided to adherit to our system and is registered
+\end{itemize}
+
+\subsubsection{Main funcitons}
+\label{subsect:mainfunctions}
+
+As we mentioned in the product scope, the goals of Clup are fundamentally three: 
+\begin{enumerate}[topsep=0pt]
+    \item help the shop owners to \textit{regulate the influx of incoming people} in their shops;
+    \item allow customers to \textit{join a virtual queue};
+    \item allow customers to \textit{book shopping sessions}.
+\end{enumerate}
+
+However, it is important to recall herein that these purposes are primarily imposed by the actual situation of global pandemic, and that the true underlying goal, which defines the objective of our application, is, in first instance, to \textit{keep grocery customers as safe as possible} and, in second instance, to \textit{help as much as possible shop owners} to be able adapt to the new in force regulations.
+
+\subsubsection{Scenarios}
+\label{subsubsect:scenarios}
+
+Here we want to present some usefull scenarios in order to describe what people will do and experience as they try to make use of CLup services. Our intent is not to specify every possible situation, but to give the reader a general understanding of the main features of the system with a concrete description of ideal cases.
  
 \begin{description}
     \item[User lines up] 
@@ -51,8 +79,8 @@ These scenarios presented highlight the main functions of CLup, but in addition 
 
 Now that the reader has a good understanding of the typical scenarios in wich our application is involved, we'll dig in a more in-depth analysis.
 
-\subsection{Further details about the specification}
-\label{subsect:furtherdetailsaboutspecification}
+\subsubsection{Critical aspects}
+\label{subsubsect:criticalaspects}
 
 Here we want to expose how we decided to manage aspects of the system that have been neglected in the "scope" section [\ref{subsect:scope}], and that are more solutions to problems we'll face rather than actual functions.
 
@@ -95,6 +123,13 @@ So once an user unqueues himself or books a visit the system generate a ticket a
 
 \FloatBarrier
 
+\subsubsection{Product perspective}
+\label{subsubsect:productperspective}
+
+CLup services will not be integrated with any other system, it will be implemented from scratch and in a three-tier architecture following a distributed Model-View-Controller design pattern.
+
+\textit{Server-side}, on the application layer, there will be the entire logic of the application, the \textit{controller}. The \textit{Client-side} will take care of the presentation. Last, but not least, a dedicated server will host the database in which the system will store all the data.
+
 \subsection{Goals}
 \label{subsect:goals}
 
@@ -134,7 +169,7 @@ We managed to divide them in two main categories: goals related to the \textit{s
         \midrule
         \textbf{G7}        & Allow a user to sign on the system\\
         \textbf{G8}       & Allow a user to sign in the system\\
-        \textbf{G9}       & Allow a user to join the virtual queue from\\
+        \textbf{G9}       & Allow a user to join the virtual queue\\
         \textbf{G10}        & Allow a customer to join a virtual queue from the spot\footnotemark[1]\\
         \textbf{G11}       & Allow a user to book a shopping session at a grocery store\\
         $\;\;$    G11.1 & Allow a user to select the duration of their session\\
@@ -238,18 +273,6 @@ Our application will rely on external services to handle some features:
     \item Our sytem will interact wit Google Maps API.
     \item Interface with SMS gateway provider via standard SMS rest APIs.
     \item Interface with database. %TODO: dovremmo magari dire qualcosa di più
-\end{itemize}
-
-\subsection{Actors}
-\label{subsect:actors}
-
-%TODO: continuo ad essere dell'idea di eliminare questa sezione...
-
-\begin{itemize}
-    \item user
-    \item customer
-    \item manager
-    \item shop owner
 \end{itemize}
 
 \subsection{Use cases}
