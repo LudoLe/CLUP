@@ -25,10 +25,10 @@ The full specification can be found at the link: \url{https://github.com/LudoLe/
 
 Here are listed all the potential stakeholders that will interact with CLup system:
 \begin{itemize}[topsep=0pt]
-    \item \textbf{Customers}: a customer is a person who is not registered in our system, and that will interact with our system through the totem at the entrance of the shops.
-    \item \textbf{Users}: a user is a person who is registered in our system, and that will interact with our ssystem through the mobile application or the webite.
+    \item \textbf{Customers}: a customer is a person who is not registered in our system, and who will interact with it via the totem at the entrance of the shops.
+    \item \textbf{Users}: a user is a person who is registered in our system, and who will interact with it via the mobile application or the webite.
     \item \textbf{Shop owners}: a shop owner is a person who owns a shops and is not registered in our system.
-    \item \textbf{Managers}: a manager is a shop owner who has decided to adherit to our system and is registered
+    \item \textbf{Managers}: a manager is a shop owner who has decided to adherit to our system and is registered.
 \end{itemize}
 
 \subsubsection{Main funcitons}
@@ -91,11 +91,11 @@ In order to guarantee the effectiveness of our services, our application must wo
     \item \textit{make the data accessible to the entire population};
 \end{itemize}
 
-The service we intend to deliver can \textit{retrive all the fundamental data} at a software level, except for the case of the entrance and  exit from shops. The solution to \textbf{regulate entrance and exit} is to have hardware installed in shops, consisting of a \textit{QR scanner} and a \textit{turnstile}: when an user needs to enter or exit a shop, he just need to scan his QR code so that our system is informed. This mechanism will even prevent non authorized access to the store, meaning no people entering shops when is not their turn.
+The service we intend to deliver can \textit{retrive all the fundamental data} at a software level, except for the case of the entrance and exit from shops. The solution to \textbf{regulate entrance and exit} is to have hardware installed in shops, consisting of a \textit{QR scanner} and a \textit{turnstile}: when an user needs to enter or exit a shop, he just need to scan his QR code so that our system is informed. This mechanism will even prevent non authorized access to the store, meaning no people entering shops when is not their turn.
 
 To \textbf{reach the entire population of possible clients} we'll provide access to our system through software for modern browser and a mobile application, covering the majority of the population. Furthermore we intend to install another hardware component, a \textit{totem}, in the shops, that will grant access to our system from the spot.
 
-\textbf{Making good estimations}, is needed to deliver to the end users correct informations about shop's status, and, thus, it is important for the user-expirience sake, but nevertheless, we admit a margin of error. The more we have reliable, anticipated and precise information about users movement, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real person, we can't have control over them. 
+\textbf{Making good estimations}, is needed to deliver to the end users correct informations about shop's status, and, thus, even if we admit a margin of error, it is important for the user-expirience sake. The more we have reliable, anticipated and precise information about users movement, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real person, we can't have control over them. 
 
 %TODO: scritto male
 The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, leaving the shops with some "holes". To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all the possible information, such as how much time they intend to shop for, or \textit{canceling} unwanted reservations and enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
