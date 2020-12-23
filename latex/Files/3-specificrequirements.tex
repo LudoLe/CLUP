@@ -207,7 +207,7 @@ TODO: what abaout multiple enqueuement (precondition of requirements)?? and what
 
 Since the the service we are providing is intended to completely replace any current method used, the system must be always available, avoiding as much as possible down times. Very small deviations from this requirement will be obviously acceptable.
 
-In addition to the availability, we want to ensure accessibility to the largest variety of people possible: every person should be able to interact with our service. To ensure this property, we deliver different products: who has an internet connection and a smarthphone can easily have access to the system through the mobile app or the web app, and who doesn't have a smarthphone can also use the web app from a computer, for those who doesn't have either a smartphone or a computer there is the possibility to use a totems at the entrance of a stores.
+In addition to the availability, we want to ensure accessibility to the largest variety of people possible: every person should be able to interact with our service. To ensure this property, we deliver different products: who has an internet connection and a smarthphone can easily have access to the system through the mobile app or the web app, and who doesn't have a smarthphone can also use the web app from a computer, for those who doesn't have neither a smartphone nor a computer there is the possibility to use one of the totems placed at the entrance of a stores.
 
 Also all the hardware and the software will be build with regard to all those people with disabilities, ensuring an easy navigation through the interfaces.
 
@@ -216,22 +216,23 @@ Also all the hardware and the software will be build with regard to all those pe
 
 The most critical data our application will handle is user's credential. Handling this aspect is one of our main goals, making sure any third party or malicious actors will never come across. 
 
-Also the application will work with metadata about users, such as position, enqueuements and booked visits, items they are willing to buy, etc. Our scope is to store only the strictly necessary to have the functions of the application works, and anything else will be transformed in anonymous data, in order to create general statistics, or discarded.
+Also the application will work with metadata about users, such as position, enqueuements and booked visits, items they are willing to buy, etc. Our purpose is to store only the strictly necessary information to have the functions of the application work, and anything else will be transformed in anonymous data, in order to create general statistics, or discarded.
 
-We must provide security to shop's owners too, ensuring that their virtual shops will not be attacked. One of the major thread we need to face is the fact that a large amount of people can make shops unavilable by creating huge queues and booking all the posible visits on purpose. In the first release of the system, this issue will not be covered, but we'll develope the application so that counter measures can be implemented easily in the future releases.
+We must provide security to shops owners too, ensuring that their virtual shops will not be attacked. One of the major thread we need to face is the fact that a large amount of people can make shops unavilable by creating huge queues and booking all the possible visits on purpose. In the first release of the system, this issue will not be covered, but we'll develope the application so that counter measures can be implemented easily in the future releases.
 
 \subsubsection{Scalability}
 \label{subsubsect:scalability}
 
-The reach of our system can be as low as a municipality or as high as a service for an entire nation or even more. At the first release our application will, obviously, be small, but we must build the system so that it is capable of scaling in a fast way.
+The complexity of our system won't increase linearly with the growth of its reach since every shop will be mainly managed separately.
+Thanks to this, scalability will just be a matter of increasing computational resources. 
 
-Also, since the first release of the system is not going to be a final release, we'll produce the software so that extra features can be embodied eassily. An example of future feature may be something that is missing and we have not considered, or discarded on purpose to better focus on main functions, such as the possibility to enqueue with a friend.
+Also, since the first release of the system is not going to be a final release, we'll produce the software so that extra features can be embodied easily. An example of future feature may be something that is missing and we have not considered, or discarded on purpose to better focus on main functions, such as the nice feature "enqueue with a friend".TODO specify this and the points sysem
 
 \subsubsection{Accuracy}
 \label{subsubsect:accuracy}
 
 CLup system will handle different types of informations, and each one requires different degrees of accuracy:
 \begin{itemize}[topsep=0pt]
-    \item \textit{Informations about shops}: the more precise the better it is. Since we are not the ones providing these informations we cannot ensure the precision, but this task is given to the shop's managers.
+    \item \textit{Informations about shops}: the more precise the better it is. Since we are not the ones providing these informations we cannot ensure the precision, but this task is left to the shops managers.
     \item \textit{Informations about position}: all the informations about user's position are not needed to make our application work, but only to have some extra features. Obviously the most accurate the better, but since it is not essential, there isn't a limit required.
 \end{itemize}

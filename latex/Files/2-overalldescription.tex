@@ -81,38 +81,37 @@ These scenarios presented highlight the main functionalities of CLup, however th
 \subsubsection{Critical aspects}
 \label{subsubsect:criticalaspects}
 
-Now we want to expose how we decided to manage and solve some critical aspects of the system that have been neglected in the "scope" section [\ref{subsect:scope}] and in the specification [\ref{specification}].
+We are now going to expose how we decided to manage and solve some of the critical aspects of the system.
 
-In order to guarantee the effectiveness of our services, our application must work with precise and complete data. All the major functions of our application are data-related, and for this reason we must explain three aspects of data that our application may have trouble working:
+ Since all of the major functionalties of our application are data-related, in order to guarantee the effectiveness of our services, our application must work with precise and complete data. Three main features deserve particular focus:
 \begin{itemize}[topsep=0pt]
-    \item \textit{retrieve correct data from people that interact with the system};
-    \item \textit{work with data to deliver a good service, especially regaring estimations};
+    \item \textit{retrieve correct data from the people that interact with the system};
+    \item \textit{work with data to deliver a good service, especially regarding the estimations};
     \item \textit{make the data accessible to the entire population};
 \end{itemize}
 
-The service we intend to deliver can \textit{retrive all the fundamental data} at a software level, except for the case of the entrance and exit from shops. The solution to \textbf{regulate entrance and exit} is to have hardware installed in shops, consisting of a \textit{QR scanner} and a \textit{turnstile}: when an user needs to enter or exit a shop, he just need to scan his QR code so that our system is informed. This mechanism will even prevent non authorized access to the store, meaning no people entering shops when is not their turn.
+The service we intend to deliver can \textit{retrive all of the fundamental data} at a software level, exception made for the matter of keeping track of the entrance and exit of the people from the shops integrated in our system. The solution to \textbf{regulate entrances and exits} is to have hardwares installed in the shops, consisting of a \textit{QR-code scanner} and a \textit{turnstile}. Indeed, when a user needs to enter and to exit a shop, they'll simply need to scan their QR-code and our system will keep track whever they are inside or outside of the shop. Furthermore, this mechanism will also help shop managers to prevent non authorized accesses to the store, so that no people will be able to enter a shop unless it's their turn.
 
-To \textbf{reach the entire population of possible clients} we'll provide access to our system through software for modern browser and a mobile application, covering the majority of the population. Furthermore we intend to install another hardware component, a \textit{totem}, in the shops, that will grant access to our system from the spot.
+To \textbf{reach the entire population of possible clients} we'll provide access to our system via website and mobile application, reaching this way the majority of the population. Furthermore we intend to install another hardware component, a \textit{totem}, outside of the shops, which will grant access to our system also from the spot.
 
-\textbf{Making good estimations}, is needed to deliver to the end users correct informations about shop's status, and, thus, even if we admit a margin of error, it is important for the user-expirience sake. The more we have reliable, anticipated and precise information about users movement, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real person, we can't have control over them. 
+\textbf{Making good estimations} is needed to deliver to the end users correct informations about the status of the shops, and, thus, even if a margin of error will be admitted, it is important for the user-expirience sake. The more we have reliable, anticipated and precise information about users' movements, the more our estimations we'll be correct and the general user-experience pleasant, but since the data we are working with are coming from real people, we can't have control over them. 
 
-%TODO: scritto male
-The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, leaving the shops with some "holes". To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all the possible information, such as how much time they intend to shop for, or \textit{canceling} unwanted reservations and enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
+The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, therefore not optimizing the influx of people in the shops. To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all of the possible information, such as, for example, how long their permancence in the shop will last, or if they are intentioned to \textit{cancel} reservations or enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
 
-Another aspect we want to highlight is the \textbf{ticket system} for booking visits and enqueuing users.
+Another aspect we want to highlight is the \textbf{tickets handling management system} for booking visits and enqueuing users.
 
-Even if \textit{booking a visit} and \textit{enqueuing} seems two totally different functions to the end user, by the system's perspective they are pretty much the same thing: an user who books a visit is like if he is enqueuing for a specific hour and day, and an user who decides to enqueue himself is like if he is booking a visit as soon as possible. 
+Even if \textit{booking a visit} and \textit{enqueuing} seems to be two totally different functions to the end user, by the system perspective they are pretty much the same thing: a user who books a visit can be managed as if they were enqueuing for a specific hour and day, and a user who decides to enqueue themself as if they were booking a visit as soon as possible. 
 
-Having specified these similarities, there are still some differences. A \textit{queue} is like a list that keeps track of user's turns to enter a shop and it is not a static structure, but it evolves throught time and through particular events, such as user's leaving queues or canceling booked visits or staying in shops more time than what specified, and more. Our system will constantly keep the queues updated and will notify the interested users of every changes. 
+Having specified these similarities, there are still some differences. A \textit{queue} can be seen as a list that keeps track of users' turns to enter a shop and it is not a static structure, but it evolves through time or because of particular events, such as users leaving queues or canceling booked visits or staying in shops more time than what they specified, and others. Our system will constantly keep the queues updated and will notify the interested users of every changes. 
 
-Analyzing the behavior of the queue the only real difference between visit's ticket and queue's ticket comes to the surface: visit's ticket don't shift in time, they are scheduled, but queue's tickets do.
+Analyzing the behavior of the queue the only real difference between visit-tickets and queue-tickets comes to the surface: visit-tickets cannot shift in time, they are scheduled, but queue-tickets can.
 
-So once an user unqueues himself or books a visit the system generate a ticket and menages it according to what is said above. Furthermore the system, in order to keep track of the condition of tickets, follows the state diagram shown in the picture [\ref{fig:ticketlifecycle}]. A ticket can be in one of the following states:
+So once a user dequeues themselves or books a visit the system generates a ticket and manages it according to what said above. Furthermore the system, in order to keep track of the condition of the tickets, follows the state diagram shown in the picture [\ref{fig:ticketlifecycle}]. A ticket can be in one of the following states:
 \begin{itemize}[topsep=0pt]
     \item \textbf{valid ticket}: when a ticket is created it is always \textit{valid}, and that means that is waiting to be used to enter a shop.
     \item \textbf{in use ticket}: a ticket is \textit{in use} from the time it is used to enter the shop, to the time it is used to exit the shop.
-    \item \textbf{used ticket}: an \textit{used} ticket is a ticket that has been successfully used to exit a shop. 
-    \item \textbf{expired ticket}: \textit{expired} ticket is a ticket that can't be used to enter a shop because his turn has passed. This state could have been avoided by integrating it in the \textit{used} state, but in order to have a better understanding of the life's cycle of tickets we included it in here. 
+    \item \textbf{used ticket}: a \textit{used} ticket is a ticket that has been successfully used to exit a shop. 
+    \item \textbf{expired ticket}: \textit{expired} ticket is a ticket that can't be used to enter a shop because the turn they were valid for has passed. This state could have been avoided by integrating it in the \textit{used} state, but in order to have a better understanding of the life cycle of tickets we included it in here. 
 \end{itemize}
 
 \begin{figure}[h!]
@@ -128,14 +127,14 @@ So once an user unqueues himself or books a visit the system generate a ticket a
 
 CLup services will not be integrated with any other system, it will be implemented from scratch and in a three-tier architecture following a distributed Model-View-Controller design pattern.
 
-\textit{Server-side}, on the application layer, there will be the entire logic of the application, the \textit{controller}. The \textit{Client-side} will take care of the presentation. Last, but not least, a dedicated server will host the database in which the system will store all the data.
+The \textit{Server-side} will host the entire logic of the application: the \textit{controller}. The \textit{Client-side} will take care of the presentation. Last, but not least, a dedicated server will host the database in which the system will store all of the data.
 
 \subsection{Goals}
 \label{subsect:goals}
 
-The following tables show in details all the main goals that our application wants to meet. 
+The following tables show in details all of the main goals that our application meets. 
 
-We managed to divide them in two main categories: goals related to the \textit{shop owners/managers} and goals related to the \textit{clients/users}. Also, we have assigned an unique identifier to each one of them in order to be able to refer to them later in the document.
+We managed to divide them in two main categories: goals related to the \textit{shop owners/managers} and goals related to the \textit{clients/users}. Also, we have assigned a unique identifier to each one of them in order to be able to refer to them later in the document.
 
 %TODO: Allow users to report some wrong informations about a shop (così noi inviamo una notifica ai manager di controllare che magari han sbagliato a scrivere qualcosa). Non so se metterlo inceramente
 
@@ -152,9 +151,9 @@ We managed to divide them in two main categories: goals related to the \textit{s
         $\;\;$    G3.1  & Allow a manager to register basic info about shops\\
         $\;\;$    G3.2  & Allow a manager to divide their stores in areas\\
         $\;\;$    G3.3  & Allow a manager to register the items in the areas\\
-        \textbf{G4}        & Allow a manager to update their shops' informations and settings\\
-        \textbf{G5}        & Allow a manager to check the general status and the statistic of their shops\\
-        \textbf{G6}        & Allow a manager to cancel a previously booked shopping session for an user\\
+        \textbf{G4}        & Allow a manager to update their shops informations and settings\\
+        \textbf{G5}        & Allow a manager to check the general status and the statistics of their shops\\
+        \textbf{G6}        & Allow a manager to cancel a previously booked shopping session for a user\\
     \end{tabular}
 \caption{Shop owner's goals}
 \label{table:shopownersgoals}
@@ -169,16 +168,16 @@ We managed to divide them in two main categories: goals related to the \textit{s
         \midrule
         \textbf{G7}        & Allow a user to sign on the system\\
         \textbf{G8}       & Allow a user to sign in the system\\
-        \textbf{G9}       & Allow a user to join the virtual queue\\
-        \textbf{G10}        & Allow a customer to join a virtual queue from the spot\footnotemark[1]\\
+        \textbf{G9}       & Allow a user to join a virtual queue\\
+        \textbf{G10}        & Allow a customer to join a virtual queue from nearby the shop\footnotemark[1]\\
         \textbf{G11}       & Allow a user to book a shopping session at a grocery store\\
-        $\;\;$    G11.1 & Allow a user to select the duration of their session\\
-        $\;\;$    G11.1 & Allow a user to select the time for their session from a list of available options\\ 	
+        $\;\;$    G11.1 & Allow a user to select the duration of their shopping session\\
+        $\;\;$    G11.1 & Allow a user to select the time for their shopping session from a list of available options\\ 	
         $\;\;$    G11.2 & Allow a user to select categories of items they are willing to buy\\
-        \textbf{G12}       & Allow a user to retrieve informations about his previously booked visits\\
-        \textbf{G13}       & Allaw a user to retrieve informations about current enqueuements\\
-        \textbf{G14}       & Allow a user to retrieve informations about shops\\
-        \textbf{G15}       & Allow a users and customers to enter and exit stores with QR codes\\
+        \textbf{G12}       & Allow a user to retrieve information about their previously booked visits\\
+        \textbf{G13}       & Allow a user to retrieve information about current enqueuements\\
+        \textbf{G14}       & Allow a user to retrieve information about shops\\
+        \textbf{G15}       & Allow a users and customers to enter and exit stores with QR-codes\\
         \textbf{G16}       & Allow a user to exit a previously joined queue \\
         \textbf{G17}       & Allow customers to line up\footnotemark[2]\\
         \textbf{G18}       & Allow a customer to cancel a previously booked visit \\
@@ -197,7 +196,7 @@ We managed to divide them in two main categories: goals related to the \textit{s
 \subsection{Domain Assumptions}
 \label{subsect:domainassumptions}
 
-The following table lists all the assumptions over which we cannot have control, but we assume as verified, and, as with the goals in the section above, we provide them with an unique identifier to keep track of them in the document.
+The following table lists all the assumptions over which we cannot have control, but we assume as verified, and, as with the goals in the section above, we provide them with a unique identifier to keep track of them in the document.
 
 \begin{table}[h!]
     \centering
@@ -205,18 +204,18 @@ The following table lists all the assumptions over which we cannot have control,
         \toprule
         \textbf{identifier}& \textbf{Domain Assumption}\\
         \midrule
-        \textbf{D1}        & Data provided from GPS is valid and accurate respect the real position of the users with a less than $50$ meters radius \footnote{}\\
+        \textbf{D1}        & Data provided from GPS is valid and accurate with regard to the real position of the users with a less than $50$ meters radius \footnote{}\\
         \textbf{D2}        & Google Maps' paths calculator makes correct time estimations\\
-        \textbf{D3}        & A person cannot get in the store without having scanned a valid QR code\\
-        \textbf{D4}        & A person cannot get out of the store without having scanned a valid QR code\\
+        \textbf{D3}        & A person cannot get in the store without having scanned a valid QR-code\\
+        \textbf{D4}        & A person cannot get out of the store without having scanned a valid QR-code\\
         \textbf{D5}        & Each store registered on the system is provided with the necessary functioning hardware\\
         \textbf{D6}        & Data provided from managers is legit\\
-        $\;\;$D6.1         & Managers provide the maximum number of persons allowed in the store by the law\\
+        $\;\;$D6.1         & Managers provide the maximum number of people allowed in the store by the law\\
         $\;\;$D6.2         & Managers will provide the correct address of their store\\
         $\;\;$D6.3         & Managers will provide the correct schedule of their store\\
         $\;\;$D6.4         & Managers will provide the correct categories of items they sell\\
         $\;\;$D6.5         & Managers will correctly map items with the respective category\\
-        \textbf{D7}        & Every category of a shop is matched with an area non overlapping with any other categories' area\\
+        \textbf{D7}        & Every category of a shop is matched with an area non overlapping with any other category area\\
         \textbf{D8}        & A customer will take the shortest path to the store\\ %(TODO: non ricordo se alla fine volevamo tenerlo o meno\dots)
         \textbf{D9}        & Customers will stay in the store approximately the time they have claimed they would\\ %(TODO: non ricordo se alla fine volevamo tenerlo o meno\dots)
         \textbf{D10}       & Customers will shop the items they have claimed they would\\
@@ -224,9 +223,9 @@ The following table lists all the assumptions over which we cannot have control,
         \textbf{D12}       & Emails are unique\\
         \textbf{D13}       & Notification sent to the users, may them be managers or clients, will be received and comprehended by them\\
         \textbf{D14}       & People have no malicious behavior against the app\\
-        \textbf{D15}       & Managers' emails are correctly validated by PEC system\\
-        \textbf{D16}       & Users are aware of the process required to scan a QR code\\
-        \textbf{D17}       & One QR code scanned means that one and one only person enters the store\\
+        \textbf{D15}       & Managers' emails are correctly validated by PEC system ( or any secure email system provided by the country of pertinence)\\
+        \textbf{D16}       & Users are aware of the process required to scan a QR-code\\
+        \textbf{D17}       & One QR-code scanned means that one and only one person enters the store\\
         \bottomrule
     \end{tabular}
 \caption{Domain assumptions}
@@ -242,15 +241,15 @@ The following table lists all the assumptions over which we cannot have control,
 \subsubsection{Regulatory policies}
 \label{subsubsect:regulatorypolicies}
 
-As CLup is an application that deals with real persons' data, it must respect user's privacy and follow strict rules and laws concerning privacy.
+As CLup is an application that deals with real people data, it must follow strict rules and laws regarding the privacy of its users.
 
 Here we show a list of mandatory aspects to consider in order to correctly release an application like CLup:
 \begin{itemize}
-    \item set rules and protect application's and users' interests with Terms ans Conditions;
+    \item protect application and users' interests with Terms ans Conditions;
     \item ask users permission to retrieve and use GPS data;
     \item regulate cookie management;
     \item telephone numbers and emails will not be used for commercial purpose;
-    \item all data about user's booked visits or enqueued clients accessible for statistic's and monitoring purposes is stored in an anonymous way.
+    \item all data about user's booked visits or enqueued clients accessible for statistics and monitoring purposes is stored in an anonymous way.
 \end{itemize}
 
 \subsubsection{Hardware limitations}
@@ -261,7 +260,7 @@ In order to reach all kind of users and customers, our application wants to be t
 \begin{itemize}
     \item \textbf{Mobile app}: Requires a smartphone with internet connection, either Android or Ios. It is not necessary to have GPS to run and use the application, but only to have access to some features.
     \item \textbf{Web app}: Requires a modern browser with javascript enabled and with an internet connection. The capability of retrieving user location is not necessary, but in order to have access to some features is mandatory.
-    \item \textbf{Shop's hardware}: Our intent is to have shop owners install hardware facilities that comprehend a totem, a QR scanner and an electronic turnstile. The totem will have internet connection and run a special version of the web application. The QR scanner and electronic turnstile will work togheter to allow access to the stores. 
+    \item \textbf{Shops hardware}: Our intent is to have shop owners install hardware facilities that comprehend a totem, a QR-code scanner and an electronic turnstile. The totem will have internet connection and run a special version of the web application. The QR-code scanner and electronic turnstile will work togheter to allow access to the stores. 
 \end{itemize}
 
 \subsubsection{Interfaces to other applications}
