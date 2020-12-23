@@ -71,7 +71,7 @@ sig VisitTicket extends Ticket {}
 sig QueueTicket extends Ticket {}
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- -- MODELLO STATICO-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- STATIC MODEL-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -104,10 +104,9 @@ fact usernameIsUnique {
 -- -- begin TICKET constraints-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
---TODO:tradurre in inglese...
---per Valid si intende che il QR code e' scannerizzabile, cioe' il timestamp associato e' 5 minuti prima e dopo l 'orario di entrata
---per InUse si intende un biglietto e' stato scannerizzato
---per Expired si intende che il QR code non e' piu' scannerizzabile, cioe' o 5 minuti dopo l 'orario d'entrata senza che sia stato registarato un TimeStamp "InUse", oppure dopo essere stato InUse
+--Valid: the QR-code associated is scannable
+--InUse: The QR-code associated has been scanned once
+--Expired: QR-code associated no longer scannable
 
 fact ticketStatusChart {
     --A ticket is always created as Valid
@@ -258,8 +257,6 @@ fact ticketToAreaToShop {
 -- -- -- -- -- -- -- -- -- -- -- -- --MODELLO DINAMICO-- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
---rappresentare con scanned evoluzione dei ticket
---rappresentare come vengono shiftati i ticket
 
 pred isShopFull[s:Shop, t:Time, x:s.shopTickets] {
     s.shopStatus.t = Open and x.ticketStatus.t = InUse and #x = s.maxCapacityShop
@@ -277,7 +274,6 @@ pred hasAUserAQueueTicket[user:User, t:QueueTicket] {
 }
 
 pred userEnqueue[shop:Shop, user:User, time:Time, ticket, ticket2:QueueTicket] {
---TODO: perche' qua cambi stile di commenti???
 // preconditions
     not isShopFull[shop, time, shop.shopTickets]
     not hasAUserAQueueTicket[user, ticket2]
