@@ -309,6 +309,8 @@ We will present a table for each use case and, for the most important ones, a li
 \label{table:usecaseindex}
 \end{table}
 
+\FloatBarrier
+
 \subsubsection{Use cases tables}
 
 \begin{table}[h!]
@@ -319,14 +321,16 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & customer\\
         \textbf{Entry condition}      & the customer is already on the front page of the web or mobile application\\
-        \textbf{Flow of events} 
-        & i. the customer selects the sign up option\\
-        & ii. the customer fills in all of the mandatory fields and then confirms\\
-        & iii. the system sends an SMS with a code to the customer's previously specified phone number and waits 180 seconds for an a answer\\
-        & iv. the customer validates his phone number by inserting the code\\
-        & v. the systems sends an email with a code to the customer's previously specified address and waits 180 seconds for an a answer\\
-        & vi. the customer validates his email address by inserting the code\\
-        & vii. the system create a new account and redirects the new user to his personal home page\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the customer selects the sign up option
+            \item the customer fills in all of the mandatory fields and then confirms
+            \item the system sends an SMS with a code to the customer's previously specified phone number and waits for an a answer
+            \item the customer validates his phone number by inserting the code
+            \item the systems sends an email with a code to the customer's previously specified address and waits for an a answer
+            \item the customer validates his email address by inserting the code
+            \item the system create a new account and redirects the new user to his personal home page
+        \end{enumerate} \\
         \textbf{Exit condition}       & the customer successfully ends the registration process and becomes a new user\\
         \textbf{Exceptions}           
         & - timer expiration\\
@@ -347,16 +351,18 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & shop owner\\
         \textbf{Entry condition}      & the shop owner is already on the front page of the web or mobile application\\
-        \textbf{Flow of events}            
-        & i. the shop owner selects the sign up option\\
-        & ii. the shop owner specifies he wants to sign up as a manager\\
-        & iii. the manager creates a personal private profile filling in all of the mandatory fields such as: name, surname, age, PEC email, telephone number, password, repeat password, \ldots and confirms\\
-        & iv. the system sends an SMS with a code to the shop owner's previously specified phone number and waits 180 seconds for an a answer\\
-        & v. the shop owner validates his phone number by inserting the code\\
-        & vi. the systems sends an email with a code to the shop owner's previously specified address and waits 180 seconds for an a answer\\
-        & vii. the shop owner validates his email address by inserting the code\\
-        & vii. the system create a new account and redirects the new manager to his personal home page\\
-        & viii. TODO\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the shop owner selects the sign up option
+            \item the shop owner specifies he wants to sign up as a manager
+            \item the customer fills in all of the mandatory fields\footnote{one of the mandatory fields is the PEC email} and then confirms
+            \item the system sends an SMS with a code to the shop owner's previously specified phone number and waits for an a answer
+            \item the shop owner validates his phone number by inserting the code
+            \item the systems sends an email with a code to the shop owner's previously specified address and waits for an a answer
+            \item the shop owner validates his email address by inserting the code
+            \item the systems validates the email address via PEC system
+            \item the system create a new account and redirects the new manager to his personal home page
+        \end{enumerate} \\
         \textbf{Exit condition}       & the shop owner successfully ends the registration process and become a new manager\\
         \textbf{Exceptions}           
         & - timer expiration\\
@@ -378,10 +384,12 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user or manager\\
         \textbf{Entry condition}      & the actor is already on the front page of the web or mobile application\\
-        \textbf{Flow of events}            
-        & i. the actor selects the sing in option\\
-        & ii. the actor compiles the email and password fields and confirms by clicking on the log in button \\
-        & iii. the system redirects the actors to the respective home pages\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the actor selects the sing in option
+            \item the actor compiles the email and password fields and confirms by clicking on the log in button 
+            \item the system redirects the actors to the respective home pages
+        \end{enumerate} \\
         \textbf{Exit condition}       & the actors are successfully redirected to their respective personal home page\\
         \textbf{Exceptions}           
         & - email or password aren’t correct \\
@@ -399,12 +407,14 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user\\
         \textbf{Entry condition}      & user logged in and on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. user selects the search a shop option\\
-        & ii. the system gets the user's position using GPS and after retrieving the shops adhering to CLups near him, shows them in a map and, also, in a list\\
-        & iii. the user either types the name of the shop they want to find in the search bar or navigates the map or scrolls the list\\
-        & iv. the user selects a shop\\
-        & v. the application retrieves all the necessary information about the selected shop's status and information, displays them to the user with the list of possible action the user can take: book a visit or enqueue or get more info\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item user selects the search a shop option
+            \item the system gets the user's position using GPS and after retrieving the shops adhering to CLups near him, shows them in a map and, also, in a list
+            \item the user either types the name of the shop they want to find in the search bar or navigates the map or scrolls the list
+            \item the user selects a shop
+            \item the application retrieves all the necessary information about the selected shop's status and information, displays them to the user with the list of possible action the user can take: book a visit or enqueue or get more info
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user successfully finds the shop he was looking for\\
         \textbf{Exceptions}           
         & - the shop searched doesn't exists or isn't adhering to CLup\\
@@ -424,10 +434,12 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user\\
         \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
-        \textbf{Flow of events}            
-        & i. the user selects the get more info option\\
-        & ii. the system retrieves further details about the shop and displays them to the user\\
-        & iii. the user visualizes the informations\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the user selects the get more info option
+            \item the system retrieves further details about the shop and displays them to the user
+            \item the user visualizes the informations
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user can visualize the information needed\\
         \bottomrule
     \end{tabular}
@@ -443,12 +455,14 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user\\
         \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
-        \textbf{Flow of events}            
-        & i. the user selects the line up option\\
-        & ii. the user specifies the estimated time he thinks he will spend at the shop\\
-        & iii. optionally the user either activates GPS and specifies by what mean they are going to reach the shop or specifies how much time he needs to reach the shop\\
-        & iv. if the store has divided his store in categories, the user can optionally specify what categories he is interested in\\
-        & v. the system adds the user to the queue and displays a constantly updated page with all the relevant information about the enqueuement\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the user selects the line up option
+            \item the user specifies the estimated time he thinks he will spend at the shop
+            \item optionally the user either activates GPS and specifies by what mean they are going to reach the shop or specifies how much time he needs to reach the shop
+            \item if the store has divided his store in categories, the user can optionally specify what categories he is interested in
+            \item the system adds the user to the queue and displays a constantly updated page with all the relevant information about the enqueuement
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user is correctly enqueued and needs to wait for his turn\\
         \textbf{Exceptions}           
         & - the enqueuement is not possible\\ %some weird and really really edge cases of simmultaneus enqueuement
@@ -468,13 +482,15 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user\\
         \textbf{Entry condition}      & the user is successfully at the exit condition of "user searches a shop" use case (table \ref{table:usersearchesshop})\\
-        \textbf{Flow of events}            
-        & i. the user selects the book a visit option\\
-        & ii. the user specifies the estimated time he thinks he will spend at the shop\\
-        & iii. if the store has divided his store in categories, the user can optionally specify what categories he is interested in\\
-        & iv. the system retrieves the possible slots and displays the options to the user\\
-        & v. the user chooses the slots he prefers and confirms\\
-        & vi. the system registers the visit, sends confirmation to the user and redirects him to a page with all the relevant infromation about the booked visit\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the user selects the book a visit option
+            \item the user specifies the estimated time he thinks he will spend at the shop
+            \item if the store has divided his store in categories, the user can optionally specify what categories he is interested in
+            \item the system retrieves the possible slots and displays the options to the user
+            \item the user chooses the slots he prefers and confirms
+            \item the system registers the visit, sends confirmation to the user and redirects him to a page with all the relevant infromation about the booked visit
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user has correctly booked a visit\\
         \textbf{Exceptions}           
         & - the reservation is not possible\\
@@ -496,13 +512,15 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & customer\\
         \textbf{Entry condition}      & the customer is at the entrance of the hop and have read and understood the functioning of the hardware\\
-        \textbf{Flow of events}            
-        & i. the customer visualize information about the status of the shop\\
-        & ii. the customer select the enqueue option on the totem\\
-        & iii. the customer specifies the estimated time he thinks he will spend at the shop\\
-        & iv. the system books a visit for the customer at the first available slot\\
-        & v. the totem retrieves the visit's information and prints a ticket with them\\
-        & vi. the customer takes the ticket\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the customer visualize information about the status of the shop
+            \item the customer select the enqueue option on the totem
+            \item the customer specifies the estimated time he thinks he will spend at the shop
+            \item the system books a visit for the customer at the first available slot
+            \item the totem retrieves the visit information and prints a ticket with them
+            \item the customer takes the ticket
+        \end{enumerate} \\
         \textbf{Exit condition}       & the cusotmer succesfully retrieves his ticket and has a booked visit registered\\
         \textbf{Exceptions}           
         & - enqueuement is not possible\\
@@ -521,12 +539,14 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user, customer\\
         \textbf{Entry condition}      & have previously enqueued or have previously booked a visit\\
-        \textbf{Flow of events}            
-        & i. the actor arrives at the shop\\
-        & ii. the actor correctly places the QR code on the QR code scanner facility at the entrance of the shop\\
-        & iii. the system correctly scans the QR code\\
-        & iv. the system unlocks the turnstile\\
-        & v. the actor enters the shop\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the actor arrives at the shop
+            \item the actor correctly places the QR-code on the QR-code scanner facility at the entrance of the shop
+            \item the system analyze the QR-code
+            \item the system unlocks the turnstile
+            \item the actor enters the shop
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user/customer get inside the shop\\
         \textbf{Exceptions}           
         & - the QR code is not valid\\
@@ -545,12 +565,14 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user, customer\\
         \textbf{Entry condition}      & have previously entered the store with a QR code\\
-        \textbf{Flow of events}            
-        & i. the actor arrives at the exit of the shop\\
-        & ii. the actor correctly places the QR code on the QR code scanner facility at the exit of the shop\\
-        & iii. the system correctly scans the QR code\\
-        & iv. the system unlocks the turnstile\\
-        & v. the actor exit the shop\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the actor arrives at the exit of the shop
+            \item the actor correctly places the QR-code on the QR-code scanner facility at the exit of the shop
+            \item the system analyze the QR-code
+            \item the system unlocks the turnstile
+            \item the actor exit the shop
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user/customer get out of the shop\\
         \textbf{Exceptions}           
         & - the QR code is not valid\\
@@ -569,12 +591,15 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & manager logged in and on his web or mobile personal home page\\
         \textbf{Entry condition}      & \\
-        \textbf{Flow of events}            
-        & i. the manager select the “REGISTER A NEW SHOP” option on the home page, a page pops up with a form to be filled in\\
-        & ii.  the manager fills in the mandatory fields (position of the shop, schedule of the shop, opening days, name of the shop, maximum number of people allowed in the shop, optionally the items sold in the shop divided in categories or, for semplicity, just the categories)\\
-        & iii. the manager submit the data inserted\\
-        & iv. the system correctly registers the shop\\
-        & v.the system sends confirmation to the manager\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the manager selects the option to register a new shop, a page pops up with a form to be filled
+            \item  the manager fills in the mandatory fields (position of the shop, schedule of the shop, opening days, name of the shop, maximum number of people allowed in the shop, optionally the items sold in the shop divided in categories or, if preferred, just the categories)
+            \item the manager submit the data inserted
+            \item the system verifies the data inserted
+            \item the system correctly registers the shop
+            \item the system sends confirmation to the manager
+        \end{enumerate} \\
         \textbf{Exit condition}       & the shop has been correctly registered\\
         \textbf{Exceptions}           
         & - any of the data inserted in the mandatory fields is invalid\\
@@ -592,14 +617,16 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & manager\\
         \textbf{Entry condition}      & manager logged in and on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. the manager selects the update shop info option\\
-        & ii. the system redirects the manager to a dedicated page showing all the editable informations and settings\\
-        & iii. the manager selects the desired iformation or setting to updadte\\
-        & iv. the manager modifies the selected information or settings\\
-        & v. the manager confirms the update\\
-        & vi. the system updates the shop info\\
-        & vii. the system sends confirmation to the manager\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the manager selects the update shop info option
+            \item the system redirects the manager to a dedicated page showing all the editable informations and settings
+            \item the manager selects the desired information or setting to updadte
+            \item the manager modifies the selected information or settings
+            \item the manager confirms the update
+            \item the system updates the shop informations
+            \item the system sends confirmation to the manager
+        \end{enumerate} \\
         \textbf{Exit condition}       & the shop informations or settings are correctly modified\\
         \textbf{Exceptions}           
         & - some new information or setting inserted from the manager is invalid\\
@@ -617,10 +644,12 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & manager\\
         \textbf{Entry condition}      & manager logged in and on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. the manager selects the check shop status option\\
-        & ii. the system retrieves all the informations about the shop and displays them to the manager (number of people actually inside the shop, number of people enqueued, estimated time of enqueuement, upcoming booked visits, etc)\\
-        & iii. the manager correctly visualizes such informations\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the manager selects the check shop status option
+            \item the system retrieves all the informations about the shop and displays them to the manager (number of people actually inside the shop, number of people enqueued, estimated time of enqueuement, upcoming booked visits, etc)
+            \item the manager correctly visualizes such informations
+        \end{enumerate} \\
         \textbf{Exit condition}       & the manager correctly visualizes the shop status\\
         \bottomrule
     \end{tabular}
@@ -636,12 +665,14 @@ We will present a table for each use case and, for the most important ones, a li
         \midrule
         \textbf{Actors}               & user\\
         \textbf{Entry condition}      & user logged in, on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. the user selectes on the check previously booked visits option\\
-        & ii. the system retrieves the user's previously booked visits\\
-        & iii. the user selects one of his previously booked visits\\
-        & iv. the user selects the cancel prenotation option\\
-        & v. the system cancels the booked visit and notifies the user of success\\
+        \textbf{Flow of events}\footnote{the first two events represent the flow of events the user must follow to check his previosuly booked visits}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the user selects the check previously booked visits option
+            \item the system retrieves the user's previously booked visits
+            \item the user selects one of his previously booked visits
+            \item the user selects the cancel prenotation option
+            \item the system cancels the booked visit and notifies the user of success
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user successfully canceles the visit\\
         \textbf{Exceptions}           
         & - user has no previously booked visits\\
@@ -655,14 +686,16 @@ We will present a table for each use case and, for the most important ones, a li
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Customer cancels previous enqueuement\\
+        \textbf{Name}                 & Customer cancels previous enqueuement TODO: come detto per i requirements: decidiamo che termini usare, enqueuement o booked visit...\\
         \midrule
         \textbf{Actors}               & customer\\
         \textbf{Entry condition}      & customer infront of the a shop totem that is displaying his home page\\
-        \textbf{Flow of events}            
-        & i. the customer selects the cancel a booked visit option\\
-        & ii. the user insterts the code on his ticket\\
-        & iii. the system cancels the booked visit and notifies the customer of success\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the customer selects the cancel a booked visit option
+            \item the user insterts the code of his ticket on the totem
+            \item the system cancels the booked visit and notifies the customer of success
+        \end{enumerate} \\
         \textbf{Exit condition}       & the customer successfully cancels his enqueument\\
         \textbf{Exceptions}           
         & - the customer has no booked visit\\
@@ -677,15 +710,17 @@ We will present a table for each use case and, for the most important ones, a li
     \centering
     \begin{tabular}{@{}P{0.2\textwidth}P{0.70\textwidth}@{}}
         \toprule
-        \textbf{Name}                 & Manager cancels customer’s previously booked visit ????? TODO: io la toglierei\\
+        \textbf{Name}                 & Manager cancels customer’s previously booked visit\\
         \midrule
         \textbf{Actors}               & manager\\
         \textbf{Entry condition}      & the manager is logged in and on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. manager PRESS the CHECK PREVIOUSLY BOOKED VISITS button \\
-        & ii. the system ask the user to insert a serial number to retrieve the desiderd booked visit\\
-        & iii. the manager insert the serial number\\
-        & iv. the system cancel the booked visit and notifies the user of the success of action\\
+        \textbf{Flow of events}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item manager selects the cancel customer's previously booked visit option 
+            \item the system ask the manager to insert the code of the ticket to retrieve the desiderd booked visit
+            \item the manager inserts the code
+            \item the system cancel the booked visit and notifies the user of the success of the process
+        \end{enumerate} \\
         \textbf{Exit condition}       & the booked visit is successfully canceled\\
         \textbf{Exceptions}           
         & -\\
@@ -702,12 +737,14 @@ We will present a table for each use case and, for the most important ones, a li
         \textbf{Name}                 & User cancels previous enqueuement\\
         \midrule
         \textbf{Entry condition}      & user logged in, on his web or mobile personal home page\\
-        \textbf{Flow of events}            
-        & i. the user selects the virtual ticket in his home page\\
-        & ii. the system retrieves and displays all the information about the ticket and the queue\\
-        & iii. the user selects the dequeue button\\
-        & iv. the system correctly dequeue the user and notifies the user of success\\
-        & v. the system notifies all the user that changed position in the queue\\
+        \textbf{Flow of events}\footnote{The first two steps represents the flow of events the user must follow to check his current enqueuement}       & 
+        \begin{enumerate}[nolistsep, leftmargin=*]
+            \item the user selects the virtual ticket in his home page
+            \item the system retrieves and displays all the information about the ticket and the queue
+            \item the user selects the dequeue button
+            \item the system correctly dequeue the user and notifies the user of success
+            \item the system notifies all the user that changed position in the queue
+        \end{enumerate} \\
         \textbf{Exit condition}       & the user successfully cancels the visit\\
         \textbf{Exceptions}           
         & - the user is not enqueued\\
@@ -742,7 +779,7 @@ We will present a table for each use case and, for the most important ones, a li
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{Images/sequencediagrams/CustomerlinesupSD.png}
-    \caption{\label{fig:customerlinesup}Customer lines - sequence diagram}
+    \caption{\label{fig:customerlinesup}Customer lines up - sequence diagram}
 \end{figure}
 
 \FloatBarrier
@@ -767,6 +804,7 @@ The following diagram wants to connect all the user-related use cases listed pre
 
 Here we present an early idea of an high-level abstraction of our application's structure. To be noticed is that it is mainly modeled with focus on the data and their interaction.
 
+TODO: change file... aspettando LudoLe
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{Images/uml/todo.png}
