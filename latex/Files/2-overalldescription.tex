@@ -75,7 +75,7 @@ Here we are going to present some useful scenarios in order to describe some of 
 
     \item[Manager updates shop's info]
     %The pandemic is unpredictable and therefore sometimes WWW finds himself having to close his supermarket, or changing some parameters because of new laws. CLup helps him customize everything he needs to, in fact in a few clicks from the app a shop manager can update all the shop's info. For example when… ?
-    Miss Lebon owns a little grocery shop downtown and lately she had a hard time keeping up with the continuous changes of the governmental rules and to keep informed her employees and her clients about all of the necessary and sudden changes about the shop schedule or about how many people are allowed in the shop at a time. If in the past times this has been a very effortful and costly task for her it has now become much easier to do thanks to the Clup updating functions, which manage to keep everybody informed with almost no effort! 
+    Miss Lebon owns a little grocery shop downtown and lately she had a hard time keeping up with the continuous changes of the governmental rules and to keep informed her employees and her clients about all the necessary and sudden changes about the shop schedule or about how many people are allowed in the shop at a time. If in the past times this has been a very effortful and costly task for her it has now become much easier to do thanks to the Clup updating functions, which manage to keep everybody informed with almost no effort! 
 \end{description}
 
 These scenarios presented highlight the main functionalities of CLup, however the application provides severals more. 
@@ -90,15 +90,18 @@ We take advantage of this overview also to specify some mechanisms through which
 
 
 \begin{itemize}[topsep=0pt]
-    \item \textbf{Reach clients}\\
-    \textit{To reach the entire population of possible clients} we'll provide access to our system via website and mobile application. However, a hardware component will be installed nearby the adhering shops, a \textit{totem}, so our system will be accessible by everyone.\\
+    \item \textbf{Reach clients}
+    
+    \textit{To reach the entire population of possible clients} we'll provide access to our system via website and mobile application. However, a hardware component will be installed nearby the adhering shops, a \textit{totem}, so our system will be accessible by everyone.
 
-    \item \textbf{Collect data from the people that interact with the system}\\
-    It is clear that the service we intend to deliver can retrieve most of the fundamental data through the pieces of software that implements it -some of them supported by the totem-. However, the matter of keeping track of the people getting inside and outside each shop still remain unsolved. Hence, to support our system to retrieve this information some additional pieces of hardware will be necessary: a \textit{QR-code scanner} and a \textit{turnstile}. Indeed, when a user needs to enter or exit a shop, they'll simply need to scan the QR-code they are provided with.\\
+    \item \textbf{Collect data from the people that interact with the system}
+    
+    It is clear that the service we intend to deliver can retrieve most of the fundamental data through the pieces of software that implements it -some of them supported by the totem-. However, the matter of keeping track of the people getting inside and outside each shop still remain unsolved. Hence, to support our system to retrieve this information some additional pieces of hardware will be necessary: a \textit{QR-code scanner} and a \textit{turnstile}. Indeed, when a user needs to enter or exit a shop, they'll simply need to scan the QR-code they are provided with.
+
     In any case, the main source of data we are provided with are the ones fed into the system by the users that book visists and enqueue themselves.
     
-    \item \textbf{Tickets and tickets management system}\\
-
+    \item \textbf{Tickets and tickets management system}
+    
     Even if \textit{booking a visit} and \textit{enqueuing} seems to be two totally different functions to the end user, by the system perspective they are quite the same thing: a user who books a visit can be managed as if they were enqueuing for a specific hour and day, and a user who decides to enqueue themself, as if they were booking a visit for the first available slot of time. 
 
     Although, analyzing the behavior of the queue the only real difference between visit-tickets and queue-tickets comes to the surface. In fact, a \textit{queue} can be seen as a list that keeps track of users' turns to enter a shop: it's not a static structure, as it would be for a list of booked visits, but it evolves through time or because of particular events -such as users leaving queues or canceling booked visits or staying in shops longer than what they specified and others-. 
@@ -121,17 +124,15 @@ We take advantage of this overview also to specify some mechanisms through which
         \caption{\label{fig:ticketlifecycle}State diagram: ticket's life cycle}
     \end{figure}
     
-    \FloatBarrier   
+    \FloatBarrier
     
     
-    \item \textbf{Making estimations}\\
+    \item \textbf{Making estimations}
 
-
-
-    All of the above mentioned data will be useful to make correct estimations about the status of the shop, and, thus, for the user-experience sake. The more we have reliable and early information about users' movements, the more our estimations will be precise and the general user-experience pleasant.
+    All the above mentioned data will be useful to make correct estimations about the status of the shop, and, thus, for the user-experience sake. The more we have reliable and early information about users' movements, the more our estimations will be precise and the general user-experience pleasant.
     Unfortunatly, since the data we are working with are provided by people, they are likely to be unrealiable.
     
-The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, therefore not optimizing the influx of people in the shops. To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all of the possible information, such as, for example, how long their permancence in the shop will last, or if they are intentioned to \textit{cancel} reservations or enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
+    The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the enqueuements and booked visits in a perfectly no-time-waste way, therefore not optimizing the influx of people in the shops. To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all the possible information, such as, for example, how long their permancence in the shop will last, or if they are intentioned to \textit{cancel} reservations or enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
 
 \end{itemize}
 
@@ -145,12 +146,12 @@ The best example of an estimation problem concerns queue management: without hav
 
 CLup services will not be integrated with any other system, it will be implemented from scratch and in a three-tier architecture following a distributed Model-View-Controller design pattern.
 
-The \textit{Server-side} will host the entire logic of the application: the \textit{controller}. The \textit{Client-side} will take care of the presentation. Last, but not least, a dedicated server will host the database in which the system will store all of the data.
+The \textit{Server-side} will host the entire logic of the application: the \textit{controller}. The \textit{Client-side} will take care of the presentation. Last, but not least, a dedicated server will host the database in which the system will store all the data.
 
 \subsection{Goals}
 \label{subsect:goals}
 
-The following tables show in details all of the main goals that our application meets. 
+The following tables show in details all the main goals that our application meets. 
 
 We managed to divide them in two main categories: goals related to the \textit{shop owners/managers} and goals related to the \textit{clients/users}. Also, we have assigned a unique identifier to each one of them in order to be able to refer to them later in the document.
 
