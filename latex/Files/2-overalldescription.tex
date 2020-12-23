@@ -112,7 +112,7 @@ We take advantage of this overview also to specify some mechanisms through which
         \item \textbf{in use ticket}: a ticket is \textit{in use} from the time it is used to enter the shop, to the time it is used to exit the shop.
         \item \textbf{used ticket}: a \textit{used} ticket is a ticket that has been successfully used to exit a shop. 
         \item \textbf{expired ticket}: \textit{expired} ticket is a ticket that can't be used to enter a shop because the turn they were valid for has passed. This state could have been avoided by integrating it in the \textit{used} state, but in order to have a better understanding of the life cycle of tickets we included it in here. 
-        z
+        
     \end{itemize}
     
     \begin{figure}[h!]
@@ -529,7 +529,7 @@ We will present a table for each use case and, for the most important ones, a li
         \textbf{Name}                 & Customer lines up\\
         \midrule
         \textbf{Actors}               & customer\\
-        \textbf{Entry condition}      & the customer is at the entrance of the hop and have read and understood the functioning of the hardware\\
+        \textbf{Entry condition}      & the customer is at the entrance of the shop and have read and understood the functioning of the hardware\\
         \textbf{Flow of events}       & 
         \begin{enumerate}[nolistsep, leftmargin=*]
             \item the customer visualize information about the status of the shop
@@ -542,7 +542,7 @@ We will present a table for each use case and, for the most important ones, a li
         \textbf{Exit condition}       & the cusotmer succesfully retrieves his ticket and has a booked visit registered\\
         \textbf{Exceptions}           
         & - enqueuement is not possible\\
-        & - hardaware is not functioning properly\\
+        & - hardware is not functioning properly\\
         \bottomrule
     \end{tabular}
 \caption{Customer lines up}
