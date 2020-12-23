@@ -84,18 +84,18 @@ These scenarios presented highlight the main functionalities of CLup, however th
 \label{subsubsect:criticalaspects}
 
 
-What follows is  a short overview of the application workflow: from the real world to the machine computations.
-We decided to give space to this descrption because we considered of relevant importance for the reader to embrace a more general idea of CLup before getting in the further details of the application scopes.
-In this section we'll take the reader by the hand and walk them through the conceptual developement of CLUP, from what we starting with, so the data recollected, to the main concept in which we summarize those data -the concept of ticket- and finally to how we organize those data -a queue of tickets through time-. We take advantage of this overview also to specify some mechanism through which our application will work.
+What follows is  a short overview of the application workflow: from the real world to the machine computation.
+We decided to give space to this description because we considered of relevant importance for the reader to embrace a more general idea of CLup before getting in the further details of the application scopes.
+We take advantage of this overview also to specify some mechanisms through which our application will work.
 
 
 \begin{itemize}[topsep=0pt]
-    \item \textbf{Reach clients, collect data from the people that interact with the system, making estimations}\\
+    \item \textbf{Reach clients}\\
     \textit{To reach the entire population of possible clients} we'll provide access to our system via website and mobile application. However an hardware component will be installed nearby the adhering shops, a \textit{totem}, so our system will be accessible by everyone.\\
 
-    item \textbf{collect data from the people that interact with the system,}\\
+    \item \textbf{Collect data from the people that interact with the system}\\
     It is clear so that the service we intend to deliver can retrive most of the fundamental data through the pieces of software that implements it -some of them supported by the totem-. However the matter of keeping track of the people getting inside and outside of each shop still remain unsolved. Hence, to support our system to retrieve this information some additional pieces of hardware will be necessary: a \textit{QR-code scanner} and a \textit{turnstile}. Indeed, when a user needs to enter or exit a shop, they'll simply need to scan the QR-code they are provided with.\\
-    In any case, the main source of data we are provided with are the ones feeded into the system by the users that books visists and enqueue themselves.
+    In any case, the main source of data we are provided with are the ones feeded into the system by the users that book visists and enqueue themselves.
     
     \item \textbf{Tickets and tickets management system}\\
 
@@ -124,11 +124,11 @@ In this section we'll take the reader by the hand and walk them through the conc
     \FloatBarrier   
     
     
-    \item \textbf{making estimations}\\
+    \item \textbf{Making estimations}\\
 
 
 
-    These data will be useful to make correct estimations about the status of the shop, and, thus, for the user-experience sake. The more we have reliable and early information about users' movements, the more our estimations will be precise and the general user-experience pleasant.
+    All of the above mentioned data will be useful to make correct estimations about the status of the shop, and, thus, for the user-experience sake. The more we have reliable and early information about users' movements, the more our estimations will be precise and the general user-experience pleasant.
     Unfortunatly, since the data we are working with are provided by people, they are likely to be unrealiable.
     
 The best example of an estimation problem concerns queue management: without having control over people's actions, we cannot ensure precision regarding queue times estimations, because there may be sudden shifts of turns. The most important thing we can do is to build a good \textit{algorithm} to handle the queues, imagining that in most scenarios it will have no problem and it will be efficient and accurate, but in some edge cases it may not be able to organize the the enqueuements and booked visits in a perfectly no-time-waste way, therefore not optimizing the influx of people in the shops. To minimize the risk and to make the best estimations we intend to provide to the user the capability of helping the system with all of the possible information, such as, for example, how long their permancence in the shop will last, or if they are intentioned to \textit{cancel} reservations or enqueuements. We'll provide further details about the agorithm we intend to use in the Design Document.
