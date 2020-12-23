@@ -7,171 +7,171 @@
 \begin{description}
     \item [G1] Allow manager to sign on the system
         \begin{enumerate}[label=\textbf{R\arabic*}]
-            \item A shop owner must be able to begin the sign on process on the system. During the process the system will ask him/her to provide all the credentials and data needed. 
-            \item The system, once the manager confirms the personal data inserted, will send the manager a notification either by email and by SMS. Reception of both of these notifications need to be confirmed by the users in order for the system to allow managers to proceed with the further steps of registration.
-            \item When the sign on process is completed and the personal information provided have been verified by the system through PEC API, a new account must have been produced.
+            \item A shop owner must be able to begin the sign on process.
+            \item The system must require the shop owner to provide all the credentials needed.
+            \item The system must check that the credentials don't belong to another account already registered to the system.
+            \item The system must verify the email provided by the shop owner sending an unique code to the address and requesting it from the registration interface.
+            \item The system must verify the phone number provided by the shop owner by sending an unique code via SMS and requesting it from the registration interface.
+            \item The system must verify the credentials through PEC API.
+            \item When the sign on process is completed and the informations provided have been verified by the system, a new account must have been produced.
         \end{enumerate}
     \item [G2] Allow a manager to sign in the system
         \begin{enumerate}[resume*]
-            \item The manager must be able to begin the sign in process, providing email and password.
-            \item The system must be able to check if the provided password is correct.
-            \item The system may allow only managers who provide the corrects pairs of emails and password to log in.
+            \item The manager must be able to begin the sign in process.
+            \item The system must require the manager to insert email address and password to authenticate.
+            \item The system must be check if the credentials inserted match an existing account.
+            \item The system must present to the manager a solution to reset forgotten credentials.
+            \item The system may allow only managers who provide the corrects pairs of emails and password to sign in.
         \end{enumerate}
-    \item [G3] Allow a manager to register their store/stores on the system TODO: G3.1,G3.2,G3.3
+    \item [G3] Allow a manager to register their store/stores on the system
         \begin{enumerate}[resume*]
-            \item the manager must be able to begin the process of registering a store 
-            \item the manager must provide the needed information about their shop to the system.\newline
-            Mandatory information to be provided to the system about the shop are: \newline
-            the position of the shop,
-            the opening time of the shop,
-            the opening days, 
-            the name of the shop,
-            the maximum number of people allowed in the shop,
-            maximum number of people that can access the shop together.
-            Optional information to be provided to the system about the shop are:
-            the items that are sold in the shop divided in categories or, if preferred, for simplicity, just the categories of items sold in the shop,
-            the maximum number of people allowed in each area.
-            \item The system should confirm the registration of the shop to the user
+            \item The manager must be able to begin the process of registering a store.
+            \item The system must require the manager to provide the address of the shop.
+            \item The system must require the manager to provide the schedule of the shop.
+            \item The system must require the manager to provide the opening days of the shop.
+            \item The system must require the manager to provide the name of the shop.
+            \item The system must require the manager to provide the maximum number of people allowed in the shop.
+            \item The manager can optionally provide to the system a subdivision of the shop in areas with a maximum number of people allowed in each area.
+            \item The manager can optionally provide to the system the items that are sold in each area.
+            \item The system must verify the validity of the data received from the manager through the PEC system (?). TODO: non so come dire che deve verificare con le cose PEC qua...
+            \item The system must comunicate the result of the process to the manager.
         \end{enumerate}
-    \item [G4] Allow a manager to update their shops’ informations and settings
+    \item [G4] Allow a manager to update their shops informations and settings
         \begin{enumerate}[resume*]
             \item The manager must be able to begin the process of updating the store informations.
-            \item The manager must select and provide the updated information about their shops for the system to update them. 
-            \item The system should confirm the updates to the manager. 
+            \item The system must require the manager to select the information to update.
+            \item The system must require the manager to update the information selected.
+            \item The system must update the information.
+            \item The system must comunicate the result of the process to the manager. 
         \end{enumerate}
     \item [G5] Allow a manager to check the general status and the statistic of their shops
         \begin{enumerate}[resume*]
             \item The manager must be able to begin the process of checking the status of an owned shop.
-            \item The system must be able to retrieve the informations required for presenting to the manager the status of the shop.\newline
-            Such information is comprehensive of:
-            \begin{itemize}[topsep=0pt]
-                \item the number of people currently in the shop,
-                \item the number of people enqueued, 
-                \item the estimated total duration of the queue,
-                \item all of the shopping session booked with the attached information of when they will happen and how long they will last.
-            \end{itemize}
-            \item The system must be able to retrieve the informations required for presenting to the manager the statistics of the shop.\newline
-            Such information is comprehensive of: TODO:
-            \begin{itemize}[topsep=0pt]
-                \item the medium time of permanence in the shop, 
-                \item the medium time of wait in the queue,
-                \item the medium number of people enqueued at a given hour
-                \item the medium number of people present in the shop at a given hour
-                \item a map of the distribution of where the customers come from (...?)
-            \end{itemize}
+            \item The system must be able to retrieve the informations about the number of people currently in the shop.
+            \item The system must be able to retrieve the informations about the number of people enqueued.
+            \item The system must be able to retrieve the informations about the estimated total duration of the queue.
+            \item The system must be able to retrieve the informations about all of the shopping session booked with the attached information of when they will happen and how long they will last.
+            \item The system must be able to retrieve the informations about the medium time of permanence in the shop. 
+            \item The system must be able to retrieve the informations about the medium time of wait in the queue.
+            \item The system must be able to retrieve the informations about the medium number of people enqueued at a given hour.
+            \item The system must be able to retrieve the informations about the medium number of people inside the shop at a given hour.
+            \item The system must present to the manager the information retrieved.
         \end{enumerate}
-    \item [G6] Allow a manager to cancel a previously booked shopping session for an user
+    \item [G6] Allow a manager to cancel a previously booked shopping session for a customer %TODO: controlla che anche nei goal ci sia scritto customer e non user !!!
         \begin{enumerate}[resume*]
-            \item TODO:
+            \item The manager must be able to begin the process of canceling a previously booked shopping session for an user.
+            \item The system must be able to retrieve the shopping session booked in his shops.
+            \item The system must require the manager to identify the shopping session to cancel.
+            \item At the end of the process the system must inform the manager of the result of the process.
         \end{enumerate}
     \item [G7] Allow a user to sign on the system
         \begin{enumerate}[resume*]
-            \item The user must be able to begin the sign on process on the system. During the process the system will ask him/her to provide all the credentials and data needed.
-            \item The system, once the user confirms the personal data inserted, will send the manager a notification either by email and by SMS. Reception of both of these notifications need to be confirmed by the users in order for the system to allow managers to proceed with the further steps of registration.
-            \item When the sign on process is completed and the personal information provided have been verified by the system, a new account must have been produced.
+            \item The user must be able to begin the sign on process.
+            \item The system must require the user to provide all the credentials needed.
+            \item The system must check that the credentials don't belong to another account already registered to the system.
+            \item The system must verify the email provided by the user sending an unique code to the address and requesting it from the registration interface.
+            \item The system must verify the phone number provided by the user by sending an unique code via SMS and requesting it from the registration interface.
+            \item When the sign on process is completed and the informations provided have been verified by the system, a new account must have been produced.
         \end{enumerate}
     \item [G8] Allow a user to sign in the system
         \begin{enumerate}[resume*]
-            \item The user must be able to begin the sign in process, providing email and password.
-            \item The system must be able to check if the provided password is correct.
+            \item The user must be able to begin the sign in process.
+            \item The system must require the user to insert email address and password to authenticate.
+            \item The system must be check if the credentials inserted match an existing account.
+            \item The system must present to the user a solution to reset forgotten credentials.
             \item The system may allow only users who provide the corrects pairs of emails and password to log in.
+        \end{enumerate}
+    \item [G] TODO: non so neanche se questo goal c'è... allow a user to search a shop
+        \begin{enumerate}[resume*]
+            \item The user must be able to begin the process of searching a shop.
+            \item If the user provides his GPS position to the system, the system must be able to ask the user a radius and to retrieve all the shop within that area.
+            \item The system must be able to ask the user a keyword to search a shop.
+            \item The system must be able to retrieve all the shops matching the inserted keyword.
+            \item The system must be able to present to the user the shops found in a map or in a list.
+            \item The user must be able to select a shop from the ones provided by the system.
+            \item The system must be able to retrieve general informations of the selected shop and to display them to the user.
         \end{enumerate}
     \item [G9] Allow a user to join the virtual queue
         \begin{enumerate}[resume*]
-            \item The user must be able to begin the process of joining the virtual queue on the system.
-            \item The system must be able to retrieve the position of the user from the GPS. TODO: non è obbligatorio.
-            \item The system must be able to retrieve the position of the shops close to the position of the user within a ray of a distance (settable by the user) of 5 km using the GPS, TODO: non è obbligatorio.
-            \item The system must be able to retrieve informations of a shop, if such shop exists, using the GPS and GMAPS API using the input given by the user.
-            \item The user must be able to select a shop from the ones provided by the system.
-            \item The user must be able to select the permanence time between the ones provided by the system.
-            \item The system must be able to retrieve the estimated time to get to the shop using Gmaps API. TODO: non è obbligatorio.
-            \item The system must be able to check if the user can join the virtual queue or if it’s demand must be rejected due to:
-                               the queue is full
-                               the time of permanence he selected overlaps with the limits of the opening time of the shop [the shop is close]
-                               TODO: sono machine phenomena, non shared phenomena.
-            in this case, the system must be able to notificate the user to the adjusted time that would allow to go them anyway before rejecting the demand
-            \item The user must be able to communicate the system whether they accept the adjusted time of permanence
-            \item The system must be able to correctly enqueue the user
-            \item The system must be able to notificate the user IF THEIR ENQUEUing demand has been accepted
-            \item The system must be able to generate a QR code ad hoc for the standing enqueuement
-            \item The system must be able to assign the said QR code to the correct user
-            \item The system must be able to notificate the user with the awaiting time 
-            \item The system must be able to notificate the user with the travel time from his position to the shop 
-            \item The system must be able to send the user a notification 5 minutes before the time to get to the shop 
+            \item After searching a shop, the user must be able to begin the process of joining the virtual queue of a shop.
+            \item The system must be able to understand if an enqueuement is possible or if it’s demand must be rejected, and the system must display this information to the user.
+            \item The system must be able to estimate the queue duration and display this information to the user.
+            \item The system must require the user to provide the approximate duration of the shopping session and must check if is valid.
+            \item If the user provides his GPS position to the system, the system must be able to ask to the user by what means he it is going to go to the shop and to retrieve the estimated time using Google Maps API. Also the system must be able to send to the user a notification 5 minutes before the estimated time to get to the shop.
+            \item The system must be able to notificate the user with the awaiting time.
         \end{enumerate}
     \item [G10] Allow a customer to join a virtual queue from the spot
         \begin{enumerate}[resume*]
-            \item TODO:
+            \item The system must be able to display through the totem the general informations of the shop.
+            \item After approaching the totem, the customer must be able to begin the process of joining the virutal queue of the shop.
+            \item The system must be able to estimate the queue duration and display this information to the customer.
+            \item The system must be able to insert the permanence time and the system must check if it is possible.
+            \item The system must be able to book an anonymous visit for the user at the exact time of end of the estimated duration of the queue.
+            \item The system must be able to create a QR-code that refers to the booked visit.
+            \item The system must be able to print a ticket with all the relevant information: shop, time, date and QR-code.
         \end{enumerate}
-    \item [G11] Allow a user to book a shopping session at a grocery store TODO: G11.1,G11.2,G11.3
+    \item [G11] Allow a user to book a shopping session at a grocery store
         \begin{enumerate}[resume*]
-            \item the user must be able to begin the process of  booking an online session process.
-            \item the system must be able to retrieve the position of the user from the GPS
-            \item the system must be able to retrieve the position of the shops close to the position of the user within a ray of a default distance (settable by the user) of 5 km using the GPS
-            \item the system must be able to retrieve a shop, if such shop exists, using the GPS  and GMAPS API using the input given by the user ( IE THE NAME OF THE SHOP OR THE ADDRESS )
-            \item the user must be able to select a shop from the ones provided by the system
-            \item The system must be able to retrieve the estimated time to get to the shop using Gmaps API
-            \item the user must be able to provide the needed information to the system in order to book a shopping session, such information is comprehensive of:
-            mandatory:
-            the number of people coming
-            -the date in which the shopping session will occur
-            - the hour in which the shopping session will begin -
-            -the approximate duration of the shopping session between the ones provided by the system
-            optional:
-            the categories of items they are intended to buy
-            \item if a queue exists, the system must ensure that the first available booking session for the user to select will start at least after the awaiting time of the queue
-            \item The user must be able to confirm his online shopping session
-            \item the system must be able to assign the user a QR code ad hoc for the standing booking 
-            \item the system must be able to generate a ad hoc QR code for the standing booking 
-            \item the system must be able to send the user a notification of confirmation
-            \item the system must be able to send the user a notification 5 minutes before the time to get to the shop 
+            \item After searching a shop, the user must be able to begin the process of booking an online session process.
+            \item If the user provides his GPS position to the system, the system must be able to ask to the user by what means he is going to go to the shop and to retrieve the estimated time using Google Maps API. Also the system must be able to send to the user a notification 5 minutes before the estimated time to get to the shop.
+            \item The system must require the user to provide the date and the hour in which the shopping session will began.
+            \item The system must require the user to provide the approximate duration of the shopping session.
+            \item The system must be able to optionally ask the user what categories they are interested in.
+            \item The system must be able to optionally ask the user what items they are interested in.
+            \item if a queue exists, the system must ensure that the first available booking session for the user to select will start at least after the awaiting time of the queue.
         \end{enumerate}
     \item [G12] Allow a user to retrieve informations about his previously booked visits
         \begin{enumerate}[resume*]
-            \item the user must be able to begin the process of checking the booked sessions
-            \item the system must be able to retrieve to the user their previous booked sessions
+            \item The system must allow the user to begin the process of checking the booked sessions.
+            \item The system must be able to retrieve the booked session of an user.
+            \item The system must present to the user the booked visits categorized in active and inactive.
+            \item The user must be able to select one of the booked visists presented.
+            \item The system must be able to retrieve all the informations about a booked visit and display it to the user.
         \end{enumerate}
     \item [G13] Allaw a user to retrieve informations about current enqueuements
         \begin{enumerate}[resume*]
-            \item 
+            \item The system must allow the user to begin the process of retrieving informations about current enqueuements, only if the user is currently enqueued.
+            \item The system must retrieve all the informations about the user's queue and display it to the user.
         \end{enumerate}
-    \item [G14] Allow a user to retrieve informations about shops
+    \item [G14] Allow a user to retrieve informations about shops 
         \begin{enumerate}[resume*]
-            \item 
+            \item After searching a shop, the user must be able to begin the process of retrieving more informations about a shop.
+            \item The system must be able to retrieve all the informations about a shop and display them to the user.
         \end{enumerate}
     \item [G15] Allow a users and customers to enter and exit stores with QR codes
         \begin{enumerate}[resume*]
-            \item the user is able to correctly postition the code on the scanner of the QR codes
-            \item the system must be able to correctly scan the QR code
-            \item the system must  provide entrance to users equipped with a correct QR code 
-            \item the system must provide entrance to as many users as indicated on the QR code
+            \item The system must be able to correctly scan a QR-code.
+            \item The system must be able to check the validity of the QR-code.
+            \item The system must be able to interact with the turnstile enabling or disabling it.
         \end{enumerate}
     \item [G16] Allow a user to exit a previously joined queue
         \begin{enumerate}[resume*]
-            \item the user is able to begin the process of exiting the queue
-            \item the system must be able to correctly remove the user from the queue
-            \item the system must be able to correctly confirm the success of the operation to the user
+            \item The user must be able to begin the process of exiting a previously joined queue, only if the user is currently enqueued.
+            \item The system must be able to correctly remove the user from the queue.
+            \item The system must be able to correctly confirm the result of the operation to the user.
         \end{enumerate}
-    \item [G17] Allow customers to line up
+    \item [G17] Allow customers to line up TODO: ??? è uguale a G10... aspettiamo la push di ludo
         \begin{enumerate}[resume*]
             \item 
         \end{enumerate}
-    \item [G18] Allow a customer to cancel a previously booked visit
+    \item [G18] Allow a customer to cancel a previously booked visit TODO: qua la chiamiamo booked visit e sopra lo chiamiamo enqueuement.. dobbiamo fare chiarezza sui termini.
         \begin{enumerate}[resume*]
-            \item 
+            \item The customer must be able to begin the process of canceling a previously booked visit. TODO: stessa cosa del termine nel goal
+            \item The system must allow the user to enter a code in the totem to cancel his booked visit.
+            \item The system must be able to correctly remove the booked visit.
+            \item The system must be able to correctly confirm the result of the operation to the user.
         \end{enumerate}
     \item [G19] Allow a user to cancel a previously booked visit
         \begin{enumerate}[resume*]
-            \item Allow a user to cancel a previously booked visit:
-            \item the user is able to begin the process of cancel a previously booked visit
-            \item the system must be able to correctly cancel a booked visit
-            \item the system must be able to correctly confirm the success of the operation to the user
+            \item The user must be able to begin the process of canceling a previously booked visit, only if the user currently has an active visit booked.
+            \item The system must be able to correctly cancel a booked visit.
+            \item The system must be able to correctly confirm the success of the operation to the user.
         \end{enumerate}
 \end{description}
 
-TODO: what abaout multiple enqueuement (precondition of requirements)?? and what about overlapping visits? we have not specified anything about it! Also only one reservation in one shop.
+%TODO: what abaout multiple enqueuement (precondition of requirements)?? and what about overlapping visits? we have not specified anything about it! Also only one reservation in one shop.
 
-//TODO: non so dove mettere questo todo.. comunque il problema a cui pensavo è il fatto che può darsi che tipo a qualcuno si scarichi il telefono durante la spesa e quindi non possa uscire dal negozio siccome non ha più il QR code, dovremmo fare in modo che il manager possa farli uscire con dei QR code speciali, o meglio che possa reperire i QR code di una persona che lo richiede. Basterebbe fare che i QR code sono legati alla persona e fine dei problemi...
+%//TODO: non so dove mettere questo todo.. comunque il problema a cui pensavo è il fatto che può darsi che tipo a qualcuno si scarichi il telefono durante la spesa e quindi non possa uscire dal negozio siccome non ha più il QR code, dovremmo fare in modo che il manager possa farli uscire con dei QR code speciali, o meglio che possa reperire i QR code di una persona che lo richiede. Basterebbe fare che i QR code sono legati alla persona e fine dei problemi...
 %
 %\subsubsection{TODO: su google doc c'è "Allow a user to check the congestion of the shop, ma non lo abbiamo come goal...}
 %\label{subsubsect:TODO}
@@ -198,6 +198,12 @@ TODO: what abaout multiple enqueuement (precondition of requirements)?? and what
 %    \item the user must be able to select a shop from the ones provided by the system
 %    \item the system must be able to retrieve to the user the number of people present in the queue for the shop they selected
 %\end{itemize}
+%
+% TODO: parlare dei QR-code: sono personali di un account, gli unici anonimi sono quelli generati dai totem. 
+% se così bisogna aggiungere i requirements all'iscrizione di un utente:
+% \item the system must generate a QR-code releted to the user
+% Oppure no..? in caso bisogna aggiungere i seguenti requirements ai goals G9 (user enqueeu) e G11 (user book a visit)
+% \item The system must be able to generate a QR-code related to the (enqueuement/shopping sessione) and display it to the user
 %
 \subsection{Non functional requirements}
 \label{subsect:softwaresystemattributes}
