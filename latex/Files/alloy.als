@@ -230,7 +230,7 @@ fact ticketToAreaToShop {
 
 -- -- -- -- -- -- -- -- -- -- -- -- --end AREA & ITEMS constraints-- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- --MODELLO DINAMICO-- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- --DYNAMIC MODEL-- -- -- -- -- -- -- --
 
 
 pred isShopFull[s:Shop, t:Time, x:s.shopTickets] {
