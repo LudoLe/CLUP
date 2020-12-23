@@ -1,5 +1,4 @@
 lenght in the document:
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 open util / time
 open util / time
 open util / boolean
@@ -70,13 +69,9 @@ abstract sig Ticket {
 sig VisitTicket extends Ticket {}
 sig QueueTicket extends Ticket {}
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- STATIC MODEL-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- UNIQUENESS OF KEYS-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 fact ticketIdIsUnique {
     no disjoint t1, t2:Ticket | t1.id = t2.id
@@ -96,13 +91,9 @@ fact usernameIsUnique {
     no disjoint u1, u2:User | u1.username = u2.username
 }
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- UNIQUENESS OF KEYS-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- begin TICKET constraints-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 --Valid: the QR-code associated is scannable
 --InUse: The QR-code associated has been scanned once
@@ -144,13 +135,9 @@ fact ticketToUserantoShop {
 }
 
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- --end TICKET constraints-- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- --begin USER constraints-- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 --no interested in users no associated to tickets
 fact noUserToTicket {}
@@ -179,13 +166,9 @@ fact onlyOneQueueTicketPerUser {
     all user:User | no disjoint t1, t2:QueueTicket | t1 in user.userTickets and t2 in user.userTickets
 }
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- end USER constraints -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- --begin SHOP constraints-- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 --the number of "InUse" tickets associated to a shop must be fewer than the MAX CAPACITY of the shop at all times
 fact inUseTicketsInAShopLessThanMaxCapacity {
@@ -197,13 +180,9 @@ fact oneTotemOneShop {
     all totem:Totem | no disjoint shop1, shop2:Shop | totem in shop1.shopTotems and totem in shop2.shopTotems
 }
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- end SHOP constraints -- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- --begin AREA & ITEMS constraints -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 --each area must be associated to a shop
 fact areaToShop {
@@ -249,13 +228,9 @@ fact ticketToAreaToShop {
     all ticket:Ticket, area:Area, shop:Shop | (area in ticket.ticketArea and ticket in shop.shopTickets) implies(area in shop.shopArea)
 }
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- --end AREA & ITEMS constraints-- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- -- -- -- -- -- -- -- -- -- -- -- --MODELLO DINAMICO-- -- -- -- -- -- --
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 
 pred isShopFull[s:Shop, t:Time, x:s.shopTickets] {
