@@ -1,0 +1,283 @@
+\documentclass [11pt,twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[english]{babel}
+
+%For LaTex syntax checking without bilding .pdf file
+\usepackage{syntonly}
+%\syntaxonly
+
+%Page margins, header and footer positions
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=25mm,
+ right=25mm,
+ top=30mm,
+ bottom=25mm,
+ headsep=7mm}
+
+\interfootnotelinepenalty=10000
+
+%paragraph spacing
+\setlength{\parskip}{1em}
+%avoid the paragraph spacing to be applied to the table of content, the list of figures and the list of tables
+\AtBeginDocument{\addtocontents{toc}{\protect\setlength{\parskip}{0pt}}}
+\AtBeginDocument{\addtocontents{lof}{\protect\setlength{\parskip}{0pt}}}
+\AtBeginDocument{\addtocontents{lot}{\protect\setlength{\parskip}{0pt}}}
+
+%for nice tables
+\usepackage{booktabs}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{longtable} %multi-page tables
+\usepackage{multirow}
+
+%handling floats
+\usepackage{placeins}
+
+%for placements of floats in the [H] here position
+\usepackage{here}
+
+%titles font size
+\usepackage{titlesec}
+\titleformat*{\section}{\huge\bfseries}
+\titleformat*{\subsection}{\LARGE\bfseries}
+\titleformat*{\subsubsection}{\Large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+%footnotes
+\usepackage{footnote}
+
+%To display filling dots in the TOC for all entries
+\usepackage[titles]{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+%Define new header and footer style
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\color{Gray}{\small{Customer line up - CLUP}}}
+\lfoot{\textcolor{Gray}{\small{Copyright © 2020-2021, Federico Mainetti Gambera, Ludovica Lerma – All rights reserved}}}
+\rfoot{\textcolor{Gray}{\thepage}}
+\renewcommand{\headrulewidth}{0pt}
+
+%PACKAGES
+\usepackage{wasysym}
+\usepackage{pifont}
+
+\newcommand{\supported}{\ding{52}\xspace}
+\newcommand{\unsupported}{\ding{55}\xspace}
+\newcommand{\partsupported}{\textcolor{black!40}{\ding{52}}\xspace}
+\newcommand{\lowsupported}{\textcolor{black!20}{\ding{52}}\xspace}
+\newcommand{\unknowsupported}{\textbf{?}\xspace}
+
+%Font: Times
+\usepackage{times}
+%Change monospaced font
+\renewcommand{\ttdefault}{lmtt}
+
+%tables
+\usepackage{tabu}
+\usepackage{tabularx}
+\usepackage{ltablex}
+\usepackage{longtable}
+\usepackage{float} % To allow the use of H modifier in long tables
+
+%landscape mode
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{caption}
+
+%make landscape mode be sensitive to even and odd pages
+%start
+\def\myrotate{\ifodd\c@page\else-\fi 90}
+\makeatletter
+\global\let\orig@begin@landscape=\landscape%
+\global\let\orig@end@landscape=\endlandscape%
+\gdef\@true{1}
+\gdef\@false{0}
+\gdef\landscape{%
+    \global\let\within@landscape=\@true%
+    \orig@begin@landscape%
+}%
+\gdef\endlandscape{%
+    \orig@end@landscape%
+    \global\let\within@landscape=\@false%
+}%
+\@ifpackageloaded{pdflscape}{%
+    \gdef\pdf@landscape@rotate{\PLS@Rotate}%
+}{
+    \gdef\pdf@landscape@rotate#1{}%
+}
+\let\latex@outputpage\@outputpage
+\def\@outputpage{
+    \ifx\within@landscape\@true%
+        \if@twoside%
+            \ifodd\c@page%
+                \gdef\LS@rot{\setbox\@outputbox\vbox{%
+                    \pdf@landscape@rotate{-90}%
+                    \hbox{\rotatebox{90}{\hbox{\rotatebox{180}{\box\@outputbox}}}}}%
+                }%
+            \else%
+                \gdef\LS@rot{\setbox\@outputbox\vbox{%
+                    \pdf@landscape@rotate{+90}%
+                    \hbox{\rotatebox{90}{\hbox{\rotatebox{0}{\box\@outputbox}}}}}%
+                }%
+            \fi%
+        \else%
+            \gdef\LS@rot{\setbox\@outputbox\vbox{%
+                \pdf@landscape@rotate{+90}%
+                \hbox{\rotatebox{90}{\hbox{\rotatebox{0}{\box\@outputbox}}}}}%
+            }%
+        \fi%
+    \fi%
+    \latex@outputpage%
+}
+\makeatother
+%end
+
+%graphics
+\usepackage{graphicx}
+\usepackage[dvipsnames, table]{xcolor}
+%If you upload images from PC, you need to insert code for the path here (different for Windows and Unix OS)
+
+%CAN'T MAKE THIS WORK :(
+%References
+%\usepackage[
+%backend=biber,
+%style=alphabetic,
+%sorting=ynt
+%]{biblatex}
+%\addbibresource{main.bib} %Imports bibliography file
+
+%Other
+\usepackage{ifthen}
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage[pdftex, colorlinks]{hyperref}
+%prevents internal hyperlinks default color (red), keeps links active but black
+\hypersetup{%
+  colorlinks = true,
+  linkcolor  = black
+}
+\newcommand{\comment}[1]{{\color{Red}$\blacktriangleright$ Comment: #1 $\blacktriangleleft$}}
+
+% Some utilities\ldots
+\input{util/highlight}
+\input{util/abbrev}
+
+\date{}
+
+%to include alloy source code
+\usepackage{listings}
+\lstdefinelanguage{alloy}{
+  keywords={%
+      assert, pred, all, no, lone, one, some, check, run,
+      but, let, implies, not, iff, in, and, or, set, sig, Int, int,
+      if, then, else, exactly, disj, fact, fun, module, abstract,
+      extends, open, none, univ, iden, seq,
+      for, as, sum,
+  },
+  literate=%
+    *{:}{{{\color[HTML]{2835C0}{$\colon$}}}}1
+    {>}{{{\color[HTML]{2835C0}{>}}}}1
+    {<}{{{\color[HTML]{2835C0}{<}}}}1
+    {|}{{{\color[HTML]{2835C0}{|}}}}1
+    {==}{{{\color[HTML]{2835C0}{$=$}}}}1
+    {=}{{{\color[HTML]{2835C0}{$=$}}}}1
+    {!=}{{{\color[HTML]{2835C0}{$\neq$}}}}1
+    {&&}{{{\color[HTML]{2835C0}{$\land$}}}}1
+    {||}{{{\color[HTML]{2835C0}{$\lor$}}}}1
+    {<=}{{{\color[HTML]{2835C0}{$\le$}}}}1
+    {>=}{{{\color[HTML]{2835C0}{$\ge$}}}}1
+    {!in}{{{\color[HTML]{2835C0}{$\not\in$}}}}1
+    {\\in}{{{\color[HTML]{2835C0}{$\in$}}}}1
+    {=>}{{{\color[HTML]{2835C0}{$\implies$}}}}2
+    % the following isn't actually Alloy, but it gives the option to produce nicer latex
+    {|=>}{{{\color[HTML]{2835C0}{$\Rightarrow$}}}}2
+    {<=set}{{{\color[HTML]{2835C0}{$\subseteq$}}}}1
+    {+set}{{{\color[HTML]{2835C0}{$\cup$}}}}1
+    {*set}{{{\color[HTML]{2835C0}{$\cap$}}}}1
+    {==>}{{{{\color[HTML]{2835C0}$\Longrightarrow$}}}}3
+    {<==>}{$\Longleftrightarrow$}4
+    {...}{$\ldots$}1
+    {\\hl}{$\hline$}1
+    {\\alpha}{$\alpha$}1
+    {\\beta}{$\beta$}1
+    {\\gamma}{$\gamma$}1
+    {\\delta}{$\delta$}1
+    {\\epsilon}{$\epsilon$}1
+    {\\zeta}{$\zeta$}1
+    {\\eta}{$\eta$}1
+    {\\theta}{$\theta$}1
+    {\\iota}{$\iota$}1
+    {\\kappa}{$\kappa$}1
+    {\\lambda}{$\lambda$}1
+    {\\mu}{$\mu$}1
+    {\\nu}{$\nu$}1
+    {\\xi}{$\xi$}1
+    {\\pi}{$\pi$}1
+    {\\rho}{$\rho$}1
+    {\\sigma}{$\sigma$}1
+    {\\tau}{$\tau$}1
+    {\\upsilon}{$\upsilon$}1
+    {\\phi}{$\phi$}1
+    {\\chi}{$\chi$}1
+    {\\psi}{$\psi$}1
+    {\\omega}{$\omega$}1
+    {\\Gamma}{$\Gamma$}1
+    {\\Delta}{$\Delta$}1
+    {\\Theta}{$\Theta$}1
+    {\\Lambda}{$\Lambda$}1
+    {\\Xi}{$\Xi$}1
+    {\\Pi}{$\Pi$}1
+    {\\Sigma}{$\Sigma$}1
+    {\\Upsilon}{$\Upsilon$}1
+    {\\Phi}{$\Phi$}1
+    {\\Psi}{$\Psi$}1
+    {\\Omega}{$\Omega$}1
+    {\\EOF}{\;}1
+    ,
+  sensitive=true,  % case sensitive
+  morecomment=[l]//,%
+  morecomment=[l]{--},%
+  morecomment=[s]{/*}{*/},%
+  morestring=[b]",
+  numbers=none,
+  firstnumber=1,
+  numberstyle=\tiny,
+  stepnumber=2,
+  basicstyle=\footnotesize\ttfamily,
+  commentstyle=\color[HTML]{00A108}\itshape,
+  keywordstyle=\color[HTML]{2835C0}\bfseries,
+  ndkeywordstyle=\bfseries,
+}
+
+% inline
+\def\A{%
+    \lstinline[language=alloy,basicstyle=\ttfamily,columns=fixed]}
+
+% paragraph
+\lstnewenvironment{alloy}[1][]{%
+  \lstset{language=alloy,
+    floatplacement={tbp},captionpos=b,
+    xleftmargin=8pt,xrightmargin=8pt,basicstyle=\ttfamily,#1}}{}
+
+% paragraph from file
+\newcommand{\alloyfile}[1]{
+  \lstinputlisting[language=alloy,%
+    frame=lines,xleftmargin=8pt,xrightmargin=8pt,basicstyle=\footnotesize\ttfamily,columns=fixed]{#1}
+}
+
+\lstset{
+    %Add this if you want to display border around your code  
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}

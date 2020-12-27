@@ -1,0 +1,79 @@
+\input{commandsFile}
+
+\begin{document}
+        %TITLE PAGE
+        \begin{titlepage}
+                \center
+
+                \includegraphics[width=0.6\textwidth]{Images/PolimiLogo.png}\\[1cm]
+
+                \textsc{\Large SOFTWARE ENGINEERING 2}\\[0.2cm]
+
+                \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+                \HRule \\[0.8cm]
+                { \huge \bfseries Design Document}\\[0.7cm]
+                \HRule \\ [0.4cm]
+
+                {\large \today}\\[1.5cm]
+
+                \begin{minipage}{0.59\textwidth}
+                        \begin{flushleft} \large
+                                \emph{Authors:}\\
+                                Federico Mainetti Gambera, 10589654\\
+                                Ludovica Lerma, 10522723\\
+                        \end{flushleft}
+                \end{minipage}
+                        ~
+                \begin{minipage}{0.39\textwidth}
+                        \begin{flushright} \large
+                                \emph{Professors:}\\
+                                Prof. Matteo Rossi \\
+                                Prof.ssa Elisabetta Di Nitto \\
+                        \end{flushright}
+                \end{minipage}\\[1cm]
+
+                \vfill
+
+                \includegraphics[width=0.7\textwidth]{Images/cluplogo.jpg}\\
+
+                \vfill
+        \end{titlepage}
+
+        \setcounter{page}{2}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \newpage
+        \addcontentsline{toc}{section}{Table of Contents}
+        \tableofcontents
+        \newpage 
+        \addcontentsline{toc}{section}{List of Figures}
+        \listoffigures
+        \addcontentsline{toc}{section}{List of Tables}
+        \listoftables
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/1-introduction.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/2-architecturaldesign.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/3-userinterfacedesign.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/4-requirementstraceability.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/5-implementationintegrationandtestplan.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \clearpage
+        \input{Files/6-effortspent.tex}
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+        \input{Files/6-references.tex}
+        %CAN'T MAKE THIS WORK :(
+        %\printbibliography[
+        %        heading=bibintoc,
+        %        title={References}
+        %] %Prints the entire bibliography with the titel "Whole bibliography"
+
+        %------------------------------------------------------------------------------------------------------------------------------------------------
+\end{document}
