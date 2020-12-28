@@ -12,7 +12,8 @@
 *.out
 *.gz
 *.toc
-*.pdf
+RASD/main.pdf
+DD/main.pdf
 .DS_Store
 RASD/debug.log
 *.fls
