@@ -76,6 +76,11 @@ In order to implement all of these functions, this component needs to have acces
 
 
 
+\subsection{Entity-relationship diagram}
+\label{subsect:entityrelationshipdiagram}
+
+TODO:FEDE
+
 \subsection{Deployment view}
 \label{subsect:deploymentview}
 The system architecture is a 4-Tier architecture, it is based on the JEE framework and it's typical of a Service Oriented Application:
@@ -91,14 +96,44 @@ The system architecture is a 4-Tier architecture, it is based on the JEE framewo
     \caption{\label{fig:Deployement View}{General component view}}
 \end{figure}
 
+copiata micidiale da power enjoy
+
 \subsection{Runtime view}
 \label{subsect:runtimeview}
+
+user search a shop
+
+user book a visit/user enqueue (sono molto simili..)
+
+customer line up (totem)
+
+QR-code scanner
+
+Manager cancels a customer visit
 
 \subsection{Component interfaces}
 \label{subsect:componentinterfaces}
 
+Facciamo interfacce come power enjoy e specifichiamo che a ogni metodo corrisponde una servlet, e che il mezzo di comunicazione è HTTP, quindi non avremo effettivamente queste interfacce
+
 \subsection{Selected architectural styles and patterns}
 \label{subsect:selectedarchitecturalstylesandpatterns}
+
+MVC
+
+OBSERVER (per la view di sicuro, per il resto boh, dobbiamo capirlo)
+
+CHAIN OF RESPONSIBILITY PATTERN – In this design pattern a request from a client can be handled by a number of handler or receiver objects. So basically, the client request is passed down each handler in the chain until a handler that can process the request is found. Servlet filters are a classic example of the Chain of Responsibility pattern. Spring has a class called HandlerInterceptorAdapter which is also an example of the Chain of Responsibility pattern. It has a method called preHandle, which follows the chain of responsibility pattern. Both servlet filters as well as Spring interceptors can be used to house code that is common for all requests like logging or authentication and that is separate from the business logic.
+
+FACADE
+
+SIGLETON - maybe
+
+STRATEGY - maybe
+
+POOL PATTERN - connection pooling patern JDBC - oppure no se usiamo JPA
+
+TOMCAT GESTISCE LO SCHEDULING DEGLI EVENTI TEMPORALI..
 
 \subsection{Other design decisions}
 \label{subsect:otherdesigndecisions}

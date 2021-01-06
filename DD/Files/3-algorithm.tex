@@ -1,0 +1,58 @@
+\section{Algorithm}
+\label{sect:algorithm}
+
+\subsection{Queue algorithm}
+\label{subsect:queuealgorithm}
+
+\subsubsection{High level (context?)}
+\label{subsubsect:highlevel}
+
+-why do we need this algorithm? what problem does it solves? what is the aim of this algorithm?
+    -problema delicato, essenziale perchè l'applicazione funzioni, organizzare la coda dei clienti, informare i clienti dello stato della coda.
+    -il problema non è completamente risolvibile, siccome le informazioni non sono perfette si fanno delle stime, uno degli obbiettivi è cercare di soddisfare gli utenti il più possibile
+
+-what is the expected behavior? what are the inputs and outputs? what is the general behavior of this algorithm?
+    -generare una coda efficiente (non faccia perdere tempo o clienti al negozio), che rispetti le regole del negozio (? riformula) e della pandemia, che segua le regole di come una coda sensata funziona (magari elenca le regole di una coda, tipo banalmente: first in first out, etc), che l'algoritmo sia decentemente performante.
+    -Ogni negozio ha una coda, per aggiornare una coda si usa questo algoritmo
+    -input: queue ticket, visit ticket, persone dentro il negozio, (visit ticket trasformati in queue ticket? da capire meglio), altre informazioni sul negozio (capienza del negozio, e\dots da indagare meglio) [aggiungi informazioni su ogni biglietto etc]
+    -dati provenienti dal data base
+    -output: Una coda di attesa rappresentata da una linea temporale divisa in slot temporali discreti, ciascuno contenente informazioni relative all'entrata e uscita dei clienti incodati e dei clienti che hanno prenotato visite. Inoltre anche statistiche e dati riguardo la coda stessa, come per esempio la lungezza stimata
+
+-when will this algorithm run?
+    -il problema è che le code sono degli oggetti complicati, in costante mutamento, che interagiscono con diversi enti (ticket). Questo algoritmo serve per avere sempre una coda di un negozio aggiornata, quindi va fatto girare ogni volta che avviene un evento che possa modificarla. Di seguito elenchiamo tutti i possibili eventi che modificano la coda:
+        - \dots
+    -dopo che uno di questi eventi si verifica, ci si aspetta che i dati dell'evento vengano inseriti nel database, aggiornando le voci necessarie, la coda precedente a questo evento venga cancellata, e i nuovi dati del data base usati per generare la nuova codad tramite questo algoritmo 
+    -Ci si apetta che la coda di un negozio venga aggiornata utilizzando l'algoritmo che stiamo presentando ogni volta che uno degli eventi sopra indicati si verifica.
+    -data una coda c a un tempo t, se a un tempo t* successivo al tempo t si verifica uno degli eventi sopra elencati, allora la coda c venga scartata in quanto non più valida e sostituita da una nuova coda C* generata dall'algoritmo e aggiornata ai nuovi dati.
+
+-where is this algorithm going to run?
+    -server side
+
+-who is the performer?
+    -server
+
+-regole che governano l'algoritmo:
+    -le cose scritte sul mio foglio.
+
+\subsubsection{Low level (pseudo code?)}
+\label{subsubsect:lowlevel}
+
+-terminology\dots
+
+-step by step guide to the algorithm with also pseudo code
+    -sistemare il doppio ciclo in un unico ciclo, e sistemare la questione del limite di perone in uno slot, e capire meglio la questione dei visit ticket trasformati in queue ticket
+    -concetto di base: Ad ogni persona che esce corrisponde una persona che entra.
+    -step:
+        -per ogni persona all'interno del negozio, segna nello slot temporale di uscita stimato il fatto che si libererà un posto (dato preso da ciò che dichiarano loro stessi)
+        -se il negozio non è completamente pieno, per ogni posto vuoto segna nel primo slot della linea temporale che un posto si libera.
+        -per ogni visit ticket, trova lo slot temporale in cui il biglietto e schedulato e segnaci questa informazione. Per ogni visit ticket inserito trova lo slot temporale in cui è stimato la sua uscita e senga questa informazione in quello slot.
+        -risolvere i visit ticket: per ogni visit ticket inserito cercare se in uno slot temporale precedente entro un certo raggio (da determinare) se qualcuno esce dal negozio, se lo si trova bisogna legare quell'uscita, marcandola come "usata", al visit ticket che sta entrando.
+        -risolvere queue ticket: nella time line cercare tutte le uscite stimate non segnate come "usate" e per ognuna di queste trovare il primo queue ticket il cui tempo per raggiungere il negozio sia minore del tempo dello slot. Se si trova un queue ticket appropriato, allora si segna l'uscita come "usata" e la si lega a questo queue ticket. Il queue ticket viene inserito nello slot temporale successivo e verrà segnato il uo tempo di uscita nello slot temporale stimato.
+        -fine, enjoy
+
+-prestazioni
+    -da capire meglio
+    -Questi step non sono una versione efficiente dell'algoritmo siccome i due cicli utilizzati per risolvere i visit ticket e per risolvere i queue ticket possono essere collassati in uno unico, però ai fini della spiegazione è più facile separarli. Nel prossimo paragrafo presentiamo una versione migliorata di questo algoritmo ed entreremo nel dettaglio dell'implementazione
+
+-are there any noteworthy edge cases?
+    -
