@@ -3,44 +3,68 @@
 
 \subsection{Purpose}
 \label{subsect:purpose}
+This document is mainly addressed to the developement software team. 
+Its purpose, indeed, is to provide the reader of an overview of the architecture of the software product.
 
-\subsection{Scope: description of the given problem}
+\subsection{Scope}
 \label{subsect:scope}
+
 
 \subsection{Definitions, acronyms and abbreviations}
 \label{subsect:definitionsacronymsabbreviations}
+Clup is a digital application which will provide the following services to the clients:
+\begin{itemize}
+    \item Browse of registered supermarkets
+    \item Join a virtual queue of registered supermarkets 
+    \item Book up a shopping session in registered supermarkets 
+    \item Browse of previous and future shopping sessions 
+\end{itemize}
+Clup is a digital application which will provide the following services to the shop-managers:
+\begin{itemize}
+    \item Registration of their shop on the system
+\end{itemize}
 
 In order to to avoid any misunderstanding here we present three tables to explain all the \textit{definitions}, \textit{acronyms} and \textit{abbreviations} used throughout the document.
 
 \begin{table}[h!]
     \centering
     \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}
-        \multicolumn{2}{c}{\textbf{Definitions}}\\
+        \multicolumn{2}{c}{\textbf{Definitions, Abbreviations, Acronyms}}\\
         \toprule
-        \textbf{aaa} & aaa\\
+        \textbf{API} & Application Programming Interface\\
+        \textbf{DD} & Design DOcument\\
+        \textbf{JPA} & a grocery shop owner or administrator who hasn't already adhered to CLup\\
+        \textbf{BCE} & Business Controller Entity\\
+        \textbf{AJP} & Apache JServ Protocol\\
+        \textbf{JPA} & Java Persistence API\\
+        \textbf{RASD} & Requirements Analysis and Specifications Document\\
+        \textbf{UX} & User Experience\\
+        \textbf{JS} & JavaScript\\
+        \textbf{JDBC} & Java DataBase connection\\
     \end{tabular}
 \caption{Definitions}
 \label{table:definitions}
 \end{table}
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}        
-        \multicolumn{2}{c}{\textbf{Abbreviations}}\\
-        \toprule
-        \textbf{aaa} & aaa\\
-    \end{tabular}
-\caption{Abbreviations}
-\label{table:abbreviations}
-\end{table}
+\subsection{Referenced documents}
+\label{subsect:referenceddocuments}
+\begin{itemize}
+    \item Project goal, schedule and rules (Assignements AA. 2020/21)
+    \item Requirements Analysis and Specifications Document v.2
+    \item UML component and deployement diagram\\
+    uml-diagrams.org
+    \item Java client library for Google Maps API Web Services documentation\\
+    github.com/googlemaps/google-maps-JavaGoogle Maps Distance Matrix API documentation\\
+\end{itemize}
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{@{}P{0.25\textwidth}P{0.6\textwidth}@{}}
-        \multicolumn{2}{c}{\textbf{Acronyms}}\\
-        \toprule
-        \textbf{aaa} & aaa\\
-    \end{tabular}
-\caption{Acronyms}
-\label{table:acronyms}
-\end{table}
+\subsection{Document structure}
+\label{subsect:document structure}
+\begin{itemize}
+    \item \textbf{1 Introduction} 
+    \item \textbf{2 Architectural design}
+    \item \textbf{3 Algorithm design}
+    \item \textbf{4 User Interface design}
+    \item \textbf{5 Requirements traceability}
+\end{itemize}
+
+
