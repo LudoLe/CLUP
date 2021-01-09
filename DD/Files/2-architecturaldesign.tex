@@ -8,27 +8,30 @@
     \includegraphics[width=0.6\textwidth]{Images/PhysicalDiagram.png}
     \caption{\label{fig:PhysicalDiagram}{Physical Diagram}}
 \end{figure}
-The architecture of the system can be divided into three logical layer: presentation layer, business layer and daya layer.\\
-The presentation layer is the part of the application that manages the interface through which the user will actually experience and interact with our application. 
-This layer will be managed either on the client side, for the offline functionalities and the static content, and on the server-side, for what concerns the dynamic content. 
-It has been chosen to develop a cross-platform application: in order to do so, the front-end of the application will be developed according with the framework of React-Native.
-Indeed, the front-end will be supported either by IOs and Android Devices, as well as Web browsers.
- In the figure, we see that our users can connect with the server-side of the application via mobile devices, laptop devices, Totem devices and the Qr-code Scanner.
-Mobile devices will be trivially able to connect either via the native application or the browser-based application.
+The architecture of the system can be divided in three logical layer: presentation layer, business layer and data layer.
+
+The presentation layer is the part of the application that manages the interface through which the user will actually interact with our application. 
+This layer will be managed either on client side, for what regards the offline functionalities and the static content display, and on server side, for what regards the dynamic content display. 
+It has been chosen to develop a cross-platform application: in order to do so, the front-end of the application will be developed according with the framework of Redux in combination with React and React-Native.
+This means that the front-end will be supported either by IOs and Android Devices, as well as Web browsers.
+Indeed, in the figure,[\ref{fig:PhysicalDiagram}], we see that our users can connect with the server-side of the application via mobile devices, laptop devices, Totem devices and the Qr-code Scanner.
+Mobile devices will be able to connect either via their respective native application or the browser-based application.
 For what concerns the laptop users and the totem users, they will be able to connect to our application using only the browser-based application.
-Qr-code scanner application, however, won't be implemented by us, who will just handle the HTTP requests incoming from it, so it won't be futrher discussed in this document.\\
-The Business layer is the core of the application and connect the presentation layer and the data layer. It allow users to retrieve desired data and to have access to dedicated functionalities. We decided to implement our business layer using the Micro-Services architecture. This architecture divide the application in multiple tinier applications, each of which is mainly dedicated to a specific function. All of those improperly said functions coadiuvate in order to offer to the user the entire set of features offered by the application. This is the best way to implement an application which must be scalable, as CLup, which is a young start-up hoping to grow a lot. Furthermore, we decided to implement a cloud computing based application: through the joined use of Kubernetes and Docker it is possible to scale the resources needed dynamically and according to the incoming request, so that, with a IaaS approach, we will be able to reduce the costs to the essential.\\
-By the way, each of our micro-services will need, in order to fulfill their duty, to store and retrieve several information. These information will be kept in dedicated SQL Data Bases through SQL DBMS, which represent the Data Layer. The data layer is the memory of our application and a significant part of it, so for each data base, a Back up database will be implmented either.\\
+Qr-code scanner application is a little more complicated and deserve a deeper explanation. It will be composed of two applications which will cooperate in order to correctly scan the Qr-code on the tickets and consequentially unlock the turnstills. One of the application, which will be implemented by us, will be just composed of a basic native UI and a QR-code scanner, while the underlaying application will provide the unlock and lock of the turnstills.
+The latter won't be discussed in this document any further since it's not under our supervision.
+
+The Business layer is the core of the application and connect the presentation layer and the data layer. It allows users to retrieve desired data and to have access to dedicated functionalities. We decided to implement our business layer using the Micro-Services architecture. This architecture divides the application in multiple tinier applications, each of which is mainly dedicated to a specific function. All of those micro-services coadiuvate in order to offer to the user the entire set of features offered by the application. This is the best way to implement an application which must be scalable, as CLup, which is a young start-up hoping to grow a lot. Furthermore, we decided to implement a cloud computing based application: through the joined use of Kubernetes and Docker it is possible to scale the resources needed dynamically and according to the incoming requests, so that, with a IaaS approach, we will be able to reduce the costs to the essential.\\
+By the way, each of our micro-services will need, in order to fulfill its duty, to store and retrieve several information. This information will be kept in dedicated SQL Data Bases, which represents, jointed with the SQL DBMS, the Data Layer. The data layer is the memory of our application and a significant part of it, for this reason for each database a Backup database will be implemented either.\\
 
 
 \subsection{Component view}
 \label{subsect:componentview}
-The following diagrams show the main components of the system and the interfaces through which they interact, the coloured, encircled ones are the one we are going to implement:
+The following diagrams [\ref{fig:ComponentViewHighLevel}] show the main components of the system and the interfaces through which they interact. The coloured ones are the one we are going to implement:
 \begin{itemize}
     \item The client side is made of four components, which refer to the qr-code scanner application, to the web users and to the mobile application users.
     \item The server side is divided in three subsystems, each of them implements a specific service of the application. For the sake of clarity three different diagram has been modelled. The subsystems are:
     \begin{itemize}
-        \item \textbf{Queue Services Subsystem}: it provides the interfaces needed either by managers and users in order to accesses to the functions correlated to the queue associated to a shop. A disambiguation is here needed, with the term "queue", here and in every other part of the document, we indicate a series of ticket in temporal order, either queue ticker or visit ticket.
+        \item \textbf{Queue Service Subsystem}: it provides the interfaces needed either by managers and users in order to accesses to the functions correlated to the queue associated to a shop. A disambiguation is here needed, with the term "queue", here and in every other part of the document, we indicate a series of ticket in temporal order, either queue ticker or visit ticket.
         \item \textbf{Shop Services Subsystem}: it provides the interfaces needed by managers and users in order to accesses to the functions correlated to the shop.
         \item \textbf{Account Manager Services}: it provides the interfaces needed to manage the accounts and also implements security feature.
     \end{itemize}
