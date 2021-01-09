@@ -4,16 +4,16 @@
 \subsection{General overview}
 \label{subsect:introduction}
 
-The management of shop entry turns is one of the fundamental objectives for the system to function properly, because most of the actions a user performs is related in some way to the store queues.
+The \textit{management of shop entry turns} is a fundamental objective of the system in order to have it functioning properly, because most of the actions a user performs is related in some way to the stores queues.
 
-Before we start discussing the queue algorithm, we need to define what we mean by the term "queue": a queue is a data structure that contains all the necessary information regarding the entry times of all those customers who have decided to queue or book a shopping session.
+Before we start discussing the queue algorithm, we need to define what we mean by the term "\textit{queue}" in this section: a \textbf{queue} is a data structure representing a time line that contains all the necessary information regarding the entry times of all those customers who have queued or booked a shopping session.
 
-Managing a queue is a delicate task. Queues are objects that change over time based on unpredictable events and uncertain data. Our aim is to create queues and estimates that are as reliable as possible, keeping edge cases in mind, and that are time efficient for the store and its customers.
+Queues are objects that change over time based on unpredictable events and uncertain data. Our aim is to create queues and estimates that are as reliable as possible, to have solution for edge cases, and to be efficient not wasting the store and client's time.
 
 \subsubsection{Input}
 \label{subsubsect:input}
 
-To create a queue the only input informations we need are listed in the following table [\ref{table:input}].
+To create a queue the only inputs we need are listed in the following table [\ref{table:input}].
 
 \begin{table}[h!]
     \centering
@@ -33,7 +33,7 @@ To create a queue the only input informations we need are listed in the followin
 
 \FloatBarrier
 
-For the algorithm to work properly, we must make sure that the data provided to it is coherent and correct, the algorithm does not perform any type of checks or validation.
+For the algorithm to work properly, we must make sure that the data provided are coherent and correct, the algorithm does not perform any type of checks or validation.
 
 \subsubsection{Expected behavior}
 \label{subsubsect:expectedbehavior}
@@ -42,17 +42,18 @@ To understand the algorithm it is necessary to explain what are the most importa
 
 \begin{itemize}[topsep=0pt]
     \item When possible, the algorithm will use a \textit{FIFO policy}.
-    \item \textit{For each person who leaves the store, one can enter it}. This is the most important principle for achieving a constant and optimized flow of people within a store. To fully understand the logic behind this algorithm, it is important to highlight the fact that there must always be a one-to-one correspondence between a ticket leaving the store and a ticket entering the store.\newline
-    More formally we can say that, if at time $t$ a ticket leaves the store, there are three options:
-    \begin{enumerate}[topsep=0pt]
-        \item the correspondence will be created with a visit ticket, if there is one whose entry is scheduled within the time $t + range$ (with “$range$” defined in the input table [\ref{table:input}]);
-        \item the correspondence will be created with a queue ticket, that will be scheduled at time $t + 1$;
-        \item if none of the above is possible, nothing happens.
-    \end{enumerate}
     \item Each store has a \textit{maximum capacity} of people that it can accommodate inside at the same time.
+    \item \textit{For each person who leaves the store, one can enter it}. This is the most important principle for achieving a constant and optimized flow of people within a store. To fully understand the logic behind this algorithm, it is important to highlight the fact that there must always be a \textbf{one-to-one correspondence} between a ticket leaving the store and a ticket entering the store.\newline
+    More formally we can say that there are two options available, if at time $t$ a ticket leaves the store, a \textit{one-to-one correspondence} will be created with:
+    \begin{enumerate}[topsep=0pt]
+        \item a visit ticket, if there is one whose entry is scheduled within the time $t + range$ (with “$range$” defined in the input table [\ref{table:input}]);
+        \item a queue ticket, that will be scheduled at time $t + 1$;
+    \end{enumerate}
     \item Customers who book a visit have \textit{priority} over customers who queue in the shop. However, giving maximum priority to visit tickets can result in the creation of inefficient queues, so the key to managing this aspect is to find the right balance between priority and efficiency, with a correct value for the input parameter \textit{Search radius for visits}.
-    \item The algorithm need to make sure that every person with a queue ticket is not scheduled ahead of the time it takes to get to the store.
+    \item The algorithm need to make sure that every person with a queue ticket is not scheduled ahead of the \textit{time} it takes \textit{to react the store}.
 \end{itemize}
+
+%TODO: In this section the algorithm will cover mainly these rules, but more features can easily be implemented, an example can be the possibility to set a maximum amount of people that can enter a slot in a single time slot.
 
 \subsubsection{Output}
 \label{subsubsect:Output}
@@ -73,9 +74,9 @@ To understand the algorithm it is necessary to explain what are the most importa
 \subsection{Integration of the algorithm with the system}
 \label{subsubsect:integrationofthealgorithmintothesystem}
 
-In our system it is quite common for a process to use the data related to a store queue, for this reason the result of the algorithm will be saved in the database in order to make it available to any process that needs them. Every time the queue must be modified, the algorithm will build a new queue from scratch and override the old one in the database. This decision is in line with the application workflow, since most events will only need to read the queue data, and not to modify them, and therefore we expect to not overload the servers.
+In our system it is quite common for a process to use the data related to a store queue, for this reason the result of the algorithm will be saved in the database in order to make it available to any process that needs it. Every time the queue must be modified, the algorithm will build a new queue from scratch and override the old one in the database. This decision is in line with the application workflow, since most events will only need to read the queue data, and not to modify them, and therefore we expect to not overload the servers.
 
-To have a functioning system, however, the queue must be always updated. To accomplish this, we have designed a life cycle for the algorithm based on the reaction to all those events that would modify the queue:
+To have a functioning system, however, the queue must be always updated. To accomplish this, we have designed a life cycle for the algorithm based on the reactions to all those events that can modify the queue:
 
 \begin{enumerate}[topsep=0pt]
     \item An event that could change the queue occurs, and the relative data in the database are updated.
@@ -86,6 +87,7 @@ To have a functioning system, however, the queue must be always updated. To acco
 
 \noindent
 The following is a list of all the events that may cause a change in the queue:
+
 \begin{itemize}[topsep=0pt]
     \item someone lines up;
     \item someone books a visit;
@@ -93,7 +95,7 @@ The following is a list of all the events that may cause a change in the queue:
     \item someone cancels a visit or an enqueuement;
 \end{itemize}
 
-TODO: What if someone doesn't show up!?
+It is important to point out that there is a particular event, which, however, was not mentioned in the list above: \textit{someone doesn't show up}. Due to the way the algorithm life cycle has been structured, this event resolves itself automatically. In fact, when someone does not show up at the expected time, the information can be ignored: when the next event happens, a new queue will be built and the person who did not show up previously will not be included among the inputs of the algorithm, and consequently will no longer be part of the queue.
 
 \subsection{The algorithm}
 \label{subsubsect:implementation}
@@ -103,19 +105,19 @@ In this section we want to show how the algorithm works describing it step-by-st
 \subsubsection{Natural language}
 \label{subsubsect:naturallanguage}
 
-The goal of this section is to explain the logical steps while ignoring the technical details, so that we can focus on the overall structure of the algorithm.\newline Following there are explained all the steps needed to obtain a queue that meets the requirements set above:
+The goal of this section is to explain the logical steps of the queue algorithm while ignoring the technical details, so that we can focus on the overall structure.\newline Following there are explained all the steps needed to obtain a queue that meets the requirements of the system:
 
 \begin{enumerate}[topsep=0pt]
-    \item Create an empty time line.
-    \item If the shop isn't full, the amount of people that can enter the shop in the current time slot is set to the number of available entrances.
+    \item Create an empty time line, made up of discrete time slots.
+    \item If the shop isn't full, the amount of people that can enter the shop in in the initial time is set to the number of available entrances.
     \item Loops through the list of all the people inside the store, and for each one of them set the estimated exit time in the timeline.
-    \item For each visit ticket, set its entrance in the time slot in which the ticket is scheduled, and set its exit in the time slot in which its exit is estimated.
-    \item Now we need to find a solution for visit tickets and queue tickets.\newline
+    \item For each visit ticket, set its entrance in the time slot in which the ticket is scheduled for, and set its exit in the time slot in which its exit is estimated.
+    \item Now we need to find a solution to create a \textit{one-to-one correspondence} for entering tickets with exiting tickets.\newline
           Loops through all slots of the timeline and for each person who exits:
           \begin{itemize}
-              \item search within the chosen search range (see algorithm input table [\ref{table:input}]) if there is a scheduled visit ticket whose one-to-one correspondence hasn't already been solved.\newline
+              \item search within the established "range" (see algorithm input table [\ref{table:input}]) if there is a scheduled visit ticket whose one-to-one correspondence hasn't already been solved.\newline
               If a visit ticket is found, then we consider the ticket solved, and we set it in one-to-one correspondence with the person leaving the shop.
-              \item Else, we mark the person leaving the store in one-to-one correspondence with the first queue ticket that manages to show up in time, using the FIFO rule to decide which to solve.
+              \item Else, if it is possible, we mark the person leaving the store in one-to-one correspondence with the first queue ticket that manages to show up in time, using the FIFO rule to decide which to solve.
           \end{itemize}
 \end{enumerate}
 
@@ -124,7 +126,14 @@ The goal of this section is to explain the logical steps while ignoring the tech
 
 This section shows a possible implementation of the algorithm in Java.
 
-The following implementation is not to be considered a final nor complete version, its only meant to be a guide for future developers to better understand the logic involved in this algorithm.
+The following implementation is not to be considered a final nor complete version, its only meant to be a guide for future developers to better understand the logic. Furthermore, the code is structured to be easy to read, excessively commented, inefficient, and does not respect good coding conventions.
+
+The following code is divided into three Java classes: \textit{Queue, Ticket, TimeSlot}.
+
+The TimeSlot and Ticket classes do not contain any algorithm logic, they are purely used to contain data in an orderly and sensible way. The \textbf{TimeSlot} class is useful for building the timeline, while the \textbf{Ticket} class is used to represent people queued, or who have booked a visit, or who are already inside the store.
+
+The output of the algorithm is contained within the \textbf{Queue} class, which also contains all the logic within the Queue.buildQueue () method.
+
 
 \subsubsection*{TimeSlot.java}
 \label{subsubsect:timeslotjava}
@@ -134,19 +143,12 @@ The following implementation is not to be considered a final nor complete versio
 \subsubsection*{Ticket.java}
 \label{subsubsect:ticketjava}
 
+For ease of exposure and to reduce the amount of code within this document, this class is used to represent both queue tickets and visit tickets, although they should have different properties and methods. A more sensible hierarchy is expected in the actual application.\newline
+\newline
+
 \javaFile{algorithmcode/Ticket.java}
 
 \subsubsection*{Queue.java}
 \label{subsubsect:queuejava}
 
 \javaFile{algorithmcode/Queue.java}
-
-\subsubsection{notes}
-\label{subsubsect:notes}
-
--notes: 
-    -maybe its better if we use different classes, one for each ticket
-    -l'algoritmo non è super efficiente al massimo, ma è più orientato ad avere dati abbondanti e comodi da usare per ricavare statistiche etc.. dato che tanto non stiamo parlando di dati gigaenormi, ma semplicemente di code di un negozio che non raggiungeranno mai numeri ingestibili
-    -dovremmo specificare come gestsiamo i customer da totem: c'è la possibilità che un customer da totem si prenoti, gli venga assegnato un orario, ma quando il tempo arriva "quello che doveva uscire per farlo entrare" ritardi, di conseguenza il customer ignaro di questo fatto non riesce più ad entrare e non viene informato mai del motivo. Dovremmo aggiungere uno schermetto al qr code scanner che ti dica queste cose. E' un problema grave.
-    -manca la quantità massima in uno slot di tempo
-    -manca il fatto che forse enqueiamo persone in momenti della giornata in cui il negozio tipo chiude..]
