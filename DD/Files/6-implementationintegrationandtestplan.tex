@@ -41,10 +41,57 @@ The component that must be tested and integrated can be divideed in three main c
 -Back-end components: Queue Services Subsystem, Shop Services Subsystem, Account Management Subsystem
 -External Components: Qr-code underlaying application, SMS GateWay, DBMS, Push API, Maps API
 
-There are three types of integration to be performed: the first one is the integration of the back-end components with respect to the other components belonging to the same category.
- The second one is the integration of the components constituing the front-end with respects of the other components.
- The third and last one is the one that regards the integration of the back-end with the front-end and the external components. 
+There are two kind of integration to perform. The first integration is the integration between components that are part of the same category.
+In this category we can find the integration that have to be performed within the front-end components and the back-end components internally with respect to their subsystems.
+The second kind of integration concerns the integration externally to their subsystems.
+
+Front-end components and external components are indipendent from each other, while back-end components must be integrated either with front-end components and external-components.
+
+ Due to this architecture, it is possible to partially test first each component of a category, integrate them with other components of their same category and finally integrate all of the system.
+
+ The main integration of the back-end components with the front-end components are:
+
+ \begin{itemize}
+    \item \textbf{Mobile Application, Queue Services}
+    \item \textbf{Mobile Application, Shop Services}
+    \item \textbf{Mobile Application, Account Manager Services}
+    \item \textbf{Mobile Application, PUSH API}
+    \item \textbf{Web Application, Queue Services}
+    \item \textbf{Web Application, Shop Services}
+    \item \textbf{Web Application, Account Manager Services}
+    \item \textbf{QR-code scanner Application, Queue Services}
+ \end{itemize}
+
+ The main integration of the back-end components with the external components are:
+
+ \begin{itemize}
+    \item \textit{Queue Services Subsystem}
+    \begin{itemize}    
+        \item \textbf{Queue Services, Queue DBMS}
+        \item \textbf{Queue Services, PUSH API}
+        \item \textbf{Queue Services, Qr-code scanner Application} ( this is inted as external to the component....)
+    \end{itemize}
+    \item \textit{Shop Services Subsystem}
+     \begin{itemize}  
+        \item \textbf{Shop Services, Shop DBMS}
+        \item \textbf{Shop Services, MAPS API}
+     \end{itemize}
+     \item \textit{Shop Services Subsystem}
+     \begin{itemize}  
+        \item \textbf{Account Manager Services, Account DBMS}
+     \end{itemize}  
+ \end{itemize}
+
+ \subsection{6.3 Integration Testing Strategy}
+\label{subsect:integrationtestingstrategy}
+According to what previously stated and concordingly with the nature of the application we are going to develop, we decided to test our system following a bottom up approach in combination with critical modules.
+Thus, we decided to implement in first instance the QueueScheduler Component, which is the core module of our application, and, indeed, the most critical and delicate one. After this component is fully functional and tested, it will be possible to proceed all of the other components that some one gravitate around it with a thread-based integration. In the thread-based integration, the external dependencies will be integrated before the others: the bottom-up approach is intended this way.
+This way, it will be possible to parallelize the developement phase and, moreover, to have more of an immediate feedback also at UX level. Further more, using this approach, the effort spent in providing stubs and drivers will be minimal.
+
+In this section we will describe the order of integration of components and subsystems.
+As a notation, an arrow going from a A to B means that B needs A in order to be tested, so that A needs to have been previously implemented.
+
+\subsubsection{6.1.1 Software Integration sequence}
+\label{subsect: softwareintegrationsequence}
 
 
-
-Front-End Components and External Components don't interact with each other. For what concers the Back-End components, they are not indipendent with respect of the other two categories. 
