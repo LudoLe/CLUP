@@ -1,4 +1,50 @@
 \section{Implementation, integration and test plan}
 \label{sect:implementationintegrationandtestplan}
 
-Identify here the order in which you plan to implement the subcomponents of your system and the order in which you plan to integrate such subcomponents and test the integration. 
+\subsection{6.0 Entry Criteria}
+\label{subsect: entrycriteria}
+Components should be tested as soon as they are released. Though, some preliminary conditions have to be satisfied before the integration plan testing shall be put into pratice.
+Such preconditions are:
+\begin{itemize}
+    \item all of the people involved in this process must come prepared to the meetings of the peer review. This means that they have previously and carefully read the RASD and this very same document.
+    \item Some of the low level modules must be avaible in order to properly test some of the components of our system. Such low level modules consists in:
+        \begin{itemize}
+            \item All of the DBMS must have been configured and the DBs - Shop Database, Queue Database and Account Database- possibly prefilled with fictitious data
+            \item For the integration test regarding the Shop Services Subsystem, and in particular, the Shop Info Component, the Maps API should be avaible and fully usable.
+            \item In order to test the part of the QR-code scanner application implemented by us, the underlaying application, the one that assures the correct unlock and lock of the turnstills, must be avaible and correctly functioning. 
+            \item To proceed with the testing and integration of the Notificate User Component, which is part of the Queue Service Subsytem, the Push Api must be fully operative.
+            \item To test and integrate the Account Manager Services Subsystem, the SMS Gateway should be avaible and ready to use.
+        \end{itemize}
+        \item In order to test a component and its interactions with other components, it must have reached a minimum level of satifistaction of its goals and functionalities. To be more precise, we will indicate the minium level of complection of each component in order for it to take part of the integration and testing plan:
+        \begin{itemize}
+            \item 60% of the Account Manager Component
+            \item 60% of the Authorization and Authentication Engine Component
+            \item 80% of the Ticket Generator 
+            Component
+            \item 90% of the Ticket Scheduler Component
+            \item 70% of the Visit Component
+            \item 70% of the LineUp Component
+            \item  60% of the Queue Info Component
+            \item  60% of the Analytics Component
+            \item 80% of the Shop Info Component
+            \item 70% of the Manage Shop Component
+            \item 80% of all of the different Data Manager Component present in all of the subsystem
+        \end{itemize}
+        The different percentage of complection are due to the role of the component in the system. The most significant the features it offers are for the application, the higher the percentage is. Also the level of criticality of the algorithms implements by a component along with the level of its interconnection with other components have been considered for deciding the level of complection.
+\end{itemize}
+
+
+\subsection{6.1 Elements To Be Integrated}
+\label{subsect: entrycriteria}
+The component that must be tested and integrated can be divideed in three main categories:
+-Front-end components: Qr-code Scanner Application, Web Application, Mobile Application 
+-Back-end components: Queue Services Subsystem, Shop Services Subsystem, Account Management Subsystem
+-External Components: Qr-code underlaying application, SMS GateWay, DBMS, Push API, Maps API
+
+There are three types of integration to be performed: the first one is the integration of the back-end components with respect to the other components belonging to the same category.
+ The second one is the integration of the components constituing the front-end with respects of the other components.
+ The third and last one is the one that regards the integration of the back-end with the front-end and the external components. 
+
+
+
+Front-End Components and External Components don't interact with each other. For what concers the Back-End components, they are not indipendent with respect of the other two categories. 
