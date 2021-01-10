@@ -88,6 +88,8 @@ According to what previously stated and in agreement with the nature of the appl
 Thus, we decided to implement in first instance the QueueScheduler Component, which is the core module of our application, and, indeed, the most critical and delicate one. After this component is fully functional and tested, it will be possible to proceed all of the other components that some one gravitates around it with a thread-based integration. In the thread-based integration, the external dependencies will be integrated before the others: the bottom-up approach is intended this way.\newline
 This way, it will be possible to parallelize the developement phase and, moreover, to have more of an immediate feedback also at UX level. Further more, using this approach, the effort spent in providing stubs and drivers will be minimal.
 
+\subsection{Sequence of Component Integration}
+\label{subsect:integrationtestingstrategy}
 In this section we will describe the order of integration of components and subsystems.
 As a notation, an arrow going from a A to B means that B needs A in order to be tested, so that A needs to have been previously implemented.
 
@@ -98,6 +100,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 
 \begin{itemize}
     \item \textbf{External Dependencies}
+    all of the components in this subsystem depends on the Data Managar, which, in turn, depends on the DBMS. Furthermoer, the \textit{Notification User} component depends on the Push Api, while the \textit{Qr-code scanner} component depends on the Qr-code scanner application.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Queue/ExternalDepDBMS.png}
@@ -119,6 +122,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
     \end{figure}
     \FloatBarrier 
    \item \textbf{Internal progressive component integration}
+   Here it is shown the progressive integration of the components internal to the subsystem. The order of integration has been chosen due to the dependencies intra components. the \textit{Ticket Scheduler Component } and the \textit{Ticket Generator Component} have been colored in red because a particular attention need to be paid while developing and testing them due to their critical role in the application.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.6\textwidth]{Images/TestDiagram/Queue/queueserviceprogressive/2-0.png}
@@ -143,6 +147,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 
 \begin{itemize}
     \item \textbf{External Dependencies}
+    all of the components in this subsystem depends on the Data Managar, which, in turn, depends on the DBMS. Furthermoer, the \textit{Shop Info Component}  depends on the Maps Api component.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Shop/maps.png}
@@ -157,6 +162,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
     \end{figure}
     \FloatBarrier
     \item \textbf{Internal progressive components integration} 
+    Here it is shown the progressive integration of the components internal to the subsystem.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=1\textwidth]{Images/TestDiagram/Shop/2Shop(1).png}
@@ -168,6 +174,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 \subsubsection*{Account ManagerServices}
 \begin{itemize}
     \item \textbf{External Dependencies}
+    all of the components in this subsystem depends on the Data Managar, which, in turn, depends on the DBMS. Furthermoer, the \textit{Account Manager Component}  depends on the SMS Gateway component.
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Account/ExternalDependenciesDBMS.png}
@@ -182,7 +189,8 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
     \end{figure}
     \FloatBarrier  
     \textbf{Internal progressive components integration}
-    \begin{figure}[h!]
+    the following images shows the progressive integration of the components internal to the subsystem
+        \begin{figure}[h!]
         \centering
         \includegraphics[width=1\textwidth]{Images/TestDiagram/Account/subAccount1.png}
         \caption{\label{fig:progressiveAccount1}{progressive sequence 1}}
@@ -201,7 +209,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 \subsubsection{Subsystem Integration Sequence}
 \label{subsect: subsytemintegrationsequence}
 
-The following diagrams present the integration of the subsytems with the front-end components.
+The following diagrams present the integration of the subsytems with the front-end components. In this diagram, it have been chosen, for the sake of simplicity, to represent the Front-end as a cross-platform subsystem. 
 
 \begin{figure}[h!]
     \centering
@@ -223,7 +231,7 @@ The following diagrams present the integration of the subsytems with the front-e
 \FloatBarrier 
 
 
-Finally, once all of the subsystems are fully integrated, we are ready to put together, ready for deployment, the Clup Application.
+Finally, once all of the subsystems are fully integrated, we are ready to put together, ready for deployment, the Clup Application. Here we decided to split the front end subystem into its component, in order to have a complete representation of all of the components of the System.
 
 \begin{figure}[h!]
     \centering
@@ -231,6 +239,16 @@ Finally, once all of the subsystems are fully integrated, we are ready to put to
     \caption{\label{fig:wholeapp}{System integration}}
 \end{figure}
 \FloatBarrier 
+
+\subsection{System Testing}
+The System testing will be conducted by indipendent teams in order for the functional and non functional requirements of our application to be verified.
+The type of tests we have selected in order test our applications are the following:
+\begin{itemize}
+    \item \textbf{Performance Testing}: performance testing will be performed in order to indentify the bottlenecks of our system which may affect the usability of our application. Benchmarking will be used too: this means that comparable data coming from similiar applications already present on the market will be retrieved and compared with our results.
+    \item \textbf{Load Testing}: this kind of testing will help us identify the main problem relativly to the management of the avaible memory and to identify the components which needs upper limits constraints. This kind of testing will be performed gradually increasing the load on the system till a threshold is reached and also by loading the system with maximum load it can support for a long period of time.
+    \item \textbf{Stress Testing}: this kind of testing is performed in order to be sure that the system is able recover quickly and correctly after a failure event. The way we are going to implements this kind of testing is by trying to break the system, for exemple by overwhelming it or by subtracting resources from it.
+\end{itemize}
+
 
 
 
