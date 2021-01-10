@@ -26,7 +26,7 @@ public class Queue{
         //if the time slot doesn't exist, create one, add it to the timeLine, and returns it.
     }
 
-    //ALGORITHM
+    //QUEUE ALGORITHM
     private void buildQueue(Arraylist<Ticket> InShopTickets, ArrayList<Ticket> visitTickets, ArrayList<Ticket> queueTickets){
 
         //represents the beginning of the time line
