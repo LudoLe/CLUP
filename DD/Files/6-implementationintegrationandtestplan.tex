@@ -93,5 +93,130 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 
 \subsubsection{6.1.1 Software Integration sequence}
 \label{subsect: softwareintegrationsequence}
+\textbf{Queue Services}
+\begin{itemize}
+    \item \textbf{1.External Dependencies}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/ExternalDepDBMS.png}
+        \caption{\label{fig:QueueExternalDepDBMS}{Queue DBMS depencency}}
+    \end{figure}  
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/ExternalDepPUSH.png}
+        \caption{\label{fig:QueueExternalDepPUSH}{PUSH API depencency}}
+    \end{figure}  
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/ExternalDepQRCOMPO.png}
+        \caption{\label{fig:QueueExternalDepQRCOMPO}{Qr-code scanner application depencency}}
+    \end{figure} 
+   \item \textbf{2.Internal progressive component integration}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/queueserviceprogressive/2.0.png}
+        \caption{\label{fig:QueueInternal2}{Progressive Integration 1}}
+    \end{figure} 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/queueserviceprogressive/2.1.png}
+        \caption{\label{fig:QueueInternal2.1}{Progressive Integration 2}}
+    \end{figure} 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Queue/queueserviceprogressive/3.png}
+        \caption{\label{fig:QueueInternal3}{Progressive Integration 3}}
+    \end{figure} 
+
+
+    
+\end{itemize}
+
+\textbf{Shop Services}
+\begin{itemize}
+    \item \textbf{1.External Dependencies}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Shop/maps.png}
+        \caption{\label{fig:ShopExternalDepMAPS}{Maps API depencency}}
+    \end{figure}  
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Shop/data.png}
+        \caption{\label{fig:ShopExternalDepDBMS}{Shop DBMS depencency}}
+    \end{figure}
+    \item \textbf{2.Internal progressive components integration} 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Shop/2Shop (1).png}
+        \caption{\label{fig:Shopinternal}{Shop Progressive 1}}
+    \end{figure}  
+\end{itemize}
+
+\textbf{Account ManagerServices}
+\begin{itemize}
+    \item \textbf{1.External Dependencies}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Account/ExternalDependenciesDBMS.png}
+        \caption{\label{fig:AccountExternalDepDBMS}{Account DBMS depencency}}
+    \end{figure}  
+    
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Account/ExternalDependenciesSMS.png}
+        \caption{\label{fig:AccountExternalDepSMS}{SMS Gateway depencency}}
+    \end{figure}  
+    \textbf{2.Internal progressive components integration}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Account/subAccount 1.png}
+        \caption{\label{fig:progressiveAccount1}{progressive sequence 1}}
+    \end{figure} 
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=1\textwidth]{Images/Test Diagram/Account/subAccount 2.png}
+        \caption{\label{fig:progressiveAccount1}{progressive sequence 2}}
+    \end{figure} 
+
+\end{itemize}
+
+
+\subsubsection{6.2.1 Subsystem Integration Sequence}
+\label{subsect: subsytemintegrationsequence}
+
+The following diagrams present the integration of the subsytems with the front-end components.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/Test Diagram/view.png}
+    \caption{\label{fig:viewQueue}{integration Queue Service Subsystem with front-end component}}
+\end{figure} 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/Test Diagram/viewAccount.png}
+    \caption{\label{fig:viewAccount}{integration Account Manager Subsystem with front-end component}}
+\end{figure} 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/Test Diagram/viewShop.png}
+    \caption{\label{fig:viewAccount}{integration Shop Services Subsystem with front-end component}}
+\end{figure} 
+
+
+Finally, once all of the subsystems are fully integrated, we are ready to put together, ready for deployment, the Clup Application.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{Images/Test Diagram/whole application.png}
+    \caption{\label{fig:wholeapp}{System integration}}
+\end{figure} 
+
+
+
+
 
 
