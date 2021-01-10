@@ -26,6 +26,7 @@ To create a queue the only inputs we need are listed in the following table [\re
         \textbf{Queued tickets}           & A list of all the tickets of those that have queued in the shop, and haven't entered yet.\\
         \textbf{Visit tickets}            & A list of all the tickets of those that have booked a visit in the shop, and haven't entered yet.\\
         \textbf{Search radius for visits} & Parameter that indicates the amount of time within which to hold a free entrance to the shop in view of a person who has booked a visit.\\
+        \bottomrule
     \end{tabular}
 \caption{Queue algorithm input}
 \label{table:input}
@@ -67,6 +68,7 @@ To understand the algorithm it is necessary to explain what are the most importa
         \midrule
         \textbf{Queue}                & A timeline divided into discrete time slots, each containing information regarding the tickets that are expected to enter the store in that time slot, and the tickets that are expected to leave the store in that time slot.\\
         \textbf{Estimates}            & General queue statistics, such as the estimated queue length, will be provided so that they are easy to access.\\
+        \bottomrule
     \end{tabular}
 \caption{Queue algorithm output}
 \label{table:output}
