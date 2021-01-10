@@ -119,8 +119,20 @@ It communicates with the \textbf{Authentication and Authorization Engine Compone
 
 The \textbf{Data Manager Component} is a component dedicated to interact with the Account DBMS and offers an interface to all of the other component in the service in order to have access to it. 
 
-\subsection{Entity-relationship diagram}
-\label{subsect:entityrelationshipdiagram}
+\subsection{Data Base structure}
+\label{subsect:databasestructure}
+
+To show the database structure we have summarized all the main data with which the CLup system will interact and we have organized them in a schema that represents the structure of the entire database.
+
+Furthermore, since our application is divided into three main services, the database will also reflect this division, as can be seen from the different colors in the image [\ref{fig:database}].
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{Images/entityrelationhipCLUP.png}
+    \caption{\label{fig:database}{Data Base structure}}
+\end{figure}
+
+\FloatBarrier
 
 \subsection{Deployment view}
 \label{subsect:deploymentview}

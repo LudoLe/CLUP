@@ -1,7 +1,7 @@
 \section{Implementation, integration and test plan}
 \label{sect:implementationintegrationandtestplan}
 
-\subsection{6.0 Entry Criteria}
+\subsection{Entry Criteria}
 \label{subsect: entrycriteria}
 Components should be tested as soon as they are released. Though, some preliminary conditions have to be satisfied before the integration plan testing shall be put into pratice.
 Such preconditions are:
@@ -34,7 +34,7 @@ Such preconditions are:
 \end{itemize}
 
 
-\subsection{6.1 Elements To Be Integrated}
+\subsection{Elements To Be Integrated}
 \label{subsect: entrycriteria}
 The component that must be tested and integrated can be divideed in three main categories:
 -Front-end components: Qr-code Scanner Application, Web Application, Mobile Application 
@@ -82,20 +82,22 @@ Front-end components and external components are indipendent from each other, wh
      \end{itemize}  
  \end{itemize}
 
- \subsection{6.3 Integration Testing Strategy}
+ \subsection{Integration Testing Strategy}
 \label{subsect:integrationtestingstrategy}
-According to what previously stated and concordingly with the nature of the application we are going to develop, we decided to test our system following a bottom up approach in combination with critical modules.
-Thus, we decided to implement in first instance the QueueScheduler Component, which is the core module of our application, and, indeed, the most critical and delicate one. After this component is fully functional and tested, it will be possible to proceed all of the other components that some one gravitate around it with a thread-based integration. In the thread-based integration, the external dependencies will be integrated before the others: the bottom-up approach is intended this way.
+According to what previously stated and in agreement with the nature of the application we are going to develop, we decided to test our system following a bottom up approach in combination with critical modules.\newline
+Thus, we decided to implement in first instance the QueueScheduler Component, which is the core module of our application, and, indeed, the most critical and delicate one. After this component is fully functional and tested, it will be possible to proceed all of the other components that some one gravitates around it with a thread-based integration. In the thread-based integration, the external dependencies will be integrated before the others: the bottom-up approach is intended this way.\newline
 This way, it will be possible to parallelize the developement phase and, moreover, to have more of an immediate feedback also at UX level. Further more, using this approach, the effort spent in providing stubs and drivers will be minimal.
 
 In this section we will describe the order of integration of components and subsystems.
 As a notation, an arrow going from a A to B means that B needs A in order to be tested, so that A needs to have been previously implemented.
 
-\subsubsection{6.1.1 Software Integration sequence}
+\subsubsection{Software Integration sequence}
 \label{subsect: softwareintegrationsequence}
-\textbf{Queue Services}
+
+\subsubsection*{Queue Services}
+
 \begin{itemize}
-    \item \textbf{1.External Dependencies}
+    \item \textbf{External Dependencies}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Queue/ExternalDepDBMS.png}
@@ -116,7 +118,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
         \caption{\label{fig:QueueExternalDepQRCOMPO}{Qr-code scanner application depencency}}
     \end{figure}
     \FloatBarrier 
-   \item \textbf{2.Internal progressive component integration}
+   \item \textbf{Internal progressive component integration}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.6\textwidth]{Images/TestDiagram/Queue/queueserviceprogressive/2-0.png}
@@ -134,15 +136,13 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
         \includegraphics[width=.9\textwidth]{Images/TestDiagram/Queue/queueserviceprogressive/3.png}
         \caption{\label{fig:QueueInternal3}{Progressive Integration 3}}
     \end{figure}
-    \FloatBarrier 
-
-
-    
+    \FloatBarrier     
 \end{itemize}
 
-\textbf{Shop Services}
+\subsubsection*{Shop Services}
+
 \begin{itemize}
-    \item \textbf{1.External Dependencies}
+    \item \textbf{External Dependencies}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Shop/maps.png}
@@ -156,7 +156,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
         \caption{\label{fig:ShopExternalDepDBMS}{Shop DBMS depencency}}
     \end{figure}
     \FloatBarrier
-    \item \textbf{2.Internal progressive components integration} 
+    \item \textbf{Internal progressive components integration} 
     \begin{figure}[h!]
         \centering
         \includegraphics[width=1\textwidth]{Images/TestDiagram/Shop/2Shop(1).png}
@@ -165,9 +165,9 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
     \FloatBarrier  
 \end{itemize}
 
-\textbf{Account ManagerServices}
+\subsubsection*{Account ManagerServices}
 \begin{itemize}
-    \item \textbf{1.External Dependencies}
+    \item \textbf{External Dependencies}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=.8\textwidth]{Images/TestDiagram/Account/ExternalDependenciesDBMS.png}
@@ -181,7 +181,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
         \caption{\label{fig:AccountExternalDepSMS}{SMS Gateway depencency}}
     \end{figure}
     \FloatBarrier  
-    \textbf{2.Internal progressive components integration}
+    \textbf{Internal progressive components integration}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=1\textwidth]{Images/TestDiagram/Account/subAccount1.png}
@@ -198,7 +198,7 @@ As a notation, an arrow going from a A to B means that B needs A in order to be 
 \end{itemize}
 
 
-\subsubsection{6.2.1 Subsystem Integration Sequence}
+\subsubsection{Subsystem Integration Sequence}
 \label{subsect: subsytemintegrationsequence}
 
 The following diagrams present the integration of the subsytems with the front-end components.
