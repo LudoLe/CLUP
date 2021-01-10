@@ -54,7 +54,8 @@ To understand the algorithm it is necessary to explain what are the most importa
     \item The algorithm need to make sure that every person with a queue ticket is not scheduled ahead of the \textit{time} it takes \textit{to react the store}.
 \end{itemize}
 
-%TODO: In this section the algorithm will cover mainly these rules, but more features can easily be implemented, an example can be the possibility to set a maximum amount of people that can enter a slot in a single time slot.
+With these rules the algorithm will cover the main functionalities, but more features can easily be added, an example can be the possibility to set a maximum amount of people that can enter a slot in a single time slot.
+
 %TODO: what about stores areas
 
 \subsubsection{Output}
@@ -124,6 +125,8 @@ The goal of this section is to explain the logical steps of the queue algorithm 
           \end{itemize}
 \end{enumerate}
 
+An important aspect of this algorithm is that more features can be easily added without changing the main logic steps.
+
 \subsubsection{Java code}
 \label{subsubsect:javacode}
 
@@ -153,5 +156,7 @@ For ease of exposure and to reduce the amount of code within this document, this
 
 \subsubsection*{Queue.java}
 \label{subsubsect:queuejava}
+
+This class takes care of the logic of the algorithm thanks to the .buildQueue () method, of storing the output, and of providing methods that allow easy access to the most important estimates.
 
 \javaFile{algorithmcode/Queue.java}
