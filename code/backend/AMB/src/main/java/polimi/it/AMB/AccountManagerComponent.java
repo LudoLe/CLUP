@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import prototypes.Credentials;
 import prototypes.RegistrationCredentials;
 
 
@@ -26,14 +27,11 @@ public class AccountManagerComponent {
         return RandomStringUtils.random(255);
     }
 
-    public User registrationManagement(RegistrationCredentials credentials){
-        try {
-            User user=null;
-            user = userService.createUser(credentials.getUsername(), credentials.getEmail(), credentials.getPassword());
-            return user;
-        } catch (Exception e) {
-            return null;
-        }
+    public Boolean registrationManagement(RegistrationCredentials credentials) throws Exception{
+            return userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
+  }
+    public Boolean loginManagement(Credentials credentials) throws Exception{
+        return userService.checkCredentials(credentials.getUsername(), credentials.getPassword());
     }
 
     }

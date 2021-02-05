@@ -1,5 +1,7 @@
 package prototypes;
 
+        import com.google.gson.annotations.Expose;
+
         import java.io.Serializable;
 
 public class RegistrationCredentials  implements Serializable
@@ -10,6 +12,8 @@ public class RegistrationCredentials  implements Serializable
     private String password;
     private String password2;
     private String username;
+    private String phoneNumber;
+    private boolean isManager;
 
 
     public String getUsername() {
@@ -43,5 +47,21 @@ public class RegistrationCredentials  implements Serializable
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public boolean getIsManager() {
+        return isManager;
+    }
+
+    public void setIsManager(boolean isManager) {
+        this.isManager = isManager;
     }
 }

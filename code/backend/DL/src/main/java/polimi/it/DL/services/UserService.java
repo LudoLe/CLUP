@@ -21,12 +21,12 @@ public class UserService {
     private static final int ARGON2_SALT_LENGTH = 64;
     private static final int ARGON2_HASH_LENGTH = 128;
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
     public UserService(){}
 
-    /*public User checkCredentials(String username, String password) throws Exception {
+    public Boolean checkCredentials(String username, String password) throws Exception {
         User user;
         try {
             user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
@@ -36,21 +36,17 @@ public class UserService {
         if(user == null) throw new Exception();
         boolean passed = false;
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
-        try {
             passed = encoder.matches(password, user.getPassword());
-        } catch(Exception e) {
-            passed = false;
-        }
-        return passed ? user : null;
+        return passed;
 
 
     }
 
     public User find(int id) throws Exception{
         return em.find(User.class, id);
-    }*/
+    }
 
-    public User createUser(String usrn, String pwd, String email) throws Exception{
+    public Boolean createUser(String usrn, String pwd, String email, boolean isManager, String phoneNumber) throws Exception{
         try{
             //checks that username and email aren't already in use
             if(em.createNamedQuery("User.exists", Long.class).setParameter(1, usrn).setParameter(2, email).getSingleResult() >= 1) return null;
@@ -60,13 +56,13 @@ public class UserService {
             String hash = encoder.encode(pwd);
             user.setPassword(hash);
             user.setEmail(email);
+            user.setIsManager(isManager);
+            user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
-            return user;
+            return true;
         } catch (PersistenceException e) {
             throw new Exception("Could not insert user");
         }
-
-
     }
 }
