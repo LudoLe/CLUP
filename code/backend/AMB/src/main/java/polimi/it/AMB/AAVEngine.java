@@ -1,13 +1,18 @@
 package polimi.it.AMB;
 
+import polimi.it.DL.services.UserService;
 import prototypes.Credentials;
 import prototypes.RegistrationCredentials;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
 
 @Stateless(name = "AAVEngine")
 public class AAVEngine {
+
+    @EJB(name = "services/UserService")
+    private UserService userService;
 
     public static final int MAX_USERNAME_LENGTH = 40;
     public static final int MAX_EMAIL_LENGTH = 100;
@@ -38,5 +43,9 @@ public class AAVEngine {
             return true;
            }
          return false;
+    }
+
+    public Boolean isAuthorized(String username, String sessionToken) throws Exception {
+        return  userService.isAuthorized(username, sessionToken);
     }
 }

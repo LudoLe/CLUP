@@ -10,6 +10,8 @@ import javax.persistence.PersistenceException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 @Stateless(name= "services/UserService")
 public class UserService {
@@ -28,18 +30,38 @@ public class UserService {
 
     public Boolean checkCredentials(String username, String password) throws Exception {
         User user;
-        try {
-            user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
+        user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
         if(user == null) throw new Exception();
         boolean passed = false;
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
             passed = encoder.matches(password, user.getPassword());
+        if(passed){
+            user.setSessionToken(generateSessionToken());
+            em.persist(user);
+            em.flush();
+        }
         return passed;
+    }
+
+    public void logOut(String username) throws Exception{
+            User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+            user.setSessionToken(null);
+            em.persist(user);
+            em.flush();
+        return;
+    }
+
+    public Boolean isAuthorized(String username, String token) throws Exception{
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+        if(user.getSessionToken()!=null){
+        return user.getSessionToken().equals(token);
+        }else return false;
+    }
 
 
+    public User findByUsername(String username) throws Exception{
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+        return user;
     }
 
     public User find(int id) throws Exception{
@@ -65,4 +87,9 @@ public class UserService {
             throw new Exception("Could not insert user");
         }
     }
+
+    private String generateSessionToken() {
+        return RandomStringUtils.random(255);
+    }
+
 }

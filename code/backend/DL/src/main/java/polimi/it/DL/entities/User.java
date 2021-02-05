@@ -37,6 +37,9 @@ public class User implements Serializable {
     @Expose
     @Column(name="is_manager")
     private boolean isManager;
+    @Expose
+    @Column(name="session_token")
+    private String sessionToken;
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
@@ -50,6 +53,7 @@ public class User implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getUsername() {
         return username;
@@ -100,4 +104,11 @@ public class User implements Serializable {
         this.tickets = tickets;
     }
 
+    public String getSessionToken() {
+        return sessionToken;
+    }
+
+    public void setSessionToken(String sessionToken) {
+        this.sessionToken = sessionToken;
+    }
 }
