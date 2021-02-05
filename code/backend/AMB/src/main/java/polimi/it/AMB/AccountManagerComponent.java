@@ -7,9 +7,10 @@ import polimi.it.DL.services.UserService;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.core.Response;
+
 import org.apache.commons.lang3.RandomStringUtils;
-import prototypes.Credentials;
-import org.apache.commons.validator.routines.EmailValidator;
+import prototypes.RegistrationCredentials;
 
 
 @Stateless(name = "AccountManagerService")
@@ -25,21 +26,19 @@ public class AccountManagerComponent {
         return RandomStringUtils.random(255);
     }
 
-    public static boolean isValidMailAddress(String email){
-        return EmailValidator.getInstance().isValid(email);
+    public User registrationManagement(RegistrationCredentials credentials){
+        try {
+            User user=null;
+            user = userService.createUser(credentials.getUsername(), credentials.getEmail(), credentials.getPassword());
+            return user;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public User manageLogin(Credentials c) throws CredentialsException {
-        try
-        {
-            return userService.checkCredentials(c.getEmail(), c.getPassword());
-        }
-        catch(Exception e)
-        {
-            throw new CredentialsException("Invalid credentials");
-        }
     }
 
 
 
-}
+
+

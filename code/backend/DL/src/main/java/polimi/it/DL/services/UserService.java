@@ -26,7 +26,7 @@ public class UserService {
 
     public UserService(){}
 
-    public User checkCredentials(String username, String password) throws Exception {
+    /*public User checkCredentials(String username, String password) throws Exception {
         User user;
         try {
             user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
@@ -48,7 +48,7 @@ public class UserService {
 
     public User find(int id) throws Exception{
         return em.find(User.class, id);
-    }
+    }*/
 
     public User createUser(String usrn, String pwd, String email) throws Exception{
         try{

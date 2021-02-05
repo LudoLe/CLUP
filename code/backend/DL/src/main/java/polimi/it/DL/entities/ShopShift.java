@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
 
 @Entity
@@ -17,11 +18,9 @@ public class ShopShift implements Serializable {
     @Expose
     private int id;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time openingTime;
+    private Date openingTime;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time closingTime;
+    private Date closingTime;
     @Expose
     private String day;
     @Expose
@@ -36,17 +35,17 @@ public class ShopShift implements Serializable {
         this.id = id;
     }
 
-    public Time getOpeningTime() {
+    public Date getOpeningTime() {
         return openingTime;
     }
-    public void setOpeningTime(Time openingTime) {
+    public void setOpeningTime(Date openingTime) {
         this.openingTime = openingTime;
     }
 
-    public Time getClosingTime() {
+    public Date getClosingTime() {
         return closingTime;
     }
-    public void setClosingTime(Time closingTime) {
+    public void setClosingTime(Date closingTime) {
         this.closingTime = closingTime;
     }
 

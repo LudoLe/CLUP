@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 
 @Stateless
 public class TicketService {
-    @PersistenceContext(unitName = "default")
+
+    @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
     public TicketService(){}

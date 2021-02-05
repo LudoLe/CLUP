@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
 
 @Entity
@@ -19,23 +20,20 @@ public class Ticket implements Serializable {
     @Expose
     private String status;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time enterTime;
+    private Date enterTime;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time exitTime;
+    private Date exitTime;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time expectedDuration;
+    private Date expectedDuration;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time scheduledEnteringTime;
+    private Date scheduledEnteringTime;
     @Expose
-    @Temporal(TemporalType.TIME)
-    private Time scheduledExitingTime;
+    private Date scheduledExitingTime;
+
     @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id", nullable = false)
     private Shop shop;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
@@ -54,38 +52,38 @@ public class Ticket implements Serializable {
         this.status = status;
     }
 
-    public Time getEnterTime() {
+    public Date getEnterTime() {
         return enterTime;
     }
-    public void setEnterTime(Time enterTime) {
+    public void setEnterTime(Date enterTime) {
         this.enterTime = enterTime;
     }
 
-    public Time getExitTime() {
+    public Date getExitTime() {
         return exitTime;
     }
-    public void setExitTime(Time exitTime) {
+    public void setExitTime(Date exitTime) {
         this.exitTime = exitTime;
     }
 
-    public Time getExpectedDuration() {
+    public Date getExpectedDuration() {
         return expectedDuration;
     }
-    public void setExpectedDuration(Time expectedDuration) {
+    public void setExpectedDuration(Date expectedDuration) {
         this.expectedDuration = expectedDuration;
     }
 
-    public Time getScheduledEnteringTime() {
+    public Date getScheduledEnteringTime() {
         return scheduledEnteringTime;
     }
-    public void setScheduledEnteringTime(Time scheduledEnteringTime) {
+    public void setScheduledEnteringTime(Date scheduledEnteringTime) {
         this.scheduledEnteringTime = scheduledEnteringTime;
     }
 
-    public Time getScheduledExitingTime() {
+    public Date getScheduledExitingTime() {
         return scheduledExitingTime;
     }
-    public void setScheduledExitingTime(Time scheduledExitingTime) {
+    public void setScheduledExitingTime(Date scheduledExitingTime) {
         this.scheduledExitingTime = scheduledExitingTime;
     }
 
