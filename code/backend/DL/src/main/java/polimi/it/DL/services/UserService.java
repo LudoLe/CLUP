@@ -11,7 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
-@Stateless
+@Stateless(name= "services/UserService")
 public class UserService {
 
     // I set this parameters to low, pretty unsafe values so login is faster
