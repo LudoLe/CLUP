@@ -2,7 +2,9 @@ import React from 'react';
 
 const Ticket = () => {
     return(
-        <div></div>
+        <div>
+            <h3> All ticket informations </h3>
+        </div>
     );
 }
 
