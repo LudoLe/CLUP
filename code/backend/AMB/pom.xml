@@ -23,14 +23,6 @@
       <version>1.0-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
-
-
-    <dependency>
-      <groupId>polimi.it</groupId>
-      <artifactId>DL</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
             <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
