@@ -36,10 +36,10 @@ public class Shop implements Serializable {
     @JoinColumn
     private User manager;
 
-    @OneToMany(mappedBy="shop_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="shop", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
-    @OneToMany(mappedBy="shop_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="shop", fetch = FetchType.LAZY)
     private List<ShopShift> shifts;
 
     //setters and getters

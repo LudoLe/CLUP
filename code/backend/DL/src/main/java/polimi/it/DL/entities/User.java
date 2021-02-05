@@ -33,10 +33,10 @@ public class User implements Serializable {
     @Expose
     private byte isManager;
 
-    @OneToMany(mappedBy="user_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
-    @OneToMany(mappedBy="user_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="manager", fetch = FetchType.LAZY)
     private List<Shop> shops;
 
     public int getId() {

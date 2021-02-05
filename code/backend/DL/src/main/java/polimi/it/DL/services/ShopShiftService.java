@@ -10,12 +10,12 @@ import javax.persistence.EntityManager;
 
 @Stateless
 public class ShopShiftService {
-    @PersistenceContext(unitName = "default")
-    private EntityManager em;
+    //@PersistenceContext(unitName = "default")
+    //private EntityManager em;
 
     public ShopShiftService(){}
 
-    public ShopShift find(int id) throws Exception{
-        return em.find(ShopShift.class, id);
+    public void find(int id) throws Exception{
+        //return em.find(ShopShift.class, id);
     }
 }

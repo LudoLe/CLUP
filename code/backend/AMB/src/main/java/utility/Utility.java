@@ -2,16 +2,13 @@ package utility;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Request;
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Utility {
 
-    public static boolean paramExists(HttpRequest req, List<String> params) throws IOException {
+    /*public static boolean paramExists(HttpRequest req, List<String> params) throws IOException {
         Map<String,String[]> parameterMap = req.getParameterMap();
         if(params.stream().anyMatch(parameter -> !parameterMap.containsKey(parameter))){
             resp.sendError(Response.Status.BAD_REQUEST);
@@ -28,8 +25,9 @@ public class Utility {
     }
 
 
-    public static boolean paramIsEmpty(HttpServletRequest req, HttpServletResponse resp, List<String> params) throws IOException{
+    public static boolean paramIsEmpty(Request req , List<String> params) throws IOException{
         for (String param : params) {
+            req.getMethod().
             if (req.getParameter(param).isEmpty()) {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parameter " + param + " is empty");
                 return true;
@@ -43,5 +41,5 @@ public class Utility {
             return true;
         }
         return false;
-    }
+    }*/
 }
