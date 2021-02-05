@@ -1,5 +1,6 @@
 package polimi.it.AMB;
 
+import prototypes.Credentials;
 import prototypes.RegistrationCredentials;
 
 import javax.ejb.Stateless;
@@ -14,8 +15,8 @@ public class AAVEngine {
 
     public String checkRegistration(RegistrationCredentials credentials) {
         String message=null;
-        if (credentials == null || credentials.getEmail() == null || credentials.getPassword() == null) {
-             message = "Missing or empty credential value";
+        if(credentials == null || credentials.getEmail() == null || credentials.getPassword() == null) {
+            message = "Credentials are empty";
             return message;
         }
 
@@ -23,12 +24,19 @@ public class AAVEngine {
              message = "Passwords dont match";
             return message;
         }
-
         if (credentials.getEmail().length() >= MAX_USERNAME_LENGTH || credentials.getEmail().length() > MAX_EMAIL_LENGTH
                 || credentials.getPassword().length() > MAX_PWD_LENGTH) {
              message = "Something is too long!!!";
             return message;
         }
         return "OK";
+    }
+
+    public Boolean isEmpty(Credentials credentials){
+        Boolean message=true;
+        if(credentials == null || credentials.getPassword() == null) {
+            return true;
+           }
+         return false;
     }
 }

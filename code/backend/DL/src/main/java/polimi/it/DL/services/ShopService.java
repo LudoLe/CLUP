@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 
 @Stateless
 public class ShopService {
-   // @PersistenceContext(unitName = "default")
+   // @PersistenceContext(unitName = "clup")
     //private EntityManager em;
 
     public ShopService(){}

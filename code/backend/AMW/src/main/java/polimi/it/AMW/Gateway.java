@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringEscapeUtils;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.AMB.AccountManagerComponent;
-import polimi.it.DL.entities.User;
 import prototypes.*;
 import utility.Utility;
 
@@ -36,67 +35,58 @@ public class Gateway {
 
 
     @POST
-    @ApiOperation(value = "Register a new store to CLup")
-    @Path("/register")
+    @ApiOperation(value = "LogIn")
+    @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully registered", response = Credentials.class),
             @ApiResponse(code = 400, message = "Registration failed"),
             @ApiResponse(code = 500, message = "Invalid payload/error")})
-    public Response userRegistration(@Valid @RequestMap Credentials credentials){
-        String message= "Bad Request";
+    public Response userLogin(@Valid @RequestMap Credentials credentials) {
+        String message= "something wrong";
         try {
-            if (credentials== null || credentials.getEmail() == null || credentials.getPassword() == null) {
-                throw new Exception("Missing or empty credential value");
+            if(!avv.isEmpty(credentials)) {
+                   if(ams.loginManagement(credentials)) {
+                       message = "Successfully logged in!";
+                       return generateResponse(Response.Status.OK, message);
+                   }
             }
-        } catch (Exception e) {
-            return   generateResponse(Response.Status.BAD_REQUEST, message);
+        } catch (Exception e){
+            message = "Internal server error. Please try again later1.";
         }
-        User user;
-        try {
-           // user = ams.manageLogin(credentials);
-        } catch (Exception e) {
-            return generateResponse(Response.Status.BAD_REQUEST, message);
-        }
-
-        Credentials cred= new Credentials();
-        cred.setEmail("muh");
-        cred.setPassword("muh");
-        generateResponse(Response.Status.OK, cred);
-
-        return         generateResponse(Response.Status.OK, cred);
-
+        return generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);
     }
 
 
 
 
     @POST
-    @ApiOperation(value = "Register a new store to CLup")
+    @ApiOperation(value = "Register a new user to CLup")
     @Path("/registration")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered", response = Credentials.class),
+            @ApiResponse(code = 200, message = "Successfully registered", response = RegistrationCredentials.class),
             @ApiResponse(code = 400, message = "Registration failed"),
             @ApiResponse(code = 500, message = "Invalid payload/error")})
     public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials) {
         String message= "something wrong";
         try {
             message = avv.checkRegistration(credentials);
-        } catch (Exception e) {
-            message = "Internal server error. Please try again later.";
-            return generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);
+        } catch (Exception e){
+            message = "Internal server error. Please try again later1.";
         }
 
-        if (message.equals("OK")) {
-            User user = null;
+        if (message.equals("OK")){
             try {
-                user = ams.registrationManagement(credentials);
-            } catch (Exception e) {
-                message = "Internal server error. Please try again later.";
-                return generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);
+              if(ams.registrationManagement(credentials)){
+                  message="Successfully registered!";
+                  return generateResponse(Response.Status.OK, message);
+              }else throw new Exception();
+            }
+             catch (Exception e) {
+                message = "Internal server error. Please try again later2.";
             }
         }
         return generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);

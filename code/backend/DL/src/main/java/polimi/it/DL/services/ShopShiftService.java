@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 
 @Stateless
 public class ShopShiftService {
-    //@PersistenceContext(unitName = "default")
+    //@PersistenceContext(unitName = "clup")
     //private EntityManager em;
 
     public ShopShiftService(){}

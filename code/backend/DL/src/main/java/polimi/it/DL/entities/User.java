@@ -23,15 +23,20 @@ public class User implements Serializable {
     @Expose
     private int id;
     @Expose
+    @Column(name="username")
     private String username;
     @Expose
+    @Column(name="password")
     private String password;
     @Expose
+    @Column(name="email")
     private String email;
     @Expose
+    @Column(name="phone_number")
     private String phoneNumber;
     @Expose
-    private byte isManager;
+    @Column(name="is_manager")
+    private boolean isManager;
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
@@ -74,10 +79,10 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public byte getIsManager() {
+    public boolean getIsManager() {
         return isManager;
     }
-    public void setIsManager(byte isManager) {
+    public void setIsManager(boolean isManager) {
         this.isManager = isManager;
     }
 
