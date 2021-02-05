@@ -1,5 +1,5 @@
 import React from 'react';
-import SignupformManager from './SignupformManager.js';
+import SignupformManager from './sub-components/SignupformManager.js';
 import { Link } from 'react-router-dom';
 
 

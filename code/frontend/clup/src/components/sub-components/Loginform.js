@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Loginform = () => {
     return(
@@ -11,7 +12,7 @@ const Loginform = () => {
                     <button type="submit">Login</button>
                 </div>
                 <div>
-                    <span>Forgot <a href="/" /*TODO*/>password?</a></span>
+                    <span>Forgot <Link to="/">password?</Link></span>
                 </div>
             </form>
         </div>

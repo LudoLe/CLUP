@@ -1,5 +1,5 @@
 import React from 'react';
-import Loginform from './Loginform'
+import Loginform from './sub-components/Loginform'
 import { Link } from 'react-router-dom';
 
 const Login = () => {
