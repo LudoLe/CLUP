@@ -1,17 +1,16 @@
 package prototypes;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class RegistrationCredentials  implements Serializable
+public class UserInfo  implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     private String email;
-    private String password;
-    private String password2;
     private String username;
     private String phoneNumber;
-    private boolean isManager;
+    List<Ticket> tickets;
 
 
     public String getUsername() {
@@ -20,6 +19,13 @@ public class RegistrationCredentials  implements Serializable
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets= tickets;
     }
 
 
@@ -31,21 +37,6 @@ public class RegistrationCredentials  implements Serializable
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -55,11 +46,5 @@ public class RegistrationCredentials  implements Serializable
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean getIsManager() {
-        return isManager;
-    }
 
-    public void setIsManager(boolean isManager) {
-        this.isManager = isManager;
-    }
 }

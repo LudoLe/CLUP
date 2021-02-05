@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "`ticket`", schema = "clup")
@@ -20,14 +20,19 @@ public class Ticket implements Serializable {
     @Expose
     private String status;
     @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date enterTime;
     @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date exitTime;
     @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date expectedDuration;
     @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date scheduledEnteringTime;
     @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date scheduledExitingTime;
 
     @ManyToOne
