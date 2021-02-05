@@ -1,7 +1,7 @@
 import React from 'react';
-import Searchsection from './Searchsection';
-import Tickets from './Tickets';
-import Account from './Account';
+import Searchsection from './sub-components/Searchsection';
+import TicketsList from './sub-components/TicketsList';
+import Account from './sub-components/Account';
 
 const Home = () => {
 
@@ -9,7 +9,7 @@ const Home = () => {
         <div>
             <Account />
             <Searchsection />
-            <Tickets />
+            <TicketsList />
         </div>
     );
 }
