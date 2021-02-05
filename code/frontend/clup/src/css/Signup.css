@@ -1,0 +1,7 @@
+.topContainerSignup{
+    flex-grow: 10;
+}
+
+.bottomContainerSignup{
+    flex-grow: 0.1;
+}

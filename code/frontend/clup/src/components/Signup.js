@@ -1,16 +1,17 @@
 import React from 'react';
+import '../css/Signup.css';
 import Signupform from './sub-components/Signupform';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
     return (
-        <div>
-            <h1> SIGNUP </h1>
-            <Link to="/Login"> <h3>go back </h3> </Link>
-            <Signupform />
-            <div>
+        <div className="appContainer">
+            <div className="topContainer topContainerSignup"> {/* top container */}
+                <Signupform />
+            </div>
+            <div className="bottomContainer bottomContainerSignup"> {/* bottom container */}
                 <h3> Do you own a shop? </h3>
-                <Link to="/SignupManager"> <button>Signup as a Manager</button> </Link>
+                <Link to="/SignupManager"> <button className="activeButton">Signup as a Manager</button> </Link>
             </div>
         </div>
     );

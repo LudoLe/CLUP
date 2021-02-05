@@ -15,7 +15,6 @@ const Loginform = () => {
     return (
         <div className="loginFormContainer">
             <form /* action=TODO */ method="post" autocomplete="off">
-
                 <div onFocus={expandCard} onBlur={shrinkCard} className="inputContainer">
                     <h3>Login to your account</h3>
                     <input  type="text" placeholder="Username" name="username" required />
