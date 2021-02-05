@@ -17,3 +17,4 @@ DD/main.pdf
 .DS_Store
 RASD/debug.log
 *.fls
+.idea/*
