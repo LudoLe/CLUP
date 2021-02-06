@@ -1,30 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Loginform = () => {
-
-    const expandCard = (e) => {
-        document.getElementsByClassName("topContainer")[0].style.flexGrow = "10";
-        console.log("focus in");
-    }
-    const shrinkCard = (e) =>{
-        document.getElementsByClassName("topContainer")[0].style.flexGrow = "2";
-        console.log("focus out");
-    }
-
+const Loginform = (props) => {
     return (
         <div className="loginFormContainer">
-            <form /* action=TODO */ method="post" autocomplete="off">
-                <div onFocus={expandCard} onBlur={shrinkCard} className="inputContainer">
-                    <h3>Login to your account</h3>
-                    <input  type="text" placeholder="Username" name="username" required />
-                    <input  type="password" placeholder="Password" name="password" required />
-                    <button className="activeButton"  type="submit">Login</button>
-                </div>
-                <div className="forgotPasswordContainer">
-                    <span>Forgot <Link to="/Login">password?</Link></span>
-                </div>
-            </form>
+            {
+                props.open ?
+                    <form /* action=TODO */ method="post" autoComplete="off">
+                        <div className="inputContainer">
+                            <h3>Login to your account</h3>
+                            <div className="flexColumnCenter">
+                                <label className="labelSignup">Username</label>
+                                <input type="text" placeholder="Username" name="username" required />
+                            </div>
+                            <div className="flexColumnCenter">
+                                <label className="labelSignup">Password</label>
+                                <input type="password" placeholder="Password" name="password" required />
+                            </div>
+                            <button className="activeButton" type="submit">Confirm</button>
+                        </div>
+                        <div className="forgotPasswordContainer">
+                            <span>Forgot <Link to="/">password?</Link></span>
+                        </div>
+                    </form>
+                    :
+                    <form /* action=TODO */ method="post" autoComplete="off">
+                        <div className="inputContainer">
+                            <h3> Already have an account?</h3>
+                            <button className="activeButton" onClick={props.renderLogin}>Login</button>
+                        </div>
+                    </form>
+            }
         </div>
     );
 }
