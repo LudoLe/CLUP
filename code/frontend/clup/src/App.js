@@ -1,6 +1,6 @@
 import './css/App.css';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import Start from './components/Start';
+/* import Signup from './components/Signup'; */
 import Home from './components/Home';
 import Search from './components/Search';
 import Shops from './components/Shops';
@@ -20,8 +20,7 @@ function App() {
         <Router>
             <div className="App">
                 <Switch>
-                    <Route path="/Login" exact component={Login} /> {/* Login page */}
-                    <Route path="/Signup" exact component={Signup} /> {/* Sign up page for users */}
+                    <Route path="/" exact component={Start} /> {/* Login page */}
                     <Route path="/Home" exact component={Home} /> {/* Home page for users */}
                     <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
                     <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
@@ -41,13 +40,6 @@ function App() {
 }
 export default App;
 
-//to change view from a component to another we must add the following import:
-//import { Link } from 'react-router-dom'
-//The syntax to use it is very simple:
-//<Link to='/AnyWhereHere'>
-//  <AnyElementHere/>
-//</Link>
-
 //to fetch items from an API use the following code:
 //import {useState, useEffect} from 'react'
 //the use effect will make the fetch happen when the component mounts:
@@ -63,5 +55,3 @@ export default App;
 //}
 
 //CONTEXT API for state management
-
-//

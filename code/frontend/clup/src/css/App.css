@@ -12,3 +12,18 @@
     justify-content: center;
     align-items: center;
 }
+
+/* .transitionFade-enter{
+    opacity: 0.01;
+}
+.transitionFade-enter-active{
+    opacity:1;
+    transition: all 300ms ease-in;
+}
+.transitionFade-exit{
+    opacity: 1;
+}
+.transitionFade-exit-active{
+    opacity: 0.01;
+    transition: all 300ms ease-in;
+} */
