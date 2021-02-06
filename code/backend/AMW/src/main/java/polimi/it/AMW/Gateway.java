@@ -11,7 +11,6 @@ import polimi.it.AMB.AAVEngine;
 import polimi.it.AMB.AccountManagerComponent;
 import prototypes.*;
 import responseWrapper.ResponseWrapper;
-import sun.security.provider.certpath.OCSPResponse;
 import utility.Utility;
 
 import javax.ejb.EJB;
@@ -53,19 +52,20 @@ public class Gateway {
     public Response userLogin(@Valid @RequestMap Credentials credentials) {
         String message = "something wrong";
         Response response;
-        Response.Status status = Response.Status.GATEWAY_TIMEOUT;
+        Response.Status status;
         try {
             if (!avv.isEmpty(credentials)) {
-                if (ams.loginManagement(credentials)) {
-                    message = "Successfully logged in!";
-                    status = Response.Status.OK;
-                }
+                    return ams.loginManagement(credentials);
+            }
+            else {
+                message = "Empty Credentials";
+                status = Response.Status.BAD_REQUEST;
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
-            status = Response.Status.OK;
+            status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response=responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 
@@ -133,7 +133,7 @@ public class Gateway {
     }
 
     @GET
-    @ApiOperation(value = "Register a new user to CLup")
+    @ApiOperation(value = "Get User Info")
     @Path("/userinfo")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -169,11 +169,5 @@ public class Gateway {
             return response;
         }
     }
-
-    public Response generateResponse(Response.Status status, Object o){
-        Gson builder = new GsonBuilder().create();
-        return Response.status(status).entity(builder.toJson(o)).build();
-    }
-
 
 }

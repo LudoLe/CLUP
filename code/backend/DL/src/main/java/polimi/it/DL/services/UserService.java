@@ -28,9 +28,9 @@ public class UserService {
 
     public UserService(){}
 
-    public Boolean checkCredentials(String username, String password) throws Exception {
+    public User checkCredentials(String username, String password) throws Exception {
         User user;
-        user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+        user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         if(user == null) throw new Exception();
         boolean passed = false;
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
@@ -40,19 +40,20 @@ public class UserService {
             em.persist(user);
             em.flush();
         }
-        return passed;
+        return user;
     }
 
     public void logOut(String username) throws Exception{
-            User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
-            user.setSessionToken(null);
-            em.persist(user);
-            em.flush();
-        return;
+           User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+           if(user!=null) {
+               user.setSessionToken(null);
+               em.persist(user);
+               em.flush();
+           }
     }
 
     public Boolean isAuthorized(String username, String token) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         if(user.getSessionToken()!=null){
         return user.getSessionToken().equals(token);
         }else return false;
@@ -60,7 +61,7 @@ public class UserService {
 
 
     public User findByUsername(String username) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getSingleResult();
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         return user;
     }
 

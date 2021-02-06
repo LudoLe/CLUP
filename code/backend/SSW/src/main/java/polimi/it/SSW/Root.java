@@ -1,6 +1,5 @@
-package polimi.it.QSW.ep;
+package polimi.it.SSW;
 
-import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -15,7 +14,7 @@ public class Root extends Application {
         beanConfig.setVersion("1.0.0");
         beanConfig.setSchemes(new String[]{"http"});
         beanConfig.setHost("localhost:8080");
-        beanConfig.setBasePath("/QSW_war_exploded/api");
+        beanConfig.setBasePath("/SSW_war_exploded/api");
         beanConfig.setResourcePackage(Gateway.class.getPackage().getName());
         beanConfig.setTitle("Information Service");
         beanConfig.setDescription("A simple information service");
