@@ -1,9 +1,6 @@
 package polimi.it.SSB;
 
-import Responses.ShopResponse;
 import Responses.StringResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.ShopShiftService;
 import prototypes.Shop;

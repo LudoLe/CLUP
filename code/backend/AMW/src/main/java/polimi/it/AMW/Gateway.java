@@ -40,7 +40,7 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered", response =UserResponse.class),
+            @ApiResponse(code = 200, message = "Successfully registered", response = UserResponse.class),
             @ApiResponse(code = 400, message = "Registration failed", response =  StringResponse.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
     public Response userLogin(@Valid @RequestMap Credentials credentials) {

@@ -17,7 +17,7 @@ public class ResponseWrapper implements Serializable {
     {}
 
     public Response generateResponse(Response.Status status, Object o){
-        Gson builder = new GsonBuilder().create();
+        Gson builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         return Response.status(status).entity(builder.toJson(o)).build();
     }
 

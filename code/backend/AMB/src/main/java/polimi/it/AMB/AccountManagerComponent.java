@@ -31,7 +31,7 @@ public class AccountManagerComponent {
         try {
             user = userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
             status = Response.Status.OK;
-            response=responseWrapper.generateResponse(status, new UserResponse(user));
+            response=responseWrapper.generateResponse(status, new UserResponse(user, user.getSessionToken()));
         }catch (Exception e){
             status = Response.Status.BAD_REQUEST;
             String message = "Esiste già un utente con questo username";
@@ -46,7 +46,7 @@ public class AccountManagerComponent {
         try {
             user = userService.checkCredentials(credentials.getUsername(), credentials.getPassword());
             status = Response.Status.OK;
-            response=responseWrapper.generateResponse(status, new UserResponse(user));
+            response=responseWrapper.generateResponse(status, new UserResponse(user, user.getSessionToken()));
         }catch (Exception e){
             status = Response.Status.BAD_REQUEST;
             String message = "I dati inseriti non sono corretti!";
@@ -64,7 +64,7 @@ public class AccountManagerComponent {
        try {
            status= Response.Status.OK;
            User user = userService.findByUsername(username);
-           return responseWrapper.generateResponse(status, new UserResponse(user));
+           return responseWrapper.generateResponse(status, new UserResponse(user, user.getSessionToken()));
        }catch (Exception e){
            status  = Response.Status.INTERNAL_SERVER_ERROR;
            String message = "problems retrieving info";
