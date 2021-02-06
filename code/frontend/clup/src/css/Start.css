@@ -91,6 +91,16 @@ h3{
 
     font-size: 1em;
 }
+.backButton{
+    margin: 2vh auto 0vh auto;
+    padding: 0.2em 0.2em;
+    width: 14vw;
+    border-radius: 13px;
+    border: 0px;
+    color: white;
+    background-color: #EB1E4E;
+    font-size: 1em;
+}
 .activeButton:active{
     background-color: #e9446a;
 }

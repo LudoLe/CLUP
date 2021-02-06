@@ -17,7 +17,7 @@ const Loginform = (props) => {
                                 <label className="labelSignup">Password</label>
                                 <input type="password" placeholder="Password" name="password" required />
                             </div>
-                            <button className="activeButton" type="submit">Login</button>
+                            <button className="activeButton" type="submit">Confirm</button>
                         </div>
                         <div className="forgotPasswordContainer">
                             <span>Forgot <Link to="/">password?</Link></span>

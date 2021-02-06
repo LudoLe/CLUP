@@ -69,8 +69,10 @@ const Signupform = (props) => {
                         <label className="labelSignup">Repeat password</label>
                         <input id="repeatPasswordInput" type="password" placeholder="Repeat password" name="repeatPassword" required />
                     </div>
-                    
-                    <button className="activeButton" onClick={submit}>Signup</button>
+                    <div className="flexRowCenter">
+                        <button className="activeButton" type="submit" onClick={() => { setNextBool(false) }}> Back </button>
+                        <button className="activeButton" onClick={submit}>Confirm</button>
+                    </div>
                 </div>
             );
         }
