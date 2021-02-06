@@ -11,6 +11,7 @@ public class Shop implements Serializable {
     private String description;
     private String position;
     private String image;
+    private String manager;
     private int shopCapacity;
     private int timeslotMinutesDuration;
     private int maxEnteringClientInATimeslot;
@@ -77,5 +78,14 @@ public class Shop implements Serializable {
 
     public void setMaxEnteringClientInATimeslot(int maxEnteringClientInATimeslot) {
         this.maxEnteringClientInATimeslot = maxEnteringClientInATimeslot;
+    }
+
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 }

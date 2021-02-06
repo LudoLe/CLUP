@@ -1,5 +1,7 @@
 package polimi.it.SSW;
 
+import Responses.ShopResponse;
+import Responses.StringResponse;
 import com.sun.net.httpserver.HttpContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,8 +9,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.AMB.AccountManagerComponent;
-import polimi.it.DL.entities.Shop;
+import polimi.it.SSB.ManageShopComponent;
 import polimi.it.SSB.ShopInfoComponent;
+import prototypes.Shop;
+import prototypes.ShopShift;
 import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
@@ -16,6 +20,7 @@ import javax.faces.annotation.RequestMap;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.List;
 
 
 @Path("/SSW")
@@ -30,6 +35,9 @@ public class Gateway {
 
     @EJB(name = "SIC")
     ShopInfoComponent sic;
+
+    @EJB(name = "ManageShopComponent")
+    ManageShopComponent msc;
 
     @GET
     @ApiOperation(value = "tickets")
@@ -166,9 +174,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered"),
-            @ApiResponse(code = 400, message = "Parametri errati"),
-            @ApiResponse(code = 500, message = "We messed up")})
+            @ApiResponse(code = 200, message = "Shops succefully registered", response =StringResponse.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
+            @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
     public Response registerNewShop(@Context HttpHeaders headers,@Valid @RequestMap Shop shop){
         String message;
         Response response;
@@ -181,14 +189,46 @@ public class Gateway {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
-                response = sic.getShops(username);
+                response = msc.registerNewShop(shop);
                 return response;
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(status, new StringResponse(message));
+        return response;
+    }
+
+    @POST
+    @ApiOperation(value = "register shop")
+    @Path("/newshopshifts")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shops succefully registered", response =StringResponse.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
+            @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
+    public Response registerNewShop(@Context HttpHeaders headers,@Valid @RequestMap List<ShopShift> shopShifts){
+        String message;
+        Response response;
+        String username = headers.getRequestHeader("username").get(0);
+        String sessionToken = headers.getRequestHeader("sessionToken").get(0);
+        Response.Status status;
+
+        try {
+            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+                message= "Not authorized!!!";
+                status = Response.Status.BAD_REQUEST;
+            } else {
+                response = msc.registerNewShiftShop(shopShifts);
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, new StringResponse(message));
         return response;
     }
 }

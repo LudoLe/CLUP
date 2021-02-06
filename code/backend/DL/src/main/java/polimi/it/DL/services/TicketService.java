@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
-@Stateless
+@Stateless(name= "services/TicketService")
 public class TicketService {
 
     @PersistenceContext(unitName = "clup")

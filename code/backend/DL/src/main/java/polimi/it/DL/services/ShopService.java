@@ -14,15 +14,15 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-@Stateless
+@Stateless(name= "services/ShopService")
 public class ShopService {
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
-    @EJB("services/UserService")
+    @EJB(name="services/UserService")
     UserService userService;
 
-    @EJB("services/ShopShiftService")
+    @EJB(name= "services/ShopShiftService")
     ShopShiftService shopShiftService;
 
     public ShopService(){}
@@ -34,12 +34,11 @@ public class ShopService {
 
     public Shop createShop(String description, int shopCapacity,
                            String shopName, String shopManager,
-                           String image, int maxClients, String position,
-                           Map shifts) throws Exception{
+                           String image, int maxClients, String position) throws Exception{
         try{
             //checks that username and email aren't already in use
                    User manager = userService.findByUsername(shopManager);
-                   if(user==null)return null;
+                   if(manager==null)return null;
                 else {
                        Shop shop = new Shop();
                        shop.setDescription(description);
@@ -49,19 +48,14 @@ public class ShopService {
                        shop.setImage(image);
                        shop.setMaxEnteringClientInATimeslot(maxClients);
                        shop.setPosition(position);
-                       try {
-                           for(String day :  shifts.values().){
-                               ShopShiftService q = shopShiftService.create(shop, dayShift);
-                               em.persist(q);
-                           }
-
+                       em.persist(shop);
+                       em.flush();
+                       return shop;
                    }
 
-
-
-        }
         } catch (PersistenceException e) {
             throw new Exception("Could not insert user");
         }
     }
 }
+

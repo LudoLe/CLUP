@@ -12,7 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import java.sql.Date;
 
-@Stateless
+@Stateless(name= "services/ShopShiftService")
 public class ShopShiftService {
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
@@ -31,6 +31,8 @@ public class ShopShiftService {
             shopShift.setClosingTime(closingTime);
             shopShift.setOpeningTime(openingTime);
             shopShift.setDay(dayShift);
+            em.persist(shopShift);
+            em.flush();
             return shopShift;
         } catch (PersistenceException e) {
             throw new Exception("Could not insert user");

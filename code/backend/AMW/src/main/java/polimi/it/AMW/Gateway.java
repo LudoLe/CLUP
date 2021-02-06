@@ -1,30 +1,24 @@
 package polimi.it.AMW;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import Responses.StringResponse;
+import Responses.UserResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.StringEscapeUtils;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.AMB.AccountManagerComponent;
 import prototypes.*;
 import responseWrapper.ResponseWrapper;
-import utility.Utility;
 
 import javax.ejb.EJB;
 import javax.faces.annotation.RequestMap;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Path("/AMW")
 @Api(value = "Methods")
@@ -46,9 +40,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered", response = Credentials.class),
-            @ApiResponse(code = 400, message = "Registration failed"),
-            @ApiResponse(code = 500, message = "Invalid payload/error")})
+            @ApiResponse(code = 200, message = "Successfully registered", response =UserResponse.class),
+            @ApiResponse(code = 400, message = "Registration failed", response =  StringResponse.class),
+            @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
     public Response userLogin(@Valid @RequestMap Credentials credentials) {
         String message = "something wrong";
         Response response;
@@ -65,7 +59,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(status, new StringResponse(message));
         return response;
     }
 
@@ -76,12 +70,12 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered", response = RegistrationCredentials.class),
-            @ApiResponse(code = 400, message = "Registration failed"),
-            @ApiResponse(code = 500, message = "Invalid payload/error")})
+            @ApiResponse(code = 200, message = "Successfully registered", response = UserResponse.class),
+            @ApiResponse(code = 400, message = "Registration failed", response = StringResponse.class),
+            @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
     public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials) {
         Response response;
-        Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
+        Response.Status status= Response.Status.GATEWAY_TIMEOUT;
         String message;
         try {
             message = avv.checkRegistration(credentials);
@@ -101,7 +95,7 @@ public class Gateway {
 
             }
         }
-        response=responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(status, new StringResponse(message));
         return response;
     }
 
@@ -136,13 +130,14 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully logged out"),
-            @ApiResponse(code = 400, message = "Something went wrong"),
-            @ApiResponse(code = 401, message = "Unauthorized"),
-            @ApiResponse(code = 500, message = "Something went wrong")})
+            @ApiResponse(code = 200, message = "Successfully logged out", response = UserResponse.class),
+            @ApiResponse(code = 400, message = "Something went wrong", response = StringResponse.class),
+            @ApiResponse(code = 401, message = "Unauthorized", response = StringResponse.class),
+            @ApiResponse(code = 500, message = "Something went wrong", response = StringResponse.class)})
     public Response logOut(@Context HttpHeaders headers) throws Exception {
         String message;
         Response response;
+        Response.Status status;
         String username= headers.getRequestHeader("username").get(0);
         String sessionToken= headers.getRequestHeader("sessionToken").get(0);
 
@@ -150,20 +145,23 @@ public class Gateway {
             if(avv.isAuthorized(username, sessionToken)){
                 ams.logoutManagement(username);
                 try {
-                    response= ams.getUserInfo(username);
+                    response = ams.getUserInfo(username);
                     return response;
                 }catch (Exception e){
                     message= "problem with get user info in ams";
-                    response=responseWrapper.generateResponse(Response.Status.OK, message);
+                    status= Response.Status.INTERNAL_SERVER_ERROR;
+                    response = responseWrapper.generateResponse(status, new StringResponse(message));
                     return response;
                 }
             }
             message = "Unauthorized!";
-            response=responseWrapper.generateResponse(Response.Status.OK, message);
+            status= Response.Status.UNAUTHORIZED;
+            response = responseWrapper.generateResponse(status, new StringResponse(message));
             return response;
         } catch (Exception e) {
+            status= Response.Status.INTERNAL_SERVER_ERROR;
             message = "problem with get user info in avv";
-            response = responseWrapper.generateResponse(Response.Status.OK, message);
+            response = responseWrapper.generateResponse(status, new StringResponse(message));
             return response;
         }
     }

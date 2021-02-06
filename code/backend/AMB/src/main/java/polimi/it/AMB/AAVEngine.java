@@ -6,7 +6,6 @@ import prototypes.RegistrationCredentials;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.core.Response;
 
 @Stateless(name = "AAVEngine")
 public class AAVEngine {
