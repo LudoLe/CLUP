@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Signupform = () => {
+
+    const [nextBool, setNextBool] = useState(false); /* TODO */
+
     return (
         <div className="loginFormContainer">
             <form /* action=TODO */ method="post" autocomplete="off">
