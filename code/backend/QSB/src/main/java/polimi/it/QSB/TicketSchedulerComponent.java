@@ -20,5 +20,5 @@ public class TicketSchedulerComponent {
     }
     Shop shop = shopService.find(shopid);
     List<Ticket> tickets = shop.getTickets();
-    
+
 }
