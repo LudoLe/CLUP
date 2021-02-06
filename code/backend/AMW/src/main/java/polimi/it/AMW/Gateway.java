@@ -81,7 +81,7 @@ public class Gateway {
             @ApiResponse(code = 500, message = "Invalid payload/error")})
     public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials) {
         Response response;
-        Response.Status status = Response.Status.GATEWAY_TIMEOUT;
+        Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
         String message;
         try {
             message = avv.checkRegistration(credentials);
