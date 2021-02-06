@@ -13,6 +13,13 @@
     align-items: center;
 }
 
+.flexRowCenter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 /* .transitionFade-enter{
     opacity: 0.01;
 }

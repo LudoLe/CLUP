@@ -7,7 +7,7 @@ const Signupform = (props) => {
     const [email, setEmail] = useState(null);
     const [phonenumber, setPhonenumber] = useState(null);
     const [password, setPassword] = useState(null);
-    const [repeatPassword, setRepeatPassword] = useState(null);
+    const [shopOwner, setShopOwner] = useState(false);
 
     const checkValidity = (event) => {
         if (document.getElementById("signupForm").reportValidity()) {
@@ -15,17 +15,19 @@ const Signupform = (props) => {
             setUsername(document.getElementById("usernameInput").value);
             setEmail(document.getElementById("emailInput").value);
             setPhonenumber(document.getElementById("phonenumberInput").value);
+            setShopOwner(document.getElementById("shopOwner").checked);
         }
     }
 
     const submit = () => {
-        var password = document.getElementById("passwordInput");
-        var confirm_password = document.getElementById("repeatPasswordInput");
+        var pswd = document.getElementById("passwordInput");
+        var rptpswd = document.getElementById("repeatPasswordInput");
 
-        if (password.value !== confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
+        if (pswd.value !== rptpswd.value) {
+            rptpswd.setCustomValidity("Passwords Don't Match");
         } else {
-            confirm_password.setCustomValidity('');
+            rptpswd.setCustomValidity('');
+            setPassword(pswd);
             console.log("TODO, submit form..");
         }
     }
@@ -47,6 +49,10 @@ const Signupform = (props) => {
                         <label className="labelSignup">Phone number</label>
                         <input id="phonenumberInput" type='number' placeholder="+39 0123456789" name="phoneNumber" required />
                     </div>
+                    <div className="flexColumnCenter">
+                        <label className="labelSignup">Are you a shop owner?</label>
+                        <input id="shopOwner" type="checkbox" name="shopOwner" />
+                    </div>
                     <button className="activeButton" type="submit" onClick={checkValidity}>Next</button>
                 </div>
             );
@@ -63,6 +69,7 @@ const Signupform = (props) => {
                         <label className="labelSignup">Repeat password</label>
                         <input id="repeatPasswordInput" type="password" placeholder="Repeat password" name="repeatPassword" required />
                     </div>
+                    
                     <button className="activeButton" onClick={submit}>Signup</button>
                 </div>
             );
