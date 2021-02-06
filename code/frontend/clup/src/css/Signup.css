@@ -5,3 +5,7 @@
 .bottomContainerSignup{
     flex-grow: 0.1;
 }
+
+.labelSignup{
+    margin-bottom: 0.5em;
+}
