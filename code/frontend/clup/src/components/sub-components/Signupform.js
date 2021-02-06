@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 
 const Signupform = (props) => {
 
+    //TODO REFACTOR WITH STATE:
+    /* const [state, setState] = useState({
+        nextBool: false,
+        username: null,
+        password: null,
+        email: null,
+        phonenumber: null,
+        shopOwner: false
+    }); */
+
+    //TODO refactor all rendering with ternary operator
+
     const [nextBool, setNextBool] = useState(false);
     const [username, setUsername] = useState(null);
     const [email, setEmail] = useState(null);
@@ -81,7 +93,7 @@ const Signupform = (props) => {
     if (props.open) {
         return (
             <div className="loginFormContainer">
-                <form id="signupForm" /* action=TODO  method="post" */ autoComplete="off">
+                <form id="signupForm" autoComplete="off">
                     {renderCorrectInputContainer()}
                 </form>
             </div>
@@ -90,7 +102,7 @@ const Signupform = (props) => {
     else {
         return (
             <div className="loginFormContainer">
-                <form id="signupForm" /* action=TODO  method="post" */ autoComplete="off">
+                <form id="signupForm" autoComplete="off">
                     <h3> Don't have an account?</h3>
                     <button className="activeButton" onClick={props.renderSignup}>Signup</button>
                 </form>

@@ -20,6 +20,10 @@
     align-items: center;
 }
 
+.displayNone{
+    display: none;
+}
+
 /* .transitionFade-enter{
     opacity: 0.01;
 }

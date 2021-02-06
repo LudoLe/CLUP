@@ -54,4 +54,28 @@ export default App;
 //  setItems(items);
 //}
 
+//fetching a POST request:
+/* evt.preventDefault();
+//fetching a POST request:
+const Url = "http://localhost:8080/";
+const Params = {
+    param1: 'value',
+    param2: 2
+}
+const Body = {
+    thingone: "something",
+    etc: "something else"
+};
+const requestSettings = {
+    headers: {
+        "header-name": "header-content"
+    },
+    body: Body,
+    method: "POST"
+};
+fetch(Url + new URLSearchParams(Params), requestSettings)
+    .then(response => { return response.json() })
+    .then(data => { console.log(data); setData(data) })
+    .catch(err => { console.log(err); setError(err) }); */
+
 //CONTEXT API for state management
