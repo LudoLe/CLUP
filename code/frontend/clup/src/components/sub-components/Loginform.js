@@ -70,7 +70,7 @@ const Loginform = (props) => {
     }
 
     const redirectToHome = () => {
-        props.history.push('/home');
+        window.location.href = "/Home";
     }
 
     return (
