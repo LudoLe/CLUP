@@ -49,4 +49,8 @@ public class AAVEngine {
         return  userService.isAuthorized(username, sessionToken);
     }
 
+    public Boolean isAuthorizedAndManager(String username, String sessionToken) throws Exception {
+        return  userService.isAuthorizedAndManager(username, sessionToken);
+    }
+
 }

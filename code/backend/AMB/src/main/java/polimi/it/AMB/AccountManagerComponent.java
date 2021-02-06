@@ -22,8 +22,20 @@ public class AccountManagerComponent {
     public AccountManagerComponent()
     {}
 
-    public Boolean registrationManagement(RegistrationCredentials credentials) throws Exception{
-            return userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
+    public Response registrationManagement(RegistrationCredentials credentials) throws Exception{
+        Response response;
+        Response.Status status;
+        User user;
+        try {
+            user = userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
+            status = Response.Status.OK;
+            response=responseWrapper.generateResponse(status, user);
+        }catch (Exception e){
+            status = Response.Status.BAD_REQUEST;
+            String message = "Esiste già un utente con questo username";
+            response=responseWrapper.generateResponse(status, message);
+        }
+        return response;
   }
     public Response loginManagement(Credentials credentials) throws Exception{
         Response response;
@@ -34,8 +46,8 @@ public class AccountManagerComponent {
             status = Response.Status.OK;
             response=responseWrapper.generateResponse(status, user);
         }catch (Exception e){
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-            String message = "couldnt retrieve the user";
+            status = Response.Status.BAD_REQUEST;
+            String message = "I dati inseriti non sono corretti!";
             response=responseWrapper.generateResponse(status, message);
         }
         return response;

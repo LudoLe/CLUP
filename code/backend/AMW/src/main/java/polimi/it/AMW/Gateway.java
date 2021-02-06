@@ -92,12 +92,10 @@ public class Gateway {
 
         if (message.equals("OK")){
             try {
-                if (ams.registrationManagement(credentials)) {
-                    message = "Successfully registered!";
-                    status= Response.Status.OK;
-
-                } else throw new Exception();
-            } catch (Exception e) {
+                   response= ams.registrationManagement(credentials);
+                   return response;
+                } catch (Exception e) {
+                e.printStackTrace();
                 message = "Internal server error. Please try again later2.";
                 status= Response.Status.INTERNAL_SERVER_ERROR;
 

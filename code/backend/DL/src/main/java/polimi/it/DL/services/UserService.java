@@ -30,15 +30,17 @@ public class UserService {
 
     public User checkCredentials(String username, String password) throws Exception {
         User user;
+        System.out.println("till now fine before query");
         user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
-        if(user == null) throw new Exception();
-        boolean passed = false;
-        Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
+        if(!(user == null)){
+            boolean passed;
+            Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
             passed = encoder.matches(password, user.getPassword());
-        if(passed){
-            user.setSessionToken(generateSessionToken());
-            em.persist(user);
-            em.flush();
+            if(passed) {
+                user.setSessionToken(generateSessionToken());
+                em.persist(user);
+                em.flush();
+            }
         }
         return user;
     }
@@ -54,10 +56,20 @@ public class UserService {
 
     public Boolean isAuthorized(String username, String token) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
+        assert user != null;
         if(user.getSessionToken()!=null){
         return user.getSessionToken().equals(token);
         }else return false;
     }
+
+    public Boolean isAuthorizedAndManager(String username, String token) throws Exception{
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
+        assert user != null;
+        if(user.getSessionToken()!=null){
+            return (user.getSessionToken().equals(token)&&(user.getIsManager()));
+        }else return false;
+    }
+
 
 
     public User findByUsername(String username) throws Exception{
@@ -69,7 +81,7 @@ public class UserService {
         return em.find(User.class, id);
     }
 
-    public Boolean createUser(String usrn, String pwd, String email, boolean isManager, String phoneNumber) throws Exception{
+    public User createUser(String usrn, String pwd, String email, boolean isManager, String phoneNumber) throws Exception{
         try{
             //checks that username and email aren't already in use
             if(em.createNamedQuery("User.exists", Long.class).setParameter(1, usrn).setParameter(2, email).getSingleResult() >= 1) return null;
@@ -79,11 +91,12 @@ public class UserService {
             String hash = encoder.encode(pwd);
             user.setPassword(hash);
             user.setEmail(email);
+            user.setSessionToken(generateSessionToken());
             user.setIsManager(isManager);
             user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
-            return true;
+            return user;
         } catch (PersistenceException e) {
             throw new Exception("Could not insert user");
         }
