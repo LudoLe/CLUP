@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AMW_URL_API, QSW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../constants/urlsAPI.js';
+import {DEBUG_MODE} from '../constants/debug.js';
 
 
 const BASE_HEADERS = {
@@ -83,7 +84,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 }
             }
             else {
-                window.location.href = "/";
+                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
             }
         })
         .catch(function (error) {
@@ -91,7 +92,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 onError(error);
             }
             else {
-                window.location.href = "/";
+                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
             }
         });
 }
@@ -151,7 +152,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 }
             }
             else {
-                window.location.href = "/";
+                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
             }
         })
         .catch(function (error) {
@@ -159,7 +160,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 onError(error);
             }
             else {
-                window.location.href = "/";
+                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
             }
         });
 }
