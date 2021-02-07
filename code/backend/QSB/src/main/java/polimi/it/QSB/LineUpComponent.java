@@ -113,13 +113,26 @@ public class LineUpComponent {
     }
     */
 
+    public String noSenseTime(EnqueueData enqueueData) throws Exception {
+        if(enqueueData.getPermanence().getTime()<=15*60)return "permanence time too little";
+        if(enqueueData.getTimeToGetToTheShop().getTime()<=15*60)return "time to get to the shop  too little";
+        return "OK";
+    }
 
+
+    public boolean corruptedData(EnqueueData enqueueData) throws Exception {
+        if(enqueueData==null )return true;
+        if(shopService.find(enqueueData.getShopid())==null)return true;
+        if(enqueueData.getTimeToGetToTheShop().before(new Date()))return true;
+        if(enqueueData.getPermanence().before(new Date()))return true;
+        return false;
+    }
     public Response enqueue(EnqueueData enqueueData, String username){
         Response response;
         Response.Status status;
         try{
 
-           // ticketService.create(null, null, enqueueData.getShopid(), userService.find(username));
+           ticketService.create(null, null, enqueueData.getShopid(), userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
 
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;

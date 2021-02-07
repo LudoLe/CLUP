@@ -45,17 +45,18 @@ public class TicketService {
         return ticket.equals(ticket2);
     }
 
-    public Ticket create(Date entertime, Date exittime, int shopid, int userid) throws Exception{
+    public Ticket create(Date entertime, Date exittime, int shopid, User user, Date permanence, Date timetogetthere) throws Exception{
         try{
             //checks that username and email aren't already in use
             Shop shop = shopService.find(shopid);
-            User user = userService.find(userid);
             Ticket ticket = new Ticket();
             ticket.setShop(shop);
             ticket.setUser(user);
+            ticket.setTimeToReachTheShop(timetogetthere);
+            ticket.setExpectedDuration(permanence);
             ticket.setScheduledEnteringTime(entertime);
             ticket.setScheduledEnteringTime(exittime);
-
+            ticket.setStatus("invalid");
             em.persist(ticket);
             em.flush();
             return ticket;

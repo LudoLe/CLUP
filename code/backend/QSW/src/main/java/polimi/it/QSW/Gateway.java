@@ -77,9 +77,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully enqueued", response = StringResponse.class),
-            @ApiResponse(code = 400, message = "Registration failed", response = StringResponse.class),
-            @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
+            @ApiResponse(code = 200, message = "Successfully enqueued", response = Ticket.class),
+            @ApiResponse(code = 400, message = "Registration failed", response = String.class),
+            @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class)})
     public Response enqueue(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken , @Valid @RequestMap EnqueueData enqueueData) throws Exception {
         Response response;
         Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
@@ -90,7 +90,16 @@ public class Gateway {
             aavEngine.invalidateSessionToken(username);
            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
            return response;
-
+        }
+        if(luc.corruptedData(enqueueData)){
+            aavEngine.invalidateSessionToken(username);
+            response = responseWrapper.generateResponse( status, "data corrupted" );
+            return response;
+        }
+        if(!luc.noSenseTime(enqueueData).equals("OK")){
+            aavEngine.invalidateSessionToken(username);
+            response = responseWrapper.generateResponse( status, luc.noSenseTime(enqueueData) );
+            return response;
         }
         try {
             httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
