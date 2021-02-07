@@ -18,8 +18,8 @@ import java.util.Date;
         @NamedQuery(name="Ticket.findForUser", query="SELECT q FROM Ticket q WHERE q.user = (SELECT u FROM User u WHERE u.username=?1) "),
         @NamedQuery(name="Ticket.listOrderedForShop", query="SELECT t FROM Ticket t WHERE  t.shop = (SELECT s FROM Shop s WHERE s.id=?1) " + " ORDER BY t.scheduledExitingTime ASC"),
         @NamedQuery(name="Ticket.listOrderedForUser", query="SELECT t FROM Ticket t WHERE  t.user = (SELECT s FROM User s WHERE s.id=?2) " + " ORDER BY t.scheduledExitingTime ASC"),
-        @NamedQuery(name="Questionnaire.listPastForShop", query="SELECT q FROM Ticket q WHERE q.scheduledEnteringTime < CURRENT_DATE AND t.shop = (SELECT s FROM Shop s WHERE s.id=?2) ORDER BY q.datetime ASC"),
-        @NamedQuery(name="Questionnaire.listPastForUser", query="SELECT q FROM Ticket q WHERE q.scheduledEnteringTime < CURRENT_DATE AND t.user = (SELECT s FROM User s WHERE s.id=?2) ORDER BY q.datetime ASC"),
+        @NamedQuery(name="Questionnaire.listPastForShop", query="SELECT q FROM Ticket q WHERE q.scheduledEnteringTime < CURRENT_DATE AND q.shop = (SELECT s FROM Shop s WHERE s.id=?2) ORDER BY q.scheduledEnteringTime ASC"),
+        @NamedQuery(name="Questionnaire.listPastForUser", query="SELECT q FROM Ticket q WHERE q.scheduledEnteringTime < CURRENT_DATE AND q.user = (SELECT s FROM User s WHERE s.id=?2) ORDER BY q.scheduledEnteringTime ASC"),
 })
 @Entity
 @Table(name = "`ticket`", schema = "clup")

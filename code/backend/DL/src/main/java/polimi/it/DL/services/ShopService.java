@@ -40,10 +40,14 @@ public class ShopService {
 
     public Shop createShop(String description, int shopCapacity,
                            String shopName, String shopManager,
-                           String image, int maxClients, String position) throws Exception{
+                           String image, int maxClients, String position,
+                           int timeSlot
+    ) throws Exception{
         try{
             //checks that username and email aren't already in use
-                   User manager = userService.findByUsername(shopManager);
+            System.out.println("before creating a shop in create shop service");
+
+            User manager = userService.findByUsername(shopManager);
                    if(manager==null)return null;
                 else {
                        Shop shop = new Shop();
@@ -54,13 +58,16 @@ public class ShopService {
                        shop.setImage(image);
                        shop.setMaxEnteringClientInATimeslot(maxClients);
                        shop.setPosition(position);
+                       shop.setTimeslotMinutesDuration(timeSlot);
                        em.persist(shop);
                        em.flush();
+                       System.out.println("after creating a shop in create shop service");
+
                        return shop;
                    }
 
         } catch (PersistenceException e) {
-            throw new Exception("Could not insert user");
+            throw new Exception("Could not insert shop");
         }
     }
 

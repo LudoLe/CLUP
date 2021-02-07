@@ -14,7 +14,7 @@ public class Ticket implements Serializable{
         private Date expectedDuration;
         private Date scheduledEnteringTime;
         private Date scheduledExitingTime;
-        private Shop shop;
+        private ShopProto shop;
 
         public int getId() {
                 return id;
@@ -66,11 +66,11 @@ public class Ticket implements Serializable{
                 }
 
 
-        public Shop getShop() {
+        public ShopProto getShop() {
                 return shop;
                 }
 
-        public void setShop(Shop shop) {
+        public void setShop(ShopProto shop) {
                 this.shop = shop;
                 }
 

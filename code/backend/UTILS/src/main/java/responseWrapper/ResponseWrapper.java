@@ -1,10 +1,8 @@
 package responseWrapper;
 
 
-import Responses.ShopResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import prototypes.Shop;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
