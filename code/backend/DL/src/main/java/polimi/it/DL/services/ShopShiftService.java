@@ -15,6 +15,14 @@ public class ShopShiftService {
     @EJB(name="services/ShopService")
     ShopService shopService;
 
+    boolean test = false;
+
+
+    public ShopShiftService(EntityManager em, boolean test){
+        this.em = em;
+        this.test = test;
+    }
+
     public ShopShiftService(){}
 
     public ShopShift find(int id) throws Exception{

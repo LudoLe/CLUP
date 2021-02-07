@@ -22,9 +22,6 @@ public class LineUpComponent {
     @EJB(name = "services/ShopService")
     ShopService shopService;
 
-    @EJB(name = "TSC")
-    TicketSchedulerComponent tsc;
-
     @EJB(name = "services/UserService")
     UserService userService;
 
@@ -156,8 +153,7 @@ public class LineUpComponent {
         Response.Status status;
         try{
            ticketService.create(null, null, enqueueData.getShopid(), userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
-
-           tsc.buildQueue(shopService.find(enqueueData.getShopid()));
+            (new TicketSchedulerComponent(shopService.find(enqueueData.getShopid()))).buildQueue();
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));

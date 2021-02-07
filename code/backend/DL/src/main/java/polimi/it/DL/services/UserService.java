@@ -19,6 +19,8 @@ import java.util.Base64;
 @Stateless(name= "services/UserService")
 public class UserService {
 
+    boolean test = false;
+
     // I set this parameters to low, pretty unsafe values so login is faster
     private static final int ARGON2_ITERATIONS = 2;
     private static final int ARGON2_MEMORY = 16384;
@@ -168,5 +170,10 @@ public class UserService {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
+    }
+
+    public UserService(EntityManager em, boolean test){
+        this.em = em;
+        this.test = test;
     }
 }

@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 @Stateless(name= "services/TicketService")
 public class TicketService {
 
+    boolean test = false;
+
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
@@ -100,6 +102,11 @@ public class TicketService {
         else return false;
     }
 
+    public void setScheduledEntrance(EntityManager em, boolean test){
+        this.em = em;
+        this.test = test;
+    }
+
     public boolean scanExitTicket(int ticketId) throws Exception{
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss[.nnn]");
         Date parsedDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
@@ -113,6 +120,12 @@ public class TicketService {
             em.flush();
             return true;
         }
+
+    public TicketService(EntityManager em, boolean test){
+        this.em = em;
+        this.test = test;
+    }
+
 
     }
 

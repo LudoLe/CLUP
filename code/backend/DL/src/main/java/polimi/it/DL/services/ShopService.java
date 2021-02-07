@@ -19,6 +19,9 @@ import java.util.stream.Collectors;
 
 @Stateless(name= "services/ShopService")
 public class ShopService {
+
+    boolean test = false;
+
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
@@ -101,6 +104,11 @@ public class ShopService {
         assert shopShift!=null;
         return shopShift.getOpeningTime();
 
+    }
+
+    public ShopService(EntityManager em, boolean test){
+        this.em = em;
+        this.test = test;
     }
 }
 
