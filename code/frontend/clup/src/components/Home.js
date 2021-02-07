@@ -16,7 +16,7 @@ const Home = () => {
 
     //fetch ticket info
     useEffect(()=>{
-        fetch(SSW_URL_API + "/boh")
+        fetch(SSW_URL_API + "/tickets")
         .then(res => res.json())
         .then(
             (result) => {

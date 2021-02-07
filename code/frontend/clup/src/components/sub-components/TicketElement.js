@@ -1,9 +1,9 @@
 import React from 'react';
 
-const TicketElement = () => {
+const TicketElement = (props) => {
     return (
         <div>
-            <h3> A ticket </h3>
+            {props.ticket}
         </div>
     );
 }
