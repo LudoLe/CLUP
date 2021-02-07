@@ -12,6 +12,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+
 
 @Stateless(name= "services/UserService")
 public class UserService {
@@ -45,6 +48,23 @@ public class UserService {
         return user;
     }
 
+    public String newSessionToken(String username){
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+        if(!(user == null)){
+
+                String newSessionToken = generateSessionToken();
+                user.setSessionToken(newSessionToken);
+                em.persist(user);
+                em.flush();
+                return newSessionToken;
+
+
+        }
+        System.out.println("user not found in check session token");
+
+        return null;
+        }
+
     public void logOut(String username) throws Exception{
            User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
            if(user!=null) {
@@ -56,17 +76,34 @@ public class UserService {
 
     public Boolean isAuthorized(String username, String token) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
-        assert user != null;
-        if(user.getSessionToken()!=null){
-        return user.getSessionToken().equals(token);
-        }else return false;
+        if(!(user == null)){
+            if(user.getSessionToken().equals(token)){
+                return true;
+            }else
+            {            System.out.println("user not found in is authorized session token");
+                         user.setSessionToken(null);
+                em.persist(user);
+                em.flush();
+
+
+                return false;
+            }
+        }
+        return false;
+
     }
 
     public Boolean isAuthorizedAndManager(String username, String token) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         assert user != null;
         if(user.getSessionToken()!=null){
-            return (user.getSessionToken().equals(token)&&(user.getIsManager()));
+           if(user.getSessionToken().equals(token)&&(user.getIsManager()))return true;
+           else{
+               user.setSessionToken(null);
+               em.persist(user);
+               em.flush();
+               return false;
+           }
         }else return false;
     }
 
@@ -102,8 +139,12 @@ public class UserService {
         }
     }
 
-    private String generateSessionToken() {
-        return RandomStringUtils.random(255);
-    }
+    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
+    public static String generateSessionToken() {
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
+    }
 }

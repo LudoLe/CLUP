@@ -59,7 +59,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, new StringResponse(message));
+        response = responseWrapper.generateResponse(null,status, new StringResponse(message));
         return response;
     }
 
@@ -95,7 +95,7 @@ public class Gateway {
 
             }
         }
-        response = responseWrapper.generateResponse(status, new StringResponse(message));
+        response = responseWrapper.generateResponse(null,status, new StringResponse(message));
         return response;
     }
 
@@ -115,11 +115,11 @@ public class Gateway {
         try {
                 ams.logoutManagement(username);
                 message = "Successfully logged out!";
-                response=responseWrapper.generateResponse(Response.Status.OK, message);
+                response=responseWrapper.generateResponse(null,Response.Status.OK, message);
                 return response;
         } catch (Exception e) {
             message = "Internal server error. Please try again later2.";
-            response=responseWrapper.generateResponse(Response.Status.OK, message);
+            response=responseWrapper.generateResponse(null,Response.Status.OK, message);
             return response;
         }
     }
@@ -150,18 +150,18 @@ public class Gateway {
                 }catch (Exception e){
                     message= "problem with get user info in ams";
                     status= Response.Status.INTERNAL_SERVER_ERROR;
-                    response = responseWrapper.generateResponse(status, new StringResponse(message));
+                    response = responseWrapper.generateResponse(null,status, new StringResponse(message));
                     return response;
                 }
             }
             message = "Unauthorized!";
             status= Response.Status.UNAUTHORIZED;
-            response = responseWrapper.generateResponse(status, new StringResponse(message));
+            response = responseWrapper.generateResponse(null,status, new StringResponse(message));
             return response;
         } catch (Exception e) {
             status= Response.Status.INTERNAL_SERVER_ERROR;
             message = "problem with get user info in avv";
-            response = responseWrapper.generateResponse(status, new StringResponse(message));
+            response = responseWrapper.generateResponse(null,status, new StringResponse(message));
             return response;
         }
     }

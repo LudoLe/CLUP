@@ -11,20 +11,11 @@ public class ShopProto implements Serializable {
     private String description;
     private String position;
     private String image;
-    private String manager;
     private int shopCapacity;
     private int timeslotMinutesDuration;
     private int maxEnteringClientInATimeslot;
 
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -76,14 +67,6 @@ public class ShopProto implements Serializable {
         this.maxEnteringClientInATimeslot = maxEnteringClientInATimeslot;
     }
 
-
-    public String getManager() {
-        return manager;
-    }
-
-    public void setManager(String manager) {
-        this.manager = manager;
-    }
 
     public int getTimeslotMinutesDuration() {
         return timeslotMinutesDuration;

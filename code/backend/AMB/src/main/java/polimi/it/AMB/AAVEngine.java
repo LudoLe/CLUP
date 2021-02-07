@@ -52,4 +52,8 @@ public class AAVEngine {
         return  userService.isAuthorizedAndManager(username, sessionToken);
     }
 
+    public String getNewSessionToken(String username, String sessionToken) throws Exception {
+        return  userService.newSessionToken(username);
+    }
+
 }

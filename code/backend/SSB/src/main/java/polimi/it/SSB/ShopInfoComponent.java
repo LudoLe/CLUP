@@ -36,13 +36,13 @@ public class ShopInfoComponent {
         try{
             Ticket ticket= ticketService.find(ticketid);
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(status,ticket);
+            response = responseWrapper.generateResponse(null,status,ticket);
             return response;
 
         }catch(Exception e){
             String message = "couldnt retrieve ticket info";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
+            response = responseWrapper.generateResponse(null,status,message);
             return response;
 
         }
@@ -55,13 +55,13 @@ public class ShopInfoComponent {
         try{
             Shop shop= shopService.find(shopid);
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(status,shop);
+            response = responseWrapper.generateResponse(null,status,shop);
             return response;
 
         }catch(Exception e){
             String message = "couldnt retrieve ticket info";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
+            response = responseWrapper.generateResponse(null,status,message);
             return response;
 
         }
@@ -75,13 +75,13 @@ public class ShopInfoComponent {
             User user= userService.findByUsername(username);
             List<Shop> shops = user.getShops();
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(status, shops);
+            response = responseWrapper.generateResponse(null,status, shops);
             return response;
 
         }catch(Exception e){
             String message = "couldnt retrieve ticket info";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
+            response = responseWrapper.generateResponse(null,status,message);
             return response;
 
         }
@@ -96,13 +96,13 @@ public class ShopInfoComponent {
             User user= userService.findByUsername(username);
             List<Ticket> tickets = user.getTickets();
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(status,tickets);
+            response = responseWrapper.generateResponse(null,status,tickets);
             return response;
 
         }catch(Exception e){
             String message = "couldnt retrieve tickets";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
+            response = responseWrapper.generateResponse(null,status,message);
             return response;
 
         }

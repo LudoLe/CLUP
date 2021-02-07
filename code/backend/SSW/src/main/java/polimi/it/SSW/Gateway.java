@@ -64,7 +64,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(null,status, message);
         return response;
     }
 
@@ -97,7 +97,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(null,status, message);
         return response;
     }
 
@@ -129,7 +129,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(null,status, message);
         return response;
     }
 
@@ -161,7 +161,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, message);
+        response = responseWrapper.generateResponse(null,status, message);
         return response;
     }
 
@@ -171,31 +171,48 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered", response =StringResponse.class),
-            @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
-            @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
+            @ApiResponse(code = 200, message = "Shops succefully registered", response = StringResponse.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response = StringResponse.class),
+            @ApiResponse(code = 500, message = "We messed up", response = StringResponse.class)})
     public Response registerNewShop(@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
 
         Response.Status status;
+        try{
+            boolean bol = msc.checkIfCorruptedData(shop);
+            if(bol){
+                System.out.println("corrupte");
+                message = "Corrupted Data";
+                status = Response.Status.BAD_REQUEST;
+                return responseWrapper.generateResponse(null,status, new StringResponse(message));
+
+            }
+        }catch (Exception e){
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+            return responseWrapper.generateResponse(null,status, new StringResponse(message));
+
+        }
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
                 message= "Not authorized!!!";
-                status = Response.Status.BAD_REQUEST;
+                status = Response.Status.UNAUTHORIZED;
                 System.out.println("we are in here not authorized");
-            } else {
-                response = msc.registerNewShop(shop);
-                return response;
+                return responseWrapper.generateResponse(null, status, new StringResponse(message));
 
+
+            } else {
+                response = msc.registerNewShop(shop, username);
+                return response;
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
+            return responseWrapper.generateResponse(null,status, new StringResponse(message));
+
         }
-        response = responseWrapper.generateResponse(status, new StringResponse(message));
-        return response;
     }
 
     @POST
@@ -226,7 +243,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(status, new StringResponse(message));
+        response = responseWrapper.generateResponse(null, status, new StringResponse(message));
         return response;
     }
 }

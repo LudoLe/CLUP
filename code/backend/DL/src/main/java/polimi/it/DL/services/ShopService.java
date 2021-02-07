@@ -37,9 +37,15 @@ public class ShopService {
         return em.find(Shop.class, id);
     }
 
+    public boolean existsWithThatNameAndPosition(String name, String position){
+        int bol = em.createNamedQuery("Shop.existWithThatNameAndPosition", Integer.class).setParameter(1, name).setParameter(2, position).getResultList().stream().findFirst().orElse(0);
+        if(bol==0)return true;
+        else return false;
+    }
+
 
     public Shop createShop(String description, int shopCapacity,
-                           String shopName, String shopManager,
+                           String shopName, User shopManager,
                            String image, int maxClients, String position,
                            int timeSlot
     ) throws Exception{
@@ -47,14 +53,11 @@ public class ShopService {
             //checks that username and email aren't already in use
             System.out.println("before creating a shop in create shop service");
 
-            User manager = userService.findByUsername(shopManager);
-                   if(manager==null)return null;
-                else {
                        Shop shop = new Shop();
                        shop.setDescription(description);
                        shop.setShopCapacity(shopCapacity);
                        shop.setName(shopName);
-                       shop.setManager(manager);
+                       shop.setManager(shopManager);
                        shop.setImage(image);
                        shop.setMaxEnteringClientInATimeslot(maxClients);
                        shop.setPosition(position);
@@ -64,7 +67,7 @@ public class ShopService {
                        System.out.println("after creating a shop in create shop service");
 
                        return shop;
-                   }
+
 
         } catch (PersistenceException e) {
             throw new Exception("Could not insert shop");

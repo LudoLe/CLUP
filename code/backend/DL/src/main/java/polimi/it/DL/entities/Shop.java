@@ -8,6 +8,9 @@ import java.util.List;
 
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Shop.existWithThatNameAndPosition", query = "SELECT COUNT(t) FROM Shop t WHERE t.name =?1 AND t.position = ?2 "),
+})
 @Table(name = "`shop`", schema = "clup")
 public class Shop implements Serializable {
     private static final long serialVersionUID = 1L;
