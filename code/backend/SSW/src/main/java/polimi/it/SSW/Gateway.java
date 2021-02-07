@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import polimi.it.AMB.AAVEngine;
+import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.User;
 import polimi.it.SSB.ManageShopComponent;
 import polimi.it.SSB.ShopInfoComponent;
 import prototypes.ShopProto;
@@ -166,7 +168,7 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered", response = StringResponse.class),
+            @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = StringResponse.class),
             @ApiResponse(code = 500, message = "We messed up", response = StringResponse.class)})
     public Response registerNewShop(@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
