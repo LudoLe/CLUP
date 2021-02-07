@@ -5,20 +5,11 @@ import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.services.ShopService;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-@Stateless(name="TSC")
 public class TicketSchedulerComponent {
-
-
-
-    @EJB(name="services/ShopService")
-    ShopService shopService;
-
-
 
     class TicketTracker{
         private Ticket ticket;
@@ -116,7 +107,11 @@ public class TicketSchedulerComponent {
         }
     }
 
-    private ArrayList < TimeSlot > timeLine = new ArrayList < TimeSlot >() ;
+    private Shop shop;
+
+    private List<Ticket> tickets;
+
+    private ArrayList <TimeSlot> timeLine = new ArrayList <TimeSlot>() ;
 
     private final String invalid = "invalid";
     private final String valid = "valid";
@@ -127,8 +122,9 @@ public class TicketSchedulerComponent {
     private Date currentTime;
 
     // constructor
-    public TicketSchedulerComponent(int shopid) throws Exception {
-        this.shopid = shopid;
+    public TicketSchedulerComponent(Shop shop) throws Exception {
+        this.shop = shop;
+        this.tickets = shop.getTickets();
         this.currentTime = new Date();
     }
 
