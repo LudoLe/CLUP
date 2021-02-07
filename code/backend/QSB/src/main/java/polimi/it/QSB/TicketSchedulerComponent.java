@@ -5,20 +5,20 @@ import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.services.ShopService;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
+@Stateless(name="TSC")
 public class TicketSchedulerComponent {
+
+
 
     @EJB(name="services/ShopService")
     ShopService shopService;
 
-    int shopid;
 
-    Shop shop = shopService.find(shopid);
-
-    List<Ticket> tickets = shop.getTickets();
 
     class TicketTracker{
         private Ticket ticket;

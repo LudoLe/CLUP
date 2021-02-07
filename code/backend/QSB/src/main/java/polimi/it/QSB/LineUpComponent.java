@@ -22,6 +22,9 @@ public class LineUpComponent {
     @EJB(name = "services/ShopService")
     ShopService shopService;
 
+    @EJB(name = "TSC")
+    TicketSchedulerComponent tsc;
+
     @EJB(name = "services/UserService")
     UserService userService;
 
@@ -121,19 +124,39 @@ public class LineUpComponent {
 
 
     public boolean corruptedData(EnqueueData enqueueData) throws Exception {
-        if(enqueueData==null )return true;
-        if(shopService.find(enqueueData.getShopid())==null)return true;
-        if(enqueueData.getTimeToGetToTheShop().before(new Date()))return true;
-        if(enqueueData.getPermanence().before(new Date()))return true;
+        boolean bol;
+        if(enqueueData==null ) {
+           bol= true;
+           return bol;
+        }
+        if(shopService.find(enqueueData.getShopid())==null){
+            System.out.println("no shop found");
+            bol= true;
+            return bol;
+        }
+        long time = enqueueData.getTimeToGetToTheShop().getTime();
+        long time2 = enqueueData.getPermanence().getTime();
+        long now = (new Date()).getTime();
+
+
+        if(time + now < 0 ){
+            System.out.println("time to get to the shop previous ");
+            bol= true;
+            return bol;
+        }
+        if(time2 + now < 0){
+            System.out.println("time of permanence shop previous ");
+            bol= true;
+            return bol;
+        }
         return false;
     }
     public Response enqueue(EnqueueData enqueueData, String username){
         Response response;
         Response.Status status;
         try{
-
            ticketService.create(null, null, enqueueData.getShopid(), userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
-
+           tsc.buildQueue();
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));

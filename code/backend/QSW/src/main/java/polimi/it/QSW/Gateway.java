@@ -92,7 +92,6 @@ public class Gateway {
            return response;
         }
         if(luc.corruptedData(enqueueData)){
-            aavEngine.invalidateSessionToken(username);
             response = responseWrapper.generateResponse( status, "data corrupted" );
             return response;
         }
