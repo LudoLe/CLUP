@@ -1,7 +1,6 @@
 package polimi.it.AMW;
 
-import Responses.StringResponse;
-import Responses.UserResponse;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -37,7 +36,7 @@ public class Gateway {
 
 
     @POST
-    @ApiOperation(value = "LogIn")
+    @ApiOperation(value = "Login")
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -150,14 +149,14 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+        //httpHeader.setHeader("session-token", "");
 
 
         try {
             if(avv.isAuthorized(username, sessionToken)){
                 try {
                     response = ams.getUserInfo(username);
-                    httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+                   // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                     return response;
                 }catch (Exception e){
                     message= "problem with get user info in ams";

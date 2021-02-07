@@ -55,7 +55,7 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+       // httpHeader.setHeader("session-token", "");
 
 
         try {
@@ -63,7 +63,7 @@ public class Gateway {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+              //  httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getTickets(username);
                 return response;
             }
@@ -89,7 +89,7 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+       // httpHeader.setHeader("session-token", "");
 
 
 
@@ -99,7 +99,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+               // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getTicketInfo(ticketid, username);
                 return response;
             }
@@ -124,7 +124,7 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+       // httpHeader.setHeader("session-token", "");
 
 
         try {
@@ -133,7 +133,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+                //httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getShopInfo(shopid, username);
                 return response;
             }
@@ -164,7 +164,7 @@ public class Gateway {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+               // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getShops(username);
                 return response;
             }
@@ -188,7 +188,7 @@ public class Gateway {
     public Response registerNewShop(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
-        httpHeader.setHeader("session-token", "");
+        //httpHeader.setHeader("session-token", "");
         Response.Status status;
 
         try {
@@ -207,10 +207,10 @@ public class Gateway {
                         System.out.println("corrupte");
                         message = "Corrupted Data";
                         status = Response.Status.BAD_REQUEST;
-                        httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+                      //  httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                         return responseWrapper.generateResponse(status, message);
                     }else{
-                        httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+                      //  httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                         response = msc.registerNewShop(shop, username);
                         return response;
                     }
@@ -242,7 +242,7 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+        //httpHeader.setHeader("session-token", "");
 
 
 
@@ -254,7 +254,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
             } else {
                 System.out.println("starting to add");
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+               // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = msc.registerNewShiftShop(shopShifts, username);
                 return response;
             }

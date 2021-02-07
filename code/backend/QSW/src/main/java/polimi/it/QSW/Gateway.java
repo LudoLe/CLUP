@@ -84,7 +84,7 @@ public class Gateway {
         Response response;
         Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
         String message;
-        httpHeader.setHeader("session-token", "");
+        //httpHeader.setHeader("session-token", "");
 
         if(!aavEngine.isAuthorized(username, sessionToken)){
             aavEngine.invalidateSessionToken(username);
@@ -101,7 +101,7 @@ public class Gateway {
             return response;
         }
         try {
-            httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
+            //httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
             response = luc.enqueue(enqueueData, username);
 
         } catch (Exception e) {
@@ -124,11 +124,12 @@ public class Gateway {
     public Response dequeue(@HeaderParam("ticketid") int tickeid, @HeaderParam("username") String username,  @Context HttpServletResponse httpHeader) {
         String message;
         Response response;
-        httpHeader.setHeader("session-token", "");
+       //
+        // httpHeader.setHeader("session-token", "");
 
         try {
             if(!luc.checkProperty(username, tickeid)) {
-                httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
+               // httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
                 return luc.dequeue(tickeid);
             }else{
                 message = "Not your ticket";
@@ -157,11 +158,11 @@ public class Gateway {
         String message = "something wrong";
         Response response;
         Response.Status status;
-        httpHeader.setHeader("session-token", "");
+       // httpHeader.setHeader("session-token", "");
 
         boolean bol;
         try {
-            httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
+          //  httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
             bol = luc.checkIfAlreadyEnqueued(username);
             status = Response.Status.OK;
 
