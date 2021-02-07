@@ -32,6 +32,19 @@ public class TicketService {
         return em.find(Ticket.class, id);
     }
 
+    public boolean alreadyHasTicket(String username) throws Exception{
+        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).getResultList().stream().findFirst().orElse(null);
+        if(ticket==null)return false;
+        else return true;
+    }
+
+    public boolean itsTicketOf(String username, int ticketId) throws Exception{
+        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).getResultList().stream().findFirst().orElse(null);
+        Ticket ticket2= find(ticketId);
+        if(ticket==null || ticket2==null)return false;
+        return ticket.equals(ticket2);
+    }
+
     public Ticket create(Date entertime, Date exittime, int shopid, int userid) throws Exception{
         try{
             //checks that username and email aren't already in use

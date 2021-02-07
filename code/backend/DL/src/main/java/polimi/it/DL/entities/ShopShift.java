@@ -9,6 +9,9 @@ import java.sql.Time;
 
 @Entity
 @Table(name = "`shop_shift`", schema = "clup")
+@NamedQueries({
+@NamedQuery(name="ShopShift.forShopForDay", query="SELECT s FROM ShopShift s WHERE  s.shop = (SELECT m FROM Shop m WHERE m.id=?1) AND s.day=?2" )
+})
 public class ShopShift implements Serializable {
     private static final long serialVersionUID = 1L;
 
