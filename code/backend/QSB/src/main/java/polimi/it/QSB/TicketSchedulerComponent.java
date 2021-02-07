@@ -2,9 +2,7 @@ package polimi.it.QSB;
 
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.Ticket;
-import polimi.it.DL.services.ShopService;
 
-import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
