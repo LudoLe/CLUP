@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import Error from './ErrorMessage';
-import { AMW_URL_API, ACCESS_TOKEN_NAME } from '../../constants/urlsAPI';
+import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest';
 
 const Signupform = (props) => {
 
@@ -34,7 +32,7 @@ const Signupform = (props) => {
 
     const handleSignupSubmit = (e) => {
         e.preventDefault();
-        if(state.nextBool !== true){
+        if (state.nextBool !== true) {
             return;
         }
         if (document.getElementById("signupForm").reportValidity()) {
@@ -42,53 +40,32 @@ const Signupform = (props) => {
                 //document.getElementById("repeatPassword").setCustomValidity('');
                 sendSignupToServer();
             }
-            else{
+            else {
+                //TODO: 
+                //this doesn't work
                 //document.getElementById("repeatPassword").setCustomValidity("passwords don't match!");
             }
         }
     }
 
     const sendSignupToServer = () => {
-        if ((state.username.length !== 0) && (state.password.length !== 0)) {
-            const payload = {
-                "username": state.username,
-                "password": state.password,
-                "password2": state.repeatPassword,
-                "email": state.email,
-                "phoneNumber": state.phonenumber,
-                "isManager": state.shopOwner
-            }
-            axios.post(AMW_URL_API + '/registration', payload)
-                .then(function (response) {
-                    if (response.status === 200) {
-                        setState(prevState => ({
-                            ...prevState,
-                            'successMessage': 'Registration successful. Redirecting to home page..'
-                        }))
-                        console.log(response); //JUSTO TO VISUALIZE IT
-                        localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token); //SAVE LOGIN TOKEN
-                        redirectToHome();
-                    } else {
-                        console.log("HERE");
-                        setState(prevState => ({
-                            ...prevState,
-                            'error': {
-                                status: response.status,
-                                message: response.message
-                            }
-                        }))
-                    }
-                })
-                .catch(function (error) {
-                    setState(prevState => ({
-                        ...prevState,
-                        'error': error
-                    }))
-                    console.log(error);
-                });
-        } else {
-            props.showError('Please enter valid username and password')
+        const payload = {
+            "username": state.username,
+            "password": state.password,
+            "password2": state.repeatPassword,
+            "email": state.email,
+            "phoneNumber": state.phonenumber,
+            "isManager": state.shopOwner
         }
+        const headers = {
+
+        }
+        const onOk = (response) => {
+            setUsernameLocal(response.data.username);
+            console.log("username setted in local storage: " + response.data.username);
+            redirectToHome();
+        }
+        axiosPOST("AMW", "/registration", payload, headers, onOk, null, null, false, true);
     }
 
     const redirectToHome = () => {
