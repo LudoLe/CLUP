@@ -5,6 +5,7 @@ import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.TicketService;
 
+import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;

@@ -28,8 +28,7 @@ public class AVVTest {
 
     @Test
     void checkRegistrationTest(){
-        iniziatliazeDependencies();
-    }
+        initializeDependencies()  ;   }
 
 
     public void scenario(){
