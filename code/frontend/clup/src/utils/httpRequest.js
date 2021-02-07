@@ -83,7 +83,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 }
             }
             else {
-                window.location.href = "/Login";
+                window.location.href = "/";
             }
         })
         .catch(function (error) {
@@ -91,7 +91,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 onError(error);
             }
             else {
-                window.location.href = "/login";
+                window.location.href = "/";
             }
         });
 }
@@ -151,7 +151,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 }
             }
             else {
-                window.location.href = "/Login";
+                window.location.href = "/";
             }
         })
         .catch(function (error) {
@@ -159,7 +159,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 onError(error);
             }
             else {
-                window.location.href = "/login";
+                window.location.href = "/";
             }
         });
 }
