@@ -63,20 +63,26 @@ public class LineUpComponent {
                    capacity
             ){
                 c.setTime(new Date());
+                c.add(Calendar.MINUTE, timeToGetToTheShop);
+
                 //2. se no prendo l'ultimo scheduled ticket e sommo permanenza time da quel momento
             }else{
                 Date exitTime;
                 try{
                     exitTime= shopService.lastTicketTime(shopId);
+                    if(exitTime.after(c.getTime())){
+                        c.setTime(exitTime);
+                    }else{
+                        c.setTime(new Date());
+                        c.add(Calendar.MINUTE, timeToGetToTheShop);
+                    }
                 }catch(Exception e){
                     status = Response.Status.INTERNAL_SERVER_ERROR;
                     response = responseWrapper.generateResponse(status, new StringResponse("error retrieving last ticket exiting time"));
                     return response;
                 }
-                c.setTime(exitTime);
             }
 
-            c.add(Calendar.MINUTE, timeToGetToTheShop);
             Date ticketEnteringTime  = c.getTime();
             // a questo punto calcolo quanto tempo al massimo può restare nel negozio il client dato lo shift
             Date closingTime;
