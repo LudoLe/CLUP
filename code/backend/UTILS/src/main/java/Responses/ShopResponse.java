@@ -3,9 +3,16 @@ package Responses;
 import polimi.it.DL.entities.Shop;
 
 public class ShopResponse{
-
-    Shop shop;
-    public ShopResponse(String status, Shop shop, Boolean hasContent){
+    private Shop shop;
+    public ShopResponse(Shop shop){
         this.shop=shop;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

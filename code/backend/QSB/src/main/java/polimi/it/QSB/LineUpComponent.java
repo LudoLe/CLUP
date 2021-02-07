@@ -56,7 +56,7 @@ public class LineUpComponent {
                 capacity= shopService.lessThanActualCapacity(shopId);
             }catch(Exception e){
                 status = Response.Status.INTERNAL_SERVER_ERROR;
-                response = responseWrapper.generateResponse(status, new StringResponse("error retrieving people in the shop"));
+                response = responseWrapper.generateResponse(status, "error retrieving people in the shop"));
                 return response;
             }
             if(

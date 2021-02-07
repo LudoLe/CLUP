@@ -43,7 +43,7 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered", response = UserResponse.class),
             @ApiResponse(code = 400, message = "Registration failed", response =  StringResponse.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
-    public Response userLogin(@Valid @RequestMap Credentials credentials) {
+    public Response userLogin(@Valid @RequestMap Credentials credentials) throws Exception {
         String message = "something wrong";
         Response response;
         Response.Status status;
@@ -59,7 +59,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null,status, new StringResponse(message));
+        response = responseWrapper.generateResponse(avv.getNewSessionToken(credentials.getUsername()),status, new StringResponse(message));
         return response;
     }
 
@@ -73,7 +73,7 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered", response = UserResponse.class),
             @ApiResponse(code = 400, message = "Registration failed", response = StringResponse.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
-    public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials) {
+    public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials) throws Exception {
         Response response;
         Response.Status status= Response.Status.GATEWAY_TIMEOUT;
         String message;
@@ -95,7 +95,7 @@ public class Gateway {
 
             }
         }
-        response = responseWrapper.generateResponse(null,status, new StringResponse(message));
+        response = responseWrapper.generateResponse(avv.getNewSessionToken(credentials.getUsername()),status, new StringResponse(message));
         return response;
     }
 
@@ -114,6 +114,7 @@ public class Gateway {
         Response response;
         try {
                 ams.logoutManagement(username);
+                avv.invalidateSessionToken(username);
                 message = "Successfully logged out!";
                 response=responseWrapper.generateResponse(null,Response.Status.OK, message);
                 return response;
@@ -134,28 +135,27 @@ public class Gateway {
             @ApiResponse(code = 400, message = "Something went wrong", response = StringResponse.class),
             @ApiResponse(code = 401, message = "Unauthorized", response = StringResponse.class),
             @ApiResponse(code = 500, message = "Something went wrong", response = StringResponse.class)})
-    public Response logOut(@Context HttpHeaders headers) throws Exception {
+    public Response userInfo(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken) throws Exception {
         String message;
         Response response;
         Response.Status status;
-        String username= headers.getRequestHeader("username").get(0);
-        String sessionToken= headers.getRequestHeader("sessionToken").get(0);
 
         try {
             if(avv.isAuthorized(username, sessionToken)){
-                ams.logoutManagement(username);
                 try {
                     response = ams.getUserInfo(username);
                     return response;
                 }catch (Exception e){
                     message= "problem with get user info in ams";
                     status= Response.Status.INTERNAL_SERVER_ERROR;
+                    avv.invalidateSessionToken(username);
                     response = responseWrapper.generateResponse(null,status, new StringResponse(message));
                     return response;
                 }
             }
             message = "Unauthorized!";
             status= Response.Status.UNAUTHORIZED;
+            avv.invalidateSessionToken(username);
             response = responseWrapper.generateResponse(null,status, new StringResponse(message));
             return response;
         } catch (Exception e) {

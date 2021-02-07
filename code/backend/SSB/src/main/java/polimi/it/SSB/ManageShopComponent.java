@@ -1,5 +1,6 @@
 package polimi.it.SSB;
 
+import Responses.ShopResponse;
 import Responses.StringResponse;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
@@ -83,10 +84,10 @@ public class ManageShopComponent{
             e.printStackTrace();
         }
         try {
-            shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager ,shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
+            Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager ,shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
             String newToken = userService.newSessionToken(username);
             System.out.println(newToken);
-            return responseWrapper.generateResponse(newToken, Response.Status.OK, new StringResponse("Successfully registered shop!"));
+            return responseWrapper.generateResponse(newToken, Response.Status.OK, new ShopResponse(newShop));
 
         }catch (Exception e){
             userService.invalidateSessionToken(username);
