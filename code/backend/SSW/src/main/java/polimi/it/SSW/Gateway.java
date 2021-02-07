@@ -18,6 +18,7 @@ import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
 import javax.faces.annotation.RequestMap;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.ws.rs.*;
@@ -50,16 +51,19 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered", response = List.class),
             @ApiResponse(code = 400, message = "Registration failed", response = String.class ),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class )})
-    public Response getUserTickets(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken ){
+    public Response getUserTickets(@Context HttpServletResponse httpHeader, @HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken ){
         String message;
         Response response;
         Response.Status status;
+        httpHeader.setHeader("session-token", "");
+
 
         try {
             if (!avv.isAuthorized(username, sessionToken)) {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
+                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getTickets(username);
                 return response;
             }
@@ -67,7 +71,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null,status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 
@@ -81,10 +85,13 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered", response = Ticket.class),
             @ApiResponse(code = 400, message = "Registration failed", response = String.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class )})
-    public Response getTicketDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int ticketid){
+    public Response getTicketDetail(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int ticketid){
         String message;
         Response response;
         Response.Status status;
+        httpHeader.setHeader("session-token", "");
+
+
 
         try {
             if (!avv.isAuthorized(username, sessionToken)&&(!avv.isAuthorizedToAccessTicket(ticketid, username))) {
@@ -92,6 +99,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
+                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getTicketInfo(ticketid, username);
                 return response;
             }
@@ -99,7 +107,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null,status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 
@@ -112,10 +120,12 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Shop.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
+    public Response getShopDetail(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
         String message;
         Response response;
         Response.Status status;
+        httpHeader.setHeader("session-token", "");
+
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)&&(!avv.isAuthorizedToAccessShop(shopid, username))) {
@@ -123,6 +133,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
+                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getShopInfo(shopid, username);
                 return response;
             }
@@ -130,7 +141,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null,status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 
@@ -143,7 +154,7 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops Retrieved",response = List.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
+    public Response getShops(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
         String message;
         Response response;
         Response.Status status;
@@ -153,6 +164,7 @@ public class Gateway {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
+                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getShops(username);
                 return response;
             }
@@ -160,7 +172,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null,status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 
@@ -173,10 +185,10 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response registerNewShop(@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
+    public Response registerNewShop(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
-
+        httpHeader.setHeader("session-token", "");
         Response.Status status;
 
         try {
@@ -185,7 +197,7 @@ public class Gateway {
                 status = Response.Status.UNAUTHORIZED;
                 System.out.println("we are in here not authorized");
                 avv.invalidateSessionToken(username);
-                return responseWrapper.generateResponse(null, status, message);
+                return responseWrapper.generateResponse( status, message);
 
             } else {
                 try{
@@ -195,23 +207,24 @@ public class Gateway {
                         System.out.println("corrupte");
                         message = "Corrupted Data";
                         status = Response.Status.BAD_REQUEST;
-                        String token = avv.getNewSessionToken(username);
-                        return responseWrapper.generateResponse(token,status, message);
+                        httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
+                        return responseWrapper.generateResponse(status, message);
                     }else{
+                        httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                         response = msc.registerNewShop(shop, username);
                         return response;
                     }
                 }catch (Exception e){
                     message = "Internal server error. Please try again later1.";
                     status = Response.Status.INTERNAL_SERVER_ERROR;
-                    return responseWrapper.generateResponse(null,status, message);
+                    return responseWrapper.generateResponse(status, message);
 
                 }
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            return responseWrapper.generateResponse(null,status, message);
+            return responseWrapper.generateResponse(status, message);
 
         }
     }
@@ -225,10 +238,12 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops succefully registered the shifts", response = List.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =String.class),
             @ApiResponse(code = 500, message = "We messed up", response =String.class)})
-    public Response registerNewShopShifts(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
+    public Response registerNewShopShifts(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
         String message;
         Response response;
         Response.Status status;
+        httpHeader.setHeader("session-token", "");
+
 
 
         try {
@@ -239,6 +254,7 @@ public class Gateway {
                 status = Response.Status.BAD_REQUEST;
             } else {
                 System.out.println("starting to add");
+                httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = msc.registerNewShiftShop(shopShifts, username);
                 return response;
             }
@@ -246,7 +262,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null, status, message);
+        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 }

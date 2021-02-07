@@ -4,6 +4,7 @@ import Responses.StringResponse;
 import Responses.TimeResponse;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.TicketService;
+import polimi.it.DL.services.UserService;
 import prototypes.EnqueueData;
 import prototypes.PreEnqueuementData;
 import responseWrapper.ResponseWrapper;
@@ -20,6 +21,9 @@ public class LineUpComponent {
 
     @EJB(name = "services/ShopService")
     ShopService shopService;
+
+    @EJB(name = "services/UserService")
+    UserService userService;
 
     @EJB(name = "ResponseWrapper")
     ResponseWrapper responseWrapper;
@@ -40,12 +44,11 @@ public class LineUpComponent {
     }
 
 
-    public Response managePreEnqueuement(PreEnqueuementData preEnqueuementData) throws Exception {
+   /* public Response managePreEnqueuement(PreEnqueuementData preEnqueuementData) throws Exception {
         Response response;
         Response.Status status;
         int shopId= preEnqueuementData.getShopId();
         int timeToGetToTheShop= preEnqueuementData.getTimeToGetToTheShop();
-
         //1.se la gente nel negozio in questo momento è meno di max capacity allora calcolo il tempo a partire da ora
             Calendar c = Calendar.getInstance();
             Calendar c2 = Calendar.getInstance();
@@ -108,12 +111,16 @@ public class LineUpComponent {
                 return response;
             }
     }
+    */
 
-    public Response enqueue(EnqueueData enqueueData){
+
+    public Response enqueue(EnqueueData enqueueData, String username){
         Response response;
         Response.Status status;
         try{
-            ticketService.create(enqueueData.getEnteringTime(), enqueueData.getExitingTime(), enqueueData.getShopid(), enqueueData.getUserid());
+
+           // ticketService.create(null, null, enqueueData.getShopid(), userService.find(username));
+
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));

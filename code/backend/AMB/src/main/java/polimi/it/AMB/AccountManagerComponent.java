@@ -34,11 +34,11 @@ public class AccountManagerComponent {
         try {
             user = userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
             status = Response.Status.OK;
-            response=responseWrapper.generateResponse(null,status, user);
+            response=responseWrapper.generateResponse(status, user);
         }catch (Exception e){
             status = Response.Status.BAD_REQUEST;
             String message = "Esiste già un utente con questo username";
-            response=responseWrapper.generateResponse(null,status, message);
+            response=responseWrapper.generateResponse(status, message);
         }
         return response;
   }
@@ -49,11 +49,11 @@ public class AccountManagerComponent {
         try {
             user = userService.checkCredentials(credentials.getUsername(), credentials.getPassword());
             status = Response.Status.OK;
-            response=responseWrapper.generateResponse(null,status, user);
+            response=responseWrapper.generateResponse(status, user);
         }catch (Exception e){
             status = Response.Status.BAD_REQUEST;
             String message = "I dati inseriti non sono corretti!";
-            response=responseWrapper.generateResponse(null,status, message);
+            response=responseWrapper.generateResponse(status, message);
         }
         return response;
     }
@@ -68,13 +68,13 @@ public class AccountManagerComponent {
            status= Response.Status.OK;
            User user = userService.findByUsername(username);
            //return responseWrapper.generateResponse(avv.getNewSessionToken(username),status, new UserResponse(user, user.getSessionToken()));
-           return responseWrapper.generateResponse(avv.getNewSessionToken(username),status, user);
+           return responseWrapper.generateResponse(status, user);
 
        }catch (Exception e){
            status  = Response.Status.INTERNAL_SERVER_ERROR;
            String message = "problems retrieving info";
            //return responseWrapper.generateResponse(null,status, new StringResponse(message));
-           return responseWrapper.generateResponse(null,status, message);
+           return responseWrapper.generateResponse(status, message);
 
        }
     }

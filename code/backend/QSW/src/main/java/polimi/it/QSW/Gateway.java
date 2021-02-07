@@ -15,8 +15,10 @@ import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
 import javax.faces.annotation.RequestMap;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,7 +37,7 @@ public class Gateway {
 
 
 
-    @POST
+   /* @POST
     @ApiOperation(value = "can enqueue")
     @Path("/canenqueue")
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,23 +67,34 @@ public class Gateway {
         }
         return response;
     }
+    */
+
 
 
     @POST
-    @ApiOperation(value = "enqueue confirmation")
-    @Path("/confirmEnqueuement")
+    @ApiOperation(value = "enqueue")
+    @Path("/enqueue")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully enqueued", response = StringResponse.class),
             @ApiResponse(code = 400, message = "Registration failed", response = StringResponse.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
-    public Response confirmEnqueuement(@Valid @RequestMap EnqueueData enqueueData) {
+    public Response enqueue(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken , @Valid @RequestMap EnqueueData enqueueData) throws Exception {
         Response response;
         Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
         String message;
+        httpHeader.setHeader("session-token", "");
+
+        if(!aavEngine.isAuthorized(username, sessionToken)){
+            aavEngine.invalidateSessionToken(username);
+           response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
+           return response;
+
+        }
         try {
-              response = luc.enqueue(enqueueData);
+            httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
+            response = luc.enqueue(enqueueData, username);
 
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
@@ -100,14 +113,18 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully dequeued"),
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 500, message = "Something went wrong")})
-    public Response dequeue(@HeaderParam("ticketid") int tickeid, @HeaderParam("username") String username) {
+    public Response dequeue(@HeaderParam("ticketid") int tickeid, @HeaderParam("username") String username,  @Context HttpServletResponse httpHeader) {
         String message;
         Response response;
+        httpHeader.setHeader("session-token", "");
+
         try {
             if(!luc.checkProperty(username, tickeid)) {
+                httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
                 return luc.dequeue(tickeid);
             }else{
                 message = "Not your ticket";
+                aavEngine.invalidateSessionToken(username);
                 response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
                 return response;
             }
@@ -128,12 +145,15 @@ public class Gateway {
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 401, message = "Unauthorized"),
             @ApiResponse(code = 500, message = "Something went wrong")})
-    public Response checkIfAlreadyEnqueued(@HeaderParam("username") String username) throws Exception {
+    public Response checkIfAlreadyEnqueued( @Context HttpServletResponse httpHeader, @HeaderParam("username") String username) throws Exception {
         String message = "something wrong";
         Response response;
         Response.Status status;
+        httpHeader.setHeader("session-token", "");
+
         boolean bol;
         try {
+            httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
             bol = luc.checkIfAlreadyEnqueued(username);
             status = Response.Status.OK;
 

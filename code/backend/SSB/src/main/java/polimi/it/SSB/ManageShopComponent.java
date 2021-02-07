@@ -89,11 +89,11 @@ public class ManageShopComponent{
             Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager ,shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
             String newToken = userService.newSessionToken(username);
             System.out.println(newToken);
-            return responseWrapper.generateResponse(newToken, Response.Status.OK, newShop);
+            return responseWrapper.generateResponse(Response.Status.OK, newShop);
 
         }catch (Exception e){
             userService.invalidateSessionToken(username);
-            return responseWrapper.generateResponse(null, Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+            return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
         }
     }
 
@@ -110,15 +110,15 @@ public class ManageShopComponent{
                 }else{
                     System.out.println("not authorized to add this shift, you are being logged out");
                     userService.invalidateSessionToken(username);
-                    return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+                    return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
                 }
             }catch (Exception e){
                 System.out.println("not authorized to add this shift, you are being logged out");
                 userService.invalidateSessionToken(username);
-                return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+                return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
             }
         }
-        return responseWrapper.generateResponse(userService.newSessionToken(username),Response.Status.OK, shiftsnew);
+        return responseWrapper.generateResponse(Response.Status.OK, shiftsnew);
     }
 
 }

@@ -7,11 +7,26 @@ public class EnqueueData implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    private Date enteringTime;
-    private Date exitingTime;
-    private int userid;
+    private Date permanence;
+    private Date timeToGetToTheShop;
     private int shopid;
 
+
+    public Date getPermanence() {
+        return permanence;
+    }
+
+    public void setPermanence(Date permanence) {
+        this.permanence = permanence;
+    }
+
+    public Date getTimeToGetToTheShop() {
+        return timeToGetToTheShop;
+    }
+
+    public void setTimeToGetToTheShop(Date timeToGetToTheShop) {
+        this.timeToGetToTheShop = timeToGetToTheShop;
+    }
 
     public int getShopid() {
         return shopid;
@@ -19,29 +34,5 @@ public class EnqueueData implements Serializable
 
     public void setShopid(int shopid) {
         this.shopid = shopid;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public Date getExitingTime() {
-        return exitingTime;
-    }
-
-    public void setExitingTime(Date exitingTime) {
-        this.exitingTime = exitingTime;
-    }
-
-    public Date getEnteringTime() {
-        return enteringTime;
-    }
-
-    public void setEnteringTime(Date enteringTime) {
-        this.enteringTime = enteringTime;
     }
 }
