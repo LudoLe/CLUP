@@ -4,6 +4,7 @@ import Responses.ShopResponse;
 import Responses.StringResponse;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.ShopShift;
 import polimi.it.DL.entities.User;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.ShopShiftService;
@@ -15,6 +16,7 @@ import responseWrapper.ResponseWrapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class ManageShopComponent{
 
     public boolean checkIfCorruptedDataShift(ShopShiftProto shift){
        if(shift.getClosingTime().before(shift.getOpeningTime())) return true;
-       //if(shift.getDay()<0 || shift.getDay()<0 ) return true;
+       if(shift.getDay()<0 || shift.getDay()>7 ) return true;
         try {
             Shop shop = shopService.find(shift.getShopid());
             if(shop != null) {
@@ -87,34 +89,36 @@ public class ManageShopComponent{
             Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager ,shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
             String newToken = userService.newSessionToken(username);
             System.out.println(newToken);
-            return responseWrapper.generateResponse(newToken, Response.Status.OK, new ShopResponse(newShop));
+            return responseWrapper.generateResponse(newToken, Response.Status.OK, newShop);
 
         }catch (Exception e){
             userService.invalidateSessionToken(username);
-            return responseWrapper.generateResponse(null, Response.Status.INTERNAL_SERVER_ERROR, new StringResponse("Something wernt wrong while registering shifts!"));
+            return responseWrapper.generateResponse(null, Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
         }
     }
 
     public Response registerNewShiftShop(List<ShopShiftProto> shifts, String username) throws Exception {
 
+        List<ShopShift> shiftsnew=new ArrayList<>();
+
         for (ShopShiftProto shift: shifts
              ) {
             try {
                 if(aavEngine.isAuthorizedToAccessShop(shift.getShopid(), username)&&(!checkIfCorruptedDataShift(shift))) {
-                    shopShiftService.create(shift.getShopid(), shift.getClosingTime(), shift.getOpeningTime(), shift.getDay());
+                    shiftsnew.add(shopShiftService.create(shift.getShopid(), shift.getClosingTime(), shift.getOpeningTime(), shift.getDay()));
 
                 }else{
                     System.out.println("not authorized to add this shift, you are being logged out");
                     userService.invalidateSessionToken(username);
-                    return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, new StringResponse("Something wernt wrong while registering shifts!"));
+                    return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
                 }
             }catch (Exception e){
                 System.out.println("not authorized to add this shift, you are being logged out");
                 userService.invalidateSessionToken(username);
-                return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, new StringResponse("Something wernt wrong while registering shifts!"));
+                return responseWrapper.generateResponse(null,Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
             }
         }
-        return responseWrapper.generateResponse(userService.newSessionToken(username),Response.Status.INTERNAL_SERVER_ERROR, new StringResponse("Something wernt wrong while registering shifts!"));
+        return responseWrapper.generateResponse(userService.newSessionToken(username),Response.Status.OK, shiftsnew);
     }
 
 }

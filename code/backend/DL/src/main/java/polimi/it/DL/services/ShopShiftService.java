@@ -21,7 +21,7 @@ public class ShopShiftService {
         return em.find(ShopShift.class, id);
     }
 
-    public ShopShift create(int shop, Date closingTime, Date openingTime, String dayShift) throws Exception{
+    public ShopShift create(int shop, Date closingTime, Date openingTime, int dayShift) throws Exception{
         try{
             //checks that username and email aren't already in use
             ShopShift shopShift = new ShopShift();

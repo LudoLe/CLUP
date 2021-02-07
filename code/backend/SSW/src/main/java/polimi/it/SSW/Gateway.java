@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.ShopShift;
+import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.entities.User;
 import polimi.it.SSB.ManageShopComponent;
 import polimi.it.SSB.ShopInfoComponent;
@@ -45,9 +47,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered"),
-            @ApiResponse(code = 400, message = "Registration failed"),
-            @ApiResponse(code = 500, message = "Invalid payload/error")})
+            @ApiResponse(code = 200, message = "Successfully registered", response = List.class),
+            @ApiResponse(code = 400, message = "Registration failed", response = String.class ),
+            @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class )})
     public Response getUserTickets(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken ){
         String message;
         Response response;
@@ -76,9 +78,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered"),
-            @ApiResponse(code = 400, message = "Registration failed"),
-            @ApiResponse(code = 500, message = "Invalid payload/error")})
+            @ApiResponse(code = 200, message = "Successfully registered", response = Ticket.class),
+            @ApiResponse(code = 400, message = "Registration failed", response = String.class),
+            @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class )})
     public Response getTicketDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int ticketid){
         String message;
         Response response;
@@ -107,9 +109,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shop Info Retrieved"),
-            @ApiResponse(code = 400, message = "Parametri errati"),
-            @ApiResponse(code = 500, message = "We messed up")})
+            @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Shop.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
         String message;
         Response response;
@@ -138,9 +140,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops Retrieved"),
-            @ApiResponse(code = 400, message = "Parametri errati"),
-            @ApiResponse(code = 500, message = "We messed up")})
+            @ApiResponse(code = 200, message = "Shops Retrieved",response = List.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response getShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
         String message;
         Response response;
@@ -169,8 +171,8 @@ public class Gateway {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
-            @ApiResponse(code = 400, message = "Parametri errati", response = StringResponse.class),
-            @ApiResponse(code = 500, message = "We messed up", response = StringResponse.class)})
+            @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response registerNewShop(@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
@@ -183,7 +185,7 @@ public class Gateway {
                 status = Response.Status.UNAUTHORIZED;
                 System.out.println("we are in here not authorized");
                 avv.invalidateSessionToken(username);
-                return responseWrapper.generateResponse(null, status, new StringResponse(message));
+                return responseWrapper.generateResponse(null, status, message);
 
             } else {
                 try{
@@ -194,7 +196,7 @@ public class Gateway {
                         message = "Corrupted Data";
                         status = Response.Status.BAD_REQUEST;
                         String token = avv.getNewSessionToken(username);
-                        return responseWrapper.generateResponse(token,status, new StringResponse(message));
+                        return responseWrapper.generateResponse(token,status, message);
                     }else{
                         response = msc.registerNewShop(shop, username);
                         return response;
@@ -202,27 +204,27 @@ public class Gateway {
                 }catch (Exception e){
                     message = "Internal server error. Please try again later1.";
                     status = Response.Status.INTERNAL_SERVER_ERROR;
-                    return responseWrapper.generateResponse(null,status, new StringResponse(message));
+                    return responseWrapper.generateResponse(null,status, message);
 
                 }
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
-            return responseWrapper.generateResponse(null,status, new StringResponse(message));
+            return responseWrapper.generateResponse(null,status, message);
 
         }
     }
 
     @POST
-    @ApiOperation(value = "register shop")
+    @ApiOperation(value = "register shop shifts")
     @Path("/newshopshifts")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered the shifts", response =StringResponse.class),
-            @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
-            @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
+            @ApiResponse(code = 200, message = "Shops succefully registered the shifts", response = List.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response =String.class),
+            @ApiResponse(code = 500, message = "We messed up", response =String.class)})
     public Response registerNewShopShifts(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
         String message;
         Response response;
@@ -244,7 +246,7 @@ public class Gateway {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
         }
-        response = responseWrapper.generateResponse(null, status, new StringResponse(message));
+        response = responseWrapper.generateResponse(null, status, message);
         return response;
     }
 }

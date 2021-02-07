@@ -27,7 +27,7 @@ public class ShopShift implements Serializable {
     private Date closingTime;
     @Expose
     @Column(name="day")
-    private String day;
+    private int day;
     @Expose
     @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id", nullable = false)
@@ -54,10 +54,10 @@ public class ShopShift implements Serializable {
         this.closingTime = closingTime;
     }
 
-    public String getDay() {
+    public int getDay() {
         return day;
     }
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
     }
 

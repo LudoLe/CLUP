@@ -8,7 +8,7 @@ public class ShopShiftProto implements Serializable {
 
     private Date openingTime;
     private Date closingTime;
-    private String day;
+    private int day;
     private int shopid;
 
 
@@ -29,11 +29,11 @@ public class ShopShiftProto implements Serializable {
         this.closingTime = closingTime;
     }
 
-    public String getDay() {
+    public int getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
     }
 
