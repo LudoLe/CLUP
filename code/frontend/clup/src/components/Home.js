@@ -34,7 +34,7 @@ const Home = () => {
 
     //fetch account info
     useEffect(()=>{
-        const headers = {
+        /* const headers = {
             username: getUsernameLocal()
         }
         const onOk = (response) =>{
@@ -46,7 +46,7 @@ const Home = () => {
              });
             console.log("OK ACCOUNT INFO")
         }
-        axiosGET("AMW", "/userinfo", headers, onOk, null, null, true, true);
+        axiosGET("AMW", "/userinfo", headers, onOk, null, null, true, true); */
     }, []); 
 
     return (
