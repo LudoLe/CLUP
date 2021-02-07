@@ -156,7 +156,7 @@ public class LineUpComponent {
         Response.Status status;
         try{
            ticketService.create(null, null, enqueueData.getShopid(), userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
-           tsc.buildQueue();
+           tsc.buildQueue(enqueueData.getShopid());
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));

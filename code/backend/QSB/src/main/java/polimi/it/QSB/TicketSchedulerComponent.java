@@ -130,6 +130,7 @@ public class TicketSchedulerComponent {
 
     public void buildQueue() {
         // general informations
+
         int shopCapacity = shop.getShopCapacity();
         int timeSlotMinuteDuration = shop.getTimeslotMinutesDuration();
 
