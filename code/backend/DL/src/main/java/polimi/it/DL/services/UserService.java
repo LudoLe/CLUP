@@ -43,22 +43,33 @@ public class UserService {
                 user.setSessionToken(generateSessionToken());
                 em.persist(user);
                 em.flush();
+                em.clear();
+
             }
         }
         return user;
     }
 
+    public void invalidateSessionToken(String username){
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+        if(!(user == null)){
+            user.setSessionToken(null);
+            em.persist(user);
+            em.flush();
+            em.clear();
+        }
+    }
+
+
     public String newSessionToken(String username){
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         if(!(user == null)){
-
                 String newSessionToken = generateSessionToken();
                 user.setSessionToken(newSessionToken);
                 em.persist(user);
                 em.flush();
-                return newSessionToken;
-
-
+                em.clear();
+            return newSessionToken;
         }
         System.out.println("user not found in check session token");
 
@@ -71,19 +82,26 @@ public class UserService {
                user.setSessionToken(null);
                em.persist(user);
                em.flush();
+               em.clear();
+
            }
     }
 
     public Boolean isAuthorized(String username, String token) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         if(!(user == null)){
-            if(user.getSessionToken().equals(token)){
-                return true;
+            if(user.getSessionToken()!=null){
+
+                if(user.getSessionToken().equals(token)) {
+                    return true;
+                }
             }else
             {            System.out.println("user not found in is authorized session token");
                          user.setSessionToken(null);
                 em.persist(user);
                 em.flush();
+                em.clear();
+
 
 
                 return false;
@@ -97,11 +115,13 @@ public class UserService {
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         assert user != null;
         if(user.getSessionToken()!=null){
+            System.out.println(user.getSessionToken());
            if(user.getSessionToken().equals(token)&&(user.getIsManager()))return true;
            else{
                user.setSessionToken(null);
                em.persist(user);
                em.flush();
+               em.clear();
                return false;
            }
         }else return false;
@@ -133,6 +153,8 @@ public class UserService {
             user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
+            em.clear();
+
             return user;
         } catch (PersistenceException e) {
             throw new Exception("Could not insert user");

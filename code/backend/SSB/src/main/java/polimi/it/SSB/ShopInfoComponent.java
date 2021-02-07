@@ -1,5 +1,6 @@
 package polimi.it.SSB;
 
+import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.entities.User;
@@ -28,15 +29,18 @@ public class ShopInfoComponent {
     @EJB(name = "ResponseWrapper")
     private ResponseWrapper responseWrapper ;
 
+    @EJB(name = "AAVEngine")
+    private AAVEngine aav ;
 
-    public Response getTicketInfo(int ticketid){
+
+    public Response getTicketInfo(int ticketid, String username){
         Response response;
         Response.Status status;
 
         try{
             Ticket ticket= ticketService.find(ticketid);
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(null,status,ticket);
+            response = responseWrapper.generateResponse(aav.getNewSessionToken(username),status,ticket);
             return response;
 
         }catch(Exception e){
@@ -48,14 +52,14 @@ public class ShopInfoComponent {
         }
     }
 
-    public Response getShopInfo(int shopid){
+    public Response getShopInfo(int shopid, String username){
         Response response;
         Response.Status status;
 
         try{
             Shop shop= shopService.find(shopid);
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(null,status,shop);
+            response = responseWrapper.generateResponse(aav.getNewSessionToken(username),status,shop);
             return response;
 
         }catch(Exception e){
@@ -75,7 +79,7 @@ public class ShopInfoComponent {
             User user= userService.findByUsername(username);
             List<Shop> shops = user.getShops();
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(null,status, shops);
+            response = responseWrapper.generateResponse(aav.getNewSessionToken(username),status, shops);
             return response;
 
         }catch(Exception e){
@@ -96,7 +100,7 @@ public class ShopInfoComponent {
             User user= userService.findByUsername(username);
             List<Ticket> tickets = user.getTickets();
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(null,status,tickets);
+            response = responseWrapper.generateResponse(aav.getNewSessionToken(username),status,tickets);
             return response;
 
         }catch(Exception e){

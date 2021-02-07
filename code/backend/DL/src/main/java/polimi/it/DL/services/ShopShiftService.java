@@ -1,21 +1,19 @@
 package polimi.it.DL.services;
 
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.ShopShift;
-import polimi.it.DL.entities.User;
-
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import java.sql.Date;
+import java.util.Date;
 
 @Stateless(name= "services/ShopShiftService")
 public class ShopShiftService {
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
+    @EJB(name="services/ShopService")
+    ShopService shopService;
 
     public ShopShiftService(){}
 
@@ -23,11 +21,11 @@ public class ShopShiftService {
         return em.find(ShopShift.class, id);
     }
 
-    public ShopShift create(Shop shop, Date closingTime, Date openingTime, String dayShift) throws Exception{
+    public ShopShift create(int shop, Date closingTime, Date openingTime, String dayShift) throws Exception{
         try{
             //checks that username and email aren't already in use
             ShopShift shopShift = new ShopShift();
-            shopShift.setShop(shop);
+            shopShift.setShop(shopService.find(shop));
             shopShift.setClosingTime(closingTime);
             shopShift.setOpeningTime(openingTime);
             shopShift.setDay(dayShift);

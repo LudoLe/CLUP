@@ -1,28 +1,17 @@
 package prototypes;
 
-import com.google.gson.annotations.Expose;
-import polimi.it.DL.entities.Shop;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
-public class ShopShift implements Serializable {
+public class ShopShiftProto implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
     private Date openingTime;
     private Date closingTime;
     private String day;
-    private polimi.it.DL.entities.Shop shop;
+    private int shopid;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public Date getOpeningTime() {
         return openingTime;
@@ -48,11 +37,12 @@ public class ShopShift implements Serializable {
         this.day = day;
     }
 
-    public polimi.it.DL.entities.Shop getShop() {
-        return shop;
+
+    public int getShopid() {
+        return shopid;
     }
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
+    public void setShopid(int shopid) {
+        this.shopid = shopid;
     }
 }

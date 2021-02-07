@@ -32,24 +32,31 @@ public class Ticket implements Serializable {
     @Expose
     private int id;
     @Expose
+    @Column(name="status")
     private String status;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="enter_time")
     private Date enterTime;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="time_to_reach_the_shop")
     private Date timeToReachTheShop;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="exit_time")
     private Date exitTime;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="expected_duration")
     private Date expectedDuration;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="scheduled_entering_time")
     private Date scheduledEnteringTime;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="scheduled_exiting_time")
     private Date scheduledExitingTime;
 
     @ManyToOne

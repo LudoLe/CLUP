@@ -1,8 +1,13 @@
 package polimi.it.AMB;
 
+import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.Ticket;
+import polimi.it.DL.services.ShopService;
+import polimi.it.DL.services.TicketService;
 import polimi.it.DL.services.UserService;
 import prototypes.Credentials;
 import prototypes.RegistrationCredentials;
+import prototypes.ShopShiftProto;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -12,6 +17,12 @@ public class AAVEngine {
 
     @EJB(name = "services/UserService")
     private UserService userService;
+
+    @EJB(name = "services/ShopService")
+    private ShopService shopService;
+
+    @EJB(name = "services/TicketService")
+    private TicketService ticketService;
 
     public static final int MAX_USERNAME_LENGTH = 40;
     public static final int MAX_EMAIL_LENGTH = 100;
@@ -52,8 +63,42 @@ public class AAVEngine {
         return  userService.isAuthorizedAndManager(username, sessionToken);
     }
 
-    public String getNewSessionToken(String username, String sessionToken) throws Exception {
+    public String getNewSessionToken(String username) throws Exception {
         return  userService.newSessionToken(username);
+    }
+
+    public void invalidateSessionToken(String username) throws Exception {
+          userService.invalidateSessionToken(username);
+    }
+
+    public boolean isAuthorizedToAccessShop(int shopid, String username){
+        try {
+            Shop shop = shopService.find(shopid);
+            if(shop==null)return false;
+            String manager =shop.getManager().getUsername();
+            if(manager.equals(username))return true;
+            else return false;
+        }catch (Exception e ){
+            userService.invalidateSessionToken(username);
+            System.out.println("problem here");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean isAuthorizedToAccessTicket(int ticketid, String username){
+        try {
+            Ticket ticket = ticketService.find(ticketid);
+            if(ticket==null)return false;
+            String user =ticket.getUser().getUsername();
+            if(user.equals(username))return true;
+            else return false;
+        }catch (Exception e ){
+            userService.invalidateSessionToken(username);
+            System.out.println("problem here in access ticket");
+            e.printStackTrace();
+            return false;
+        }
     }
 
 }

@@ -9,12 +9,13 @@ import polimi.it.AMB.AAVEngine;
 import polimi.it.SSB.ManageShopComponent;
 import polimi.it.SSB.ShopInfoComponent;
 import prototypes.ShopProto;
-import prototypes.ShopShift;
+import prototypes.ShopShiftProto;
 import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
 import javax.faces.annotation.RequestMap;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
@@ -45,11 +46,9 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered"),
             @ApiResponse(code = 400, message = "Registration failed"),
             @ApiResponse(code = 500, message = "Invalid payload/error")})
-    public Response getUserTickets(@Context HttpHeaders headers){
+    public Response getUserTickets(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken ){
         String message;
         Response response;
-        String username= headers.getRequestHeader("username").get(0);
-        String sessionToken= headers.getRequestHeader("sessionToken").get(0);
         Response.Status status;
 
         try {
@@ -78,19 +77,18 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully registered"),
             @ApiResponse(code = 400, message = "Registration failed"),
             @ApiResponse(code = 500, message = "Invalid payload/error")})
-    public Response getTicketDetail(@Context HttpHeaders headers, @PathParam("ticketid") int ticketid){
+    public Response getTicketDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int ticketid){
         String message;
         Response response;
-        String username= headers.getRequestHeader("username").get(0);
-        String sessionToken= headers.getRequestHeader("sessionToken").get(0);
         Response.Status status;
 
         try {
-            if (!avv.isAuthorized(username, sessionToken)) {
+            if (!avv.isAuthorized(username, sessionToken)&&(!avv.isAuthorizedToAccessTicket(ticketid, username))) {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
+                avv.invalidateSessionToken(username);
             } else {
-                response = sic.getTicketInfo(ticketid);
+                response = sic.getTicketInfo(ticketid, username);
                 return response;
             }
         } catch (Exception e) {
@@ -110,19 +108,18 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shop Info Retrieved"),
             @ApiResponse(code = 400, message = "Parametri errati"),
             @ApiResponse(code = 500, message = "We messed up")})
-    public Response getShopDetail(@Context HttpHeaders headers, @PathParam("shopid") int shopid){
+    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
         String message;
         Response response;
-        String username = headers.getRequestHeader("username").get(0);
-        String sessionToken = headers.getRequestHeader("sessionToken").get(0);
         Response.Status status;
 
         try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+            if (!avv.isAuthorizedAndManager(username, sessionToken)&&(!avv.isAuthorizedToAccessShop(shopid, username))) {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
+                avv.invalidateSessionToken(username);
             } else {
-                response = sic.getShopInfo(shopid);
+                response = sic.getShopInfo(shopid, username);
                 return response;
             }
         } catch (Exception e) {
@@ -142,11 +139,9 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops Retrieved"),
             @ApiResponse(code = 400, message = "Parametri errati"),
             @ApiResponse(code = 500, message = "We messed up")})
-    public Response getShops(@Context HttpHeaders headers){
+    public Response getShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
         String message;
         Response response;
-        String username = headers.getRequestHeader("username").get(0);
-        String sessionToken = headers.getRequestHeader("sessionToken").get(0);
         Response.Status status;
 
         try {
@@ -179,33 +174,35 @@ public class Gateway {
         Response response;
 
         Response.Status status;
-        try{
-            boolean bol = msc.checkIfCorruptedData(shop);
-            if(bol){
-                System.out.println("corrupte");
-                message = "Corrupted Data";
-                status = Response.Status.BAD_REQUEST;
-                return responseWrapper.generateResponse(null,status, new StringResponse(message));
-
-            }
-        }catch (Exception e){
-            message = "Internal server error. Please try again later1.";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-            return responseWrapper.generateResponse(null,status, new StringResponse(message));
-
-        }
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
                 message= "Not authorized!!!";
                 status = Response.Status.UNAUTHORIZED;
                 System.out.println("we are in here not authorized");
+                avv.invalidateSessionToken(username);
                 return responseWrapper.generateResponse(null, status, new StringResponse(message));
 
-
             } else {
-                response = msc.registerNewShop(shop, username);
-                return response;
+                try{
+                    boolean bol = msc.checkIfCorruptedData(shop);
+                    System.out.println(bol);
+                    if(bol){
+                        System.out.println("corrupte");
+                        message = "Corrupted Data";
+                        status = Response.Status.BAD_REQUEST;
+                        String token = avv.getNewSessionToken(username);
+                        return responseWrapper.generateResponse(token,status, new StringResponse(message));
+                    }else{
+                        response = msc.registerNewShop(shop, username);
+                        return response;
+                    }
+                }catch (Exception e){
+                    message = "Internal server error. Please try again later1.";
+                    status = Response.Status.INTERNAL_SERVER_ERROR;
+                    return responseWrapper.generateResponse(null,status, new StringResponse(message));
+
+                }
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
@@ -221,22 +218,24 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered", response =StringResponse.class),
+            @ApiResponse(code = 200, message = "Shops succefully registered the shifts", response =StringResponse.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
             @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
-    public Response registerNewShop(@Context HttpHeaders headers,@Valid @RequestMap List<ShopShift> shopShifts){
+    public Response registerNewShopShifts(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
         String message;
         Response response;
-        String username = headers.getRequestHeader("username").get(0);
-        String sessionToken = headers.getRequestHeader("sessionToken").get(0);
         Response.Status status;
+
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+                System.out.println("unauthorized!");
+                avv.invalidateSessionToken(username);
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
             } else {
-                response = msc.registerNewShiftShop(shopShifts);
+                System.out.println("starting to add");
+                response = msc.registerNewShiftShop(shopShifts, username);
                 return response;
             }
         } catch (Exception e) {

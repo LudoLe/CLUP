@@ -4,8 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Date;
 
 @Entity
 @Table(name = "`shop_shift`", schema = "clup")
@@ -21,10 +20,13 @@ public class ShopShift implements Serializable {
     @Expose
     private int id;
     @Expose
+    @Column(name="opening_time")
     private Date openingTime;
     @Expose
+    @Column(name="closing_time")
     private Date closingTime;
     @Expose
+    @Column(name="day")
     private String day;
     @Expose
     @ManyToOne
