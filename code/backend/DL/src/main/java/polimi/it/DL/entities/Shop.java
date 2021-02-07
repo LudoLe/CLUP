@@ -18,18 +18,25 @@ public class Shop implements Serializable {
     @Expose
     private int id;
     @Expose
+    @Column(name = "name")
     private String name;
     @Expose
+    @Column(name = "description")
     private String description;
     @Expose
+    @Column(name = "position")
     private String position;
     @Expose
+    @Column(name = "image")
     private String image;
     @Expose
+    @Column(name = "shop_capacity")
     private int shopCapacity;
     @Expose
+    @Column(name = "timeslot_minutes_duration")
     private int timeslotMinutesDuration;
     @Expose
+    @Column(name = "max_entering_client_in_a_timeslot")
     private int maxEnteringClientInATimeslot;
 
     @ManyToOne

@@ -3,7 +3,7 @@ package prototypes;
 
 import java.io.Serializable;
 
-public class Shop implements Serializable {
+public class ShopProto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
@@ -15,6 +15,8 @@ public class Shop implements Serializable {
     private int shopCapacity;
     private int timeslotMinutesDuration;
     private int maxEnteringClientInATimeslot;
+
+
 
     public int getId() {
         return id;
@@ -64,13 +66,7 @@ public class Shop implements Serializable {
         this.shopCapacity = shopCapacity;
     }
 
-    public int getTimeslotMinutesDuration() {
-        return timeslotMinutesDuration;
-    }
 
-    public void setTimeslotMinutesDuration(int timeslotMinutesDuration) {
-        this.timeslotMinutesDuration = timeslotMinutesDuration;
-    }
 
     public int getMaxEnteringClientInATimeslot() {
         return maxEnteringClientInATimeslot;
@@ -87,5 +83,13 @@ public class Shop implements Serializable {
 
     public void setManager(String manager) {
         this.manager = manager;
+    }
+
+    public int getTimeslotMinutesDuration() {
+        return timeslotMinutesDuration;
+    }
+
+    public void setTimeslotMinutesDuration(int timeslotMinutesDuration) {
+        this.timeslotMinutesDuration = timeslotMinutesDuration;
     }
 }

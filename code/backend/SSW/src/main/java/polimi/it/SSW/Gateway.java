@@ -1,17 +1,14 @@
 package polimi.it.SSW;
 
-import Responses.ShopResponse;
 import Responses.StringResponse;
-import com.sun.net.httpserver.HttpContext;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import polimi.it.AMB.AAVEngine;
-import polimi.it.AMB.AccountManagerComponent;
 import polimi.it.SSB.ManageShopComponent;
 import polimi.it.SSB.ShopInfoComponent;
-import prototypes.Shop;
+import prototypes.ShopProto;
 import prototypes.ShopShift;
 import responseWrapper.ResponseWrapper;
 
@@ -177,20 +174,21 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops succefully registered", response =StringResponse.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =StringResponse.class),
             @ApiResponse(code = 500, message = "We messed up", response =StringResponse.class)})
-    public Response registerNewShop(@Context HttpHeaders headers,@Valid @RequestMap Shop shop){
+    public Response registerNewShop(@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
-        String username = headers.getRequestHeader("username").get(0);
-        String sessionToken = headers.getRequestHeader("sessionToken").get(0);
+
         Response.Status status;
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
+                System.out.println("we are in here not authorized");
             } else {
                 response = msc.registerNewShop(shop);
                 return response;
+
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
