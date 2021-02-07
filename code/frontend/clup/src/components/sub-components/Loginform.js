@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import Error from './ErrorMessage';
-import {AMW_URL_API, ACCESS_TOKEN_NAME} from '../../constants/urlsAPI';
+import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest.js';
 
 const Loginform = (props) => {
-
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
     const [state, setState] = useState({
         username: "",
         password: "",
@@ -16,56 +12,35 @@ const Loginform = (props) => {
     });
 
     const handleChange = (e) => {
-        const {id , value} = e.target   
+        const { id, value } = e.target
         setState(prevState => ({
             ...prevState,
-            [id] : value
+            [id]: value
         }))
     }
 
-    const handleLoginSubmit = (e) =>{
+    const handleLoginSubmit = (e) => {
         e.preventDefault();
-        if(e.target.reportValidity()) {
-            sendLoginToServer(); 
+        if (e.target.reportValidity()) {
+            sendLoginToServer();
         }
     }
 
     const sendLoginToServer = () => {
-        if((state.username.length!==0) && (state.password.length!==0)) {
-            const payload={
-                "username":state.username,
-                "password":state.password
+        if ((state.username.length !== 0) && (state.password.length !== 0)) {
+            const payload = {
+                "username": state.username,
+                "password": state.password
             }
-            axios.post(AMW_URL_API+'/login', payload)
-                .then(function (response) {
-                    if(response.status === 200){
-                        setState(prevState => ({
-                            ...prevState,
-                            'successMessage' : 'Registration successful. Redirecting to home page..'
-                        }))
-                        console.log(response); //JUSTO TO VISUALIZE IT
-                        localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token); //SAVE LOGIN TOKEN
-                        redirectToHome();
-                    } else{
-                        console.log("HERE");
-                        setState(prevState => ({
-                            ...prevState,
-                            'error' : {
-                                status: response.status,
-                                message: response.message
-                            }
-                        }))
-                    }
-                })
-                .catch(function (error) {
-                    setState(prevState => ({
-                        ...prevState,
-                        'error' : error
-                    }))
-                    console.log(error);
-                });    
+            const onOk = (response) => {
+                setUsernameLocal(response.data.username);
+                console.log("username setted in local storage: " + response.data.username);
+                redirectToHome();
+            }
+            axiosPOST("AMW", "/login", payload, {}, onOk, null, null, false, true);
         } else {
-            props.showError('Please enter valid username and password')    
+            //TODO:
+            //should show error of invalid credentials
         }
     }
 
@@ -83,7 +58,7 @@ const Loginform = (props) => {
                             <h3>Login to your account</h3>
                             <div className="flexColumnCenter">
                                 <label className="labelSignup">Username</label>
-                                <input onChange={handleChange} 
+                                <input onChange={handleChange}
                                     value={state.username}
                                     id="username"
                                     type="text" placeholder="Username" name="username" required />
@@ -92,7 +67,7 @@ const Loginform = (props) => {
                                 <label className="labelSignup">Password</label>
                                 <input onChange={handleChange}
                                     id="password"
-                                    value={state.password} 
+                                    value={state.password}
                                     type="password" placeholder="Password" name="password" required />
                             </div>
                             <button className="activeButton" type="submit">Confirm</button>

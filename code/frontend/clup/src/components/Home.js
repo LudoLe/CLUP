@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Searchsection from './sub-components/Searchsection';
 import TicketsList from './sub-components/TicketsList';
 import Account from './sub-components/Account';
-import { AMW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../constants/urlsAPI';
+import { axiosGET, getUsernameLocal } from '../utils/httpRequest.js';
+
 
 const Home = () => {
 
@@ -16,46 +17,36 @@ const Home = () => {
 
     //fetch ticket info
     useEffect(()=>{
-        fetch(SSW_URL_API + "/tickets")
-        .then(res => res.json())
-        .then(
-            (result) => {
-                setState(prevState => ({
-                    ...prevState,
-                    isLoadedTickets: true,
-                    tickets: result
-                }));
-            },
-            (error) => {
-                setState(prevState => ({
-                    ...prevState,
-                    isLoadedTickets: true,
-                    error: error
-                }));
-            }
-        )
+        const headers = {
+            username: getUsernameLocal()
+        }
+        const onOk = (response) =>{
+            setState(prevState =>{
+                return{
+                     ...prevState,
+                     isLoadedTickets : true
+                }
+             });
+            console.log("OK TICKETS")
+        }
+        axiosGET("SSW", "/tickets", headers, onOk, null, null, true, true);
     }, []); 
 
     //fetch account info
     useEffect(()=>{
-        fetch(AMW_URL_API + "/userinfo") //TODO
-        .then(res => res.json())
-        .then(
-            (result) => {
-                setState(prevState => ({
-                    ...prevState,
-                    isLoadedAccount: true,
-                    account: result
-                }));
-            },
-            (error) => {
-                setState(prevState => ({
-                    ...prevState,
-                    isLoadedAccount: true,
-                    error: error
-                }));
-            }
-        )
+        /* const headers = {
+            username: getUsernameLocal()
+        }
+        const onOk = (response) =>{
+            setState(prevState =>{
+                return{
+                     ...prevState,
+                     isLoadedAccount : true
+                }
+             });
+            console.log("OK ACCOUNT INFO")
+        }
+        axiosGET("AMW", "/userinfo", headers, onOk, null, null, true, true); */
     }, []); 
 
     return (
