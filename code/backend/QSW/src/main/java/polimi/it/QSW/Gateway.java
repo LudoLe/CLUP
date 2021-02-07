@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import polimi.it.AMB.AAVEngine;
 import polimi.it.QSB.LineUpComponent;
 import prototypes.*;
 import responseWrapper.ResponseWrapper;
@@ -29,6 +30,9 @@ public class Gateway {
     @EJB(name = "ResponseWrapper")
     private ResponseWrapper responseWrapper ;
 
+    @EJB(name = "AAVEngine")
+    private AAVEngine aavEngine ;
+
 
 
     @POST
@@ -40,7 +44,7 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Can enqueue", response = TimeResponse.class),
             @ApiResponse(code = 400, message = "enqueuement failed", response = StringResponse.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
-    public Response preEnqueue(@Valid @RequestMap PreEnqueuementData enqueueData , @HeaderParam("username") String username) {
+    public Response preEnqueue(@Valid @RequestMap PreEnqueuementData enqueueData , @HeaderParam("username") String username) throws Exception {
         String message = "something wrong";
         Response response;
         Response.Status status;
@@ -49,13 +53,16 @@ public class Gateway {
                 return luc.managePreEnqueuement(enqueueData);
             }else{
                 message = "User already Has One Ticket";
-                status = Response.Status.OK;
+                status = Response.Status.PRECONDITION_FAILED;
+                response = responseWrapper.generateResponse(null,status, message);
             }
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
+            aavEngine.invalidateSessionToken(username);
+            response = responseWrapper.generateResponse(null,status, message);
+
         }
-        response = responseWrapper.generateResponse(status, message);
         return response;
     }
 

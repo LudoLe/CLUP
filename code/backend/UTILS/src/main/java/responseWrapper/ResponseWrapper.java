@@ -19,7 +19,7 @@ public class ResponseWrapper implements Serializable {
 
     public Response generateResponse(String sessionToken, Response.Status status, Object o){
         Gson builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        return Response.status(status).header("session-token", sessionToken).entity(builder.toJson(o)).build();
+        return Response.status(status).entity(builder.toJson(o)).header("session-token", sessionToken).build();
     }
 
 }
