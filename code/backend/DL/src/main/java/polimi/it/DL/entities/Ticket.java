@@ -38,6 +38,9 @@ public class Ticket implements Serializable {
     private Date enterTime;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
+    private Date timeToReachTheShop;
+    @Expose
+    @Temporal(TemporalType.TIMESTAMP)
     private Date exitTime;
     @Expose
     @Temporal(TemporalType.TIMESTAMP)
@@ -106,6 +109,12 @@ public class Ticket implements Serializable {
         this.scheduledExitingTime = scheduledExitingTime;
     }
 
+    public Date getTimeToReachTheShop() {
+        return timeToReachTheShop;
+    }
+    public void setTimeToReachTheShop(Date timeToReachTheShop) {
+        this.timeToReachTheShop = timeToReachTheShop;
+    }
 
     public Shop getShop() {
         return shop;
