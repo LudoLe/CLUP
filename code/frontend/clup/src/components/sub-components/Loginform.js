@@ -31,7 +31,7 @@ const Loginform = (props) => {
     }
 
     const sendLoginToServer = () => {
-        if((state.username.length!=0) && (state.password.length!=0)) {
+        if((state.username.length!==0) && (state.password.length!==0)) {
             const payload={
                 "username":state.username,
                 "password":state.password
