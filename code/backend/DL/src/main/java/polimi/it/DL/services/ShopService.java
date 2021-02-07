@@ -38,9 +38,9 @@ public class ShopService {
     }
 
     public boolean existsWithThatNameAndPosition(String name, String position){
-        Long bol = em.createNamedQuery("Shop.existWithThatNameAndPosition", Long.class).setParameter(1, name).setParameter(2, position).getResultList().stream().findFirst().orElse(null);
-       System.out.println(bol);
-        if(bol==null)return false;
+        Shop shop = em.createNamedQuery("Shop.existWithThatNameAndPosition", Shop.class).setParameter(1, name).setParameter(2, position).getResultList().stream().findFirst().orElse(null);
+        System.out.println(shop.getDescription()+"from shop service");
+        if(shop==null)return false;
         else return true;
     }
 
