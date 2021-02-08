@@ -21,6 +21,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+//TODO CHECK SESSION TOKEN NOT NULL
 @Path("/AMW")
 @Api(value = "Methods")
 public class Gateway {
@@ -52,8 +53,9 @@ public class Gateway {
 
         try {
             if (!avv.isEmpty(credentials)) {
-                httpHeader.setHeader("session-token", avv.getNewSessionToken(credentials.getUsername()));
-                return ams.loginManagement(credentials);
+                response = ams.loginManagement(credentials);
+                httpHeader.setHeader("session-token", avv.getSessionToken(credentials.getUsername()));
+                return response;
             }
             else {
                 message = "Empty Credentials";
@@ -85,15 +87,16 @@ public class Gateway {
 
         try {
             message = avv.checkRegistration(credentials);
+            status= Response.Status.BAD_REQUEST;
         } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
+            message = "Internal server error. Please try again later.";
             status= Response.Status.INTERNAL_SERVER_ERROR;
         }
 
         if (message.equals("OK")){
             try {
                    response= ams.registrationManagement(credentials);
-                   httpHeader.setHeader("session-token", avv.getNewSessionToken(credentials.getUsername()));
+                   httpHeader.setHeader("session-token", avv.getSessionToken(credentials.getUsername()));
 
                 return response;
                 } catch (Exception e) {

@@ -67,6 +67,12 @@ public class AAVEngine {
         return  userService.newSessionToken(username);
     }
 
+    public String getSessionToken(String username) throws Exception {
+        return  userService.findByUsername(username).getSessionToken();
+    }
+
+
+
     public void invalidateSessionToken(String username) throws Exception {
           userService.invalidateSessionToken(username);
     }

@@ -3,13 +3,18 @@ package responseWrapper;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
+import javax.xml.rpc.handler.MessageContext;
+import javax.xml.rpc.handler.soap.SOAPMessageContext;
 import java.io.Serializable;
 
 
 @Stateless(name= "ResponseWrapper")
 public class ResponseWrapper implements Serializable {
+
+
 
     public ResponseWrapper()
     {}

@@ -68,6 +68,7 @@ public class AccountManagerComponent {
                 status = Response.Status.UNAUTHORIZED;
                 return responseWrapper.generateResponse(status, "credentials provided are not correct");
             }else{
+                avv.getNewSessionToken(credentials.getUsername());
                 status = Response.Status.OK;
                 return responseWrapper.generateResponse(status, user);
             }
