@@ -77,9 +77,9 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
             console.log("response is: ");
             console.log(response);
             if (response.status === 200) {
+                console.log("response.headers is");
+                console.log(response.headers);
                 if (setNewSessionToken) {
-                    console.log("response.headers is");
-                    console.log(response.headers);
                     console.log("new session-token: " + response.headers["session-token"] + " .");
                     setSessionToken(response.headers["session-token"]);
                 }
@@ -151,6 +151,8 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
             console.log("response is: ");
             console.log(response);
             if (response.status === 200) {
+                console.log("response.headers is");
+                console.log(response.headers);
                 if (setNewSessionToken) {
                     console.log("new session-token: " + response.headers["session-token"] + " .");
                     setSessionToken(response.headers["session-token"]);
