@@ -16,11 +16,11 @@
         </init-param>
         <init-param>
             <param-name>cors.allowed.headers</param-name>
-            <param-value>session-token,Content-Type,X-Requested-With,Accept,Authorization,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
+            <param-value> username, ticketid, shopid, Access-Control-Allow-Origin,session-token,Content-Type,X-Requested-With,Accept,Authorization,Origin,Access-Control-Request-Method,Access-Control-Request-Headers</param-value>
         </init-param>
         <init-param>
             <param-name>cors.exposed.headers</param-name>
-            <param-value>session-token,Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
+            <param-value>username, ticketid, shopid, session-token,Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
         </init-param>
     </filter>
     <filter-mapping>
