@@ -28,6 +28,11 @@ public class AAVEngine {
     public static final int MAX_EMAIL_LENGTH = 100;
     public static final int MAX_PWD_LENGTH = 100;
 
+    /**
+     * this method checks the registration credentials
+     * @param credentials  provided data which need to be checked
+     * @return a string with explained which check aint been passed or if all of them have been passed returns OK
+     * */
     public String checkRegistration(RegistrationCredentials credentials) {
         String message=null;
         if(credentials == null || credentials.getEmail() == null || credentials.getPassword() == null) {
@@ -47,18 +52,32 @@ public class AAVEngine {
         return "OK";
     }
 
-    public Boolean isEmpty(Credentials credentials){
-        Boolean message=true;
+    /**
+     * this method checks if credentials are empty
+     * @param credentials  provided data which need to be checked
+     * @return boolean
+     * */
+    public boolean isEmpty(Credentials credentials){
         if(credentials == null || credentials.getPassword() == null) {
             return true;
            }
          return false;
     }
-
-    public Boolean isAuthorized(String username, String sessionToken) throws Exception {
+    /**
+     * this method checks whether a user is authorized to request something
+     * @param username  and
+     * @param sessionToken needed to validate authorization
+     * @return boolean
+     * */
+    public Boolean isAuthorized(String username, String sessionToken) throws Exception{
         return  userService.isAuthorized(username, sessionToken);
     }
-
+    /**
+     * this method checks whether a user is authorized to request something and whether they are a manager
+     * @param username  and
+     * @param sessionToken needed to validate authorization
+     * @return boolean
+     * */
     public Boolean isAuthorizedAndManager(String username, String sessionToken) throws Exception {
         return  userService.isAuthorizedAndManager(username, sessionToken);
     }

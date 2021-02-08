@@ -67,7 +67,9 @@ public class UserService {
         if(!(user == null)){
                 String newSessionToken = generateSessionToken();
                 user.setSessionToken(newSessionToken);
-                em.persist(user);
+            em.refresh(user);
+
+            em.persist(user);
                 em.flush();
                 em.clear();
             return newSessionToken;

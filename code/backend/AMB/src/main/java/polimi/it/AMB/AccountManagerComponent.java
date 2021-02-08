@@ -35,6 +35,11 @@ public class AccountManagerComponent {
     public AccountManagerComponent()
     {}
 
+    /**
+     * this method call the database to register a new user and generate the http response
+     * @param credentials with the needed data to create a user
+     * @return the http response
+     * */
     public Response registrationManagement(RegistrationCredentials credentials) throws Exception{
         Response response;
         Response.Status status;
@@ -44,18 +49,18 @@ public class AccountManagerComponent {
             status = Response.Status.OK;
             response=responseWrapper.generateResponse(status, user);
         }catch (Exception e){
-            status = Response.Status.BAD_REQUEST;
-            String message = "Esiste già un utente con questo username";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+            String message = "internal server error";
             response=responseWrapper.generateResponse(status, message);
         }
         return response;
   }
 
-  /*this method check whether user
-  -exists --> if it doesnt exists, the server notifies the client
-  -provides the correct credentials --> if not, notifies the client
-                                    --> if yes, access is allowd
-  * */
+    /**
+     * this method checks the data provided with the login interfacing with the database and pack the http response
+     * @param credentials with the needed data to validate the login
+     * @return the http response
+     * */
     public Response loginManagement(Credentials credentials){
         Response.Status status;
         User user;
@@ -81,10 +86,20 @@ public class AccountManagerComponent {
 
     }
 
+    /**
+     * this method allows a user to log out
+     * @param username needed to logout a user
+     *
+     * */
     public void logoutManagement(String username) throws Exception{
        userService.logOut(username);
     }
 
+    /**
+     * this method calls the db in order to get the detailed info about a user
+     * @param username of the user to retrieve info about
+     * @return the http response
+     * */
     public Response getUserInfo(String username){
        Response.Status status;
        try {
@@ -96,13 +111,17 @@ public class AccountManagerComponent {
        }catch (Exception e){
            status  = Response.Status.INTERNAL_SERVER_ERROR;
            String message = "problems retrieving info";
-           //return responseWrapper.generateResponse(null,status, new StringResponse(message));
            return responseWrapper.generateResponse(status, message);
 
        }
     }
 
-    //check if credentials provided are correct
+    /**
+     * this method checks whether the password provided and the one in the db are the same
+     * @param userPassword is the password in the db
+     * @param passwordProvided is the password provided by the user
+     * @return boolean whether the cretendials are checked or not
+     * */
     private boolean checkCred(String userPassword, String passwordProvided){
         boolean passed;
         Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
