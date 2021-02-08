@@ -71,6 +71,15 @@ public class Gateway {
 
 
 
+    /**
+     * this method allows a client to enqueue in a shop
+     * @param username used to validate the request and to enqueue the client
+     * @param sessionToken used to validate the request along with the username
+     * @param enqueueData object that contains necessary data to perform the enqueuement correctly such as the permanence
+     *                    time in the shop and the time to get to the shop from the user position
+     * @param httpHeader used to set custom headers in the response
+     * @return a response object
+     * */
     @POST
     @ApiOperation(value = "enqueue")
     @Path("/enqueue")
@@ -84,28 +93,32 @@ public class Gateway {
         Response response;
         Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
         String message;
-        //httpHeader.setHeader("session-token", "");
 
         if(!aavEngine.isAuthorized(username, sessionToken)){
             aavEngine.invalidateSessionToken(username);
            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
            return response;
         }
+        System.out.println("user authorized we proceed with check the data");
         if(luc.corruptedData(enqueueData)){
             response = responseWrapper.generateResponse( status, "data corrupted" );
             return response;
         }
+        System.out.println("data not corrupted we proceed with checking the time");
         if(!luc.noSenseTime(enqueueData).equals("OK")){
             aavEngine.invalidateSessionToken(username);
             response = responseWrapper.generateResponse( status, luc.noSenseTime(enqueueData) );
             return response;
         }
+        System.out.println("time fine we enqueue");
+
         try {
-            //httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
+            System.out.println("before algorithm");
+
             response = luc.enqueue(enqueueData, username);
 
         } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
+            message = "Internal server error. Please try again later";
             response=responseWrapper.generateResponse(status, new StringResponse(message));
         }
         return response;
