@@ -328,6 +328,8 @@ public class TicketSchedulerComponent {
             }
         }
 
+        printTimeLine(timeLine);
+
         //TODO:
         // DEVO SETTARE GLI STATI DEI TICKET? SI FEDEEEE
 
@@ -467,5 +469,63 @@ public class TicketSchedulerComponent {
         // given a ticket it checks if its scheduledEnterignTime and scheduledExitingTime are compatible with at least
         // one shopShift.
         return true;
+    }
+
+    private void printTimeLine (ArrayList<TimeSlot> tl){
+        for (TimeSlot ts: tl) {
+            printTimeSlot(ts);
+        }
+    }
+
+    private void printTimeSlot(TimeSlot ts){
+        System.out.println("    __printing a time slot__");
+        System.out.println("    id: " + ts.getId());
+        System.out.println("     starting time: " + (ts.getStartingTime()!=null ? ts.getStartingTime() : "null"));
+        System.out.println("     ending time: " + (ts.getEndingTime()!=null ? ts.getEndingTime() : "null"));
+        System.out.println("     expected entering tickets:");
+        printTicketTrackerList(ts.getTickets());
+        System.out.println("     expected exiting tickets:");
+        printTicketTrackerList(ts.getExpectedExitingTickets());
+        System.out.println("    ________________________");
+    }
+
+    private void printTicketTrackerList(ArrayList<TicketTracker> ticketTrackers){
+        System.out.println("    __printing a ticket tracker list__");
+        for (TicketTracker tt: ticketTrackers) {
+            printTicketTracker(tt);
+        }
+        System.out.println("    _____________________________");
+    }
+    private void printTicketTracker(TicketTracker tt){
+        System.out.println("    __printing a ticket tracker__");
+        System.out.println("   previous matching ticket: " + tt.getMatchingPreviousTicket().getId());
+        System.out.println("   following matching ticket: " + tt.getMatchingFollowingTicket().getId());
+        System.out.println("   Ticket:");
+        printTicket(tt.getTicket());
+        System.out.println("    _____________________________");
+    }
+    private void printTicketList(ArrayList<Ticket> tickets){
+        System.out.println("    __printing a ticket list__");
+        for (Ticket t: tickets) {
+            printTicket(t);
+        }
+        System.out.println("    __________________________");
+    }
+    private void printTicket(Ticket t){
+        System.out.println("    __printing a ticket__");
+        if(t != null){
+            System.out.println("    id: " + t.getId());
+            System.out.println("     status: " + (t.getStatus()!=null ? t.getStatus() : "null"));
+            System.out.println("     duration: " + (t.getExpectedDuration()!=null ? t.getExpectedDuration() : "null"));
+            System.out.println("     ttr: " + (t.getTimeToReachTheShop()!=null ? t.getTimeToReachTheShop() : "null"));
+            System.out.println("     enter: " + (t.getEnterTime()!=null ? t.getEnterTime() : "null"));
+            System.out.println("     exit: " + (t.getExitTime()!=null ? t.getExitTime() : "null"));
+            System.out.println("     scheduled enter: " + (t.getScheduledEnteringTime()!=null ? t.getScheduledEnteringTime() : "null"));
+            System.out.println("     scheduled exit: " + (t.getScheduledExitingTime()!=null ? t.getScheduledExitingTime() : "null"));
+        }
+        else{
+            System.out.println("    ticket is null");
+        }
+        System.out.println("    _____________________");
     }
 }
