@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Searchsection from './sub-components/Searchsection';
 import TicketsList from './sub-components/TicketsList';
 import Account from './sub-components/Account';
-import { axiosGET, getUsernameLocal } from '../utils/httpRequest.js';
+import { axiosGET } from '../utils/httpRequest.js';
 
 
 const Home = () => {
@@ -17,9 +17,6 @@ const Home = () => {
 
     //fetch ticket info
     useEffect(()=>{
-        const headers = {
-            username: getUsernameLocal()
-        }
         const onOk = (response) =>{
             setState(prevState =>{
                 return{
@@ -29,7 +26,7 @@ const Home = () => {
              });
             console.log("OK TICKETS")
         }
-        axiosGET("SSW", "/tickets", headers, onOk, null, null, true, true);
+        axiosGET("SSW", "/tickets", {}, onOk, null, null, true, false, true);
     }, []); 
 
     //fetch account info
@@ -46,7 +43,7 @@ const Home = () => {
              });
             console.log("OK ACCOUNT INFO")
         }
-        axiosGET("AMW", "/userinfo", headers, onOk, null, null, true, true); */
+        axiosGET("AMW", "/userinfo", {}, onOk, null, null, true, true, true); */
     }, []); 
 
     return (
