@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest';
+import history from "../../utils/history";
 
 const Signupform = (props) => {
 
@@ -69,7 +70,7 @@ const Signupform = (props) => {
     }
 
     const redirectToHome = () => {
-        window.location.href = "/Home";
+        history.push("/Home");
     }
 
     return (

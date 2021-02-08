@@ -1,10 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import history from '../../utils/history'; 
 
 const Searchsection = () => {
+    const handleClick = () =>{
+        history.push('/Search');
+        //window.location.href="/Search";
+    }
+    
     return(
         <div>
-            <Link to="/Search">  <h3> Where do you want to go? </h3> </Link>
+            <h3 onClick={handleClick}> Where do you want to go? </h3>
         </div>
     );  
 }

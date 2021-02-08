@@ -3,11 +3,17 @@ import TicketElement from './TicketElement';
 import { WaveLoading } from 'react-loadingg';
 
 const TicketsList = (props) => {
-    if(props.isLoadedTickets){
-        return <div className="flexColumnCenter"> {props.tickets.map(ticket => <TicketElement ticket={ticket} />)} </div>
+
+    const styleLoad = {
+        color: 'black',
+        position: 'relative'
+    };
+
+    if(props.isLoaded){
+        return <div className="flexColumnCenter"> {(props.tickets!==null) ? (props.tickets).map(ticket => <TicketElement ticket={ticket} />) : "" } </div>
     }
     else{
-        return <div className="flexColumnCenter"> <WaveLoading /></div>
+        return <div className="flexColumnCenter"> <WaveLoading style={styleLoad}/></div>
     }
 }
 

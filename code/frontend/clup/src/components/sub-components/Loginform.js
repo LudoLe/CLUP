@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Error from './ErrorMessage';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest.js';
+import history from "../../utils/history";
 
 const Loginform = (props) => {
     const [state, setState] = useState({
@@ -45,7 +46,7 @@ const Loginform = (props) => {
     }
 
     const redirectToHome = () => {
-        window.location.href = "/Home";
+        history.pushState("/Home");
     }
 
     return (

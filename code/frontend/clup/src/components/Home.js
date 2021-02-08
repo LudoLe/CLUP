@@ -10,13 +10,13 @@ const Home = () => {
     const [state, setState] = useState({
         isLoadedTickets: false,
         isLoadedAccount: false,
-        tickets: [],
-        error: [],
-        account: []
+        tickets: null,
+        error: null,
+        account: null
     });
 
     //fetch ticket info
-    useEffect(()=>{
+    useEffect(()=>{ //TODO: NON VA BENE DIO SANTO QUEL CODICE 500 SE NON CI SONO BIGLIETTI NON VA PROPRIO BENE, RITORNAMI UN OGGETTO VUOTO.
         const onOk = (response) =>{
             setState(prevState =>{
                 return{
@@ -24,26 +24,22 @@ const Home = () => {
                      isLoadedTickets : true
                 }
              });
-            console.log("OK TICKETS")
         }
-        axiosGET("SSW", "/tickets", {}, onOk, null, null, true, false, true);
+        axiosGET("SSW", "/tickets", {}, onOk, onOk , null, true, false, true);
     }, []); 
 
     //fetch account info
     useEffect(()=>{
-        /* const headers = {
-            username: getUsernameLocal()
-        }
         const onOk = (response) =>{
             setState(prevState =>{
                 return{
                      ...prevState,
-                     isLoadedAccount : true
+                     isLoadedAccount : true,
+                     account: response.data
                 }
              });
-            console.log("OK ACCOUNT INFO")
         }
-        axiosGET("AMW", "/userinfo", {}, onOk, null, null, true, true, true); */
+        axiosGET("AMW", "/userinfo", {}, onOk, onOk, null, true, false, true);
     }, []); 
 
     return (

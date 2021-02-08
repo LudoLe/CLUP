@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AMW_URL_API, QSW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../constants/urlsAPI.js';
-import {DEBUG_MODE} from '../constants/debug.js';
+import { DEBUG_MODE } from '../constants/debug.js';
+import history from '../utils/history'; 
 
 
 const BASE_HEADERS_POST = {
@@ -32,8 +33,8 @@ export const setUsernameLocal = (username) => {
 }
 
 export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {
-    console.log("---------------------------");
-    console.log("async http request");
+    console.log("############################################");
+    console.log("ASYNC HTTP REQUEST:");
 
     const config = {
         headers: {
@@ -46,7 +47,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
         console.log("old session-token: " + getSessionToken() + " .");
         config.headers['session-token'] = getSessionToken();
     }
-    if(useUsername){
+    if (useUsername) {
         console.log("username: " + getUsernameLocal());
         config.headers['username'] = getUsernameLocal();
     }
@@ -71,44 +72,59 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
     console.log(config.headers);
     console.log("useOldSessionToken: " + useOldSessionToken);
     console.log("setNewSessionToken: " + setNewSessionToken);
+    console.log("useUsername: " + useUsername);
+    console.log("--------------------------------------------");
+    console.log("HTTP RESPONSE:");
 
     axios.post(URL, payload, config)
-        .then(function (response) {
-            console.log("response is: ");
-            console.log(response);
-            if (response.status === 200) {
-                console.log("response.headers is");
-                console.log(response.headers);
-                if (setNewSessionToken) {
-                    console.log("new session-token: " + response.headers["session-token"] + " .");
-                    setSessionToken(response.headers["session-token"]);
-                }
-                onOk(response);
-            } else if (response.status === 500) {
-                if (on500 !== null) {
-                    on500(response);
-                }
-                else {
-                    window.location.reload();
-                }
+    .then(function (response) {
+        console.log("response data:");
+        console.log(response.data);
+        console.log("response status:");
+        console.log(response.status);
+        console.log("response headers");
+        console.log(response.headers);
+        if (response.status === 200) {
+            if (setNewSessionToken) {
+                console.log("new session-token: " + response.headers["session-token"] + " .");
+                setSessionToken(response.headers["session-token"]);
+            }
+            onOk(response);
+        }
+        else {
+            DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+        }
+    })
+    .catch(function (error) {
+        console.log(error);
+        if (error.response) {
+            console.log("error data:");
+            console.log(error.response.data);
+            console.log("error status:");
+            console.log(error.response.status);
+            console.log("error headers");
+            console.log(error.response.headers);
+            if (on500 !== null && error.response.status === 500) {
+                on500(error);
             }
             else {
-                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
+                DEBUG_MODE ? console.log("(on500:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
             }
-        })
-        .catch(function (error) {
+        }
+        else {
             if (onError !== null) {
                 onError(error);
             }
             else {
-                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
+                DEBUG_MODE ? console.log("(onError:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
             }
-        });
+        }
+    });
 }
 
 export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {
-    console.log("---------------------------");
-    console.log("async http request");
+    console.log("############################################");
+    console.log("ASYNC HTTP REQUEST:");
 
     const config = {
         headers: {
@@ -118,11 +134,9 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
     }
 
     if (useOldSessionToken) {
-        console.log("old session-token: " + getSessionToken() + " .");
         config.headers['session-token'] = getSessionToken();
     }
-    if(useUsername){
-        console.log("username: " + getUsernameLocal());
+    if (useUsername) {
         config.headers['username'] = getUsernameLocal();
     }
 
@@ -145,37 +159,52 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
     console.log(config.headers);
     console.log("useOldSessionToken: " + useOldSessionToken);
     console.log("setNewSessionToken: " + setNewSessionToken);
+    console.log("useUsername: " + useUsername);
+    console.log("--------------------------------------------");
+    console.log("HTTP RESPONSE:");
 
     axios.get(URL, config)
         .then(function (response) {
-            console.log("response is: ");
-            console.log(response);
+            console.log("response data:");
+            console.log(response.data);
+            console.log("response status:");
+            console.log(response.status);
+            console.log("response headers");
+            console.log(response.headers);
             if (response.status === 200) {
-                console.log("response.headers is");
-                console.log(response.headers);
                 if (setNewSessionToken) {
                     console.log("new session-token: " + response.headers["session-token"] + " .");
                     setSessionToken(response.headers["session-token"]);
                 }
                 onOk(response);
-            } else if (response.status === 500) {
-                if (on500 !== null) {
-                    on500(response);
-                }
-                else {
-                    window.location.reload();
-                }
             }
             else {
-                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
+                DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
             }
         })
         .catch(function (error) {
-            if (onError !== null) {
-                onError(error);
+            console.log(error);
+            if (error.response) {
+                console.log("error data:");
+                console.log(error.response.data);
+                console.log("error status:");
+                console.log(error.response.status);
+                console.log("error headers");
+                console.log(error.response.headers);
+                if (on500 !== null && error.response.status === 500) {
+                    on500(error);
+                }
+                else {
+                    DEBUG_MODE ? console.log("(on500:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                }
             }
             else {
-                DEBUG_MODE ? console.log("Should redirect to /") : window.location.href = "/";
+                if (onError !== null) {
+                    onError(error);
+                }
+                else {
+                    DEBUG_MODE ? console.log("(onError:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                }
             }
         });
 }

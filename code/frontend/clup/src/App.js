@@ -1,5 +1,6 @@
 import './css/App.css';
 import Start from './components/Start';
+import history from './utils/history';
 /* import Signup from './components/Signup'; */
 import Home from './components/Home';
 import Search from './components/Search';
@@ -13,11 +14,11 @@ import NewShop from './components/NewShop';
 import ShopManager from './components/ShopManager';
 import Scanner from './components/Scanner';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 
 function App() {
     return (
-        <Router>
+        <Router history={history}>
             <div className="App">
                 <Switch>
                     <Route path="/" exact component={Start} /> {/* Login page */}

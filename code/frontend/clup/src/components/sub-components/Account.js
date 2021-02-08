@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { WaveLoading } from 'react-loadingg';
 
-const Account = () => {
+const Account = (props) => {
 
     const [accountToggler, setAccountToggler] = useState(false);
 
@@ -9,20 +9,38 @@ const Account = () => {
         setAccountToggler(!accountToggler);
     }
 
-    if (accountToggler) {
+    const handleLogout = () => {
+
+    }
+
+    const styleLoad = {
+        color: 'black',
+        position: 'relative'
+    };
+
+    if (props.isLoaded) {
         return (
-            <div>
-                <h3 onClick={toggleAccount}> Hide account </h3>
-                <Link to="/Login"> <h3> Logout </h3> </Link>
+            <div className="flexColumnCenter">
+                { accountToggler
+                    ?
+                    <div>
+                        <div> Account info: </div>
+                        <div> Username: {props.account.username} </div>
+                        <div> Email: {props.account.email} </div>
+                        <div> Phone Number: {props.account.phoneNumber} </div>
+                        <button onClick={handleLogout}> Logout </button>
+                        <div onClick={toggleAccount}> close </div>
+                    </div>
+                    :
+                    <div>
+                        <h3 onClick={toggleAccount}> Account </h3>
+                    </div>
+                }
             </div>
         );
     }
     else {
-        return (
-            <div>
-                <h3 onClick={toggleAccount}> Account </h3>
-            </div>
-        );
+        return <div className="flexColumnCenter"> <WaveLoading style={styleLoad}/></div>
     }
 }
 
