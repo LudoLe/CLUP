@@ -3,9 +3,14 @@ import { AMW_URL_API, QSW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../con
 import {DEBUG_MODE} from '../constants/debug.js';
 
 
-const BASE_HEADERS = {
+const BASE_HEADERS_POST = {
     "accept": "application/json",
     "Content-Type": "application/json"
+}
+
+
+const BASE_HEADERS_GET = {
+    "accept": "application/json"
 }
 
 const USERNAME = 'username';
@@ -26,20 +31,24 @@ export const setUsernameLocal = (username) => {
     localStorage.setItem(USERNAME, username);
 }
 
-export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken) => {
+export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {
     console.log("---------------------------");
     console.log("async http request");
 
     const config = {
         headers: {
             ...headers,
-            ...BASE_HEADERS
+            ...BASE_HEADERS_POST
         }
     }
 
     if (useOldSessionToken) {
         console.log("old session-token: " + getSessionToken() + " .");
         config.headers['session-token'] = getSessionToken();
+    }
+    if(useUsername){
+        console.log("username: " + getUsernameLocal());
+        config.headers['username'] = getUsernameLocal();
     }
 
     var URL;
@@ -97,20 +106,24 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
         });
 }
 
-export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken) => {
+export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {
     console.log("---------------------------");
     console.log("async http request");
 
     const config = {
         headers: {
             ...headers,
-            ...BASE_HEADERS
+            ...BASE_HEADERS_GET
         }
     }
 
     if (useOldSessionToken) {
         console.log("old session-token: " + getSessionToken() + " .");
         config.headers['session-token'] = getSessionToken();
+    }
+    if(useUsername){
+        console.log("username: " + getUsernameLocal());
+        config.headers['username'] = getUsernameLocal();
     }
 
     var URL;

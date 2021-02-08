@@ -65,7 +65,7 @@ const Signupform = (props) => {
             console.log("username setted in local storage: " + response.data.username);
             redirectToHome();
         }
-        axiosPOST("AMW", "/registration", payload, headers, onOk, null, null, false, true);
+        axiosPOST("AMW", "/registration", payload, headers, onOk, null, null, false, true, false);
     }
 
     const redirectToHome = () => {

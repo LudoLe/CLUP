@@ -37,7 +37,7 @@ const Loginform = (props) => {
                 console.log("username setted in local storage: " + response.data.username);
                 redirectToHome();
             }
-            axiosPOST("AMW", "/login", payload, {}, onOk, null, null, false, true);
+            axiosPOST("AMW", "/login", payload, {}, onOk, null, null, false, true, false);
         } else {
             //TODO:
             //should show error of invalid credentials
