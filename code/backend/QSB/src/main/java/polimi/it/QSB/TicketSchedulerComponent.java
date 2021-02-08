@@ -134,11 +134,16 @@ public class TicketSchedulerComponent {
     }
 
     public ArrayList<Map<Ticket, Date>> buildQueue() {
-        // general informations
 
-        System.out.println("before constructing the queue");
+        System.out.println("\n.buildQueue() method started");
+        System.out.println("\ncurrentTime is: " + currentTime);
+
+        // general informations
         int shopCapacity = shop.getShopCapacity();
         int timeSlotMinuteDuration = shop.getTimeslotMinutesDuration();
+
+        System.out.println("\nshopCapacity is: " + shopCapacity);
+        System.out.println("\ntimeSlotMinuteDuration is: " + timeSlotMinuteDuration);
 
         // divide the tickets in ticket inside the shop, ticket that need to be scheduled to enter the shop and
         // ticket expired
@@ -160,7 +165,9 @@ public class TicketSchedulerComponent {
                     break;
                 case in_use:
                     TicketTracker ticketInsideShop = new TicketTracker(ticket);
-                    ticketInsideShop.setMatchingPreviousTicket(new Ticket()); //...useless, but just to not have incomplete data in the future
+                    Ticket placeHolderTicket = new Ticket();
+                    placeHolderTicket.setStatus(placeholder);
+                    ticketInsideShop.setMatchingPreviousTicket(placeHolderTicket); //...useless, but just to not have incomplete data in the future
                     ticketsInsideShop.add(ticketInsideShop);
                     break;
                 default:
@@ -168,8 +175,12 @@ public class TicketSchedulerComponent {
             }
         }
 
-        System.out.println("costructing time line");
-
+        System.out.println("\nPrinting tickets inside shop...");
+        printTicketTrackerList(ticketsInsideShop);
+        System.out.println("\nPrinting tickets to be scheduled...");
+        printTicketTrackerList(ticketsToSchedule);
+        System.out.println("\nPrinting tickets expired...");
+        printTicketTrackerList(ticketsExpired);
 
         // beginning of the time line
         TimeSlot firstTimeSlot = this.getTimeSlot (0);
@@ -185,7 +196,8 @@ public class TicketSchedulerComponent {
         }
         firstTimeSlot.setExpectedExitingTickets(fakeExitingTickets);
 
-        System.out.println("calculating the expected time for each ticket");
+        System.out.println("\nFirst time slot has been created and 'placeholders' added, printing first time slot...");
+        printTimeSlot(firstTimeSlot);
 
         // for each ticket inside the shop , calculate the expected exit time and mark the
         // corresponding time slot
@@ -198,41 +210,52 @@ public class TicketSchedulerComponent {
             int expectedExitTimeSlotId = calculateTimeSlotId(expectedExitTime);
 
             if(expectedExitTime.before(currentTime)){
-                expectedExitTimeSlotId++;
+                expectedExitTimeSlotId = 0;
             }
 
             this.getTimeSlot(expectedExitTimeSlotId).getExpectedExitingTickets().add(ticketTracker);
         }
 
-        System.out.println("creating copy of tickets");
-
+        System.out.println("\nAdded expected exiting time for tickets inside shop, printing time line...");
+        printTimeLine(timeLine);
 
         // create a copy of the list of tickets to be scheduled since we'll work with it removing elements and we do not
         // want to lose track of some tickets
         ArrayList<TicketTracker> ticketsToScheduleCopy = new ArrayList<TicketTracker>(ticketsToSchedule);
 
-        System.out.println("before giant for");
+        System.out.println("\nGIANT FOR STARTING:");
 
         // loop through all the time slots in the time line , and ,
-        // , if possible , insert an entering queue ticket
+        // if possible , insert an entering queue ticket
         for ( int k = 0; k < this.timeLine.size() ; k ++) {
+
+            System.out.println("\nGIANT FOR ITERATION NUMBER: " + k);
+
+            System.out.println("\nprinting tickets to be scheduled remaining...");
+            printTicketTrackerList(ticketsToScheduleCopy);
 
             // current timeslot
             TimeSlot timeSlot = this.timeLine.get(k);
+
+            System.out.println("\nresolving time slot...");
+            printTimeSlot(timeSlot);
 
             // all expected exiting ticket in this time slot
             ArrayList<TicketTracker> expectedExitingTickets = timeSlot.getExpectedExitingTickets();
 
             // for each expected exiting ticket...
-            for ( TicketTracker expectedExitingTicket : expectedExitingTickets ){
+            for (int i = 0; i < expectedExitingTickets.size(); i++) {
+                TicketTracker expectedExitingTicket = expectedExitingTickets.get(i);
+
+                System.out.println("\nresolving expected exiting ticket...");
+                printTicketTracker(expectedExitingTicket);
 
                 TicketTracker chosenTicket = null;
 
                 // ...loops through all the tickets to be scheduled to find one to place in the
                 // following time slot and to pair with the expected exiting ticket we are analyzing.
-                for (TicketTracker ticketTracker : ticketsToScheduleCopy ) {
-
-
+                for (int j = 0; j < ticketsToScheduleCopy.size(); j++) {
+                    TicketTracker ticketTracker = ticketsToScheduleCopy.get(j);
                     // Conditions for a ticket to be enqueued:
 
                     // 1. The chosen queue ticket to place must be able to reach the shop
@@ -259,34 +282,34 @@ public class TicketSchedulerComponent {
                     //lets find a ticket that respect the conditions listed above:
 
                     //  CONDITION 1
-                    if((timeSlot.getId()+1) <= calculateTimeSlotId(ticketTracker.getTicket().getTimeToReachTheShop())) {
+                    if ((timeSlot.getId() + 1) <= calculateTimeSlotId(ticketTracker.getTicket().getTimeToReachTheShop())) {
                         chosenTicket = ticketTracker;
                     }
                     // CONDITION 2
-                    else if((ticketTracker.getTicket().getStatus().equals(valid))
-                            && ((timeSlot.getId()+1) >= calculateTimeSlotId(ticketTracker.getTicket().getScheduledEnteringTime()) ) ){
+                    else if ((ticketTracker.getTicket().getStatus().equals(valid))
+                            && ((timeSlot.getId() + 1) >= calculateTimeSlotId(ticketTracker.getTicket().getScheduledEnteringTime()))) {
                         chosenTicket = ticketTracker;
                     }
 
                     // if we have found a ticket that respect condition 1 or 2, we check if it respect event condition 3
-                    if(chosenTicket != null) {
+                    if (chosenTicket != null) {
 
                         // update the chosen ticket scheduledEnteringTime and scheduledExitingTime
-                        chosenTicket.getTicket().setScheduledEnteringTime(getTimeSlot(timeSlot.getId()+1)
+                        chosenTicket.getTicket().setScheduledEnteringTime(getTimeSlot(timeSlot.getId() + 1)
                                 .getStartingTime());
-                        long sum = getTimeSlot(timeSlot.getId()+1).getStartingTime().getTime()
+                        long sum = getTimeSlot(timeSlot.getId() + 1).getStartingTime().getTime()
                                 + chosenTicket.getTicket().getExpectedDuration().getTime();
                         Date scheduledExitingTime = new Date(sum);
                         chosenTicket.getTicket().setScheduledExitingTime(scheduledExitingTime);
 
                         // CONDITION 3
-                        if (!checkIfInsideShift(chosenTicket.getTicket())){
+                        if (!checkIfInsideShift(chosenTicket.getTicket())) {
                             chosenTicket = null;
                         }
                     }
 
                     // at this point if we have found a ticket we only need to update the timeline and the TicketTrackers
-                    if(chosenTicket != null){
+                    if (chosenTicket != null) {
 
                         // insert the chosen ticket in the list of entering tickets of the correct timeslot
                         getTimeSlot(timeSlot.getId() + 1).getTickets().add(chosenTicket);
@@ -314,7 +337,7 @@ public class TicketSchedulerComponent {
                 }
 
                 // if no ticket has been found, we can pick simply chose the first ticket and update the timeline and the ticketTrackers
-                if(chosenTicket == null){
+                if (chosenTicket == null && !ticketsToSchedule.isEmpty()) {
                     chosenTicket = ticketsToScheduleCopy.get(0);
                     ticketsToScheduleCopy.remove(chosenTicket);
 
@@ -337,9 +360,13 @@ public class TicketSchedulerComponent {
                     expectedExitingTicket.setMatchingFollowingTicket(chosenTicket.getTicket());
                 }
 
+                System.out.println("\nprinting chosen ticket...");
+                printTicketTracker(chosenTicket);
+
             }
         }
 
+        System.out.println("\nGIANT FOR ENDED, printing time line...");
         printTimeLine(timeLine);
 
         //TODO:
@@ -483,10 +510,20 @@ public class TicketSchedulerComponent {
         return true;
     }
 
-    private void printTimeLine (ArrayList<TimeSlot> tl){
-        for (TimeSlot ts: tl) {
-            printTimeSlot(ts);
+
+    /*auxiliar methods for debugging*/
+
+    private void printTimeLine (List<TimeSlot> tl){
+        System.out.println("    __printing time line__");
+        if(timeLine.isEmpty()){
+            System.out.println("    time line is empty");
         }
+        else {
+            for (TimeSlot ts : tl) {
+                printTimeSlot(ts);
+            }
+        }
+        System.out.println("    ______________________timeline");
     }
 
     private void printTimeSlot(TimeSlot ts){
@@ -498,46 +535,56 @@ public class TicketSchedulerComponent {
         printTicketTrackerList(ts.getTickets());
         System.out.println("     expected exiting tickets:");
         printTicketTrackerList(ts.getExpectedExitingTickets());
-        System.out.println("    ________________________");
+        System.out.println("    ________________________ts");
     }
 
-    private void printTicketTrackerList(ArrayList<TicketTracker> ticketTrackers){
+    private void printTicketTrackerList(List<TicketTracker> ticketTrackers){
         System.out.println("    __printing a ticket tracker list__");
-        for (TicketTracker tt: ticketTrackers) {
-            printTicketTracker(tt);
+        if(ticketTrackers.isEmpty()){
+            System.out.println("    List is empty");
         }
-        System.out.println("    _____________________________");
+        else {
+            for (TicketTracker tt : ticketTrackers) {
+                printTicketTracker(tt);
+            }
+        }
+        System.out.println("    _____________________________ttl");
     }
     private void printTicketTracker(TicketTracker tt){
-        System.out.println("    __printing a ticket tracker__");
-        System.out.println("   previous matching ticket: " + tt.getMatchingPreviousTicket().getId());
-        System.out.println("   following matching ticket: " + tt.getMatchingFollowingTicket().getId());
-        System.out.println("   Ticket:");
+        System.out.println("        __printing a ticket tracker__");
+        System.out.println("       previous matching ticket: " + ((tt.getMatchingPreviousTicket()!=null && tt.getMatchingPreviousTicket().getStatus()!=placeholder) ? tt.getMatchingPreviousTicket().getId() : "null"));
+        System.out.println("       following matching ticket: " + ((tt.getMatchingFollowingTicket()!=null && tt.getMatchingFollowingTicket().getStatus()!=placeholder) ? tt.getMatchingFollowingTicket().getId() : "null"));
+        System.out.println("       Ticket:");
         printTicket(tt.getTicket());
-        System.out.println("    _____________________________");
+        System.out.println("        _____________________________tt");
     }
-    private void printTicketList(ArrayList<Ticket> tickets){
+    private void printTicketList(List<Ticket> tickets){
         System.out.println("    __printing a ticket list__");
-        for (Ticket t: tickets) {
-            printTicket(t);
+        if(tickets.isEmpty()){
+            System.out.println("    List is empty");
         }
-        System.out.println("    __________________________");
+        else {
+            for (Ticket t : tickets) {
+                printTicket(t);
+            }
+        }
+        System.out.println("    __________________________tl");
     }
     private void printTicket(Ticket t){
-        System.out.println("    __printing a ticket__");
+        System.out.println("         __printing a ticket__");
         if(t != null){
-            System.out.println("    id: " + t.getId());
-            System.out.println("     status: " + (t.getStatus()!=null ? t.getStatus() : "null"));
-            System.out.println("     duration: " + (t.getExpectedDuration()!=null ? t.getExpectedDuration() : "null"));
-            System.out.println("     ttr: " + (t.getTimeToReachTheShop()!=null ? t.getTimeToReachTheShop() : "null"));
-            System.out.println("     enter: " + (t.getEnterTime()!=null ? t.getEnterTime() : "null"));
-            System.out.println("     exit: " + (t.getExitTime()!=null ? t.getExitTime() : "null"));
-            System.out.println("     scheduled enter: " + (t.getScheduledEnteringTime()!=null ? t.getScheduledEnteringTime() : "null"));
-            System.out.println("     scheduled exit: " + (t.getScheduledExitingTime()!=null ? t.getScheduledExitingTime() : "null"));
+            System.out.println("         id: " + t.getId());
+            System.out.println("          status: " + (t.getStatus()!=null ? t.getStatus() : "null"));
+            System.out.println("          duration: " + (t.getExpectedDuration()!=null ? t.getExpectedDuration() : "null"));
+            System.out.println("          ttr: " + (t.getTimeToReachTheShop()!=null ? t.getTimeToReachTheShop() : "null"));
+            System.out.println("          enter: " + (t.getEnterTime()!=null ? t.getEnterTime() : "null"));
+            System.out.println("          exit: " + (t.getExitTime()!=null ? t.getExitTime() : "null"));
+            System.out.println("          scheduled enter: " + (t.getScheduledEnteringTime()!=null ? t.getScheduledEnteringTime() : "null"));
+            System.out.println("          scheduled exit: " + (t.getScheduledExitingTime()!=null ? t.getScheduledExitingTime() : "null"));
         }
         else{
-            System.out.println("    ticket is null");
+            System.out.println("         ticket is null");
         }
-        System.out.println("    _____________________");
+        System.out.println("         _____________________t");
     }
 }
