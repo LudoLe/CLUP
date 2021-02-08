@@ -7,7 +7,6 @@ import polimi.it.DL.services.TicketService;
 import polimi.it.DL.services.UserService;
 import prototypes.Credentials;
 import prototypes.RegistrationCredentials;
-import prototypes.ShopShiftProto;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,6 +14,7 @@ import javax.ejb.Stateless;
 @Stateless(name = "AAVEngine")
 public class AAVEngine {
 
+    public AAVEngine(){}
     @EJB(name = "services/UserService")
     private UserService userService;
 
@@ -40,7 +40,7 @@ public class AAVEngine {
             return message;
         }
 
-        if (!credentials.getPassword().contentEquals(credentials.getPassword())) {
+        if (!credentials.getPassword().contentEquals(credentials.getPassword2())) {
              message = "Passwords dont match";
             return message;
         }
@@ -104,8 +104,6 @@ public class AAVEngine {
             if(manager.equals(username))return true;
             else return false;
         }catch (Exception e ){
-            userService.invalidateSessionToken(username);
-            System.out.println("problem here");
             e.printStackTrace();
             return false;
         }
@@ -124,6 +122,12 @@ public class AAVEngine {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public AAVEngine(UserService userService, ShopService shopService, TicketService ticketService){
+        this.userService=userService;
+        this.shopService=shopService;
+        this.ticketService=ticketService;
     }
 
 }
