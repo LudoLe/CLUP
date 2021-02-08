@@ -24,11 +24,8 @@
             <param-value>username, ticketid, shopid, session-token,Access-Control-Allow-Origin,Access-Control-Allow-Credentials</param-value>
         </init-param>
     </filter>
-
     <filter-mapping>
         <filter-name>CorsFilter</filter-name>
         <url-pattern> /* </url-pattern>
     </filter-mapping>
-
-
 </web-app>
