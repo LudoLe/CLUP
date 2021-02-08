@@ -2,6 +2,7 @@ package polimi.it.QSB;
 
 import Responses.StringResponse;
 import Responses.TimeResponse;
+import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.TicketService;
 import polimi.it.DL.services.UserService;
@@ -13,8 +14,10 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 @Stateless(name = "LineUpComponent")
 public class LineUpComponent {
@@ -158,7 +161,12 @@ public class LineUpComponent {
 
             System.out.println("before algorithm");
 
-            (new TicketSchedulerComponent(shopService.find(enqueueData.getShopid()))).buildQueue();
+           TicketSchedulerComponent tsc = (new TicketSchedulerComponent(shopService.find(enqueueData.getShopid())));
+
+           System.out.println("after algorithm");
+
+            ArrayList<Map<Ticket, Date>> tickets = tsc.buildQueue();
+          // ticketService.updateAllTickets(tickets);
 
             System.out.println("after algorithm");
         }catch (Exception e){

@@ -136,6 +136,7 @@ public class TicketSchedulerComponent {
     public ArrayList<Map<Ticket, Date>> buildQueue() {
         // general informations
 
+        System.out.println("before constructing the queue");
         int shopCapacity = shop.getShopCapacity();
         int timeSlotMinuteDuration = shop.getTimeslotMinutesDuration();
 
@@ -167,6 +168,9 @@ public class TicketSchedulerComponent {
             }
         }
 
+        System.out.println("costructing time line");
+
+
         // beginning of the time line
         TimeSlot firstTimeSlot = this.getTimeSlot (0);
 
@@ -180,6 +184,8 @@ public class TicketSchedulerComponent {
             fakeExitingTickets.add(new TicketTracker(placeHolderTicket));
         }
         firstTimeSlot.setExpectedExitingTickets(fakeExitingTickets);
+
+        System.out.println("calculating the expected time for each ticket");
 
         // for each ticket inside the shop , calculate the expected exit time and mark the
         // corresponding time slot
@@ -198,9 +204,14 @@ public class TicketSchedulerComponent {
             this.getTimeSlot(expectedExitTimeSlotId).getExpectedExitingTickets().add(ticketTracker);
         }
 
+        System.out.println("creating copy of tickets");
+
+
         // create a copy of the list of tickets to be scheduled since we'll work with it removing elements and we do not
         // want to lose track of some tickets
         ArrayList<TicketTracker> ticketsToScheduleCopy = new ArrayList<TicketTracker>(ticketsToSchedule);
+
+        System.out.println("before giant for");
 
         // loop through all the time slots in the time line , and ,
         // , if possible , insert an entering queue ticket
@@ -220,6 +231,7 @@ public class TicketSchedulerComponent {
                 // ...loops through all the tickets to be scheduled to find one to place in the
                 // following time slot and to pair with the expected exiting ticket we are analyzing.
                 for (TicketTracker ticketTracker : ticketsToScheduleCopy ) {
+
 
                     // Conditions for a ticket to be enqueued:
 
@@ -247,7 +259,7 @@ public class TicketSchedulerComponent {
                     //lets find a ticket that respect the conditions listed above:
 
                     //  CONDITION 1
-                    if((timeSlot.getId()+1) <= calculateTimeSlotId(ticketTracker.getTicket().getTimeToReachTheShop())) { //TODO: getter mancante
+                    if((timeSlot.getId()+1) <= calculateTimeSlotId(ticketTracker.getTicket().getTimeToReachTheShop())) {
                         chosenTicket = ticketTracker;
                     }
                     // CONDITION 2
