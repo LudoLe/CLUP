@@ -44,6 +44,7 @@ public class UserService {
             if(passed) {
                 user.setSessionToken(generateSessionToken());
                 em.persist(user);
+                em.refresh(user);
                 em.flush();
                 em.clear();
 
@@ -93,12 +94,15 @@ public class UserService {
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
         if(!(user == null)){
             if(user.getSessionToken()!=null){
+                System.out.println("user not found in is authorized session token1");
 
                 if(user.getSessionToken().equals(token)) {
+                    System.out.println("user not found in is authorized session token2");
+
                     return true;
                 }
             }else
-            {            System.out.println("user not found in is authorized session token");
+            {            System.out.println("user not found in is authorized session token3");
                          user.setSessionToken(null);
                 em.persist(user);
                 em.flush();

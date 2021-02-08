@@ -55,7 +55,6 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        httpHeader.setHeader("Access-Control-Allow-Origin", "*");
 
 
         try {
