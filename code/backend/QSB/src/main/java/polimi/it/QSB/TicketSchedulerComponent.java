@@ -6,10 +6,7 @@ import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.TicketService;
 
 import javax.ejb.EJB;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-
+import java.util.*;
 
 
 public class TicketSchedulerComponent {
@@ -136,7 +133,7 @@ public class TicketSchedulerComponent {
         this.currentTime = new Date();
     }
 
-    public void buildQueue() {
+    public ArrayList<Map<Ticket, Date>> buildQueue() {
         // general informations
 
         int shopCapacity = shop.getShopCapacity();
@@ -338,6 +335,7 @@ public class TicketSchedulerComponent {
 
         // now that all the time line has been populated, we need to set the scheduled entering and exiting time of each
         // ticket in the timeline and update the db;
+        /*
         for (TimeSlot timeslot : timeLine) {
             for (TicketTracker ticketTracker: timeslot.getTickets()) {
                 ticketTracker.getTicket().setScheduledEnteringTime(timeslot.getStartingTime());
@@ -346,6 +344,46 @@ public class TicketSchedulerComponent {
                 ticketTracker.getTicket().setScheduledExitingTime(timeslot.getStartingTime());
             }
         }
+        */
+
+        Map<Ticket, Date> enteringTimeMap = new HashMap<Ticket, Date>();
+        Map<Ticket, Date> exitingTimeMap = new HashMap<Ticket, Date>();
+
+        for (TimeSlot timeslot : timeLine) {
+            for (TicketTracker ticketTracker: timeslot.getTickets()) {
+                Ticket t = ticketTracker.getTicket();
+                Date d = timeslot.getStartingTime();
+                enteringTimeMap.put(t, d);
+            }
+            for (TicketTracker ticketTracker: timeslot.getExpectedExitingTickets()) {
+                Ticket t = ticketTracker.getTicket();
+                Date d = timeslot.getStartingTime();
+                exitingTimeMap.put(t, d);
+            }
+        }
+
+        ArrayList<Map<Ticket, Date>> result = new ArrayList<Map<Ticket, Date>>();
+        result.add(enteringTimeMap);
+        result.add(exitingTimeMap);
+
+        return result;
+
+       /*    How is the result structured?
+        *    The result is of type "ArrayList<Map<Ticket, Date>>" and contains only two elements:
+        *        First Map:   result.get(0) is a map representing the tickets that need to have the scheduledEnteringTime set,
+        *                     where the key [.getKey()] is the Ticket to update, and the value [.getValue()] is the updated time
+        *        Second Map:  result.get(1) is a map representing the tickets that need to have the scheduledExitingTIme set,
+        *                     where the key [.getKey()] is the Ticket to update, and the value [.getValue()] is the updated time
+        *
+        *    How to iterate over a Map?
+        *        Iterator it = map.entrySet().iterator();
+        *        for (Map.Entry<Ticket, Date> entry : map.entrySet()) {
+        *            Ticket t = entry.getKey();
+        *            Date d = entry.getValue();
+        *            // ... update the ticket
+        *        }
+        */
+
 
         //TODO: appunto per capire quando può entrare un ticket
         // a ticket can enter during time slot 0 and 1 and if his previous matching ticket is a palceholder.
