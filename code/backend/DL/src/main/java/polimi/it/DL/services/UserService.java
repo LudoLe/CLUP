@@ -1,16 +1,11 @@
 package polimi.it.DL.services;
 
-import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.User;
-
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -33,23 +28,25 @@ public class UserService {
 
     public UserService(){}
 
-    public User checkCredentials(String username, String password) throws Exception {
+    //check the credential of the user when he logs in and generate a random token which will be used
+    //as a session marker to indentity them in the following requests
+    /*public String checkCredentials(String username, String password) throws Exception {
         User user;
-        System.out.println("till now fine before query");
         user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
-        if(!(user == null)){
+        if (!(user == null)){
             boolean passed;
             Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
             passed = encoder.matches(password, user.getPassword());
-            if(passed) {
-                user.setSessionToken(generateSessionToken());
-                em.persist(user);
-                em.refresh(user);
-                em.flush();
-                em.clear();
-
-            }
+            if(passed)return "correctly logged in";
+            else return false;
         }
+        else return false;
+    }*/
+
+    //check if a user exists
+    public User userExists(String username) throws Exception {
+        User user;
+        user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         return user;
     }
 
@@ -57,6 +54,7 @@ public class UserService {
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         if(!(user == null)){
             user.setSessionToken(null);
+            em.refresh(user);
             em.persist(user);
             em.flush();
             em.clear();
@@ -70,6 +68,7 @@ public class UserService {
                 String newSessionToken = generateSessionToken();
                 user.setSessionToken(newSessionToken);
                 em.persist(user);
+                em.refresh(user);
                 em.flush();
                 em.clear();
             return newSessionToken;

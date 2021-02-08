@@ -329,7 +329,7 @@ public class TicketSchedulerComponent {
         }
 
         //TODO:
-        // DEVO SETTARE GLI STATI DEI TICKET?
+        // DEVO SETTARE GLI STATI DEI TICKET? SI FEDEEEE
 
         // handle expired tickets (sono già sengati in un ArrayList<>)
 

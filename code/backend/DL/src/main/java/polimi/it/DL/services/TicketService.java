@@ -10,9 +10,11 @@ import javax.persistence.PersistenceException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 @Stateless(name= "services/TicketService")
 public class TicketService {
@@ -35,16 +37,28 @@ public class TicketService {
     }
 
     public boolean alreadyHasTicket(String username) throws Exception{
-        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).getResultList().stream().findFirst().orElse(null);
-        if(ticket==null)return false;
-        else return true;
+        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+        return ticket != null;
     }
 
+    //lo porti a livello di business perchè è ridicolo
     public boolean itsTicketOf(String username, int ticketId) throws Exception{
-        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).getResultList().stream().findFirst().orElse(null);
+        Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).setParameter(1,username).getResultList().stream().findFirst().orElse(null);
         Ticket ticket2= find(ticketId);
         if(ticket==null || ticket2==null)return false;
         return ticket.equals(ticket2);
+    }
+
+
+    public boolean updateAllTickets(ArrayList<Map<Ticket, Date>> result) throws Exception{
+        try{
+            //checks that username and email aren't already in use
+            Map<Ticket, Date> enteringTimeMap = result.get(0);
+            Map<Ticket, Date> exitingTimeMap = result.get(1);
+
+        } catch (PersistenceException e) {
+            throw new Exception("Could not insert ticket");
+        }
     }
 
     public Ticket create(Date entertime, Date exittime, int shopid, User user, Date permanence, Date timetogetthere) throws Exception{
@@ -60,6 +74,7 @@ public class TicketService {
             ticket.setScheduledEnteringTime(exittime);
             ticket.setStatus("invalid");
             em.persist(ticket);
+            em.refresh(ticket);
             em.flush();
             return ticket;
         } catch (PersistenceException e) {
