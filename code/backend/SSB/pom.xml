@@ -17,7 +17,12 @@
       </properties>
 
   <dependencies>
-
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>3.7.7</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>polimi.it</groupId>
       <artifactId>UTILS</artifactId>

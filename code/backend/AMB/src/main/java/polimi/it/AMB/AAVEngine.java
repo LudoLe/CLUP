@@ -34,7 +34,7 @@ public class AAVEngine {
      * @return a string with explained which check aint been passed or if all of them have been passed returns OK
      * */
     public String checkRegistration(RegistrationCredentials credentials) {
-        String message=null;
+        String message;
         if(credentials == null || credentials.getEmail() == null || credentials.getPassword() == null) {
             message = "Credentials are empty";
             return message;
@@ -44,7 +44,7 @@ public class AAVEngine {
              message = "Passwords dont match";
             return message;
         }
-        if (credentials.getEmail().length() >= MAX_USERNAME_LENGTH || credentials.getEmail().length() > MAX_EMAIL_LENGTH
+        if (credentials.getUsername().length() >= MAX_USERNAME_LENGTH || credentials.getEmail().length() > MAX_EMAIL_LENGTH
                 || credentials.getPassword().length() > MAX_PWD_LENGTH) {
              message = "Something is too long!!!";
             return message;
@@ -58,7 +58,7 @@ public class AAVEngine {
      * @return boolean
      * */
     public boolean isEmpty(Credentials credentials){
-        if(credentials == null || credentials.getPassword() == null) {
+        if(credentials == null || credentials.getPassword() == null || credentials.getUsername() == null) {
             return true;
            }
          return false;
@@ -104,7 +104,6 @@ public class AAVEngine {
             if(manager.equals(username))return true;
             else return false;
         }catch (Exception e ){
-            e.printStackTrace();
             return false;
         }
     }
@@ -117,9 +116,6 @@ public class AAVEngine {
             if(user.equals(username))return true;
             else return false;
         }catch (Exception e ){
-            userService.invalidateSessionToken(username);
-            System.out.println("problem here in access ticket");
-            e.printStackTrace();
             return false;
         }
     }
