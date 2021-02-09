@@ -99,6 +99,11 @@ public class Gateway {
            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
            return response;
         }
+        if(aavEngine.isManager(username, sessionToken)){
+            aavEngine.invalidateSessionToken(username);
+            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
+            return response;
+        }
         System.out.println("user authorized we proceed with check the data");
         if(luc.corruptedData(enqueueData)){
             response = responseWrapper.generateResponse( status, "data corrupted" );

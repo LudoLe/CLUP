@@ -64,6 +64,12 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
+            if (!avv.isManager(sessionToken)) {
+                message= "error";
+                status = Response.Status.BAD_REQUEST;
+                response = responseWrapper.generateResponse(status, message);
+                return response;
+            }
             if (!avv.isAuthorized(username, sessionToken)) {
                 message= "Not authorized!!!";
                 status = Response.Status.BAD_REQUEST;
@@ -102,6 +108,12 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
+            if (!avv.isManager(sessionToken)) {
+                message= "error";
+                status = Response.Status.BAD_REQUEST;
+                response = responseWrapper.generateResponse(status, message);
+                return response;
+            }
             if (!avv.isAuthorized(username, sessionToken)&&(!avv.isAuthorizedToAccessTicket(ticketid, username))) {
                 message= "not authorized";
                 status = Response.Status.UNAUTHORIZED;

@@ -71,6 +71,9 @@ public class AAVEngine {
     public Boolean isAuthorized(String username, String sessionToken) throws Exception{
         return  userService.isAuthorized(username, sessionToken);
     }
+    public Boolean isManager(String sessionToken) throws Exception{
+        return  userService.isManager(sessionToken);
+    }
     /**
      * this method checks whether a user is authorized to request something and whether they are a manager
      * @param username  and

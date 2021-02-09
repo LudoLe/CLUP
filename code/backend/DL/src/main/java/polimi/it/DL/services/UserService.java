@@ -68,8 +68,15 @@ public class UserService {
            }
     }
 
+    public boolean isManager(String token) throws Exception {
+        User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);
+       if(user!=null) {
+           return user.getIsManager();
+       }else return false;
+    }
+
     public Boolean isAuthorized(String username, String token) throws Exception{
-        User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+            User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
         if(user!=null){
             if(user.getUsername().equals(username)){
                 return true;
