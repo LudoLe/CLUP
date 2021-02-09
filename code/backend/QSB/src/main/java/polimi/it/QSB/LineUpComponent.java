@@ -2,6 +2,7 @@ package polimi.it.QSB;
 
 import Responses.StringResponse;
 import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.services.ShopService;
 import polimi.it.DL.services.TicketService;
 import polimi.it.DL.services.UserService;
@@ -12,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
 import java.util.Date;
+import java.util.List;
 
 @Stateless(name = "LineUpComponent")
 public class LineUpComponent {
@@ -81,7 +83,8 @@ public class LineUpComponent {
             Shop shop = shopService.find(enqueueData.getShopid());
             ticketService.create( shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
             TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId())));
-            tsc.buildQueue();
+            List<Ticket> tickets=tsc.buildQueue();
+            ticketService.mergeAllTickets(tickets);
 
           // ticketService.updateAllTickets(tickets);
         }catch (Exception e){

@@ -118,6 +118,7 @@ public class TicketSchedulerComponent {
     public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
         this.tickets = tickets;
         this.currentTime = new Date();
+        this.shop=tickets.get(0).getShop();
     }
 
     public List<Ticket> buildQueue() {
