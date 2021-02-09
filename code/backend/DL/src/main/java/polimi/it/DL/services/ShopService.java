@@ -1,6 +1,5 @@
 package polimi.it.DL.services;
 
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.ShopShift;
 import polimi.it.DL.entities.Ticket;
@@ -11,11 +10,10 @@ import javax.persistence.PersistenceException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.resource.cci.MappedRecord;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
 
 @Stateless(name= "services/ShopService")
 public class ShopService {
@@ -52,11 +50,9 @@ public class ShopService {
                            String shopName, User shopManager,
                            String image, int maxClients, String position,
                            int timeSlot
+
     ) throws Exception{
         try{
-            //checks that username and email aren't already in use
-            System.out.println("before creating a shop in create shop service");
-
                        Shop shop = new Shop();
                        shop.setDescription(description);
                        shop.setShopCapacity(shopCapacity);
@@ -68,8 +64,6 @@ public class ShopService {
                        shop.setTimeslotMinutesDuration(timeSlot);
                        em.persist(shop);
                        em.flush();
-                       System.out.println("after creating a shop in create shop service");
-
                        return shop;
 
 
@@ -93,16 +87,23 @@ public class ShopService {
 
     }
 
-    public java.util.Date closingTimeForShopForDay(int shopId, String day) {
+    public Date closingTimeForShopForDay(int shopId, String day) {
         ShopShift shopShift = em.createNamedQuery("ShopShift.forShopForDay", ShopShift.class).setParameter(1, shopId).setParameter(2, day).getResultList().stream().findFirst().orElse(null);
         assert shopShift!=null;
         return shopShift.getClosingTime();
     }
 
-    public java.util.Date openingTimeForShopForDay(int shopId, String day) {
+    public Date openingTimeForShopForDay(int shopId, String day) {
         ShopShift shopShift = em.createNamedQuery("ShopShift.forShopForDay", ShopShift.class).setParameter(1, shopId).setParameter(2, day).getResultList().stream().findFirst().orElse(null);
         assert shopShift!=null;
         return shopShift.getOpeningTime();
+
+    }
+
+    public List<Shop> getAllShops() {
+        List<Shop> shops = em.createNamedQuery("Shop.findAll", Shop.class).getResultList();
+        shops.removeIf(shop -> shop.getShifts() == null);
+        return shops;
 
     }
 

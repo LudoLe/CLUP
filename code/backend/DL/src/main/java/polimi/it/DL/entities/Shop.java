@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Shop.existWithThatNameAndPosition", query = "SELECT t FROM Shop t WHERE t.name =?1 AND t.position = ?2 "),
+        @NamedQuery(name = "Shop.findAll", query = "SELECT DISTINCT t FROM Shop t"),
+
 })
 @Table(name = "`shop`", schema = "clup")
 public class Shop implements Serializable {

@@ -54,29 +54,20 @@ public class TicketService {
     }
 
     /**
-     * this method update in the database the scheduled entering time and exiting time of all of the ticket in the queue
-     * @param result contains two hashmaps
-     *              the first one maps each queue ticket with its scheduleded entering time
-     *               the second one maps each queue ticket with the scheduleded exiting time
+     * this method update in the database the scheduled entering time and exiting time of all of the ticket in the queue along with status and arrival time
+     * @param tickets contains the tickets to be recreated with the updated parameters
      * */
-    public void updateAllTickets(ArrayList<Map<Ticket, Date>> result) throws Exception{
+    public void updateAllTickets(ArrayList<Ticket> tickets) throws Exception{
         try{
-            Map<Ticket, Date> enteringTimeMap = result.get(0);
-            Map<Ticket, Date> exitingTimeMap = result.get(1);
-            enteringTimeMap.forEach((key, value) -> {
-                key.setScheduledEnteringTime(value);
-                em.persist(key);
-                em.persist(key);
-                em.refresh(key);
-            });
-            exitingTimeMap.forEach((key, value) -> {
-                key.setScheduledEnteringTime(value);
-                em.persist(key);
-                em.persist(key);
-                em.refresh(key);
-            });
-            em.flush();
+            for(Ticket t : tickets){
+                createAfterBuildedQueue(t.getShop(), t.getUser(), t.getExpectedDuration(),
+                        t.getTimeToReachTheShop(), t.getStatus(), t.getScheduledEnteringTime(),
+                        t.getScheduledExitingTime(), t.getArrivalTime());
+                em.persist(t);
+                em.refresh(t);
 
+            }
+            em.flush();
         } catch (PersistenceException e) {
             throw new Exception("Could not insert ticket");
         }
@@ -85,15 +76,15 @@ public class TicketService {
      * this method create a ticket in the database,
      * it is initially created with the status "invalid" and with some of the field left empty.
      * these fields will be then updated by a dedicated algorithm.
-     * @param shopid is the shopid of the shop the ticket allows to enter in
+     * @param shop is the  shop the ticket allows to enter in
      * @param user is the user who owns the ticket
      * @param permanence the permanence time
      * @param timeToGetToTheShop is the time that will take the client to get to the shop
      * @return the ticket just created
      * */
-    public Ticket create(int shopid, User user, Date permanence, Date timeToGetToTheShop) throws Exception{
-        try{
-            Shop shop = shopService.find(shopid);
+    public Ticket create(Shop shop, User user, Date permanence, Date timeToGetToTheShop) throws Exception {
+        try {
+
             Ticket ticket = new Ticket();
             ticket.setShop(shop);
             ticket.setUser(user);
@@ -107,6 +98,25 @@ public class TicketService {
             throw new Exception("Could not insert ticket");
         }
     }
+
+        public void createAfterBuildedQueue(Shop shop, User user, Date permanence, Date timeToGetToTheShop, String status, Date scheduledEnteringTime, Date scheduledExitingTime, Date arrivalTime) throws Exception{
+            try{
+                Ticket ticket = new Ticket();
+                ticket.setShop(shop);
+                ticket.setUser(user);
+                ticket.setTimeToReachTheShop(timeToGetToTheShop);
+                ticket.setExpectedDuration(permanence);
+                ticket.setStatus(status);
+                ticket.setScheduledEnteringTime(scheduledEnteringTime);
+                ticket.setScheduledExitingTime(scheduledExitingTime);
+                ticket.setArrivalTime(arrivalTime);
+                em.persist(ticket);
+                em.flush();
+            } catch (PersistenceException e) {
+                throw new Exception("Could not insert ticket");
+            }
+    }
+
 
 
     /**

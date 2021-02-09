@@ -58,6 +58,10 @@ public class Ticket implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="scheduled_exiting_time")
     private Date scheduledExitingTime;
+    @Expose
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="arrival_time")
+    private Date arrivalTime;
 
     @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id", nullable = false)
@@ -137,4 +141,13 @@ public class Ticket implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
 }
+

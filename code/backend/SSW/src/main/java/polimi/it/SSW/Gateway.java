@@ -135,13 +135,13 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Shop.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopDetail(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
+    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
         String message;
         Response response;
         Response.Status status;
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)&&(!avv.isAuthorizedToAccessShop(shopid, username))) {
-                message= "Not authorized!!!";
+                message= "Not authorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
@@ -156,6 +156,13 @@ public class Gateway {
         return response;
     }
 
+    /**this function retrieves all of the shops owned by a  manager from the database and pack the http response with
+     * the shop entity list if found or with and an alert message if not found
+     * @param username and
+     * @param sessionToken  to check whether the client requesting the resource is authorized
+     *                      to receive it
+     * @return the http-response
+     * */
     @GET
     @ApiOperation(value = "getShops")
     @Path("/shops")
@@ -165,17 +172,17 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops Retrieved",response = List.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShops(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
+    public Response getShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
         String message;
         Response response;
         Response.Status status;
 
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
-                message= "Not authorized!!!";
+                message= "unathorized";
                 status = Response.Status.BAD_REQUEST;
+                avv.invalidateSessionToken(username);
             } else {
-               // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                 response = sic.getShops(username);
                 return response;
             }
@@ -187,6 +194,44 @@ public class Gateway {
         return response;
     }
 
+    /**this function retrieves all of the shops from the database and pack the http response with
+     * the shop entity list if found or with and an alert message if not found
+     * it is supposed to be used for the client to enqueue
+     * @param username and
+     * @param sessionToken  to check whether the client requesting the resource is authorized
+     *                      to receive it
+     * @return the http-response
+     * */
+    @GET
+    @ApiOperation(value = "getAllShops")
+    @Path("/AllShops")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shops Retrieved",response = List.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
+    public Response getAllShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){
+        String message;
+        Response response;
+        Response.Status status;
+
+        try {
+            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+                message= "unauthorized";
+                avv.invalidateSessionToken(username);
+                status = Response.Status.BAD_REQUEST;
+            } else {
+                response = sic.getAllShops();
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, message);
+        return response;
+    }
 
     /**this function allows a manager to register a shop in the db
      *

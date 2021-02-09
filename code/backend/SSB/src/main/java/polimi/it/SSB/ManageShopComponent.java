@@ -20,27 +20,27 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@Stateless(name="ManageShopComponent" )
-public class ManageShopComponent{
+@Stateless(name = "ManageShopComponent")
+public class ManageShopComponent {
 
 
 
-    @EJB(name= "ResponseWrapper")
+    @EJB(name = "ResponseWrapper")
     ResponseWrapper responseWrapper;
 
-    @EJB(name= "AAVEngine")
+    @EJB(name = "AAVEngine")
     AAVEngine aavEngine;
 
-    @EJB(name= "services/ShopShiftService")
+    @EJB(name = "services/ShopShiftService")
     ShopShiftService shopShiftService;
 
-    @EJB(name= "services/ShopService")
+    @EJB(name = "services/ShopService")
     ShopService shopService;
 
-    @EJB(name= "services/UserService")
+    @EJB(name = "services/UserService")
     UserService userService;
 
-    public ManageShopComponent(){}
+    public ManageShopComponent() {}
 
 
     /**
@@ -49,17 +49,17 @@ public class ManageShopComponent{
      * @param shopProto contains the data to be checked from the request
      * @return boolean
      * */
-    public boolean checkIfCorruptedData(ShopProto shopProto){
-        if(shopProto.getShopCapacity()<=0)return true;
-        if(shopProto.getMaxEnteringClientInATimeslot()<=0)return true;
-        if(shopProto.getTimeslotMinutesDuration()<=0)return true;
+    public boolean checkIfCorruptedData(ShopProto shopProto) {
+        if (shopProto.getShopCapacity() <= 0) return true;
+        if (shopProto.getMaxEnteringClientInATimeslot() <= 0) return true;
+        if (shopProto.getTimeslotMinutesDuration() <= 0) return true;
         boolean bol;
-       try{
-             bol = shopService.existsWithThatNameAndPosition(shopProto.getName(), shopProto.getPosition());
-             return bol;
-       }catch (Exception e){
-           return false;
-       }
+        try {
+            bol = shopService.existsWithThatNameAndPosition(shopProto.getName(), shopProto.getPosition());
+            return bol;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -68,15 +68,13 @@ public class ManageShopComponent{
      * @param shift contains the data to be checked
      * @return boolean
      * */
-    public boolean checkIfCorruptedDataShift(ShopShiftProto shift){
-       if(shift.getClosingTime().before(shift.getOpeningTime())) return true;
-       if(shift.getDay()<0 || shift.getDay()>7 ) return true;
+    public boolean checkIfCorruptedDataShift(ShopShiftProto shift) {
+        if (shift.getClosingTime().before(shift.getOpeningTime())) return true;
+        if (shift.getDay() < 0 || shift.getDay() > 7) return true;
         try {
             Shop shop = shopService.find(shift.getShopid());
-            if(shop != null) {
-                return false;
-            }else return true;
-        }catch (Exception e ){
+            return shop == null;
+        } catch (Exception e) {
             return false;
         }
     }
@@ -89,20 +87,19 @@ public class ManageShopComponent{
      * @return http response
      * */
     public Response registerNewShop(ShopProto shop, String username) {
-        User manager = null;
+        User manager;
         try {
             manager = userService.findByUsername(username);
         } catch (Exception e) {
-            return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+            return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
         try {
-            Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager ,shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
+            Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager, shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
             String newToken = userService.newSessionToken(username);
-            System.out.println(newToken);
             return responseWrapper.generateResponse(Response.Status.OK, newShop);
 
-        }catch (Exception e){
-            return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+        } catch (Exception e) {
+            return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
     }
 
@@ -113,34 +110,33 @@ public class ManageShopComponent{
      * @param username to check if the user is allowed to do such action
      * @return http response
      * */
-    public Response registerNewShiftShop(List<ShopShiftProto> shifts, String username) throws Exception {
+    public Response registerNewShiftShop(List < ShopShiftProto > shifts, String username) throws Exception {
 
-        List<ShopShift> shiftsnew=new ArrayList<>();
+        List < ShopShift > shiftsnew = new ArrayList < > ();
 
-        for (ShopShiftProto shift: shifts
-             ) {
+        for (ShopShiftProto shift: shifts) {
             try {
-                if(aavEngine.isAuthorizedToAccessShop(shift.getShopid(), username)&&(!checkIfCorruptedDataShift(shift))) {
+                if (aavEngine.isAuthorizedToAccessShop(shift.getShopid(), username) && (!checkIfCorruptedDataShift(shift))) {
                     shiftsnew.add(shopShiftService.create(shift.getShopid(), shift.getClosingTime(), shift.getOpeningTime(), shift.getDay()));
 
-                }else{
+                } else {
                     userService.invalidateSessionToken(username);
                     return responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, "unauthorize, you are being logged out");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 userService.invalidateSessionToken(username);
-                return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something wernt wrong while registering shifts!");
+                return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shifts!");
             }
         }
         return responseWrapper.generateResponse(Response.Status.OK, shiftsnew);
     }
 
-    public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService){
-        this.shopService=shopService;
-        this.userService=userService;
-        this.responseWrapper=responseWrapper;
-        this.aavEngine=aavEngine;
-        this.shopShiftService=shopShiftService;
+    public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService) {
+        this.shopService = shopService;
+        this.userService = userService;
+        this.responseWrapper = responseWrapper;
+        this.aavEngine = aavEngine;
+        this.shopShiftService = shopShiftService;
     }
 
 

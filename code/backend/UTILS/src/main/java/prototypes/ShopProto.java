@@ -1,7 +1,11 @@
 package prototypes;
 
 
+import polimi.it.DL.entities.Shop;
+import polimi.it.DL.entities.ShopShift;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class ShopProto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -14,7 +18,17 @@ public class ShopProto implements Serializable {
     private int shopCapacity;
     private int timeslotMinutesDuration;
     private int maxEnteringClientInATimeslot;
+    List<ShopShiftProto> shiftsProto;
 
+
+
+    public List<ShopShiftProto> getShiftsProto() {
+        return shiftsProto;
+    }
+
+    public void setShiftsProto(List<ShopShiftProto> list) {
+        this.shiftsProto = list;
+    }
 
 
     public String getName() {
@@ -56,6 +70,7 @@ public class ShopProto implements Serializable {
     public void setShopCapacity(int shopCapacity) {
         this.shopCapacity = shopCapacity;
     }
+
 
 
 
