@@ -64,7 +64,7 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
-            if (!avv.isManager(sessionToken)) {
+            if (avv.isManager(sessionToken)) {
                 message= "error";
                 status = Response.Status.BAD_REQUEST;
                 response = responseWrapper.generateResponse(status, message);
@@ -108,7 +108,7 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
-            if (!avv.isManager(sessionToken)) {
+            if (avv.isManager(sessionToken)) {
                 message= "error";
                 status = Response.Status.BAD_REQUEST;
                 response = responseWrapper.generateResponse(status, message);
