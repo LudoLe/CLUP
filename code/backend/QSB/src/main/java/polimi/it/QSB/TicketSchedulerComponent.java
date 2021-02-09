@@ -115,10 +115,9 @@ public class TicketSchedulerComponent {
     private Date currentTime;
 
     // constructor
-    public TicketSchedulerComponent(List<Ticket> tickets, Shop shop) throws Exception {
+    public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
         this.tickets = tickets;
         this.currentTime = new Date();
-        this.shop = shop;
     }
 
     public List<Ticket> buildQueue() {
