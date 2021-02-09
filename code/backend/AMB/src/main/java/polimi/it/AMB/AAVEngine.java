@@ -14,7 +14,6 @@ import javax.ejb.Stateless;
 @Stateless(name = "AAVEngine")
 public class AAVEngine {
 
-    public AAVEngine(){}
     @EJB(name = "services/UserService")
     private UserService userService;
 

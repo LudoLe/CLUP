@@ -33,7 +33,6 @@ public class ShopInfoComponent {
     private AAVEngine aav ;
 
 
-    public ShopInfoComponent(){}
     /*public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
         this.aav=aavEngine;
         this.shopService=shopService;

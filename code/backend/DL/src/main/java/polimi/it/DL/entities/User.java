@@ -13,6 +13,8 @@ import java.util.List;
         @NamedQuery(name="User.findByUsername", query="SELECT u FROM User u WHERE u.username=?1"),
         @NamedQuery(name="User.getHashByUserId", query="SELECT u.password FROM User u WHERE u.id=?1"),
         @NamedQuery(name="User.exists", query="SELECT count(u) FROM User u WHERE u.username=?1 OR u.email=?2"),
+        @NamedQuery(name="User.findByToken", query="SELECT u FROM User u WHERE u.sessionToken=?1"),
+
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -22,22 +24,22 @@ public class User implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Expose
     private int id;
-    @Expose
+
     @Column(name="username")
     private String username;
-    @Expose
+
     @Column(name="password")
     private String password;
-    @Expose
+
     @Column(name="email")
     private String email;
-    @Expose
+
     @Column(name="phone_number")
     private String phoneNumber;
-    @Expose
+
     @Column(name="is_manager")
     private boolean isManager;
-    @Expose
+
     @Column(name="session_token")
     private String sessionToken;
 

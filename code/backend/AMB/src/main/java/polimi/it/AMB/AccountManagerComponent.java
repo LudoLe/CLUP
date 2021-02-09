@@ -35,11 +35,6 @@ public class AccountManagerComponent {
 
     Argon2PasswordEncoder encoder;
 
-    public AccountManagerComponent()
-    {
-        encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
-
-    }
 /*
     public AccountManagerComponent(AAVEngine aavEngine, UserService userService, ResponseWrapper responseWrapper, Argon2PasswordEncoder encoder)
     {
@@ -138,6 +133,7 @@ public class AccountManagerComponent {
      * */
     public boolean checkCred(String userPassword, String passwordProvided){
         boolean passed;
+        encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
         passed = encoder.matches(passwordProvided, userPassword);
         return passed;
     }

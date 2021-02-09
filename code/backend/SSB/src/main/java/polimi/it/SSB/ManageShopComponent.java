@@ -40,8 +40,6 @@ public class ManageShopComponent {
     @EJB(name = "services/UserService")
     UserService userService;
 
-    public ManageShopComponent() {}
-
 
     /**
      * this method checks whether the data inserted to register a new shop are consistent and

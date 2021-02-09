@@ -26,21 +26,6 @@ public class UserService {
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
-    //check the credential of the user when he logs in and generate a random token which will be used
-    //as a session marker to indentity them in the following requests
-    /*public String checkCredentials(String username, String password) throws Exception {
-        User user;
-        user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
-        if (!(user == null)){
-            boolean passed;
-            Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
-            passed = encoder.matches(password, user.getPassword());
-            if(passed)return "correctly logged in";
-            else return false;
-        }
-        else return false;
-    }*/
-
     //check if a user exists
     public User userExists(String username) throws Exception {
         User user;
@@ -53,7 +38,7 @@ public class UserService {
         if(!(user == null)){
             user.setSessionToken(null);
             em.flush();
-            em.refresh(user);
+            em.merge(user);
 
         }
     }
@@ -65,7 +50,7 @@ public class UserService {
                 String newSessionToken = generateSessionToken();
                 user.setSessionToken(newSessionToken);
                 em.flush();
-            em.refresh(user);
+                em.merge(user);
             return newSessionToken;
         }
         System.out.println("user not found in check session token");
@@ -78,33 +63,21 @@ public class UserService {
            if(user!=null) {
                user.setSessionToken(null);
                em.flush();
-               em.refresh(user);
+               em.merge(user);
 
            }
     }
 
     public Boolean isAuthorized(String username, String token) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
-        em.refresh(user);
-
-        if(!(user == null)){
-            if(user.getSessionToken()!=null){
-                System.out.println("user found in is authorized session token in user service");
-                if(user.getSessionToken().equals(token)) {
-                    System.out.println("user authorized session token in user service");
-                    return true;
-                }
+        User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+        if(user!=null){
+            if(user.getUsername().equals(username)){
+                return true;
             }else
             {
-                System.out.println("user not authorized in user service");
                 user.setSessionToken(null);
                 em.flush();
-                em.refresh(user);
-
-
-
-
-
+                em.merge(user);
                 return false;
             }
         }
@@ -113,16 +86,13 @@ public class UserService {
     }
 
     public Boolean isAuthorizedAndManager(String username, String token) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
-        em.refresh(user);
-        assert user != null;
-        if(user.getSessionToken()!=null){
-            System.out.println(user.getSessionToken());
-           if(user.getSessionToken().equals(token)&&(user.getIsManager()))return true;
+        User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+        if(user!=null){
+           if(user.getUsername().equals(username)&&(user.getIsManager()))return true;
            else{
                user.setSessionToken(null);
                em.flush();
-               em.refresh(user);
+               em.merge(user);
                return false;
            }
         }else return false;
@@ -132,7 +102,7 @@ public class UserService {
 
     public User findByUsername(String username) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
-        em.refresh(user);
+        em.merge(user);
         return user;
     }
 
@@ -155,7 +125,6 @@ public class UserService {
             user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
-            em.refresh(user);
 
 
             return user;
