@@ -130,9 +130,8 @@ public class TicketSchedulerComponent {
     private Date currentTime;
 
     // constructor
-    public TicketSchedulerComponent(Shop shop) throws Exception {
-        this.shop = shop;
-        this.tickets = shop.getTickets();
+    public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
+        this.tickets = tickets;
         this.currentTime = new Date();
     }
 
