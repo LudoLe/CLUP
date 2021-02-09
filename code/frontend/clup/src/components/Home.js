@@ -16,7 +16,7 @@ const Home = () => {
     });
 
     //fetch tickets info
-    useEffect(()=>{ //TODO: NON VA BENE DIO SANTO QUEL CODICE 500 SE NON CI SONO BIGLIETTI NON VA PROPRIO BENE, RITORNAMI UN OGGETTO VUOTO.
+    useEffect(()=>{
         const onOk = (response) =>{
             setState(prevState =>{
                 return{
@@ -26,7 +26,7 @@ const Home = () => {
                 }
              });
         }
-        axiosGET("SSW", "/tickets", {}, onOk, onOk , null, true, false, true);
+        axiosGET("SSW", "/tickets", {}, onOk, null , null, true, false, true);
     }, []); 
 
     //fetch account info
