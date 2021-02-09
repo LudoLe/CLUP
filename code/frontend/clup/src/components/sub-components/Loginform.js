@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Error from './ErrorMessage';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest.js';
 import history from "../../utils/history";
 
@@ -8,8 +7,6 @@ const Loginform = (props) => {
     const [state, setState] = useState({
         username: "",
         password: "",
-        successMessage: null,
-        error: null
     });
 
     const handleChange = (e) => {
@@ -36,22 +33,26 @@ const Loginform = (props) => {
             const onOk = (response) => {
                 setUsernameLocal(response.data.username);
                 console.log("username setted in local storage: " + response.data.username);
-                redirectToHome();
+                if (response.data.ismanager) {
+                    redirectToManagerHome();
+                }
+                else {
+                    redirectToHome();
+                }
             }
             axiosPOST("AMW", "/login", payload, {}, onOk, null, null, false, true, false);
-        } else {
-            //TODO:
-            //should show error of invalid credentials
         }
     }
 
     const redirectToHome = () => {
-        history.pushState("/Home");
+        history.push("/Home");
+    }
+    const redirectToManagerHome = () => {
+        history.push("/HomeManager");
     }
 
     return (
         <div className="loginFormContainer">
-            {(state.error !== null) ? <Error error={state.error} /> : ""}
             {
                 props.open ?
                     <form onSubmit={handleLoginSubmit} autoComplete="off">
@@ -78,7 +79,7 @@ const Loginform = (props) => {
                         </div>
                     </form>
                     :
-                    <form /* action=TODO */ method="post" autoComplete="off">
+                    <form method="post" autoComplete="off">
                         <div className="inputContainer">
                             <h3> Already have an account?</h3>
                             <button className="activeButton" onClick={props.renderLogin}>Login</button>

@@ -1,8 +1,9 @@
 import React from 'react';
+import history from '../../utils/history'; 
 
 const TicketElement = (props) => {
     const handleOnClick = ()=>{
-        //TODO:
+        history.push('/Ticket/' + props.ticket.id);
     }
     return (
         <div className="flexColumnCenter" onClick={handleOnClick}>

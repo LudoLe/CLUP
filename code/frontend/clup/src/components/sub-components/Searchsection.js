@@ -4,7 +4,6 @@ import history from '../../utils/history';
 const Searchsection = () => {
     const handleClick = () =>{
         history.push('/Search');
-        //window.location.href="/Search";
     }
     
     return(

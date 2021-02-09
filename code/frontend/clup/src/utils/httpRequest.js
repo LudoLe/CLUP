@@ -3,12 +3,10 @@ import { AMW_URL_API, QSW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../con
 import { DEBUG_MODE } from '../constants/debug.js';
 import history from '../utils/history'; 
 
-
 const BASE_HEADERS_POST = {
     "accept": "application/json",
     "Content-Type": "application/json"
 }
-
 
 const BASE_HEADERS_GET = {
     "accept": "application/json"
@@ -92,7 +90,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
             onOk(response);
         }
         else {
-            DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+            DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : history.push("/Error")
         }
     })
     .catch(function (error) {
@@ -108,7 +106,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 on500(error);
             }
             else {
-                DEBUG_MODE ? console.log("(on500:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                DEBUG_MODE ? console.log("(on500:) redirect to /") : history.push("/Error")
             }
         }
         else {
@@ -116,7 +114,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 onError(error);
             }
             else {
-                DEBUG_MODE ? console.log("(onError:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                DEBUG_MODE ? console.log("(onError:) redirect to /") : history.push("/Error")
             }
         }
     });
@@ -179,7 +177,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 onOk(response);
             }
             else {
-                DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /") : history.push("/Error")
             }
         })
         .catch(function (error) {
@@ -195,7 +193,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                     on500(error);
                 }
                 else {
-                    DEBUG_MODE ? console.log("(on500:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                    DEBUG_MODE ? console.log("(on500:) redirect to /") : history.push("/Error")
                 }
             }
             else {
@@ -203,7 +201,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                     onError(error);
                 }
                 else {
-                    DEBUG_MODE ? console.log("(onError:) redirect to /") : /*history.push("/")*/ window.location.href = "/" //TODO: should build an error component with ok button that will use the history.push("/") method
+                    DEBUG_MODE ? console.log("(onError:) redirect to /") : history.push("/Error")
                 }
             }
         });
