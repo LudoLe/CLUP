@@ -4,11 +4,6 @@ import { axiosGET } from '../utils/httpRequest.js';
 
 const Ticket = (props) => {
 
-    const styleLoad = {
-        color: 'black',
-        position: 'relative'
-    };
-
     const [state, setState] = useState({
         isLoadedTicket: false,
         ticket: null,
@@ -58,7 +53,7 @@ const Ticket = (props) => {
     }
     else {
         return <div className="flexColumnCenter">
-            <WaveLoading style={styleLoad} />
+            <WaveLoading />
         </div>
     }
 }

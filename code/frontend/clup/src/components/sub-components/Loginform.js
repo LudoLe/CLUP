@@ -33,7 +33,7 @@ const Loginform = (props) => {
             const onOk = (response) => {
                 setUsernameLocal(response.data.username);
                 console.log("username setted in local storage: " + response.data.username);
-                if (response.data.ismanager) {
+                if (response.data.isManager) {
                     redirectToManagerHome();
                 }
                 else {
