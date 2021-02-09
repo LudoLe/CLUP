@@ -55,7 +55,7 @@ public class LineUpComponent {
         Date newHour = new Date(3600000L);
         Date newMinute = new Date(60000L*15);
         Date newMinute2 = new Date(60000L*5);
-        Date newMinute10 = new Date(490000L);
+        Date newMinute10 = new Date(4900000L);
 
         if(enqueueData.getPermanence().after(newHour))return "permanence time too long";
         if(enqueueData.getPermanence().before(newMinute))return "permanence time too little";

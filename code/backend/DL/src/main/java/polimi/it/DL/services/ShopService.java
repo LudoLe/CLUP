@@ -10,15 +10,12 @@ import javax.persistence.PersistenceException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Stateless(name= "services/ShopService")
 public class ShopService {
-
-    boolean test = false;
 
     @PersistenceContext(unitName = "clup")
     private EntityManager em;

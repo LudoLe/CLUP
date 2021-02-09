@@ -106,7 +106,6 @@ public class Gateway {
         }
         System.out.println("data not corrupted we proceed with checking the time");
         if(!luc.noSenseTime(enqueueData).equals("OK")){
-            aavEngine.invalidateSessionToken(username);
             response = responseWrapper.generateResponse( status, luc.noSenseTime(enqueueData) );
             return response;
         }

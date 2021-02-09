@@ -95,8 +95,8 @@ public class TicketService {
      * @param shopid is the id of the shop to retrieve the tickets of
      * @return the list of tickets to be updated
      * */
-    public List<Ticket> findAllTicketsForShopAndDetach(int shopid) throws Exception{
-        List<Ticket> tickets= em.createNamedQuery("Ticket.findForUser", Ticket.class).setParameter(1, shopid).getResultList();
+    public List<Ticket> findAllTicketsForShopAndDetach(int shopid){
+        List<Ticket> tickets= em.createNamedQuery("Ticket.listOrderedForShop", Ticket.class).setParameter(1, shopid).getResultList();
         tickets.forEach(ticket -> em.detach(ticket));
         return  tickets;
     }
