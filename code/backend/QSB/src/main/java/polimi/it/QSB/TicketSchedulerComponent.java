@@ -1,23 +1,14 @@
 package polimi.it.QSB;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.Ticket;
-import polimi.it.DL.services.ShopService;
-import polimi.it.DL.services.TicketService;
 
-import javax.ejb.EJB;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 public class TicketSchedulerComponent {
-
-
-    @EJB(name = "TicketService")
-    TicketService ticketService;
 
     class TicketTracker {
         private Ticket ticket;
@@ -78,16 +69,8 @@ public class TicketSchedulerComponent {
             return startingTime;
         }
 
-        public void setStartingTime(Date startingTime) {
-            this.startingTime = startingTime;
-        }
-
         public Date getEndingTime() {
             return endingTime;
-        }
-
-        public void setEndingTime(Date endingTime) {
-            this.endingTime = endingTime;
         }
 
         public int getId() {
@@ -132,9 +115,10 @@ public class TicketSchedulerComponent {
     private Date currentTime;
 
     // constructor
-    public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
+    public TicketSchedulerComponent(List<Ticket> tickets, Shop shop) throws Exception {
         this.tickets = tickets;
         this.currentTime = new Date();
+        this.shop = shop;
     }
 
     public List<Ticket> buildQueue() {
@@ -192,29 +176,29 @@ public class TicketSchedulerComponent {
 
         System.out.println("\n\n\nPrinting tickets inside shop...");
         //printTicketTrackerList(ticketsInsideShop);
-        String s = "[ ";
+        StringBuilder s = new StringBuilder("[ ");
         for (TicketTracker tt : ticketsInsideShop) {
-            s += (tt.getTicket().getId() + " ");
+            s.append(tt.getTicket().getId()).append(" ");
         }
-        s += "]";
+        s.append("]");
         System.out.println(s);
 
-        s = "[ ";
+        s = new StringBuilder("[ ");
         System.out.println("\n\n\nPrinting tickets to be scheduled...");
         //printTicketTrackerList(ticketsToSchedule);
         for (TicketTracker tt : ticketsToSchedule) {
-            s += (tt.getTicket().getId() + " ");
+            s.append(tt.getTicket().getId()).append(" ");
         }
-        s += "]";
+        s.append("]");
         System.out.println(s);
 
-        s = "[ ";
+        s = new StringBuilder("[ ");
         System.out.println("\n\n\nPrinting tickets expired...");
         //printTicketTrackerList(ticketsExpired);
         for (TicketTracker tt : ticketsExpired) {
-            s += (tt.getTicket().getId() + " ");
+            s.append(tt.getTicket().getId()).append(" ");
         }
-        s += "]";
+        s.append("]");
         System.out.println(s + "\n\n");
 
         // beginning of the time line
@@ -610,7 +594,7 @@ public class TicketSchedulerComponent {
             return -1;
         }
 
-        int timeSlotId = -1;
+        int timeSlotId;
         int counter = 0;
         Date startTimeSlot = new Date();
         Date endTimeSlot = new Date(startTimeSlot.getTime() + timeSlotDurationInMilliSeconds);
@@ -684,8 +668,8 @@ public class TicketSchedulerComponent {
 
     private void printTicketTracker(TicketTracker tt) {
         System.out.println("{");
-        System.out.println("\"previousMatchingTicket\":" + ((tt.getMatchingPreviousTicket() != null && tt.getMatchingPreviousTicket().getStatus() != placeholder) ? tt.getMatchingPreviousTicket().getId() : "null") + ",");
-        System.out.println("\"followingMatchingTicket\": " + ((tt.getMatchingFollowingTicket() != null && tt.getMatchingFollowingTicket().getStatus() != placeholder) ? tt.getMatchingFollowingTicket().getId() : "null") + ",");
+        System.out.println("\"previousMatchingTicket\":" + ((tt.getMatchingPreviousTicket() != null && !tt.getMatchingPreviousTicket().getStatus().equals(placeholder)) ? tt.getMatchingPreviousTicket().getId() : "null") + ",");
+        System.out.println("\"followingMatchingTicket\": " + ((tt.getMatchingFollowingTicket() != null && !tt.getMatchingFollowingTicket().getStatus().equals(placeholder)) ? tt.getMatchingFollowingTicket().getId() : "null") + ",");
         System.out.println("\"Ticket\":");
         printTicket(tt.getTicket());
         System.out.println("}");

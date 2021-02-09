@@ -77,7 +77,7 @@ public class LineUpComponent {
         try{
             Shop shop = shopService.find(enqueueData.getShopid());
             ticketService.create( shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
-            TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId())));
+            TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId()), shop));
             tsc.buildQueue();
 
           // ticketService.updateAllTickets(tickets);
