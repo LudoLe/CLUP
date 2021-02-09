@@ -26,8 +26,6 @@ public class UserService {
     @PersistenceContext(unitName = "clup")
     private EntityManager em;
 
-    public UserService(){}
-
     //check the credential of the user when he logs in and generate a random token which will be used
     //as a session marker to indentity them in the following requests
     /*public String checkCredentials(String username, String password) throws Exception {
@@ -54,9 +52,6 @@ public class UserService {
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         if(!(user == null)){
             user.setSessionToken(null);
-            em.refresh(user);
-            em.persist(user);
-            em.flush();
         }
     }
 
@@ -66,10 +61,8 @@ public class UserService {
         if(!(user == null)){
                 String newSessionToken = generateSessionToken();
                 user.setSessionToken(newSessionToken);
-            em.refresh(user);
+            em.flush();
 
-            em.persist(user);
-                em.flush();
             return newSessionToken;
         }
         System.out.println("user not found in check session token");
@@ -81,7 +74,6 @@ public class UserService {
            User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
            if(user!=null) {
                user.setSessionToken(null);
-               em.persist(user);
                em.flush();
 
            }
@@ -101,9 +93,8 @@ public class UserService {
             }else
             {            System.out.println("user not authorized in user service");
                 user.setSessionToken(null);
-                em.persist(user);
-                em.refresh(user);
                 em.flush();
+
 
 
 
@@ -122,8 +113,6 @@ public class UserService {
            if(user.getSessionToken().equals(token)&&(user.getIsManager()))return true;
            else{
                user.setSessionToken(null);
-               em.persist(user);
-               em.refresh(user);
                em.flush();
                return false;
            }

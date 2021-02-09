@@ -15,11 +15,7 @@ public class ShopShiftService {
     @EJB(name="services/ShopService")
     ShopService shopService;
 
-    boolean test = false;
 
-
-
-    public ShopShiftService(){}
 
     public ShopShift find(int id) throws Exception{
         return em.find(ShopShift.class, id);
