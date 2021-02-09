@@ -120,10 +120,10 @@ public class AAVEngine {
         }
     }
 
-    public AAVEngine(UserService userService, ShopService shopService, TicketService ticketService){
+    /*public AAVEngine(UserService userService, ShopService shopService, TicketService ticketService){
         this.userService=userService;
         this.shopService=shopService;
         this.ticketService=ticketService;
-    }
+    }*/
 
 }

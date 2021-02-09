@@ -57,7 +57,6 @@ public class UserService {
             em.refresh(user);
             em.persist(user);
             em.flush();
-            em.clear();
         }
     }
 
@@ -71,7 +70,6 @@ public class UserService {
 
             em.persist(user);
                 em.flush();
-                em.clear();
             return newSessionToken;
         }
         System.out.println("user not found in check session token");
@@ -85,7 +83,6 @@ public class UserService {
                user.setSessionToken(null);
                em.persist(user);
                em.flush();
-               em.clear();
 
            }
     }
@@ -107,7 +104,6 @@ public class UserService {
                 em.persist(user);
                 em.refresh(user);
                 em.flush();
-                em.clear();
 
 
 
@@ -129,7 +125,6 @@ public class UserService {
                em.persist(user);
                em.refresh(user);
                em.flush();
-               em.clear();
                return false;
            }
         }else return false;
@@ -161,7 +156,6 @@ public class UserService {
             user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
-            em.clear();
 
             return user;
         } catch (PersistenceException e) {
@@ -178,8 +172,4 @@ public class UserService {
         return base64Encoder.encodeToString(randomBytes);
     }
 
-    public UserService(EntityManager em, boolean test){
-        this.em = em;
-        this.test = test;
-    }
 }

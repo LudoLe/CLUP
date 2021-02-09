@@ -18,10 +18,6 @@ public class ShopShiftService {
     boolean test = false;
 
 
-    public ShopShiftService(EntityManager em, boolean test){
-        this.em = em;
-        this.test = test;
-    }
 
     public ShopShiftService(){}
 
