@@ -125,6 +125,8 @@ public class TicketSchedulerComponent {
     private final String valid = "valid";
     private final String in_use = "in_use";
     private final String placeholder = "placeholder";
+    private final String expired = "expired";
+    private final String used = "used";
 
     // current time
     private Date currentTime;
@@ -136,7 +138,7 @@ public class TicketSchedulerComponent {
         this.currentTime = new Date();
     }
 
-    public ArrayList<Map<Ticket, Date>> buildQueue() {
+    public List<Ticket> buildQueue() {
 
         System.out.println("\n.buildQueue() method started");
         System.out.println("\ncurrentTime is: " + currentTime);
@@ -153,25 +155,36 @@ public class TicketSchedulerComponent {
         List<TicketTracker> ticketsInsideShop = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsToSchedule = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsExpired = new ArrayList<TicketTracker>();
-        //TODO: check if this thing is actually working
+        List<TicketTracker> ticketsUsed = new ArrayList<TicketTracker>();
         for (Ticket ticket : tickets) {
             switch (ticket.getStatus()) {
-                case invalid:
+                case invalid: //must be scheduled and at the end it will become a valid ticket
                     ticketsToSchedule.add(new TicketTracker(ticket));
                     break;
-                case valid:
-                    if (calculateTimeSlotId(ticket.getScheduledExitingTime()) >= -1) {
-                        ticketsToSchedule.add(new TicketTracker(ticket));
-                    } else { // a ticket is expired if it was scheduled at least one time slot before the current time
+                case valid: //it could have entered the shop and become a in_use ticket
+                            //it could have expired (if its not entered and its scheduled time is "one time slot" before the current time)
+                            //it could be still valid and need to be rescheduled
+                    if(ticket.getEnterTime()!=null){
+                        ticketsInsideShop.add(new TicketTracker(ticket));
+                    }
+                    else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - 60000L*timeSlotMinuteDuration))) {
                         ticketsExpired.add(new TicketTracker(ticket));
+                    } else {
+                        ticketsToSchedule.add(new TicketTracker(ticket));
                     }
                     break;
-                case in_use:
-                    TicketTracker ticketInsideShop = new TicketTracker(ticket);
-                    Ticket placeHolderTicket = new Ticket();
-                    placeHolderTicket.setStatus(placeholder);
-                    ticketInsideShop.setMatchingPreviousTicket(placeHolderTicket); //...useless, but just to not have incomplete data in the future
-                    ticketsInsideShop.add(ticketInsideShop);
+                case in_use: //it could have exit the shop and become used
+                             //it could still be in_use
+                    if (ticket.getExitTime() != null){
+                        ticketsUsed.add(new TicketTracker(ticket));
+                    }
+                    else{
+                        TicketTracker ticketInsideShop = new TicketTracker(ticket);
+                        Ticket placeHolderTicket = new Ticket();
+                        placeHolderTicket.setStatus(placeholder);
+                        ticketInsideShop.setMatchingPreviousTicket(placeHolderTicket); //...useless, but just to not have incomplete data in the future
+                        ticketsInsideShop.add(ticketInsideShop);
+                    }
                     break;
                 default:
                     break;
@@ -331,8 +344,7 @@ public class TicketSchedulerComponent {
 
                     }
 
-                    //TODO:
-                    // check for shifts
+                    //TODO: CONDITION 3
                     //if we have found a ticket that respect condition 1 or 2, we check if it respect event condition 3
                     /* we are not checking condition 3
                     if (chosenTicket != null) {
@@ -389,9 +401,9 @@ public class TicketSchedulerComponent {
                     }
                 }
 
-                //CODNITION 4
+                //CONDITION 4
                 // if no ticket has been found, we can use as chosenTicket the one in that has the shortest exiting time
-                // [(currentTime + timeToReachTheShop) oppure (arrivalTime) + expectedDuration)]
+                // [(currentTime + timeToReachTheShop) or (arrivalTime) + expectedDuration)]
                 if (chosenTicket == null && !ticketsToScheduleCopy.isEmpty()) {
 
                     System.out.println("\n                                no chosen ticket found, picking the one that has the shortest exiting time");
@@ -439,7 +451,7 @@ public class TicketSchedulerComponent {
             }
         }
 
-        System.out.println("\nGIANT FOR ENDED, printing time line...");
+        System.out.println("\nGIANT FOR ENDED, printing time line in JSON...");
         System.out.println("*****************************************************************");
         printTimeLine(timeLine);
         System.out.println("*****************************************************************");
@@ -462,44 +474,53 @@ public class TicketSchedulerComponent {
          *        }
          */
 
-        //TODO:
-        // correctly set ticket status
-        //(invalid => valid)
-        //(exipired)
-        //(used)
-        //(in use)
-
-        //TODO:
-        // update the "new" arrivalTime attribute for invalid tickets
-        //arrivalTime = scheduledEnteringTime
-        //obviously the scheduledEnteringTime is null in the db at the end of this algorithm,
-        //this parameter should be updated after the scheduledEnteringTime has been updated
-
-        //TODO:
         // update all scheduledEnteringTime and scheduledExitingTime
-        // also ignore tickets with placeholder status
-
-        Map<Ticket, Date> enteringTimeMap = new HashMap<Ticket, Date>();
-        Map<Ticket, Date> exitingTimeMap = new HashMap<Ticket, Date>();
-
         for (TimeSlot timeslot : timeLine) {
             for (TicketTracker ticketTracker : timeslot.getTickets()) {
                 Ticket t = ticketTracker.getTicket();
                 Date d = timeslot.getStartingTime();
-                enteringTimeMap.put(t, d);
+                t.setScheduledEnteringTime(d);
             }
             for (TicketTracker ticketTracker : timeslot.getExpectedExitingTickets()) {
                 Ticket t = ticketTracker.getTicket();
                 Date d = timeslot.getStartingTime();
-                exitingTimeMap.put(t, d);
+                t.setScheduledExitingTime(d);
             }
         }
 
-        ArrayList<Map<Ticket, Date>> result = new ArrayList<Map<Ticket, Date>>();
-        result.add(enteringTimeMap);
-        result.add(exitingTimeMap);
+        // update the arrivalTime attribute for invalid tickets
+        // arrivalTime = scheduledEnteringTime
+        // obviously the scheduledEnteringTime has just been updated in previous for loop, and the status is still invalid because
+        // it is being changed in the next loop
+        for (Ticket t : this.tickets ) {
+            if(t.getStatus().equals(invalid)){
+                t.setArrivalTime(t.getScheduledEnteringTime());
+            }
+        }
 
-        return result;
+        // correctly update ticket status
+        // (invalid => valid)
+        // (exipired)
+        // (used)
+        // (in use)
+        for(TicketTracker t : ticketsToSchedule){
+            if(t.getTicket().getStatus().equals(invalid)){
+                t.getTicket().setStatus(valid);
+            }
+        }
+        for (TicketTracker t : ticketsInsideShop){
+            if(t.getTicket().getStatus().equals(valid)){
+                t.getTicket().setStatus(in_use);
+            }
+        }
+        for (TicketTracker t : ticketsExpired){
+            t.getTicket().setStatus(expired);
+        }
+        for (TicketTracker t : ticketsUsed){
+            t.getTicket().setStatus(used);
+        }
+
+        return this.tickets;
 
         //TODO: appunto per capire quando può entrare un ticket
         // a ticket can enter during time slot 0 if its a valid ticket and if his previous matching ticket
@@ -526,7 +547,7 @@ public class TicketSchedulerComponent {
             return new Date(sum);
         }
         else{
-            return ticket.getArrivalTime(); //TODO: new attribute in database
+            return ticket.getArrivalTime();
         }
     }
 
@@ -607,16 +628,16 @@ public class TicketSchedulerComponent {
         return timeSlotId;
     }
 
+    /* TODO:
     private boolean checkIfInsideShift(Ticket ticket) {
-        //TODO:
         // given a ticket it checks if its scheduledEnterignTime and scheduledExitingTime are compatible with at least
         // one shopShift.
         return true;
     }
+    */
 
 
     /*auxiliar methods for debugging*/
-
     private void printTimeLine(List<TimeSlot> tl) {
         if (timeLine.isEmpty()) {
             System.out.println("null");
