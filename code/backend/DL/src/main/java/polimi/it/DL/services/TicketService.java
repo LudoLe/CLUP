@@ -127,10 +127,6 @@ public class TicketService {
             return true;
         }
 
-    public TicketService(EntityManager em, boolean test){
-        this.em = em;
-        this.test = test;
-    }
 
 
     }

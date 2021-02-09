@@ -1,4 +1,4 @@
-import org.junit.jupiter.api.Test;
+/*import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
@@ -221,6 +221,7 @@ public class MSCTest{
         assertTrue(msc.checkIfCorruptedData(shopProto));
 
        /* doThrow(new Exception()).when(shopService).existsWithThatNameAndPosition(anyString(), anyString());
-        assertFalse(msc.checkIfCorruptedData(shopProto));*/
+        assertFalse(msc.checkIfCorruptedData(shopProto));
     }
 }
+*/

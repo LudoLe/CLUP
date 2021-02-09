@@ -28,14 +28,17 @@ public class LineUpComponent {
     @EJB(name = "services/TicketService")
     TicketService ticketService;
 
-    public LineUpComponent(ResponseWrapper responseWrapper, ShopService shopService, TicketService ticketService, UserService userService){
-        this.responseWrapper= responseWrapper;
+    /*public LineUpComponent(boolean flag,ResponseWrapper responseWrapper, ShopService shopService, TicketService ticketService, UserService userService){
+       if(flag)
+       {this.responseWrapper= responseWrapper;
         this.shopService=shopService;
         this.ticketService=ticketService;
         this.userService=userService;
-    }
+       }
+    }*/
 
-    public boolean checkIfAlreadyEnqueued(String username) throws Exception{
+
+        public boolean checkIfAlreadyEnqueued(String username) throws Exception{
         boolean bol;
         bol=ticketService.alreadyHasTicket(username);
         return bol;

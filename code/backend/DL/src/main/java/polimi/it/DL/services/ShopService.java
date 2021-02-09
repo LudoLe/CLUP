@@ -107,9 +107,5 @@ public class ShopService {
 
     }
 
-    public ShopService(EntityManager em, boolean test){
-        this.em = em;
-        this.test = test;
-    }
 }
 

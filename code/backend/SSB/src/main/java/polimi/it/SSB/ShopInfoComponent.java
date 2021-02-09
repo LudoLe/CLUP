@@ -34,13 +34,13 @@ public class ShopInfoComponent {
 
 
     public ShopInfoComponent(){}
-    public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
+    /*public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
         this.aav=aavEngine;
         this.shopService=shopService;
         this.responseWrapper=responseWrapper;
         this.ticketService=ticketService;
         this.userService=userService;
-    }
+    }*/
 
 
     /**this function retrieve the ticket from the database and pack the http response with

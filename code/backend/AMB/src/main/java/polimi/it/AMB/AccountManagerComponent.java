@@ -40,14 +40,14 @@ public class AccountManagerComponent {
         encoder = new Argon2PasswordEncoder(ARGON2_SALT_LENGTH, ARGON2_HASH_LENGTH, ARGON2_PARALLELISM, ARGON2_MEMORY, ARGON2_ITERATIONS);
 
     }
-
+/*
     public AccountManagerComponent(AAVEngine aavEngine, UserService userService, ResponseWrapper responseWrapper, Argon2PasswordEncoder encoder)
     {
         this.avv=aavEngine;
         this.userService=userService;
         this.responseWrapper=responseWrapper;
         this.encoder=encoder;
-    }
+    }*/
 
     /**
      * this method call the database to register a new user and generate the http response
