@@ -295,7 +295,7 @@ public class TicketSchedulerComponent {
                     //     ticket.status == "valid"
                     //     (because if a ticket is valid it means that it has already been processed by this algorithm)
 
-                    // 3. Also the ticket can be enqueued only if its expected exiting time is not exceeding
+                    // 3. (we we'll not check for this condition) Also the ticket can be enqueued only if its expected exiting time is not exceeding
                     // the shop shifts.
 
                     // A ticket is considered chosen if it respect conditions:
@@ -303,7 +303,8 @@ public class TicketSchedulerComponent {
                     // or
                     //   (2 && 3)
 
-                    // 4. If none of the above conditions are matched we enqueue the ticket that has the e
+                    // 4. If none of the above conditions are matched we enqueue the ticket that has the shortest exiting time
+                    // [(currentTime + timeToReachTheShop) oppure (arrivalTime) + expectedDuration)]
 
                     //lets find a ticket that respect the conditions listed above:
 
@@ -387,7 +388,9 @@ public class TicketSchedulerComponent {
                     }
                 }
 
-                // if no ticket has been found, we can use as chosenTicket the one in that has the shortest exiting time [(currentTime + timeToReachTheShop) oppure (arrivalTime) + expectedDuration)]
+                //CODNITION 4
+                // if no ticket has been found, we can use as chosenTicket the one in that has the shortest exiting time
+                // [(currentTime + timeToReachTheShop) oppure (arrivalTime) + expectedDuration)]
                 if (chosenTicket == null && !ticketsToScheduleCopy.isEmpty()) {
 
                     System.out.println("\n                                no chosen ticket found, picking the one that has the shortest exiting time");
