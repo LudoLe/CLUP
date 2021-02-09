@@ -23,6 +23,15 @@ const Signupform = (props) => {
         }))
     }
 
+    const handleCheckbox = (e) =>{
+        const {id, checked} = e.target;
+        console.log(checked);
+        setState(prevState => ({
+            ...prevState,
+            [id]: checked
+        }))
+    }
+
     const checkValidity = (e) => {
         if (document.getElementById("signupForm").reportValidity()) {
             setState(prevState => ({
@@ -60,7 +69,7 @@ const Signupform = (props) => {
         const onOk = (response) => {
             setUsernameLocal(response.data.username);
             console.log("username setted in local storage: " + response.data.username);
-            if(response.data.ismanager){
+            if(response.data.isManager){
                 redirectToManagerHome();
             }
             else{
@@ -107,7 +116,7 @@ const Signupform = (props) => {
                             </div>
                             <div className="flexColumnCenter">
                                 <label className="labelSignup">Are you a shop owner?</label>
-                                <input onChange={handleChange}
+                                <input onChange={handleCheckbox}
                                     value={state.shopOwner}
                                     id="shopOwner"
                                     type="checkbox" name="shopOwner" />

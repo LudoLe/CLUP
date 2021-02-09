@@ -11,7 +11,6 @@ const Home = () => {
         isLoadedTickets: false,
         isLoadedAccount: false,
         tickets: null,
-        error: null,
         account: null
     });
 
@@ -40,7 +39,7 @@ const Home = () => {
                 }
              });
         }
-        axiosGET("AMW", "/userinfo", {}, onOk, onOk, null, true, false, true);
+        axiosGET("AMW", "/userinfo", {}, onOk, null, null, true, false, true);
     }, []); 
 
     return (

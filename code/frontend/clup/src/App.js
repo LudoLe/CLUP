@@ -7,7 +7,6 @@ import Shops from './components/Shops';
 import Shop from './components/Shop';
 import Lineup from './components/Lineup';
 import Ticket from './components/Ticket';
-import SignupManager from './components/SignupManager';
 import HomeManager from './components/HomeManager';
 import NewShop from './components/NewShop';
 import ShopManager from './components/ShopManager';
@@ -20,7 +19,7 @@ import history from './utils/history';
 function App() {
     return (
         <Router history={history}>
-            <div className="App">
+            <div className="App"> 
                 <Switch>
                     <Route path="/Error" exact component={Error} /> {/* Login page */}
                     <Route path="/" exact component={Start} /> {/* Login page */}
@@ -30,7 +29,6 @@ function App() {
                     <Route path="/Shop" exact component={Shop} /> {/* Shop page for users */}
                     <Route path="/Lineup" exact component={Lineup} /> {/* Line up page */}
                     <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
-                    <Route path="/SignupManager" exact component={SignupManager} /> {/* Sign up page for managers */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
                     <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
                     <Route path="/ShopManager" exact component={ShopManager} /> {/* Shop page for managers */}
