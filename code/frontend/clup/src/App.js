@@ -1,6 +1,5 @@
 import './css/App.css';
 import Start from './components/Start';
-import history from './utils/history';
 /* import Signup from './components/Signup'; */
 import Home from './components/Home';
 import Search from './components/Search';
@@ -13,21 +12,24 @@ import HomeManager from './components/HomeManager';
 import NewShop from './components/NewShop';
 import ShopManager from './components/ShopManager';
 import Scanner from './components/Scanner';
+import Error from './components/Error';
 
-import { Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom';
+import history from './utils/history';
 
 function App() {
     return (
         <Router history={history}>
             <div className="App">
                 <Switch>
+                    <Route path="/Error" exact component={Error} /> {/* Login page */}
                     <Route path="/" exact component={Start} /> {/* Login page */}
                     <Route path="/Home" exact component={Home} /> {/* Home page for users */}
                     <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
                     <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
                     <Route path="/Shop" exact component={Shop} /> {/* Shop page for users */}
                     <Route path="/Lineup" exact component={Lineup} /> {/* Line up page */}
-                    <Route path="/Ticket" exact component={Ticket} /> {/* Ticket page */}
+                    <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
                     <Route path="/SignupManager" exact component={SignupManager} /> {/* Sign up page for managers */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
                     <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}

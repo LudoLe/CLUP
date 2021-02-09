@@ -15,13 +15,14 @@ const Home = () => {
         account: null
     });
 
-    //fetch ticket info
+    //fetch tickets info
     useEffect(()=>{ //TODO: NON VA BENE DIO SANTO QUEL CODICE 500 SE NON CI SONO BIGLIETTI NON VA PROPRIO BENE, RITORNAMI UN OGGETTO VUOTO.
         const onOk = (response) =>{
             setState(prevState =>{
                 return{
                      ...prevState,
-                     isLoadedTickets : true
+                     isLoadedTickets : true,
+                     tickets : response.data
                 }
              });
         }

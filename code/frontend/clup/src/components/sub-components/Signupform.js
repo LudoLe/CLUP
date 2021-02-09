@@ -11,7 +11,8 @@ const Signupform = (props) => {
         repeatPassword: "",
         email: "",
         phonenumber: "",
-        shopOwner: false
+        shopOwner: false,
+        credentialError: null
     });
 
     const handleChange = (e) => {
@@ -38,13 +39,11 @@ const Signupform = (props) => {
         }
         if (document.getElementById("signupForm").reportValidity()) {
             if (state.password === state.repeatPassword) {
-                //document.getElementById("repeatPassword").setCustomValidity('');
                 sendSignupToServer();
             }
             else {
-                //TODO: 
-                //this doesn't work
-                //document.getElementById("repeatPassword").setCustomValidity("passwords don't match!");
+                //TODO should find better way
+                alert("password do not match!");
             }
         }
     }
@@ -58,19 +57,24 @@ const Signupform = (props) => {
             "phoneNumber": state.phonenumber,
             "isManager": state.shopOwner
         }
-        const headers = {
-
-        }
         const onOk = (response) => {
             setUsernameLocal(response.data.username);
             console.log("username setted in local storage: " + response.data.username);
-            redirectToHome();
+            if(response.data.ismanager){
+                redirectToManagerHome();
+            }
+            else{
+                redirectToHome();
+            }
         }
-        axiosPOST("AMW", "/registration", payload, headers, onOk, null, null, false, true, false);
+        axiosPOST("AMW", "/registration", payload, {}, onOk, null, null, false, true, false);
     }
 
     const redirectToHome = () => {
         history.push("/Home");
+    }
+    const redirectToManagerHome = () => {
+        history.push("/HomeManager");
     }
 
     return (
