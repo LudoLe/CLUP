@@ -26,12 +26,15 @@ public class User implements Serializable {
     private int id;
 
     @Column(name="username")
+    @Expose
     private String username;
 
     @Column(name="password")
+    @Expose
     private String password;
 
     @Column(name="email")
+    @Expose
     private String email;
 
     @Column(name="phone_number")
@@ -41,6 +44,7 @@ public class User implements Serializable {
     private boolean isManager;
 
     @Column(name="session_token")
+    @Expose
     private String sessionToken;
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
