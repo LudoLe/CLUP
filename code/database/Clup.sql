@@ -95,6 +95,7 @@ CREATE TABLE `ticket` (
   `scheduled_entering_time` time DEFAULT NULL,
   `scheduled_exiting_time` time DEFAULT NULL,
   `time_to_reach_the_shop` time DEFAULT NULL,
+  `arrival_time` time DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `relate_shop_idx` (`shop_id`),
   KEY `user_ticket_idx` (`user_id`),
@@ -109,7 +110,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (21,5,4,'VALID','13:50:43','13:50:43','00:00:45','13:50:43','13:50:43','00:00:12'),(22,5,4,'INVALID','13:50:43','13:50:43','00:00:56','13:50:43','13:50:43','00:00:54'),(23,4,5,'invalid',NULL,NULL,'00:00:55',NULL,NULL,'19:00:01'),(24,5,5,'invalid',NULL,NULL,'00:14:01',NULL,NULL,'00:14:01'),(25,5,5,'invalid',NULL,NULL,'20:00:06',NULL,NULL,'20:00:06'),(26,5,5,'invalid',NULL,NULL,'20:00:14',NULL,NULL,'20:00:14'),(27,5,5,'invalid',NULL,NULL,'20:00:34',NULL,NULL,'20:00:34'),(28,5,4,'invalid',NULL,NULL,'00:08:10',NULL,NULL,'15:00:10'),(29,5,4,'invalid',NULL,NULL,'00:11:49',NULL,NULL,'00:11:49'),(30,5,4,'invalid',NULL,NULL,'00:16:52',NULL,NULL,'00:16:52'),(31,5,4,'invalid',NULL,NULL,'00:24:28',NULL,NULL,'00:24:28');
+INSERT INTO `ticket` VALUES (21,5,4,'VALID','13:50:43','13:50:43','00:00:45','13:50:43','13:50:43','00:00:12',NULL),(22,5,4,'INVALID','13:50:43','13:50:43','00:00:56','13:50:43','13:50:43','00:00:54',NULL),(23,4,5,'invalid',NULL,NULL,'00:00:55',NULL,NULL,'19:00:01',NULL),(24,5,5,'invalid',NULL,NULL,'00:14:01',NULL,NULL,'00:14:01',NULL),(25,5,5,'invalid',NULL,NULL,'20:00:06',NULL,NULL,'20:00:06',NULL),(26,5,5,'invalid',NULL,NULL,'20:00:14',NULL,NULL,'20:00:14',NULL),(27,5,5,'invalid',NULL,NULL,'20:00:34',NULL,NULL,'20:00:34',NULL),(28,5,4,'invalid',NULL,NULL,'00:08:10',NULL,NULL,'15:00:10',NULL),(29,5,4,'invalid',NULL,NULL,'00:11:49',NULL,NULL,'00:11:49',NULL),(30,5,4,'invalid',NULL,NULL,'00:16:52',NULL,NULL,'00:16:52',NULL),(31,5,4,'invalid',NULL,NULL,'00:24:28',NULL,NULL,'00:24:28',NULL);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,4 +152,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-08 19:26:57
+-- Dump completed on 2021-02-09 19:43:36
