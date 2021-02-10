@@ -4,6 +4,14 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <context-param>
+        <param-name>uploadsLocation</param-name>
+        <param-value>/var/lib/gamify</param-value>
+    </context-param>
+    <context-param>
+        <param-name>campaignImagesFolder</param-name>
+        <param-value>/campaignImages</param-value>
+    </context-param>
     <filter>
         <filter-name>CorsFilter</filter-name>
         <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
