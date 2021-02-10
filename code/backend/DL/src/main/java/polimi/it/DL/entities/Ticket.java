@@ -63,10 +63,12 @@ public class Ticket implements Serializable {
     @Column(name="arrival_time")
     private Date arrivalTime;
 
+    @Expose
     @ManyToOne
     @JoinColumn(name = "shop_id", referencedColumnName = "id", nullable = false)
     private Shop shop;
 
+    @Expose
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
