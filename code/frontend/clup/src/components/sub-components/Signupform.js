@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest';
-import history from "../../utils/history";
+import { useHistory } from "react-router-dom";
 
 const Signupform = (props) => {
 
@@ -14,6 +14,8 @@ const Signupform = (props) => {
         shopOwner: false,
         credentialError: null
     });
+
+    const history = useHistory();
 
     const handleChange = (e) => {
         const { id, value } = e.target

@@ -1,7 +1,10 @@
 import React from 'react';
-import history from '../../utils/history'; 
+import { useHistory } from "react-router-dom";
 
 const TicketElement = (props) => {
+
+    const history = useHistory();
+
     const handleOnClick = ()=>{
         history.push('/Ticket/' + props.ticket.id);
     }

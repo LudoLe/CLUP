@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AMW_URL_API, QSW_URL_API, SSW_URL_API, ACCESS_TOKEN_NAME } from '../constants/urlsAPI.js';
 import { DEBUG_MODE } from '../constants/debug.js';
-import history from '../utils/history'; 
+import { showError } from './showError.js';
 
 const BASE_HEADERS_POST = {
     "accept": "application/json",
@@ -28,11 +28,6 @@ export const getUsernameLocal = () => {
 
 export const setUsernameLocal = (username) => {
     localStorage.setItem(USERNAME, username);
-}
-
-const goToErrorPage = (error)=>{
-    sessionStorage.setItem("error", JSON.stringify(error));
-    history.push("/Error");
 }
 
 export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {
@@ -95,7 +90,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
             onOk(response);
         }
         else {
-            DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /Error") : goToErrorPage(response);
+            DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /Error") : showError(response);
         }
     })
     .catch(function (error) {
@@ -111,7 +106,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 on500(error);
             }
             else {
-                DEBUG_MODE ? console.log("(on500:) redirect to /Error") : goToErrorPage(error.response);
+                DEBUG_MODE ? console.log("(on500:) redirect to /Error") : showError(error.response);
             }
         }
         else {
@@ -119,7 +114,7 @@ export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, 
                 onError(error);
             }
             else {
-                DEBUG_MODE ? console.log("(onError:) redirect to /Error") : goToErrorPage(error.response);
+                DEBUG_MODE ? console.log("(onError:) redirect to /Error") : showError(error.response);
             }
         }
     });
@@ -182,7 +177,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                 onOk(response);
             }
             else {
-                DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /Error") : goToErrorPage(response);
+                DEBUG_MODE ? console.log("(correct, but not 200:) Should redirect to /Error") : showError(response);
             }
         })
         .catch(function (error) {
@@ -198,7 +193,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                     on500(error);
                 }
                 else {
-                    DEBUG_MODE ? console.log("(on500:) redirect to /Error") : goToErrorPage(error.response);
+                    DEBUG_MODE ? console.log("(on500:) redirect to /Error") : showError(error.response);
                 }
             }
             else {
@@ -206,7 +201,7 @@ export const axiosGET = (service, url, headers, onOk, on500, onError, useOldSess
                     onError(error);
                 }
                 else {
-                    DEBUG_MODE ? console.log("(onError:) redirect to /Error") : goToErrorPage(error.response);
+                    DEBUG_MODE ? console.log("(onError:) redirect to /Error") : showError(error.response);
                 }
             }
         });

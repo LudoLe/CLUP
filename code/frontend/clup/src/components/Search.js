@@ -1,7 +1,9 @@
 import React from 'react';
-import history from '../utils/history';
+import { useHistory } from "react-router-dom";
 
 const Search = () => {
+
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { WaveLoading } from 'react-loadingg';
 import { ACCESS_TOKEN_NAME } from '../../constants/urlsAPI.js';
-import history from '../../utils/history.js';
+import { useHistory } from "react-router-dom";
 import { axiosGET } from '../../utils/httpRequest.js';
 
 const Account = (props) => {
+    
+    const history = useHistory();
 
     const [accountToggler, setAccountToggler] = useState(false);
 

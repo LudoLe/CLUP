@@ -1,7 +1,10 @@
 import React from 'react';
-import history from '../../utils/history'; 
+import { useHistory } from "react-router-dom";
 
 const ShopElement = (props) => {
+
+    const history = useHistory();
+
     const handleOnClick = ()=>{
         history.push('/Shop/' + props.shop.id); //TODO: not sure the id thing is the correct thingy-di boopidi boop
     }

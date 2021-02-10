@@ -1,17 +1,18 @@
-.errorContainer{
+.errorBackground{
+    z-index: 100;
+    position:fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color:#000000a1;
+}
+
+.error{
     position: fixed;
-    top: 10vh;
+    top: 20vh;
+    bottom: 20vh;
     left: 10vw;
     right: 10vw;
     background-color: white;
-    border-radius: 30px;
-    border: 2px solid #FF1A15;
-}
-
-.errorContainer h3{
-    color: #FF1A15;
-}
-
-.errorContainer button{
-    background-color: #FF1A15;
 }

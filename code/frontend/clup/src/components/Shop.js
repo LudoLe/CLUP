@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WaveLoading } from 'react-loadingg';
-import history from '../utils/history.js';
 import { axiosGET } from '../utils/httpRequest.js';
-
+import GoBackButton from './sub-components/GoBackButton.js';
 const Shop = (props) => {
 
     const [state, setState] = useState({
@@ -28,17 +27,13 @@ const Shop = (props) => {
         axiosGET("SSW", ("/shopDetail/" + state.shopId), {}, onOk, null, null, true, false, true);
     }, [state.shopId]);
 
-    const handleBack = () => {
-        history.goBack();
-    }
-
     const handleEnqueue = () => {
         //TODO:
     }
 
     return (
         <div className="flexColumnCenter">
-            <button onClick={handleBack}> Go back </button>
+            <GoBackButton/>
             {state.isLoadedShop ?
                 <div className="flexColumnCenter">
                     {/* TODO: display shop info */}

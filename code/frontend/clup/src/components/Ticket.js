@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { WaveLoading } from 'react-loadingg';
-import history from '../utils/history.js';
 import { axiosGET } from '../utils/httpRequest.js';
+import GoBackButton from './sub-components/GoBackButton.js'
 
 const Ticket = (props) => {
 
@@ -25,10 +25,6 @@ const Ticket = (props) => {
         axiosGET("SSW", ("/ticketDetail/" + state.ticketId), {}, onOk, null, null, true, false, true);
     }, [state.ticketId]);
 
-    const handleBack = () => {
-        history.goBack();
-    }
-
     const handleDequeue = () => {
         //TODO:
     }
@@ -36,7 +32,7 @@ const Ticket = (props) => {
 
     return (
         <div className="flexColumnCenter">
-            <button onClick={handleBack}> Go back </button>
+            <GoBackButton />
             {state.isLoadedTicket ?
                 <div className="flexColumnCenter">
                     {/* TODO: display shop info */}

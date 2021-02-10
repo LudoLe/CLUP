@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest.js';
-import history from "../../utils/history";
+import { useHistory } from "react-router-dom";
 
 const Loginform = (props) => {
+    
     const [state, setState] = useState({
         username: "",
         password: "",
     });
+
+    const history = useHistory();
 
     const handleChange = (e) => {
         const { id, value } = e.target

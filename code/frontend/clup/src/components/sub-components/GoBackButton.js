@@ -1,7 +1,10 @@
 import React from 'react';
-import history from '../../utils/history.js';
+import { useHistory } from "react-router-dom";
 
 const GoBackButton = () => {
+
+    const history = useHistory();
+
     return (
         <button onClick={() => { history.goBack() }}> Go back </button>
     );
