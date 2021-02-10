@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Account from './sub-components/Account';
 import { axiosGET } from '../utils/httpRequest.js';
+import ShopsListManager from './sub-components/ShopsListManager';
+import GoToButton from './sub-components/GoToButton';
 
 
-const Home = () => {
+const HomeManager = () => {
 
     const [state, setState] = useState({
-        isLoadedTickets: false,
+        isLoadedShops: false,
         isLoadedAccount: false,
         account: null,
         shops: null
@@ -18,7 +20,7 @@ const Home = () => {
             setState(prevState =>{
                 return{
                      ...prevState,
-                     isLoadedTickets : true,
+                     isLoadedShops : true,
                      shops : response.data
                 }
              });
@@ -43,8 +45,10 @@ const Home = () => {
     return (
         <div>
             <Account isLoaded={state.isLoadedAccount} account={state.account} />
+            <ShopsListManager isLoaded={state.isLoadedShops} shops={state.shops} />
+            <GoToButton to="/NewShop" content="New shop" />
         </div>
     );
 }
 
-export default Home;
+export default HomeManager;

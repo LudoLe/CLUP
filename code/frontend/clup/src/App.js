@@ -1,6 +1,5 @@
 import './css/App.css';
 import Start from './components/Start';
-/* import Signup from './components/Signup'; */
 import Home from './components/Home';
 import Search from './components/Search';
 import Shops from './components/Shops';
@@ -11,27 +10,25 @@ import HomeManager from './components/HomeManager';
 import NewShop from './components/NewShop';
 import ShopManager from './components/ShopManager';
 import Scanner from './components/Scanner';
-import Error from './components/Error';
 
-import { Router, Switch, Route } from 'react-router-dom';
-import history from './utils/history';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 
 function App() {
     return (
-        <Router history={history}>
-            <div className="App"> 
+        <Router>
+            <div id="App" className="App"> 
                 <Switch>
-                    <Route path="/Error" exact component={Error} /> {/* Login page */}
                     <Route path="/" exact component={Start} /> {/* Login page */}
                     <Route path="/Home" exact component={Home} /> {/* Home page for users */}
                     <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
                     <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
-                    <Route path="/Shop" exact component={Shop} /> {/* Shop page for users */}
+                    <Route path="/Shop/:id" exact component={Shop} /> {/* Shop page for users */}
                     <Route path="/Lineup" exact component={Lineup} /> {/* Line up page */}
                     <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
                     <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
-                    <Route path="/ShopManager" exact component={ShopManager} /> {/* Shop page for managers */}
+                    <Route path="/ShopManager/:id" exact component={ShopManager} /> {/* Shop page for managers */}
                     <Route path="/Scanner" exact component={Scanner} /> {/* Scanner page */}
                 </Switch>
             </div>

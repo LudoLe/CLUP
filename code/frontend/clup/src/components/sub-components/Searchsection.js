@@ -1,7 +1,10 @@
 import React from 'react';
-import history from '../../utils/history'; 
+import { useHistory } from "react-router-dom";
 
 const Searchsection = () => {
+
+    const history = useHistory();
+
     const handleClick = () =>{
         history.push('/Search');
     }

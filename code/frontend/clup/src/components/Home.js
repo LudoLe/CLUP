@@ -11,7 +11,7 @@ const Home = () => {
         isLoadedTickets: false,
         isLoadedAccount: false,
         tickets: null,
-        account: null
+        account: null 
     });
 
     //fetch tickets info

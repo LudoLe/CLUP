@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { WaveLoading } from 'react-loadingg';
 import { ACCESS_TOKEN_NAME } from '../../constants/urlsAPI.js';
-import history from '../../utils/history.js';
+import { useHistory } from "react-router-dom";
 import { axiosGET } from '../../utils/httpRequest.js';
 
 const Account = (props) => {
+    
+    const history = useHistory();
 
     const [accountToggler, setAccountToggler] = useState(false);
 
@@ -32,11 +34,11 @@ const Account = (props) => {
                         <div> Phone Number: {props.account.phoneNumber} </div>
                         <div> isManager: {props.account.isManager ? "true" : "false"} </div>
                         <button onClick={handleLogout}> Logout </button>
-                        <div onClick={toggleAccount}> close </div>
+                        <button onClick={toggleAccount}> close </button>
                     </div>
                     :
                     <div>
-                        <h3 onClick={toggleAccount}> Account </h3>
+                        <button onClick={toggleAccount}> Account </button>
                     </div>
                 }
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { axiosPOST, setUsernameLocal } from '../../utils/httpRequest';
-import history from "../../utils/history";
+import { useHistory } from "react-router-dom";
 
 const Signupform = (props) => {
 
@@ -14,6 +14,8 @@ const Signupform = (props) => {
         shopOwner: false,
         credentialError: null
     });
+
+    const history = useHistory();
 
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -67,7 +69,7 @@ const Signupform = (props) => {
             "isManager": state.shopOwner
         }
         const onOk = (response) => {
-            setUsernameLocal(response.data.username);
+            setUsernameLocal(response.data.username, response.data.isManager);
             console.log("username setted in local storage: " + response.data.username);
             if(response.data.isManager){
                 redirectToManagerHome();

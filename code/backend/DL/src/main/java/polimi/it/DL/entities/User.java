@@ -41,6 +41,7 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @Column(name="is_manager")
+    @Expose
     private boolean isManager;
 
     @Column(name="session_token")
