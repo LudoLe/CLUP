@@ -30,14 +30,17 @@ public class LineUpComponent {
     @EJB(name = "services/TicketService")
     TicketService ticketService;
 
-    /*public LineUpComponent(boolean flag,ResponseWrapper responseWrapper, ShopService shopService, TicketService ticketService, UserService userService){
+    public LineUpComponent(boolean flag,ResponseWrapper responseWrapper, ShopService shopService, TicketService ticketService, UserService userService){
        if(flag)
        {this.responseWrapper= responseWrapper;
         this.shopService=shopService;
         this.ticketService=ticketService;
         this.userService=userService;
        }
-    }*/
+    }
+
+    public LineUpComponent(){}
+
 
 
         public boolean checkIfAlreadyEnqueued(String username) throws Exception{

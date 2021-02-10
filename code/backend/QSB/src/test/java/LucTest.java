@@ -1,4 +1,4 @@
-/*import org.junit.Ignore;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -11,8 +11,6 @@ import polimi.it.DL.services.UserService;
 import polimi.it.QSB.LineUpComponent;
 import prototypes.EnqueueData;
 import responseWrapper.ResponseWrapper;
-
-import javax.enterprise.inject.Produces;
 import java.util.*;
 
 @Ignore
@@ -108,4 +106,3 @@ public class LucTest{
     }
 
 }
-*/
