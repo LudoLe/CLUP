@@ -100,32 +100,7 @@ public class ShopInfoComponent {
         }
     }
 
-    public Response getShopAnalytics(int shopid) throws Exception {
-        Response response;
-        Response.Status status;
-        ShopAnalytics shopAnalytics = new ShopAnalytics();
-        Integer pplInTheShop;
-        Integer pplEnqueued;
-        Ticket tick;
-        Date estimatedTime;
 
-        pplInTheShop = ticketService.peopleInTheShop(shopid);
-        if(pplInTheShop==null){shopAnalytics.setPeopleInTheShop(0);}
-        else shopAnalytics.setPeopleInTheShop(pplInTheShop);
-        pplEnqueued = ticketService.peopleEnqueued(shopid);
-        if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0);}
-        else shopAnalytics.setPeopleInTheShop(pplEnqueued);
-
-        List<Ticket> tickets = ticketService.findAllTicketsForShopAndDetach(shopid);
-        //chiama funzinoe di fede in build queue
-        ticketService.mergeAllTickets(tickets);
-
-
-        status = Response.Status.OK;
-        response = responseWrapper.generateResponse(status,shopAnalytics);
-        return response;
-
-    }
 
     /**this function retrieves the shops from the database and pack the http response with
      * the shops entities if found or with and an alert message if not found

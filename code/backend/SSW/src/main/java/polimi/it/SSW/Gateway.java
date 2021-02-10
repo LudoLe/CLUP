@@ -207,37 +207,6 @@ public class Gateway {
         return response;
     }
 
-    @GET
-    @ApiOperation(value = "getShopAnalytics")
-    @Path("/ShopAnalytics/{shopid}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops Analytics Retrieved",response = String.class),
-            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
-            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopsAnalytics(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken,  @PathParam("shopid") int shopid){
-        String message;
-        Response response;
-        Response.Status status;
-
-        try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)) {
-                message= "unauthorized";
-                status = Response.Status.UNAUTHORIZED;
-                avv.invalidateSessionToken(username);
-            } else {
-                response = sic.getShopAnalytics(shopid);
-                return response;
-            }
-        } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-        }
-        response = responseWrapper.generateResponse(status, message);
-        return response;
-    }
-
     /**this function retrieves all of the shops from the database and pack the http response with
      * the shop entity list if found or with and an alert message if not found
      * it is supposed to be used for the client to enqueue

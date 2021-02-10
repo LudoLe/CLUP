@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponses;
 
 import polimi.it.AMB.AAVEngine;
 import polimi.it.QSB.LineUpComponent;
+import polimi.it.QSB.QueueInfo;
 import prototypes.*;
 import responseWrapper.ResponseWrapper;
 
@@ -35,39 +36,8 @@ public class Gateway {
     @EJB(name = "AAVEngine")
     private AAVEngine aavEngine ;
 
-
-
-   /* @POST
-    @ApiOperation(value = "can enqueue")
-    @Path("/canenqueue")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Can enqueue", response = TimeResponse.class),
-            @ApiResponse(code = 400, message = "enqueuement failed", response = StringResponse.class),
-            @ApiResponse(code = 500, message = "Invalid payload/error", response = StringResponse.class)})
-    public Response preEnqueue(@Valid @RequestMap PreEnqueuementData enqueueData , @HeaderParam("username") String username) throws Exception {
-        String message = "something wrong";
-        Response response;
-        Response.Status status;
-        try {
-            if(!luc.checkIfAlreadyEnqueued(username)) {
-                return luc.managePreEnqueuement(enqueueData);
-            }else{
-                message = "User already Has One Ticket";
-                status = Response.Status.PRECONDITION_FAILED;
-                response = responseWrapper.generateResponse(null,status, message);
-            }
-        } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-            aavEngine.invalidateSessionToken(username);
-            response = responseWrapper.generateResponse(null,status, message);
-
-        }
-        return response;
-    }
-    */
+    @EJB(name = "QueueInfo")
+    private QueueInfo qi ;
 
 
 
@@ -159,6 +129,38 @@ public class Gateway {
             response=responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);
             return response;
         }
+    }
+
+
+    @GET
+    @ApiOperation(value = "getShopAnalytics")
+    @Path("/ShopAnalytics/{shopid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shops Analytics Retrieved",response = String.class),
+            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
+    public Response getShopsAnalytics(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken,  @PathParam("shopid") int shopid){
+        String message;
+        Response response;
+        Response.Status status;
+
+        try {
+            if (!aavEngine.isAuthorizedAndManager(username, sessionToken) || !aavEngine.isAuthorizedToAccessShop(shopid, username)) {
+                message= "unauthorized";
+                status = Response.Status.UNAUTHORIZED;
+                aavEngine.invalidateSessionToken(username);
+            } else {
+                response = qi.getShopAnalytics(shopid);
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, message);
+        return response;
     }
 
     @GET
