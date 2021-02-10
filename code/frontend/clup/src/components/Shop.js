@@ -33,7 +33,7 @@ const Shop = (props) => {
 
     return (
         <div className="flexColumnCenter">
-            <GoBackButton/>
+            <GoBackButton />
             {state.isLoadedShop ?
                 <div className="flexColumnCenter">
                     {/* TODO: display shop info */}

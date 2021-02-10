@@ -13,6 +13,7 @@ const BASE_HEADERS_GET = {
 }
 
 const USERNAME = 'username';
+const IS_MANAGER = 'isManager';
 
 export const getSessionToken = () => {
     return localStorage.getItem(ACCESS_TOKEN_NAME);
@@ -26,8 +27,9 @@ export const getUsernameLocal = () => {
     return localStorage.getItem(USERNAME);
 }
 
-export const setUsernameLocal = (username) => {
+export const setUsernameLocal = (username, isManager) => {
     localStorage.setItem(USERNAME, username);
+    localStorage.setItem(IS_MANAGER, isManager);
 }
 
 export const axiosPOST = (service, url, payload, headers, onOk, on500, onError, useOldSessionToken, setNewSessionToken, useUsername) => {

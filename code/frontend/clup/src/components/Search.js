@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import GoBackButton from './sub-components/GoBackButton';
 
 const Search = () => {
 
@@ -16,6 +17,7 @@ const Search = () => {
 
     return (
         <div className="flexColumnCenter">
+            <GoBackButton/>
             <div className="flexRowCenter">
                 <form onSubmit={handleSubmit}>
                     <input id="searchInput" name="searchInput" type="text" placeholder="search a shop"></input>

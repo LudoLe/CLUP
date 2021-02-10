@@ -28,7 +28,7 @@ function App() {
                     <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
                     <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
-                    <Route path="/ShopManager" exact component={ShopManager} /> {/* Shop page for managers */}
+                    <Route path="/ShopManager/:id" exact component={ShopManager} /> {/* Shop page for managers */}
                     <Route path="/Scanner" exact component={Scanner} /> {/* Scanner page */}
                 </Switch>
             </div>
