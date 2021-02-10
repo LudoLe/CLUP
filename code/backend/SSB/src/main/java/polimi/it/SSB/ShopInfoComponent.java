@@ -1,6 +1,6 @@
 package polimi.it.SSB;
 
-import Responses.ShopAnalytics;
+import Responses.ShopResponse;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.Ticket;
@@ -36,6 +36,9 @@ public class ShopInfoComponent {
 
     public ShopInfoComponent(){}
 
+    /**
+     * constructor for test purposes
+     * */
     public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
         this.aav=aavEngine;
         this.shopService=shopService;
@@ -73,32 +76,7 @@ public class ShopInfoComponent {
         }
     }
 
-    /**this function retrieves the shop from the database and pack the http response with
-     * the shop if it is found or with and alert message if it's not found
-     * @param shopid used to find the ticket in the database
-     * @return the http-response
-     * */
-    public Response getShopInfo(int shopid){
-        Response response;
-        Response.Status status;
 
-        try{
-            Shop shop= shopService.find(shopid);
-            if(shop==null){
-                status = Response.Status.NOT_FOUND;
-                response = responseWrapper.generateResponse(status,"no such shop");
-            }else{
-                status = Response.Status.OK;
-                response = responseWrapper.generateResponse(status,shop);
-            }
-            return response;
-        }catch(Exception e){
-            String message = "something went wrong";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
-            return response;
-        }
-    }
 
 
 
