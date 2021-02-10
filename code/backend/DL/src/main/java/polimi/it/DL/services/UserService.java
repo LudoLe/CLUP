@@ -1,5 +1,6 @@
 package polimi.it.DL.services;
 
+import polimi.it.DL.entities.Ticket;
 import polimi.it.DL.entities.User;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import javax.persistence.PersistenceContext;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.List;
 
 
 @Stateless(name= "services/UserService")
@@ -103,8 +105,19 @@ public class UserService {
 
 
 
+    public List<Ticket> getTicketsFromUS(String username) throws Exception{
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+        List<Ticket> tickets = null;
+        if(user == null) {
+            tickets = user.getTickets();
+       }
+
+        return tickets;
+    }
+
     public User findByUsername(String username) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
+        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
+
 
         return user;
     }

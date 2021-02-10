@@ -41,7 +41,7 @@ public class QueueInfo {
         tsc = new TicketSchedulerComponent(tickets);
         tsc.buildQueue();
         Date date = tsc.getQueueTime();
-        ticketService.mergeAllTickets(tickets);
+
         status = Response.Status.OK;
         response = responseWrapper.generateResponse(status, date);
 

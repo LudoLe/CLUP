@@ -187,8 +187,7 @@ public class ShopInfoComponent {
        Response response;
        Response.Status status;
         try{
-            User user= userService.findByUsername(username);
-            List<Ticket> tickets = user.getTickets();
+            List<Ticket> tickets = userService.getTicketsFromUS(username);
             status = Response.Status.OK;
             if(tickets!=null){
                 response = responseWrapper.generateResponse(status,tickets);
