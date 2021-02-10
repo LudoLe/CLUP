@@ -154,7 +154,7 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken)&&(!avv.isAuthorizedToAccessShop(shopid, username))) {
+            if (!avv.isAuthorized(username, sessionToken) ){
                 message= "Not authorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
@@ -194,7 +194,7 @@ public class Gateway {
         Response.Status status;
 
         try {
-            if (!avv.isAuthorized(username, sessionToken)) {
+            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
                 message= "unathorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
@@ -235,7 +235,7 @@ public class Gateway {
         Response.Status status;
 
         try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+            if (!avv.isAuthorized(username, sessionToken)&&!avv.isManager(sessionToken)) {
                 message= "unauthorized";
                 avv.invalidateSessionToken(username);
                 status = Response.Status.BAD_REQUEST;
@@ -266,6 +266,7 @@ public class Gateway {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
+            @ApiResponse(code = 401, message = "non autorizzato", response = String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response registerNewShop(@Context HttpServletResponse httpHeader,@Context HttpServletRequest httpServletRequest, @HeaderParam("username") String username, @HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
