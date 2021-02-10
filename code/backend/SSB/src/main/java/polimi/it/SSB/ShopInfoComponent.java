@@ -1,5 +1,6 @@
 package polimi.it.SSB;
 
+import Responses.ShopAnalytics;
 import Responses.ShopResponse;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
@@ -149,6 +150,32 @@ public class ShopInfoComponent {
                 response = responseWrapper.generateResponse(status, shops);
             }
             return response;
+    }
+
+    /**
+     * this function retrieves the analytics inferred on the queue and on the shop
+     * it is accessible b
+     * */
+    public Response getShopAnalytics(int shopid) throws Exception {
+        Response response;
+        Response.Status status;
+        ShopAnalytics shopAnalytics = new ShopAnalytics();
+        Integer pplInTheShop;
+        Integer pplEnqueued;
+
+
+        pplInTheShop = ticketService.peopleInTheShop(shopid);
+        if(pplInTheShop==null){shopAnalytics.setPeopleInTheShop(0);}
+        else shopAnalytics.setPeopleInTheShop(pplInTheShop);
+        pplEnqueued = ticketService.peopleEnqueued(shopid);
+        if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0);}
+        else shopAnalytics.setPeopleInTheShop(pplEnqueued);
+
+
+        status = Response.Status.OK;
+        response = responseWrapper.generateResponse(status,shopAnalytics);
+        return response;
+
     }
 
     /**this function retrieves the tickets from the database and pack the http response with

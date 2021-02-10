@@ -344,4 +344,47 @@ public class Gateway {
         response = responseWrapper.generateResponse(status, message);
         return response;
     }
+
+    /**
+     * this function fetch the analytics about a given shop
+     * such analytics may concern the number of people enqueued, the
+     * estimated duration of the queue
+     * the people in the shop at the moment of the request
+     *
+     * @param username and
+     * @param sessionToken  to check whether the client requesting the resource is authorized
+     *                      to receive it
+     * @param shopid used to find the shop in the db
+     * @return the http-response
+     * */
+    @GET
+    @ApiOperation(value = "getAnalytics")
+    @Path("/analytics/{shopid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shops Analytics Retrieved",response = String.class),
+            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
+    public Response getShopsAnalytics(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken,  @PathParam("shopid") int shopid){
+        String message;
+        Response response;
+        Response.Status status;
+
+        try {
+            if (!avv.isAuthorizedAndManager(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)) {
+                message= "unauthorized";
+                status = Response.Status.UNAUTHORIZED;
+                avv.invalidateSessionToken(username);
+            } else {
+                response = sic.getShopAnalytics(shopid);
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, message);
+        return response;
+    }
 }

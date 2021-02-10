@@ -110,7 +110,7 @@ public class Gateway {
             @ApiResponse(code = 401, message = "Non autorizzato", response =  String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
+    public Response getQueueInfo(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
         String message;
         Response response;
         Response.Status status;
@@ -165,48 +165,7 @@ public class Gateway {
     }
 
 
-    /**
-     * this function fetch the analytics about a given shop
-     * such analytics may concern the number of people enqueued, the
-     * estimated duration of the queue
-     * the people in the shop at the moment of the request
-     *
-     * @param username and
-     * @param sessionToken  to check whether the client requesting the resource is authorized
-     *                      to receive it
-     * @param shopid used to find the shop in the db
-     * @return the http-response
-     * */
-    @GET
-    @ApiOperation(value = "getAnalytics")
-    @Path("/analytics/{shopid}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops Analytics Retrieved",response = String.class),
-            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
-            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopsAnalytics(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken,  @PathParam("shopid") int shopid){
-        String message;
-        Response response;
-        Response.Status status;
 
-        try {
-            if (!aavEngine.isAuthorizedAndManager(username, sessionToken) || !aavEngine.isAuthorizedToAccessShop(shopid, username)) {
-                message= "unauthorized";
-                status = Response.Status.UNAUTHORIZED;
-                aavEngine.invalidateSessionToken(username);
-            } else {
-                response = qi.getShopAnalytics(shopid);
-                return response;
-            }
-        } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-        }
-        response = responseWrapper.generateResponse(status, message);
-        return response;
-    }
 
     @GET
     @ApiOperation(value = "check if enqueued")
