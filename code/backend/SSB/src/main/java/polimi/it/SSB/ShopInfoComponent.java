@@ -100,7 +100,7 @@ public class ShopInfoComponent {
         }
     }
 
-    public Response getShopAnalytics(int shopid){
+    public Response getShopAnalytics(int shopid) throws Exception {
         Response response;
         Response.Status status;
         ShopAnalytics shopAnalytics = new ShopAnalytics();
@@ -115,13 +115,12 @@ public class ShopInfoComponent {
         pplEnqueued = ticketService.peopleEnqueued(shopid);
         if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0);}
         else shopAnalytics.setPeopleInTheShop(pplEnqueued);
-        tick = ticketService.lastScheduledEntrance(shopid);
-        if(tick == null ){
-            shopAnalytics.setEstimatedDurationOfTheQueue(new Date(0L));
-        }else{
-            estimatedTime = new Date(tick.getScheduledEnteringTime().getTime()-new Date().getTime());
-            shopAnalytics.setEstimatedDurationOfTheQueue(estimatedTime);
-        }
+
+        List<Ticket> tickets = ticketService.findAllTicketsForShopAndDetach(shopid);
+        //chiama funzinoe di fede in build queue
+        ticketService.mergeAllTickets(tickets);
+
+
         status = Response.Status.OK;
         response = responseWrapper.generateResponse(status,shopAnalytics);
         return response;

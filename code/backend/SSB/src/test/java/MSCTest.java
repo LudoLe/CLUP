@@ -15,6 +15,8 @@ import polimi.it.SSB.ManageShopComponent;
 import prototypes.ShopProto;
 import prototypes.ShopShiftProto;
 import responseWrapper.ResponseWrapper;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
@@ -51,6 +53,9 @@ public class MSCTest{
     @Mock
     List<ShopShift> newShift;
 
+    @Mock
+    HttpServletRequest request;
+
     @Test
     public void MSCTest(){
 
@@ -71,7 +76,7 @@ public class MSCTest{
 
         when(responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop")).thenReturn(response);
         doThrow(new Exception()).when(userService).findByUsername(username);
-        assertEquals(response, msc.registerNewShop(shopProto2, username));
+        assertEquals(response, msc.registerNewShop(shopProto2, username, request));
 
         String string = "string";
         int in = 3;
@@ -87,11 +92,11 @@ public class MSCTest{
         when(userService.newSessionToken(username2)).thenReturn(string);
         when(shopService.createShop(string, in, string, manager, string, in, string, in)).thenReturn(shop);
         when(responseWrapper.generateResponse(Response.Status.OK, shop)).thenReturn(response);
-        assertEquals(response, msc.registerNewShop(shopProto2, username2));
+        assertEquals(response, msc.registerNewShop(shopProto2, username2, request));
         when(userService.findByUsername(username3)).thenReturn(manager);
         when(responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop")).thenReturn(response);
         doThrow(new Exception()).when(shopService).createShop(string, in, string, manager, string, in, string, in);
-        assertEquals(response, msc.registerNewShop(shopProto2, username3));
+        assertEquals(response, msc.registerNewShop(shopProto2, username3, request));
     }
 
     @Test

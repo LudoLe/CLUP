@@ -9,8 +9,6 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name="Ticket.PeopleInTheShopOrEnqueued", query="SELECT COUNT(t) FROM Ticket t WHERE t.status=?1  " +
                 " AND t.shop = (SELECT s FROM Shop s WHERE s.id=?2) "),
-        @NamedQuery(name="Ticket.LastScheduledEnter", query="SELECT t FROM Ticket t WHERE t.status=?1  " +
-                " AND t.shop = (SELECT s FROM Shop s WHERE s.id=?2) "+ "ORDER BY t.scheduledEnteringTime ASC"),
         @NamedQuery(name="Ticket.existsOnDateForShop", query="SELECT COUNT(t) FROM Ticket t WHERE t.scheduledEnteringTime=?1" +
                 " AND t.shop = (SELECT s FROM Shop s WHERE s.id=?2) "),
         @NamedQuery(name="Ticket.existsOnDateForUser", query="SELECT COUNT(t) FROM Ticket t WHERE t.scheduledEnteringTime=?1" +

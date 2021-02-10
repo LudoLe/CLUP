@@ -1,7 +1,6 @@
 package polimi.it.SSB;
 
-import Responses.ShopResponse;
-import Responses.StringResponse;
+import org.apache.commons.lang3.RandomStringUtils;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.ShopShift;
@@ -15,7 +14,14 @@ import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import javax.ws.rs.core.Response;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -84,19 +90,51 @@ public class ManageShopComponent {
      * @param username to match the shop to a manager
      * @return http response
      * */
-    public Response registerNewShop(ShopProto shop, String username) {
+    public Response registerNewShop(ShopProto shop, String username, HttpServletRequest request) throws ServletException, IOException  {
         User manager;
         try {
             manager = userService.findByUsername(username);
         } catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
-        try {
-            Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager, shop.getImage(), shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
-            String newToken = userService.newSessionToken(username);
-            return responseWrapper.generateResponse(Response.Status.OK, newShop);
+            Part part = request.getPart("image");
+            if(part == null) {
+                return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
+            }
+            // gets absolute path of the web application
+            String applicationPath = request.getServletContext().getInitParameter("uploadsLocation");
 
-        } catch (Exception e) {
+            // constructs path of the directory to save uploaded file
+            String uploadFilePath = applicationPath + request.getServletContext().getInitParameter("campaignImagesFolder");
+
+
+            String fileName = part.getSubmittedFileName();
+            String contentType = part.getContentType();
+            String generatedString = RandomStringUtils.randomAlphabetic(80);
+            String ext = getFileExtension(fileName);
+
+            String savedFileName = generatedString + "." + ext;
+
+            // allows only JPEG HEIC and PNG files to be uploaded
+            if (!contentType.equalsIgnoreCase("image/jpeg") && !contentType.equalsIgnoreCase("image/png") && !contentType.equalsIgnoreCase("image/heic")) {
+                return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "Invalid image format");
+            }
+            File fileToSave = new File(uploadFilePath, savedFileName);
+            int i = 0;
+            while(fileToSave.exists()) {
+                savedFileName = generatedString + i + "." + ext;
+                fileToSave = new File(uploadFilePath, savedFileName);
+                i++;
+            }
+            try{
+                Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager, savedFileName, shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
+                        try (InputStream input = part.getInputStream()) {
+                            Files.copy(input, fileToSave.toPath());
+                        }
+                return responseWrapper.generateResponse(Response.Status.OK, newShop);
+
+            }
+         catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
     }
@@ -129,7 +167,14 @@ public class ManageShopComponent {
         return responseWrapper.generateResponse(Response.Status.OK, shiftsnew);
     }
 
-   public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService) {
+    public static String getFileExtension(String fileName){
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
+
+
+    public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService) {
         this.shopService = shopService;
         this.userService = userService;
         this.responseWrapper = responseWrapper;
