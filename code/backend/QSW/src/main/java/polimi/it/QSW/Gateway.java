@@ -99,7 +99,7 @@ public class Gateway {
            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
            return response;
         }
-        if(aavEngine.isManager(username, sessionToken)){
+        if(aavEngine.isManager(sessionToken)){
             aavEngine.invalidateSessionToken(username);
             response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
             return response;

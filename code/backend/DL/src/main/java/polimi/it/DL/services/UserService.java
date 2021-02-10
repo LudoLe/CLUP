@@ -38,7 +38,6 @@ public class UserService {
         if(!(user == null)){
             user.setSessionToken(null);
             em.flush();
-            em.merge(user);
 
         }
     }
@@ -63,7 +62,6 @@ public class UserService {
            if(user!=null) {
                user.setSessionToken(null);
                em.flush();
-               em.merge(user);
 
            }
     }
@@ -84,7 +82,6 @@ public class UserService {
             {
                 user.setSessionToken(null);
                 em.flush();
-                em.merge(user);
                 return false;
             }
         }
@@ -99,7 +96,6 @@ public class UserService {
            else{
                user.setSessionToken(null);
                em.flush();
-               em.merge(user);
                return false;
            }
         }else return false;
@@ -109,7 +105,7 @@ public class UserService {
 
     public User findByUsername(String username) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);;
-        em.merge(user);
+
         return user;
     }
 

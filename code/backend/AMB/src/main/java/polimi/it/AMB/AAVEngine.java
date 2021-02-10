@@ -89,7 +89,9 @@ public class AAVEngine {
     }
 
     public String getSessionToken(String username) throws Exception {
-        return  userService.findByUsername(username).getSessionToken();
+        if(userService.findByUsername(username)!= null){
+            return userService.findByUsername(username).getSessionToken();
+        }else{ return null; }
     }
 
 
