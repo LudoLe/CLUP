@@ -50,6 +50,15 @@ public class TicketService {
         return ticket.equals(ticket2);
     }
 
+    public Integer peopleInTheShop(int shopId){
+        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Integer.class).setParameter(1,"in_use").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
+    }
+    public Integer peopleEnqueued(int shopId){
+        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Integer.class).setParameter(1,"valid").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
+    }
+    public Ticket lastScheduledEntrance(int shopId){
+        return em.createNamedQuery("Ticket.LastScheduledEnter", Ticket.class).setParameter(1,"valid").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
+    }
     /**
      * this method create a ticket in the database,
      * it is initially created with the status "invalid" and with some of the field left empty.

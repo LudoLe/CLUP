@@ -1,5 +1,6 @@
 package polimi.it.SSB;
 
+import Responses.ShopAnalytics;
 import polimi.it.AMB.AAVEngine;
 import polimi.it.DL.entities.Shop;
 import polimi.it.DL.entities.Ticket;
@@ -12,6 +13,7 @@ import responseWrapper.ResponseWrapper;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
 
 @Stateless(name = "SIC")
@@ -32,14 +34,15 @@ public class ShopInfoComponent {
     @EJB(name = "AAVEngine")
     private AAVEngine aav ;
 
+    public ShopInfoComponent(){}
 
-    /*public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
+    public ShopInfoComponent(AAVEngine aavEngine, ShopService shopService, ResponseWrapper responseWrapper, TicketService ticketService, UserService userService){
         this.aav=aavEngine;
         this.shopService=shopService;
         this.responseWrapper=responseWrapper;
         this.ticketService=ticketService;
         this.userService=userService;
-    }*/
+    }
 
 
     /**this function retrieve the ticket from the database and pack the http response with
@@ -95,6 +98,34 @@ public class ShopInfoComponent {
             response = responseWrapper.generateResponse(status,message);
             return response;
         }
+    }
+
+    public Response getShopAnalytics(int shopid){
+        Response response;
+        Response.Status status;
+        ShopAnalytics shopAnalytics = new ShopAnalytics();
+        Integer pplInTheShop;
+        Integer pplEnqueued;
+        Ticket tick;
+        Date estimatedTime;
+
+        pplInTheShop = ticketService.peopleInTheShop(shopid);
+        if(pplInTheShop==null){shopAnalytics.setPeopleInTheShop(0);}
+        else shopAnalytics.setPeopleInTheShop(pplInTheShop);
+        pplEnqueued = ticketService.peopleEnqueued(shopid);
+        if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0);}
+        else shopAnalytics.setPeopleInTheShop(pplEnqueued);
+        tick = ticketService.lastScheduledEntrance(shopid);
+        if(tick == null ){
+            shopAnalytics.setEstimatedDurationOfTheQueue(new Date(0L));
+        }else{
+            estimatedTime = new Date(tick.getScheduledEnteringTime().getTime()-new Date().getTime());
+            shopAnalytics.setEstimatedDurationOfTheQueue(estimatedTime);
+        }
+        status = Response.Status.OK;
+        response = responseWrapper.generateResponse(status,shopAnalytics);
+        return response;
+
     }
 
     /**this function retrieves the shops from the database and pack the http response with

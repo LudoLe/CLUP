@@ -35,14 +35,17 @@ public class AccountManagerComponent {
 
     Argon2PasswordEncoder encoder;
 
-/*
+
     public AccountManagerComponent(AAVEngine aavEngine, UserService userService, ResponseWrapper responseWrapper, Argon2PasswordEncoder encoder)
     {
         this.avv=aavEngine;
         this.userService=userService;
         this.responseWrapper=responseWrapper;
         this.encoder=encoder;
-    }*/
+    }
+
+    public AccountManagerComponent(){}
+
 
     /**
      * this method call the database to register a new user and generate the http response
@@ -137,6 +140,8 @@ public class AccountManagerComponent {
         passed = encoder.matches(passwordProvided, userPassword);
         return passed;
     }
+
+
 
     }
 

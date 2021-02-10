@@ -190,12 +190,43 @@ public class Gateway {
         Response.Status status;
 
         try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+            if (!avv.isAuthorized(username, sessionToken)) {
                 message= "unathorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
             } else {
                 response = sic.getShops(username);
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, message);
+        return response;
+    }
+
+    @GET
+    @ApiOperation(value = "getShopAnalytics")
+    @Path("/ShopAnalytics/{shopid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shops Analytics Retrieved",response = String.class),
+            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
+    public Response getShopsAnalytics(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken,  @PathParam("shopid") int shopid){
+        String message;
+        Response response;
+        Response.Status status;
+
+        try {
+            if (!avv.isAuthorizedAndManager(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)) {
+                message= "unauthorized";
+                status = Response.Status.UNAUTHORIZED;
+                avv.invalidateSessionToken(username);
+            } else {
+                response = sic.getShopAnalytics(shopid);
                 return response;
             }
         } catch (Exception e) {
@@ -221,6 +252,7 @@ public class Gateway {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Shops Retrieved",response = List.class),
+            @ApiResponse(code = 401, message = "Non autorizzato", response = String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response getAllShops(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken){

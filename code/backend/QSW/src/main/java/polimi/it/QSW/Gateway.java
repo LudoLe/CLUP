@@ -163,7 +163,7 @@ public class Gateway {
 
     @GET
     @ApiOperation(value = "check if enqueued")
-    @Path("/checkenqueued")
+    @Path("/checkEnqueued")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {

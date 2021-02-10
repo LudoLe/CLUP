@@ -129,14 +129,15 @@ public class ManageShopComponent {
         return responseWrapper.generateResponse(Response.Status.OK, shiftsnew);
     }
 
-    /*public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService) {
+   public ManageShopComponent(ResponseWrapper responseWrapper, AAVEngine aavEngine, ShopShiftService shopShiftService, ShopService shopService, UserService userService) {
         this.shopService = shopService;
         this.userService = userService;
         this.responseWrapper = responseWrapper;
         this.aavEngine = aavEngine;
         this.shopShiftService = shopShiftService;
     }
-    */
+
+    public ManageShopComponent() {}
 
 
 
