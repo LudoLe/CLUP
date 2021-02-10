@@ -101,12 +101,13 @@ public class Gateway {
     }
 
     @GET
-    @ApiOperation(value = "shopinfo")
-    @Path("/shopDetail/{shopid}")
+    @ApiOperation(value = "queueInfo")
+    @Path("/queueInfo/{shopid}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Date.class),
+            @ApiResponse(code = 401, message = "Non autorizzato", response =  String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
