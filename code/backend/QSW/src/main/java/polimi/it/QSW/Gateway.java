@@ -134,8 +134,8 @@ public class Gateway {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully dequeued"),
-            @ApiResponse(code = 401, message = "NOT AUHTORIZED"),
-            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 401, message = "not authorized"),
+            @ApiResponse(code = 400, message = "bad request"),
             @ApiResponse(code = 500, message = "Something went wrong")})
     public Response dequeue(@HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int tickeid, @HeaderParam("username") String username,  @Context HttpServletResponse httpHeader) {
         String message;
@@ -147,16 +147,21 @@ public class Gateway {
                 response=responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, message);
                 return response;
             }
+            if (!luc.checkIfAlreadyEnqueued(username)) {
+                message= "you have no tickets!";
+                response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
+                return response;
+            }
             if(!luc.checkProperty(username, tickeid)) {
                 return luc.dequeue(tickeid);
             }else{
                 message = "Not your ticket";
                 aavEngine.invalidateSessionToken(username);
-                response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
+                response=responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, message);
                 return response;
             }
         } catch (Exception e) {
-            message = "Internal server error. Please try again later2.";
+            message = "Internal server error. Please try again later.";
             response=responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, message);
             return response;
         }

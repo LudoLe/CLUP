@@ -138,6 +138,8 @@ public class TicketSchedulerComponent {
         List<TicketTracker> ticketsInsideShop = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsToSchedule = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsExpired = new ArrayList<TicketTracker>();
+
+
         List<TicketTracker> ticketsUsed = new ArrayList<TicketTracker>();
         for (Ticket ticket : tickets) {
             switch (ticket.getStatus()) {
