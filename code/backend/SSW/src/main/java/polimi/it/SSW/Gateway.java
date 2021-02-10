@@ -15,6 +15,7 @@ import responseWrapper.ResponseWrapper;
 
 import javax.ejb.EJB;
 import javax.faces.annotation.RequestMap;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -294,7 +295,7 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response registerNewShop(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username,@HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
+    public Response registerNewShop(@Context HttpServletResponse httpHeader,@Context HttpServletRequest httpServletRequest, @HeaderParam("username") String username, @HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
         Response.Status status;
@@ -314,7 +315,7 @@ public class Gateway {
                         status = Response.Status.BAD_REQUEST;
                         return responseWrapper.generateResponse(status, message);
                     }else{
-                        response = msc.registerNewShop(shop, username);
+                        response = msc.registerNewShop(shop, username, httpServletRequest);
                         return response;
                     }
                 }catch (Exception e){
