@@ -603,7 +603,7 @@ public class TicketSchedulerComponent {
     */
 
     public Date getQueueTime () {
-        Date queueTime = new Date();
+        Date queueTime = null;
 
         for (TimeSlot ts : timeLine){
             for (TicketTracker tt : ts.getExpectedExitingTickets()){
