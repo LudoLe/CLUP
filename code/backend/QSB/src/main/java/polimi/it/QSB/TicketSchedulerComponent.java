@@ -385,7 +385,7 @@ public class TicketSchedulerComponent {
                 }
 
                 //CONDITION 4
-                // if no ticket has been found, we can use as chosenTicket the one in that has the shortest exiting time
+                // if no ticket has been found, we can use as chosenTicket the one that has the shortest exiting time
                 // [(currentTime + timeToReachTheShop) or (arrivalTime) + expectedDuration)]
                 if (chosenTicket == null && !ticketsToScheduleCopy.isEmpty()) {
 
@@ -439,23 +439,6 @@ public class TicketSchedulerComponent {
         printTimeLine(timeLine);
         System.out.println("*****************************************************************");
 
-
-
-        /*    How is the result structured?
-         *    The result is of type "ArrayList<Map<Ticket, Date>>" and contains only two elements:
-         *        First Map:   result.get(0) is a map representing the tickets that need to have the scheduledEnteringTime set,
-         *                     where the key [.getKey()] is the Ticket to update, and the value [.getValue()] is the updated time
-         *        Second Map:  result.get(1) is a map representing the tickets that need to have the scheduledExitingTIme set,
-         *                     where the key [.getKey()] is the Ticket to update, and the value [.getValue()] is the updated time
-         *
-         *    How to iterate over a Map?
-         *        Iterator it = map.entrySet().iterator();
-         *        for (Map.Entry<Ticket, Date> entry : map.entrySet()) {
-         *            Ticket t = entry.getKey();
-         *            Date d = entry.getValue();
-         *            // ... update the ticket
-         *        }
-         */
 
         // update all scheduledEnteringTime and scheduledExitingTime
         for (TimeSlot timeslot : timeLine) {
@@ -619,6 +602,20 @@ public class TicketSchedulerComponent {
     }
     */
 
+    public Date getQueueTime () {
+        Date queueTime = new Date();
+
+        for (TimeSlot ts : timeLine){
+            for (TicketTracker tt : ts.getExpectedExitingTickets()){
+                if(tt.getMatchingFollowingTicket() == null){
+                    queueTime = tt.getTicket().getScheduledExitingTime();
+                    return queueTime;
+                }
+            }
+        }
+
+        return queueTime;
+    }
 
     /*auxiliar methods for debugging*/
     private void printTimeLine(List<TimeSlot> tl) {
