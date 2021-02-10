@@ -76,20 +76,16 @@ public class Gateway {
             response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
             return response;
         }
-        System.out.println("user authorized we proceed with check the data");
         if(luc.corruptedData(enqueueData)){
             response = responseWrapper.generateResponse( status, "data corrupted" );
             return response;
         }
-        System.out.println("data not corrupted we proceed with checking the time");
         if(!luc.noSenseTime(enqueueData).equals("OK")){
             response = responseWrapper.generateResponse( status, luc.noSenseTime(enqueueData) );
             return response;
         }
-        System.out.println("time fine we enqueue");
 
         try {
-            System.out.println("before algorithm");
 
             response = luc.enqueue(enqueueData, username);
 
@@ -134,22 +130,25 @@ public class Gateway {
 
     @GET
     @ApiOperation(value = "dequeue")
-    @Path("/dequeue")
+    @Path("/dequeue{ticketid}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully dequeued"),
+            @ApiResponse(code = 401, message = "NOT AUHTORIZED"),
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 500, message = "Something went wrong")})
-    public Response dequeue(@HeaderParam("ticketid") int tickeid, @HeaderParam("username") String username,  @Context HttpServletResponse httpHeader) {
+    public Response dequeue(@HeaderParam("session-token") String sessionToken, @PathParam("ticketid") int tickeid, @HeaderParam("username") String username,  @Context HttpServletResponse httpHeader) {
         String message;
         Response response;
-       //
-        // httpHeader.setHeader("session-token", "");
-
         try {
+            if (!aavEngine.isAuthorized(username, sessionToken)) {
+                message= "Not authorized";
+                aavEngine.invalidateSessionToken(username);
+                response=responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, message);
+                return response;
+            }
             if(!luc.checkProperty(username, tickeid)) {
-               // httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
                 return luc.dequeue(tickeid);
             }else{
                 message = "Not your ticket";

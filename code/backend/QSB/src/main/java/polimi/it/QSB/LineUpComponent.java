@@ -82,14 +82,13 @@ public class LineUpComponent {
     public Response enqueue(EnqueueData enqueueData, String username){
         Response response;
         Response.Status status;
+        Ticket ticket;
         try{
             Shop shop = shopService.find(enqueueData.getShopid());
-            ticketService.create( shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
+            ticket = ticketService.create( shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
             TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId())));
             List<Ticket> tickets=tsc.buildQueue();
             ticketService.mergeAllTickets(tickets);
-
-          // ticketService.updateAllTickets(tickets);
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));
@@ -97,7 +96,7 @@ public class LineUpComponent {
 
         }
         status = Response.Status.OK;
-        response = responseWrapper.generateResponse(status, new StringResponse("You have been correctly enqueued"));
+        response = responseWrapper.generateResponse(status, ticket);
         return response;
     }
 
