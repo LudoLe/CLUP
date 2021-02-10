@@ -26,7 +26,7 @@ function App() {
                     <Route path="/Home" exact component={Home} /> {/* Home page for users */}
                     <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
                     <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
-                    <Route path="/Shop" exact component={Shop} /> {/* Shop page for users */}
+                    <Route path="/Shop/:id" exact component={Shop} /> {/* Shop page for users */}
                     <Route path="/Lineup" exact component={Lineup} /> {/* Line up page */}
                     <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}

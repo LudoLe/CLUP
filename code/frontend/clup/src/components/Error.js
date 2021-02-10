@@ -1,5 +1,6 @@
 import React from 'react';
 import history from '../utils/history';
+import GoBackButton from './sub-components/GoBackButton';
 
 const Error = () => {
     
@@ -7,14 +8,7 @@ const Error = () => {
         history.push("/");
     }
 
-    const goBack = () =>{
-        history.goBack();
-    }
-
     const error = JSON.parse(sessionStorage.getItem("error"));
-
-    console.log("error is");
-    console.log(error);
 
     return (
         <div className="flexColumnCenter">
@@ -22,7 +16,7 @@ const Error = () => {
             <h3> STATUS CODE: {error.status} </h3>
             <h3> ERROR MESSAGE: {error.data} </h3> {/*TODO:*/}
             <button onClick={goToLogin}>go to Login</button>
-            <button onClick={goBack}>go back</button>
+            <GoBackButton/>
         </div>
     );
 }

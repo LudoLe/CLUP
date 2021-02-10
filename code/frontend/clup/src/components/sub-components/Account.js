@@ -32,11 +32,11 @@ const Account = (props) => {
                         <div> Phone Number: {props.account.phoneNumber} </div>
                         <div> isManager: {props.account.isManager ? "true" : "false"} </div>
                         <button onClick={handleLogout}> Logout </button>
-                        <div onClick={toggleAccount}> close </div>
+                        <button onClick={toggleAccount}> close </button>
                     </div>
                     :
                     <div>
-                        <h3 onClick={toggleAccount}> Account </h3>
+                        <button onClick={toggleAccount}> Account </button>
                     </div>
                 }
             </div>

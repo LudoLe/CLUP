@@ -3,7 +3,7 @@ import TicketElement from './TicketElement';
 import { WaveLoading } from 'react-loadingg';
 
 const TicketsList = (props) => {
-    if (props.isLoaded) {
+    if (props.isLoaded) { 
         return (
             <div className="flexColumnCenter">
                 {(props.tickets !== null && props.tickets.length !== 0) ?

@@ -1,4 +1,4 @@
-export const DEBUG_MODE = false;
+export const DEBUG_MODE = true;
 
 if(!DEBUG_MODE){
     //console.log = function () {}
