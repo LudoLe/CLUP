@@ -63,25 +63,24 @@ public class Gateway {
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class)})
     public Response enqueue(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken , @Valid @RequestMap EnqueueData enqueueData) throws Exception {
         Response response;
-        Response.Status status = Response.Status.INTERNAL_SERVER_ERROR;
         String message;
 
         if(!aavEngine.isAuthorized(username, sessionToken)){
             aavEngine.invalidateSessionToken(username);
-           response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
+           response = responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, "not authorized, you are being logged out" );
            return response;
         }
         if(aavEngine.isManager(sessionToken)){
             aavEngine.invalidateSessionToken(username);
-            response = responseWrapper.generateResponse( status, "not authorized, you are being logged out" );
+            response = responseWrapper.generateResponse( Response.Status.UNAUTHORIZED, "not authorized, you are being logged out" );
             return response;
         }
         if(luc.corruptedData(enqueueData)){
-            response = responseWrapper.generateResponse( status, "data corrupted" );
+            response = responseWrapper.generateResponse( Response.Status.BAD_REQUEST, "data corrupted" );
             return response;
         }
         if(!luc.noSenseTime(enqueueData).equals("OK")){
-            response = responseWrapper.generateResponse( status, luc.noSenseTime(enqueueData) );
+            response = responseWrapper.generateResponse(Response.Status.BAD_REQUEST, luc.noSenseTime(enqueueData) );
             return response;
         }
 
@@ -91,7 +90,7 @@ public class Gateway {
 
         } catch (Exception e) {
             message = "Internal server error. Please try again later";
-            response=responseWrapper.generateResponse(status, new StringResponse(message));
+            response=responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, new StringResponse(message));
         }
         return response;
     }
