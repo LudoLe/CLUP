@@ -23,6 +23,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Date;
 
 @Path("/QSW")
 @Api(value = "Methods")
@@ -99,6 +100,36 @@ public class Gateway {
         return response;
     }
 
+    @GET
+    @ApiOperation(value = "shopinfo")
+    @Path("/shopDetail/{shopid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Date.class),
+            @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
+            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
+    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
+        String message;
+        Response response;
+        Response.Status status;
+        try {
+            if (!aavEngine.isAuthorized(username, sessionToken)) {
+                message= "Not authorized";
+                status = Response.Status.BAD_REQUEST;
+                aavEngine.invalidateSessionToken(username);
+            } else {
+                response = qi.getQueueDuration(shopid);
+                return response;
+            }
+        } catch (Exception e) {
+            message = "Internal server error. Please try again later1.";
+            status = Response.Status.INTERNAL_SERVER_ERROR;
+        }
+        response = responseWrapper.generateResponse(status, message);
+        return response;
+    }
+
 
     @GET
     @ApiOperation(value = "dequeue")
@@ -132,44 +163,6 @@ public class Gateway {
         }
     }
 
-    /**this function retrieves the information relativly to a given shop
-     * it additionally provides the information of the estimated duration of the queue
-     * 
-     * @param username and
-     * @param sessionToken  to check whether the client requesting the resource is authorized
-     *                      to receive it
-     * @param shopid used to find the shop in the db
-     * @return the http-response
-     * */
-    @GET
-    @ApiOperation(value = "shopinfo")
-    @Path("/shopDetail/{shopid}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Shop.class),
-            @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
-            @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
-        String message;
-        Response response;
-        Response.Status status;
-        try {
-            if (!aavEngine.isAuthorizedAndManager(username, sessionToken)&&(!aavEngine.isAuthorizedToAccessShop(shopid, username))) {
-                message= "Not authorized";
-                status = Response.Status.BAD_REQUEST;
-                aavEngine.invalidateSessionToken(username);
-            } else {
-                response = qi.getShopInfo(shopid);
-                return response;
-            }
-        } catch (Exception e) {
-            message = "Internal server error. Please try again later1.";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-        }
-        response = responseWrapper.generateResponse(status, message);
-        return response;
-    }
 
     /**
      * this function fetch the analytics about a given shop

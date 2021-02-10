@@ -32,44 +32,23 @@ public class QueueInfo {
     private ResponseWrapper responseWrapper ;
 
 
-    /**this function retrieves the shop from the database and pack the http response with
-     * the shop if it is found or with and alert message if it's not found
-     * @param shopid used to find the ticket in the database
-     * @return the http-response
-     * */
-    public Response getShopInfo(int shopid){
+    public Response getQueueDuration(int shopid) throws Exception {
+
         Response response;
         Response.Status status;
 
-        try{
-            Shop shop= shopService.find(shopid);
-            if(shop==null){
-                status = Response.Status.NOT_FOUND;
-                response = responseWrapper.generateResponse(status,"no such shop");
-            }else{
+        List<Ticket> tickets = ticketService.findAllTicketsForShopAndDetach(shopid);
+        tsc = new TicketSchedulerComponent(tickets);
+        tsc.buildQueue();
+        Date date = tsc.getQueueTime();
+        ticketService.mergeAllTickets(tickets);
+        status = Response.Status.OK;
+        response = responseWrapper.generateResponse(status, date);
 
+        return response;
 
-                List<Ticket> tickets = ticketService.findAllTicketsForShopAndDetach(shopid);
-                tsc = new TicketSchedulerComponent(tickets);
-                tsc.buildQueue();
-                Date date = tsc.getQueueTime();
-                ticketService.mergeAllTickets(tickets);
-
-                status = Response.Status.OK;
-                ShopResponse response1 = new ShopResponse();
-                response1.setQueueTime(date);
-                response1.setShop(shop);
-
-                response = responseWrapper.generateResponse(status,response1);
-            }
-            return response;
-        }catch(Exception e){
-            String message = "something went wrong";
-            status = Response.Status.INTERNAL_SERVER_ERROR;
-            response = responseWrapper.generateResponse(status,message);
-            return response;
-        }
     }
+
 
     /**
      * this function retrieves the analytics inferred on the queue and on the shop
