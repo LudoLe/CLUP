@@ -43,7 +43,7 @@ const HomeManager = () => {
     }, []); 
 
     return (
-        <div>
+        <div className="flexColumnCenter">
             <Account isLoaded={state.isLoadedAccount} account={state.account} />
             <ShopsListManager isLoaded={state.isLoadedShops} shops={state.shops} />
             <GoToButton to="/NewShop" content="New shop" />

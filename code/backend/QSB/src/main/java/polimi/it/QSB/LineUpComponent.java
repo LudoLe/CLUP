@@ -82,11 +82,11 @@ public class LineUpComponent {
         Response.Status status;
         Ticket ticket;
         try{
-            if(checkIfAlreadyEnqueued(username)){
+            /*if(checkIfAlreadyEnqueued(username)){
                 status = Response.Status.BAD_REQUEST;
                 response = responseWrapper.generateResponse(status, "You are already enqueued.");
                 return response;
-            }
+            }*/
             Shop shop = shopService.find(enqueueData.getShopid());
             ticket = ticketService.create( shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
             TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId())));

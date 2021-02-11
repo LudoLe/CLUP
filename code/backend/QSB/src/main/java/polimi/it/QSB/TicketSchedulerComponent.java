@@ -360,6 +360,10 @@ public class TicketSchedulerComponent {
 
 
                         // insert the chosen ticket in the list of exiting tickets of the correct timeslot
+                        if(chosenTicket.getTicket().getExpectedDuration() == null){
+                            System.out.println("ERROR: the chosen ticket has no expectedDuration, printing the chosen ticket...");
+                            printTicketTracker(chosenTicket);
+                        }
                         long sum = getTimeSlot(timeSlot.getId() + 1).getStartingTime().getTime()
                                 + chosenTicket.getTicket().getExpectedDuration().getTime();
                         Date expectedExitingTime = new Date(sum);
@@ -437,9 +441,9 @@ public class TicketSchedulerComponent {
         }
 
         System.out.println("\nGIANT FOR ENDED, printing time line in JSON...");
-        System.out.println("*****************************************************************");
+        System.out.println("******************************TIMELINE***********************************");
         printTimeLine(timeLine);
-        System.out.println("*****************************************************************");
+        System.out.println("****************************ENDTIMELINE*************************************");
 
 
         // update all scheduledEnteringTime and scheduledExitingTime
@@ -487,6 +491,10 @@ public class TicketSchedulerComponent {
         for (TicketTracker t : ticketsUsed){
             t.getTicket().setStatus(used);
         }
+
+        System.out.println("******************************TICKETS UPDATED***********************************");
+        printTicketList(this.tickets);
+        System.out.println("****************************END TICKETS UPDATED*************************************");
 
         return this.tickets;
 

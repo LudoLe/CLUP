@@ -6,18 +6,20 @@ const ShopElement = (props) => {
     const history = useHistory();
 
     const handleOnClick = ()=>{
-        history.push('/Shop/' + props.shop.id); //TODO: not sure the id thing is the correct thingy-di boopidi boop
-    }
-
-    const style = {
-        padding: "4vh 10vw"
+        history.push('/Shop/' + props.shop.id);
     }
 
     return (
-        <div className="flexColumnCenter" style={style} onClick={handleOnClick}>
-            {/* TODO:
-            display shop infomrations
-             */}
+        <div className="flexColumnCenter card clickable" onClick={handleOnClick}>
+            
+            <div> {props.shop.name} </div>
+            
+            <div> {props.shop.image} </div>
+            
+            <div> {props.shop.description} </div>
+            
+            <div> {props.shop.position} </div>
+
         </div>
     );
 }

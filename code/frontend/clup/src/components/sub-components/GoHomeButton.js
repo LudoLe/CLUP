@@ -6,7 +6,7 @@ const GoHomeButton = () => {
     const history = useHistory();
 
     return (
-        <button onClick={() => { history.push("/") }}> Home </button>
+        <button onClick={() => { localStorage.getItem("isManager") ? history.push("/HomeManager") : history.push("/Home") }}> Home </button>
     );
 }
 

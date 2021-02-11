@@ -6,11 +6,11 @@
 
     <context-param>
         <param-name>uploadsLocation</param-name>
-        <param-value>/var/lib/gamify</param-value>
+        <param-value>/clupShopImages</param-value>
     </context-param>
     <context-param>
         <param-name>campaignImagesFolder</param-name>
-        <param-value>/campaignImages</param-value>
+        <param-value>/images</param-value>
     </context-param>
     <filter>
         <filter-name>CorsFilter</filter-name>

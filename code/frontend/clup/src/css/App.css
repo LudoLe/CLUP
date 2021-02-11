@@ -20,21 +20,54 @@
     align-items: center;
 }
 
+.flexRowStart{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+
 .displayNone{
     display: none;
 }
 
-/* .transitionFade-enter{
-    opacity: 0.01;
+
+/* GENERAL VERI BAD CSS FOR TEMPLATING THE APP... */
+
+button{
+    margin: 0 auto 3vh auto;
+    padding: 0.8em 1.1em;
+    width: 30vw;
+    border-radius: 13px;
+    border: 0px;
+    color: white;
+    background-color: #EB1E4E;
+
+    font-size: 1em;
 }
-.transitionFade-enter-active{
-    opacity:1;
-    transition: all 300ms ease-in;
+
+.card{
+    margin: 2vh 3vw;
+    background-color: #EBEBEB;
+    padding: 2vh 8vw;
+    border-radius: 30px;
 }
-.transitionFade-exit{
-    opacity: 1;
+
+.cardWhite{
+    margin: 2vh 3vw;
+    background-color: white;
+    padding: 2vh 8vw;
+    border-radius: 30px;
 }
-.transitionFade-exit-active{
-    opacity: 0.01;
-    transition: all 300ms ease-in;
-} */
+
+.clickable{
+    border:2px solid #EB1E4E;
+    padding: 1vh 1vw;
+    margin: 1vh 1vw;
+}
+
+.simpleTitle{
+    padding: 1vh;
+    font-weight: bolder;
+}
