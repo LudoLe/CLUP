@@ -18,8 +18,8 @@ public class Root extends Application {
         beanConfig.setHost("localhost:8082");
         beanConfig.setBasePath("AMW-1.0-SNAPSHOT/api");
         beanConfig.setResourcePackage(Gateway.class.getPackage().getName());
-        beanConfig.setTitle("Information Service");
-        beanConfig.setDescription("A simple information service");
+        beanConfig.setTitle("Account Management Service");
+        beanConfig.setDescription("account management service");
         beanConfig.setScan(true);
     }
 
