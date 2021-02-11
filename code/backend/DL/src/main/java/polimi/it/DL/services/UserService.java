@@ -108,7 +108,7 @@ public class UserService {
     public List<Ticket> getTicketsFromUS(String username) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         List<Ticket> tickets = null;
-        if(user == null) {
+        if(user != null) {
             tickets = user.getTickets();
        }
 
@@ -116,10 +116,9 @@ public class UserService {
     }
 
     public User findByUsername(String username) throws Exception{
-        User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
 
 
-        return user;
+        return em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
     }
 
     public User find(int id) throws Exception{
