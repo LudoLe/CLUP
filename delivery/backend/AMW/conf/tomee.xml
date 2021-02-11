@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee> 
+    <Resource id="@clup" type="DataSource">
+        JdbcDriver com.mysql.cj.jdbc.Driver
+        JdbcUrl jdbc:mysql://localhost:3306/clup?useLegacyDatetimeCode=false&amp;serverTimezone=UTC
+        UserName root
+        Password Brosinarms2
+    </Resource>
+</tomee>

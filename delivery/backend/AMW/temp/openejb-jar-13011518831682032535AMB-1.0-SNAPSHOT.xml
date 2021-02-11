@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<openejb-jar xmlns="http://www.openejb.org/openejb-jar/1.1">
+    <properties></properties>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="AccountManagerService" ejb-name="AccountManagerService"/>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="TicketService" ejb-name="TicketService"/>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="ShopService" ejb-name="ShopService"/>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="AAVEngine" ejb-name="AAVEngine"/>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="ShopShiftService" ejb-name="ShopShiftService"/>
+    <ejb-deployment container-id="Default Stateless Container" deployment-id="services/UserService" ejb-name="services/UserService"/>
+    <ejb-deployment container-id="Default Managed Container" deployment-id="AMB-1.0-SNAPSHOT.Comp1433016526" ejb-name="AMB-1.0-SNAPSHOT.Comp"/>
+</openejb-jar>
