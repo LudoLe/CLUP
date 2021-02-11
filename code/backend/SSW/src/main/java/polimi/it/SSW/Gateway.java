@@ -265,7 +265,7 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shops succefully registered", response = Shop.class),
+            @ApiResponse(code = 200, message = "Shops succefully registered", response = Integer.class),
             @ApiResponse(code = 401, message = "non autorizzato", response = String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})

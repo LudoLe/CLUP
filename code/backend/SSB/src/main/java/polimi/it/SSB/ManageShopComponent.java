@@ -131,7 +131,7 @@ public class ManageShopComponent {
                         try (InputStream input = part.getInputStream()) {
                             Files.copy(input, fileToSave.toPath());
                         }
-                return responseWrapper.generateResponse(Response.Status.OK, newShop);
+                return responseWrapper.generateResponse(Response.Status.OK, newShop.getId());
 
             }
          catch (Exception e) {

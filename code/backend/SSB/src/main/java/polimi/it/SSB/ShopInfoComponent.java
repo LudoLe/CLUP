@@ -192,7 +192,7 @@ public class ShopInfoComponent {
             if(tickets!=null){
                 response = responseWrapper.generateResponse(status,tickets);
             }else {
-                response = responseWrapper.generateResponse(status, "no tickets yet");
+                response = responseWrapper.generateResponse(status, null);
             }
             return response;
         }catch(Exception e){
