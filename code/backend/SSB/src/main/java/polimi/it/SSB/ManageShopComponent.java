@@ -107,6 +107,8 @@ public class ManageShopComponent {
             // constructs path of the directory to save uploaded file
             String uploadFilePath = applicationPath + request.getServletContext().getInitParameter("campaignImagesFolder");
 
+            System.out.println("applicationPath: " + applicationPath);
+            System.out.println("uploadFilePath: " + uploadFilePath);
 
             String fileName = part.getSubmittedFileName();
             String contentType = part.getContentType();
@@ -116,7 +118,8 @@ public class ManageShopComponent {
             String savedFileName = generatedString + "." + ext;
 
             // allows only JPEG HEIC and PNG files to be uploaded
-            if (!contentType.equalsIgnoreCase("image/jpeg") && !contentType.equalsIgnoreCase("image/png") && !contentType.equalsIgnoreCase("image/heic")) {
+            if (!contentType.equalsIgnoreCase("image/jpeg") && !contentType.equalsIgnoreCase("image/png")
+                    && !contentType.equalsIgnoreCase("image/heic")) {
                 return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "Invalid image format");
             }
             File fileToSave = new File(uploadFilePath, savedFileName);
