@@ -45,7 +45,7 @@ const Account = (props) => {
         );
     }
     else {
-        return <div className="flexColumnCenter"> <WaveLoading/></div>
+        return <div className="flexColumnCenter"> <WaveLoading style={{position: "relative"}}/></div>
     }
 }
 

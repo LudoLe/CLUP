@@ -1,4 +1,5 @@
 import './css/App.css';
+
 import Start from './components/Start';
 import Home from './components/Home';
 import Search from './components/Search';
@@ -9,7 +10,7 @@ import Ticket from './components/Ticket';
 import HomeManager from './components/HomeManager';
 import NewShop from './components/NewShop';
 import ShopManager from './components/ShopManager';
-import Scanner from './components/Scanner';
+import ParseTimeLine from './components/ParseTimeLine';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -24,12 +25,12 @@ function App() {
                     <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
                     <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
                     <Route path="/Shop/:id" exact component={Shop} /> {/* Shop page for users */}
-                    <Route path="/Lineup" exact component={Lineup} /> {/* Line up page */}
+                    <Route path="/Lineup/:id" exact component={Lineup} /> {/* Line up page */}
                     <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
                     <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
                     <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
                     <Route path="/ShopManager/:id" exact component={ShopManager} /> {/* Shop page for managers */}
-                    <Route path="/Scanner" exact component={Scanner} /> {/* Scanner page */}
+                    <Route path="/TimeLine" exact component={ParseTimeLine} />
                 </Switch>
             </div>
         </Router>

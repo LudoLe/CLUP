@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import GoBackButton from './sub-components/GoBackButton';
+import Navigation from './sub-components/Navigation';
 
 const Search = () => {
 
@@ -11,22 +11,33 @@ const Search = () => {
         alert("function not availble");
     }
 
-    const handleAllShops = () =>{
+    const handleAllShops = () => {
         history.push("/Shops");
     }
 
     return (
         <div className="flexColumnCenter">
-            <GoBackButton/>
+            
+            <Navigation goBack={true} goHome={false} />
+            
             <div className="flexRowCenter">
+            
                 <form onSubmit={handleSubmit}>
+            
                     <input id="searchInput" name="searchInput" type="text" placeholder="search a shop"></input>
+            
                     <button type="submit"> search </button>
+            
                 </form>
+            
             </div>
+            
             <div>
+            
                 <button onClick={handleAllShops}> ALL SHOPS </button>
+            
             </div>
+        
         </div>
     );
 }

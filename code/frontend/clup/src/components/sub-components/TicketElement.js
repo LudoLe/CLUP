@@ -1,31 +1,57 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
+import { dateToMinutes } from '../../utils/dateParser';
 
 const TicketElement = (props) => {
 
     const history = useHistory();
 
-    const handleOnClick = ()=>{
+    const handleOnClickTicket = () => {
         history.push('/Ticket/' + props.ticket.id);
     }
 
-    const style = {
-        padding: "4vh 10vw"
+    const handleOnClickShop = () => {
+        history.push('/Shop/' + props.ticket.shop.id);
     }
 
     return (
-        <div className="flexColumnCenter" style={style} onClick={handleOnClick}>
-            <h3> Ticket (id: {props.ticket.id}) </h3>
-            <div> Status: {props.ticket.status} </div>
-            {props.ticket.enteringTime ? <div> Entering Time: {props.ticket.enteringTime} </div> : "" }
-            {props.ticket.exitTime ? <div> Exit Time {props.ticket.exitTime} </div>: "" }
-            {props.ticket.scheduledEnteringTime ? <div> Scheduled Entering Time: {props.ticket.scheduledEnteringTime} </div>: "" }
-            {props.ticket.scheduledExitingTime ? <div> Scheduled Exiting Time; {props.ticket.scheduledExitingTime} </div>: "" }
-            <div> Time To Reach The Shop: {Math.ceil((Date.parse(props.ticket.timeToReachTheShop)/1000)/60)} minutes </div>
-            <div> Expected Duration {Math.ceil((Date.parse(props.ticket.expectedDuration)/1000)/60)} minutes </div>
-            {/* TODO: <div> Shop Name {props.ticket.shop.name} </div>
-            <div> Shop Position {props.ticket.shop.position} </div>
-            <div> Shop Image {props.ticket.shop.image} </div> */}
+        <div className="flexColumnCenter card">
+
+            <bold>TICKET (ID: {props.ticket.id})</bold>
+
+            <div className="clickable" onClick={handleOnClickTicket}>
+
+                <div> Status: {props.ticket.status} </div>
+
+                <div> Time To Reach The Shop: {dateToMinutes(props.ticket.timeToReachTheShop)} minutes </div>
+
+                <div> Declared duration of the Permanence: {dateToMinutes(props.ticket.expectedDuration)} minutes </div>
+
+                <div className="flexColumnCenter">
+
+                    {props.ticket.scheduledEnteringTime ? <div> Scheduled Entering Time: {props.ticket.scheduledEnteringTime} </div> : ""}
+
+                    {props.ticket.scheduledExitingTime ? <div> Scheduled Exiting Time: {props.ticket.scheduledExitingTime} </div> : ""}
+
+                </div>
+
+            </div>
+
+            {
+                props.showShop ?
+                    <div className="flexColumnCenter clickable" onClick={handleOnClickShop}>
+
+                        <div> Shop Name {props.ticket.shop.name} </div>
+
+                        <div> Shop Position {props.ticket.shop.position} </div>
+
+                        <div> Shop Image {props.ticket.shop.image} </div>
+
+                    </div>
+                    :
+                    ""
+            }
+
         </div>
     );
 }
