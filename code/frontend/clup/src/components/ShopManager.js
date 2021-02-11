@@ -4,6 +4,7 @@ import { calcDay } from '../utils/dateParser.js';
 import { axiosGET } from '../utils/httpRequest.js';
 import Queue from './sub-components/Queue.js';
 import Navigation from './sub-components/Navigation';
+import GoToButton from './sub-components/GoToButton';
 
 const ShopManager = (props) => {
 
@@ -103,17 +104,19 @@ const ShopManager = (props) => {
             {
                 state.isLoadedShop ?
                     <div className="flexColumnCenter">
+                        < button onClick={triggerQueue}>{state.queueTrigger ? "Hide" : "Show"} tickets</button>
                         {
                             state.queueTrigger ?
                                 <Queue tickets={state.tickets} />
                                 :
                                 ""
                         }
-                        < button onClick={triggerQueue}>{state.queueTrigger ? "Hide" : "Show"} queue</button>
                     </div>
                     :
                     ""
             }
+
+            <GoToButton to="/TimeLine" content="Go to Time Line visualizer" />
 
         </div >
     );
