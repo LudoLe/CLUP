@@ -50,7 +50,6 @@ public class Shop implements Serializable {
 
     @OneToMany(mappedBy="shop", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
-
     @OneToMany(mappedBy="shop", fetch = FetchType.LAZY)
     private List<ShopShift> shifts;
 

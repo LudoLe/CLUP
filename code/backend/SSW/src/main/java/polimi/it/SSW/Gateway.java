@@ -1,5 +1,6 @@
 package polimi.it.SSW;
 
+import Responses.ShopResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -146,7 +147,7 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Shop Info Retrieved", response = Shop.class),
+            @ApiResponse(code = 200, message = "Shop Info Retrieved", response = ShopResponse.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =  String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
     public Response getShopDetail(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @PathParam("shopid") int shopid){
@@ -158,6 +159,8 @@ public class Gateway {
                 message= "Not authorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
+                return responseWrapper.generateResponse(status, message);
+
             } else {
                 response = sic.getShopInfo(shopid);
                 return response;
@@ -165,9 +168,9 @@ public class Gateway {
         } catch (Exception e) {
             message = "Internal server error. Please try again later1.";
             status = Response.Status.INTERNAL_SERVER_ERROR;
+            return responseWrapper.generateResponse(status, message);
         }
-        response = responseWrapper.generateResponse(status, message);
-        return response;
+
     }
 
 

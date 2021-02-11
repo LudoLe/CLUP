@@ -93,12 +93,21 @@ public class ShopInfoComponent {
                 status = Response.Status.NOT_FOUND;
                 return responseWrapper.generateResponse(status,"no such shop");
             }else{
+
                 ShopResponse shopResponse = new ShopResponse();
-                List<Ticket> tickets = shopService.getTicketsOfShop(shop);
-                shopResponse.setShop(shop);
-                shopResponse.setTickets(tickets);
+                List<Ticket> tickets = ticketService.findAllTicketsForShop(shopid);
+                 shopResponse.setShop(shop);
+                 shopResponse.setTickets(tickets);
+               // System.out.println(shopResponse);
+               // System.out.println(shopResponse.getShop());
+               // System.out.println(shopResponse.getTickets());
+
+
                 status = Response.Status.OK;
-                return responseWrapper.generateResponse(status,shopResponse);
+                response =responseWrapper.generateResponse(status,shopResponse);
+                System.out.println(response);
+
+                return response;
             }
         }catch(Exception e){
             String message = "something went wrong";

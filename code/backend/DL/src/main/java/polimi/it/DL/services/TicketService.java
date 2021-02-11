@@ -107,6 +107,10 @@ public class TicketService {
         tickets.forEach(ticket -> em.detach(ticket));
         return  tickets;
     }
+
+    public List<Ticket> findAllTicketsForShop(int shopid){
+        return em.createNamedQuery("Ticket.listOrderedForShop", Ticket.class).setParameter(1, shopid).getResultList();
+    }
     /**
      * this method merge the update tickets to the database
      * @param tickets the tickets to be updated

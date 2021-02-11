@@ -1,8 +1,12 @@
 package Responses;
 
+import javax.sql.rowset.serial.SerialArray;
+import java.io.Serializable;
 import java.util.Date;
 
-public class ShopAnalytics {
+public class ShopAnalytics  implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int peopleInTheShop;
     private int peopleEnqueued;
     private Date estimatedDurationOfTheQueue;

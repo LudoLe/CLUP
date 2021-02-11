@@ -3,6 +3,7 @@ package Responses;
 import java.util.Date;
 
 public class TimeResponse {
+    private static final long serialVersionUID = 1L;
 
     private Date enteringTime;
     private Date timeForShopping;
