@@ -91,16 +91,15 @@ public class ShopInfoComponent {
             Shop shop= shopService.find(shopid);
             if(shop==null){
                 status = Response.Status.NOT_FOUND;
-                response = responseWrapper.generateResponse(status,"no such shop");
+                return responseWrapper.generateResponse(status,"no such shop");
             }else{
                 ShopResponse shopResponse = new ShopResponse();
                 List<Ticket> tickets = shopService.getTicketsOfShop(shop);
                 shopResponse.setShop(shop);
                 shopResponse.setTickets(tickets);
                 status = Response.Status.OK;
-                response = responseWrapper.generateResponse(status,shopResponse);
+                return responseWrapper.generateResponse(status,shopResponse);
             }
-            return response;
         }catch(Exception e){
             String message = "something went wrong";
             status = Response.Status.INTERNAL_SERVER_ERROR;
