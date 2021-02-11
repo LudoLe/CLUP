@@ -116,25 +116,21 @@ public class TicketService {
         em.flush();
     }
 
-    public void scanEnterTicket(int ticketId, Date date) throws Exception{
+    public Ticket scanEnterTicket(int ticketId, Date date) throws Exception{
         Ticket ticket = this.find(ticketId);
             ticket.setEnterTime(date);
-            em.persist(ticket);
             em.flush();
+            return ticket;
     }
 
-    public boolean scanExitTicket(int ticketId, Date date) throws Exception{
-
+    public Ticket scanExitTicket(int ticketId, Date date) throws Exception{
         Ticket ticket = this.find(ticketId);
-        if(ticket==null)return false;
-        if(ticket.getEnterTime()==null) return false;
             ticket.setExitTime(date);
-            em.persist(ticket);
             em.flush();
-            return true;
+            return ticket;
         }
 
 
 
-    }
+}
 

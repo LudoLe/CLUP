@@ -49,6 +49,26 @@ public class QueueInfo {
 
     }
 
+    public Response scanTicket(int ticketid) throws Exception {
+
+        Response response;
+        Response.Status status;
+
+        Ticket ticket = ticketService.find(ticketid);
+        if(ticket == null){
+            return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "no such ticket");
+        }
+        if(ticket.getEnterTime()==null){
+            ticket = ticketService.scanEnterTicket(ticketid, new Date());
+        }else{
+            ticket = ticketService.scanExitTicket(ticketid, new Date());
+        }
+        status = Response.Status.OK;
+        response = responseWrapper.generateResponse(status, ticket);
+        return response;
+
+    }
+
 
 
 }

@@ -186,6 +186,7 @@ public class Gateway {
         Response.Status status;
        // httpHeader.setHeader("session-token", "");
 
+
         boolean bol;
         try {
           //  httpHeader.setHeader("session-token", aavEngine.getNewSessionToken(username));
@@ -200,4 +201,41 @@ public class Gateway {
         return response;
     }
 
+
+@GET
+@ApiOperation(value = "check if enqueued")
+@Path("/scanTicket/{ticketid}")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@ApiResponses(value = {
+        @ApiResponse(code = 200, message= "everything fine",response = BooleanResponse.class),
+        @ApiResponse(code = 400, message = "Something went wrong"),
+        @ApiResponse(code = 401, message = "Unauthorized"),
+        @ApiResponse(code = 500, message = "Something went wrong")})
+public Response scanTicket( @PathParam("ticketid") int ticketid, @HeaderParam("session-token") String sessionToken, @HeaderParam("username") String username) throws Exception {
+    Response response;
+    Response.Status status;
+    String message;
+
+
+    if (!aavEngine.isAuthorized(username, sessionToken)){
+        message= "Not authorized";
+        aavEngine.invalidateSessionToken(username);
+        response=responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, message);
+        return response;
+    }
+    if (!luc.checkIfAlreadyEnqueued(username)) {
+        message= "you have no tickets!";
+        response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
+        return response;
+    }
+    if(!luc.checkProperty(username, ticketid)) {
+        return qi.scanTicket(ticketid);
+    }
+    else return responseWrapper.generateResponse(Response.Status.BAD_REQUEST,"not your ticket");
+
 }
+
+}
+
+
