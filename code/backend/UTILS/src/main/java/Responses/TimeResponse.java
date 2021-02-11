@@ -1,11 +1,15 @@
 package Responses;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Date;
 
 public class TimeResponse {
     private static final long serialVersionUID = 1L;
 
+    @Expose
     private Date enteringTime;
+    @Expose
     private Date timeForShopping;
 
     public TimeResponse(Date timeResponse, Date enteringTime){

@@ -3,6 +3,7 @@ package Responses;
 
 public class StringResponse {
 
+    
     private String message;
 
     public StringResponse(String message){
