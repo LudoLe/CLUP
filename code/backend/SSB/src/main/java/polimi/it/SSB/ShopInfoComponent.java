@@ -121,11 +121,7 @@ public class ShopInfoComponent {
             User user= userService.findByUsername(username);
             List<Shop> shops = user.getShops();
             status = Response.Status.OK;
-            if(shops==null){
-                response = responseWrapper.generateResponse(status, "no shops registered at your name");
-            }else{
                 response = responseWrapper.generateResponse(status, shops);
-            }
             return response;
         }catch(Exception e){
             String message = "couldnt retrieve shops";
@@ -144,12 +140,8 @@ public class ShopInfoComponent {
         Response.Status status;
             List<Shop> shops= shopService.getAllShops();
             status = Response.Status.OK;
-            if(shops==null){
-                response = responseWrapper.generateResponse(status, "no shops registered on clup yet");
-            }else{
-                response = responseWrapper.generateResponse(status, shops);
-            }
-            return response;
+            return responseWrapper.generateResponse(status, shops);
+
     }
 
     /**
@@ -189,12 +181,8 @@ public class ShopInfoComponent {
         try{
             List<Ticket> tickets = userService.getTicketsFromUS(username);
             status = Response.Status.OK;
-            if(tickets!=null){
-                response = responseWrapper.generateResponse(status,tickets);
-            }else {
-                response = responseWrapper.generateResponse(status, null);
-            }
-            return response;
+            return responseWrapper.generateResponse(status,tickets);
+
         }catch(Exception e){
             String message = "couldnt retrieve tickets";
             status = Response.Status.INTERNAL_SERVER_ERROR;

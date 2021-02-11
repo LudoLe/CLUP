@@ -97,10 +97,13 @@ public class ManageShopComponent {
         } catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
+        try{
             Part part = request.getPart("image");
             if(part == null) {
-                return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
+                return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "upload an image!");
             }
+
+
             // gets absolute path of the web application
             String applicationPath = request.getServletContext().getInitParameter("uploadsLocation");
 
@@ -139,6 +142,9 @@ public class ManageShopComponent {
             }
          catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
+        }
+        }catch(Exception e){
+            return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "upload an image!");
         }
     }
 
