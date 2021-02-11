@@ -13,7 +13,6 @@ import prototypes.EnqueueData;
 import responseWrapper.ResponseWrapper;
 import java.util.*;
 
-@Ignore
 @ExtendWith(MockitoExtension.class)
 public class LucTest{
 

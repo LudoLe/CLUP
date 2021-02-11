@@ -94,7 +94,7 @@ public class ShopInfoComponent {
                 response = responseWrapper.generateResponse(status,"no such shop");
             }else{
                 ShopResponse shopResponse = new ShopResponse();
-                List<Ticket> tickets = shopService.getTicketsOfShop(shopid);
+                List<Ticket> tickets = shopService.getTicketsOfShop(shop);
                 shopResponse.setShop(shop);
                 shopResponse.setTickets(tickets);
                 status = Response.Status.OK;
