@@ -96,6 +96,12 @@ public class ShopService {
         return shopShift.getOpeningTime();
 
     }
+    public List<Ticket> getTicketsOfShop(int shopid) throws Exception {
+        Shop shop = find(shopid);
+        if(shop!=null) {
+            return shop.getTickets();
+        }else return null;
+    }
 
     public List<Shop> getAllShops() {
         List<Shop> shops = em.createNamedQuery("Shop.findAll", Shop.class).getResultList();
