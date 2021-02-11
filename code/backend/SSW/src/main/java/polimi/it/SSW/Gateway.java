@@ -55,7 +55,7 @@ public class Gateway {
     @ApiOperation(value = "tickets")
     @Path("/tickets")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.MULTIPART_FORM_DATA})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully registered", response = List.class),
             @ApiResponse(code = 400, message = "Registration failed", response = String.class ),
