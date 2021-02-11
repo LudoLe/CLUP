@@ -40,8 +40,9 @@ public class Gateway {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully registered", response = User.class),
-            @ApiResponse(code = 400, message = "Registration failed", response =  String.class),
+            @ApiResponse(code = 200, message = "Successfully logged in", response = User.class),
+            @ApiResponse(code = 400, message = "bad request", response =  String.class),
+            @ApiResponse(code = 401, message = "unauthorized", response =  String.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class)})
     public Response userLogin(@Valid @RequestMap Credentials credentials, @Context HttpServletResponse httpHeader) throws Exception {
         String message = "something wrong";
@@ -79,7 +80,7 @@ public class Gateway {
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class)})
     public Response userRegistration(@Valid @RequestMap RegistrationCredentials credentials, @Context HttpServletResponse httpHeader) throws Exception {
         Response response;
-        Response.Status status= Response.Status.GATEWAY_TIMEOUT;
+        Response.Status status;
         String message;
         httpHeader.setHeader("session-token", "");
 
@@ -95,13 +96,11 @@ public class Gateway {
             try {
                    response= ams.registrationManagement(credentials);
                    httpHeader.setHeader("session-token", avv.getSessionToken(credentials.getUsername()));
-
-                return response;
-                } catch (Exception e) {
-                e.printStackTrace();
-                message = "Internal server error. Please try again later2.";
-                status= Response.Status.INTERNAL_SERVER_ERROR;
-
+                   return response;
+                }catch (Exception e) {
+                            e.printStackTrace();
+                            message = "Internal server error. Please try again later.";
+                            status= Response.Status.INTERNAL_SERVER_ERROR;
             }
         }
         response = responseWrapper.generateResponse(status, message);
@@ -118,12 +117,18 @@ public class Gateway {
             @ApiResponse(code = 200, message = "Successfully logged out",response = String.class),
             @ApiResponse(code = 400, message = "Something went wrong", response = String.class),
             @ApiResponse(code = 500, message = "Something went wrong", response = String.class)})
-    public Response logOut(@HeaderParam("username") String username, @Context HttpServletResponse httpHeader) {
+    public Response logOut(@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Context HttpServletResponse httpHeader) throws Exception {
         String message;
         Response response;
         httpHeader.setHeader("session-token", "");
 
-        try {
+        if(!avv.isAuthorized(username, sessionToken)){
+            message = "unauthorized.";
+            response=responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, message);
+            return response;
+        }
+
+            try {
                 ams.logoutManagement(username);
                 avv.invalidateSessionToken(username);
                 message = "Successfully logged out!";
@@ -150,14 +155,12 @@ public class Gateway {
         String message;
         Response response;
         Response.Status status;
-        //httpHeader.setHeader("session-token", "");
 
 
         try {
             if(avv.isAuthorized(username, sessionToken)){
                 try {
                     response = ams.getUserInfo(username);
-                   // httpHeader.setHeader("session-token", avv.getNewSessionToken(username));
                     return response;
                 }catch (Exception e){
                     message= "problem with get user info in ams";

@@ -11,7 +11,7 @@ public class RegistrationCredentials  implements Serializable
     private String password2;
     private String username;
     private String phoneNumber;
-    private boolean isManager;
+    private Boolean isManager;
 
 
     public String getUsername() {
@@ -55,11 +55,11 @@ public class RegistrationCredentials  implements Serializable
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean getIsManager() {
+    public Boolean getIsManager() {
         return isManager;
     }
 
-    public void setIsManager(boolean isManager) {
+    public void setIsManager(Boolean isManager) {
         this.isManager = isManager;
     }
 }

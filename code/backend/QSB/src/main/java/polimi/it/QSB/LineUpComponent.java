@@ -50,9 +50,7 @@ public class LineUpComponent {
     }
 
     public boolean checkProperty(String username, int ticketid) throws Exception{
-        boolean bol;
-        bol=ticketService.itsTicketOf(username, ticketid);
-        return bol;
+        return ticketService.itsTicketOf(username, ticketid);
     }
 
 
@@ -86,7 +84,7 @@ public class LineUpComponent {
         try{
             if(checkIfAlreadyEnqueued(username)){
                 status = Response.Status.BAD_REQUEST;
-                response = responseWrapper.generateResponse(status, new StringResponse("You are already enqueued."));
+                response = responseWrapper.generateResponse(status, "You are already enqueued.");
                 return response;
             }
             Shop shop = shopService.find(enqueueData.getShopid());

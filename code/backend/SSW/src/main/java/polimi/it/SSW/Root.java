@@ -16,8 +16,8 @@ public class Root extends Application {
         beanConfig.setHost("localhost:8081");
         beanConfig.setBasePath("/SSW-1.0-SNAPSHOT/api");
         beanConfig.setResourcePackage(Gateway.class.getPackage().getName());
-        beanConfig.setTitle("Information Service");
-        beanConfig.setDescription("A simple information service");
+        beanConfig.setTitle("SSW");
+        beanConfig.setDescription("Shop Service");
         beanConfig.setScan(true);
     }
 

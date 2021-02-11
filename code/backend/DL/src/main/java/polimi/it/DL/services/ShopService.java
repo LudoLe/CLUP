@@ -32,7 +32,11 @@ public class ShopService {
     public ShopService(){}
 
     public Shop find(int id) throws Exception{
-        return em.find(Shop.class, id);
+        Shop shop = em.find(Shop.class, id);
+        if(shop!=null){
+            em.refresh(shop);
+        }
+        return shop;
     }
 
     public boolean existsWithThatNameAndPosition(String name, String position){
@@ -72,7 +76,7 @@ public class ShopService {
     public boolean lessThanActualCapacity(int shopId) throws Exception {
         Shop shop = find(shopId);
         int maxCapacity=shop.getShopCapacity();
-        int peopleInTheShop= em.createNamedQuery("Ticket.PeopleInTheShop", Integer.class).getResultList().stream().findFirst().orElse(0);
+        int peopleInTheShop= em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Integer.class).getResultList().stream().findFirst().orElse(0);
         return peopleInTheShop < maxCapacity;
 
     }

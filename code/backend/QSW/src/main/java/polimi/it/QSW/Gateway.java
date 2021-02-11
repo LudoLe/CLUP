@@ -59,7 +59,7 @@ public class Gateway {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully enqueued", response = Ticket.class),
-            @ApiResponse(code = 400, message = "Registration failed", response = String.class),
+            @ApiResponse(code = 400, message = "enqueuement failed", response = String.class),
             @ApiResponse(code = 500, message = "Invalid payload/error", response = String.class)})
     public Response enqueue(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken , @Valid @RequestMap EnqueueData enqueueData) throws Exception {
         Response response;
@@ -152,7 +152,7 @@ public class Gateway {
                 response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
                 return response;
             }
-            if(!luc.checkProperty(username, tickeid)) {
+            if(luc.checkProperty(username, tickeid)) {
                 return luc.dequeue(tickeid);
             }else{
                 message = "Not your ticket";
@@ -229,7 +229,7 @@ public Response scanTicket( @PathParam("ticketid") int ticketid, @HeaderParam("s
         response=responseWrapper.generateResponse(Response.Status.BAD_REQUEST, message);
         return response;
     }
-    if(!luc.checkProperty(username, ticketid)) {
+    if(luc.checkProperty(username, ticketid)) {
         return qi.scanTicket(ticketid);
     }
     else return responseWrapper.generateResponse(Response.Status.BAD_REQUEST,"not your ticket");

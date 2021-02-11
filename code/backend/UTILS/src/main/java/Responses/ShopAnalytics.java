@@ -10,25 +10,25 @@ public class ShopAnalytics  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Expose
-    private int peopleInTheShop;
+    private Long peopleInTheShop;
     @Expose
-    private int peopleEnqueued;
+    private Long peopleEnqueued;
     @Expose
     private Date estimatedDurationOfTheQueue;
 
-    public int getPeopleInTheShop() {
+    public Long getPeopleInTheShop() {
         return peopleInTheShop;
     }
 
-    public void setPeopleInTheShop(int peopleInTheShop) {
+    public void setPeopleInTheShop(Long peopleInTheShop) {
         this.peopleInTheShop = peopleInTheShop;
     }
 
-    public int getPeopleEnqueued() {
+    public Long getPeopleEnqueued() {
         return peopleEnqueued;
     }
 
-    public void setPeopleEnqueued(int peopleEnqueued) {
+    public void setPeopleEnqueued(Long peopleEnqueued) {
         this.peopleEnqueued = peopleEnqueued;
     }
 

@@ -164,16 +164,16 @@ public class ShopInfoComponent {
         Response response;
         Response.Status status;
         ShopAnalytics shopAnalytics = new ShopAnalytics();
-        Integer pplInTheShop;
-        Integer pplEnqueued;
+        Long pplInTheShop;
+        Long pplEnqueued;
 
 
         pplInTheShop = ticketService.peopleInTheShop(shopid);
-        if(pplInTheShop==null){shopAnalytics.setPeopleInTheShop(0);}
+        if(pplInTheShop==null){shopAnalytics.setPeopleInTheShop(0L);}
         else shopAnalytics.setPeopleInTheShop(pplInTheShop);
         pplEnqueued = ticketService.peopleEnqueued(shopid);
-        if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0);}
-        else shopAnalytics.setPeopleInTheShop(pplEnqueued);
+        if(pplEnqueued==null){shopAnalytics.setPeopleEnqueued(0L);}
+        else shopAnalytics.setPeopleEnqueued(pplEnqueued);
 
 
         status = Response.Status.OK;

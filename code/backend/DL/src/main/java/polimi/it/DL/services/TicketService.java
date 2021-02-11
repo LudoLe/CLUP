@@ -29,7 +29,11 @@ public class TicketService {
     public TicketService(){}
 
     public Ticket find(int id) throws Exception{
-        return em.find(Ticket.class, id);
+       Ticket ticket = em.find(Ticket.class, id);
+       if(ticket!=null) {
+           em.refresh(ticket);
+       }
+       return ticket;
     }
 
     /**
@@ -46,15 +50,16 @@ public class TicketService {
     public boolean itsTicketOf(String username, int ticketId) throws Exception{
         Ticket ticket= em.createNamedQuery("Ticket.findForUser", Ticket.class).setParameter(1,username).getResultList().stream().findFirst().orElse(null);
         Ticket ticket2= find(ticketId);
+        System.out.println(ticket.getId());
         if(ticket==null || ticket2==null)return false;
         return ticket.equals(ticket2);
     }
 
-    public Integer peopleInTheShop(int shopId){
-        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Integer.class).setParameter(1,"in_use").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
+    public Long peopleInTheShop(int shopId){
+        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Long.class).setParameter(1,"in_use").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
     }
-    public Integer peopleEnqueued(int shopId){
-        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Integer.class).setParameter(1,"valid").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
+    public Long peopleEnqueued(int shopId){
+        return em.createNamedQuery("Ticket.PeopleInTheShopOrEnqueued", Long.class).setParameter(1,"valid").setParameter(2,shopId).getResultList().stream().findFirst().orElse(null);
     }
 
     /**
@@ -123,13 +128,15 @@ public class TicketService {
     public Ticket scanEnterTicket(int ticketId, Date date) throws Exception{
         Ticket ticket = this.find(ticketId);
             ticket.setEnterTime(date);
+            ticket.setStatus("in_use");
             em.flush();
             return ticket;
     }
 
     public Ticket scanExitTicket(int ticketId, Date date) throws Exception{
-        Ticket ticket = this.find(ticketId);
+            Ticket ticket = this.find(ticketId);
             ticket.setExitTime(date);
+            ticket.setStatus("invalid");
             em.flush();
             return ticket;
         }

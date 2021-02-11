@@ -58,8 +58,13 @@ public class AccountManagerComponent {
         User user;
         try {
             user = userService.createUser(credentials.getUsername(), credentials.getPassword(), credentials.getEmail(), credentials.getIsManager(), credentials.getPhoneNumber() );
-            status = Response.Status.OK;
-            response=responseWrapper.generateResponse(status, user);
+           if(user == null ){
+               status = Response.Status.NOT_ACCEPTABLE;
+               response=responseWrapper.generateResponse(status, "username already in use");
+           }else {
+               status = Response.Status.OK;
+               response = responseWrapper.generateResponse(status, user);
+           }
         }catch (Exception e){
             status = Response.Status.INTERNAL_SERVER_ERROR;
             String message = "internal server error";
@@ -136,7 +141,6 @@ public class AccountManagerComponent {
      * */
     public boolean checkCred(String userPassword, String passwordProvided){
         boolean passed;
-
         passed = encoder.matches(passwordProvided, userPassword);
         return passed;
     }

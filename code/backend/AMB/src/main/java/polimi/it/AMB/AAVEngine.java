@@ -34,7 +34,7 @@ public class AAVEngine {
      * */
     public String checkRegistration(RegistrationCredentials credentials) {
         String message;
-        if(credentials == null || credentials.getEmail() == null || credentials.getPassword() == null) {
+        if(credentials == null || credentials.getIsManager() == null || credentials.getPhoneNumber() == null || credentials.getEmail() == null || credentials.getUsername() == null || credentials.getPassword() == null) {
             message = "Credentials are empty";
             return message;
         }
@@ -45,7 +45,7 @@ public class AAVEngine {
         }
         if (credentials.getUsername().length() >= MAX_USERNAME_LENGTH || credentials.getEmail().length() > MAX_EMAIL_LENGTH
                 || credentials.getPassword().length() > MAX_PWD_LENGTH) {
-             message = "Something is too long!!!";
+             message = "too long input data";
             return message;
         }
         return "OK";

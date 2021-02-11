@@ -38,13 +38,21 @@ public class QueueInfo {
         Response.Status status;
 
         List<Ticket> tickets = ticketService.findAllTicketsForShopAndDetach(shopid);
-        tsc = new TicketSchedulerComponent(tickets);
-        tsc.buildQueue();
-        Date date = tsc.getQueueTime();
 
-        status = Response.Status.OK;
-        response = responseWrapper.generateResponse(status, date);
-
+        if(tickets == null){
+            status = Response.Status.BAD_REQUEST;
+            response = responseWrapper.generateResponse(status, "no such shop");
+        }else if(tickets.isEmpty()){
+            status = Response.Status.OK;
+            response = responseWrapper.generateResponse(status, new Date(0L));
+        }
+        else{
+            tsc = new TicketSchedulerComponent(tickets);
+            tsc.buildQueue();
+            Date date = tsc.getQueueTime();
+            status = Response.Status.OK;
+            response = responseWrapper.generateResponse(status, date);
+        }
         return response;
 
     }
@@ -58,10 +66,32 @@ public class QueueInfo {
         if(ticket == null){
             return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "no such ticket");
         }
-        if(ticket.getEnterTime()==null){
+        if(ticket.getStatus().equals("invalid")){
+            return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "ticket not valid");
+        }
+
+            if(ticket.getEnterTime()==null && ticket.getExitTime()== null && ticket.getStatus().equals("valid")){
             ticket = ticketService.scanEnterTicket(ticketid, new Date());
-        }else{
+            System.out.println(ticket.getEnterTime());
+        }else if(ticket.getEnterTime()!=null && ticket.getExitTime()==null && ticket.getStatus().equals("in_use")){
+
             ticket = ticketService.scanExitTicket(ticketid, new Date());
+
+            System.out.println(ticket.getExitTime());
+
+            ticketService.delete(ticketid);
+
+        }else if(ticket.getEnterTime()==null && ticket.getExitTime()!=null){
+            System.out.println(ticket.getExitTime());
+
+            status = Response.Status.NOT_ACCEPTABLE;
+            response = responseWrapper.generateResponse(status, "uscita senza entrata");
+            return response;
+
+          }else{
+            status = Response.Status.BAD_REQUEST;
+            response = responseWrapper.generateResponse(status, "something wrong with your ticket, please talk to a manager");
+            return response;
         }
         status = Response.Status.OK;
         response = responseWrapper.generateResponse(status, ticket);

@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class BooleanResponse implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    private boolean bol;
+    private Boolean bol;
 
     public BooleanResponse(boolean bol){
         this.bol=bol;
     }
 
-    public boolean isBol() {
+    public Boolean isBol() {
         return bol;
     }
 
-    public void setBol(boolean bol) {
+    public void setBol(Boolean bol) {
         this.bol = bol;
     }
 }

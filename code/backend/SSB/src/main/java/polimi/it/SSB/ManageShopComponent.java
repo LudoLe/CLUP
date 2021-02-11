@@ -57,13 +57,7 @@ public class ManageShopComponent {
         if (shopProto.getShopCapacity() <= 0) return true;
         if (shopProto.getMaxEnteringClientInATimeslot() <= 0) return true;
         if (shopProto.getTimeslotMinutesDuration() <= 0) return true;
-        boolean bol;
-        try {
-            bol = shopService.existsWithThatNameAndPosition(shopProto.getName(), shopProto.getPosition());
-            return bol;
-        } catch (Exception e) {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -75,12 +69,8 @@ public class ManageShopComponent {
     public boolean checkIfCorruptedDataShift(ShopShiftProto shift) {
         if (shift.getClosingTime().before(shift.getOpeningTime())) return true;
         if (shift.getDay() < 0 || shift.getDay() > 7) return true;
-        try {
-            Shop shop = shopService.find(shift.getShopid());
-            return shop == null;
-        } catch (Exception e) {
-            return false;
-        }
+        return false;
+
     }
 
 
@@ -92,12 +82,13 @@ public class ManageShopComponent {
      * */
     public Response registerNewShop(ShopProto shop, String username, HttpServletRequest request) throws ServletException, IOException  {
         User manager;
+
         try {
             manager = userService.findByUsername(username);
         } catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
-        try{
+       /* try{
             Part part = request.getPart("image");
             if(part == null) {
                 return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "upload an image!");
@@ -131,21 +122,32 @@ public class ManageShopComponent {
                 savedFileName = generatedString + i + "." + ext;
                 fileToSave = new File(uploadFilePath, savedFileName);
                 i++;
-            }
+            }*/
             try{
-                Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager, savedFileName, shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
-                        try (InputStream input = part.getInputStream()) {
-                            Files.copy(input, fileToSave.toPath());
+                Shop newShop = shopService.createShop(shop.getDescription(), shop.getShopCapacity(), shop.getName(), manager, "nome", shop.getMaxEnteringClientInATimeslot(), shop.getPosition(), shop.getTimeslotMinutesDuration());
+                if(shop.getShiftsProto()!=null){
+                    for (ShopShiftProto shift: shop.getShiftsProto()){
+                        if(checkIfCorruptedDataShift(shift)){
+                            return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "new shop have been created but shop shifts couldnt be added because of data inconsistency");}
+                        else{
+                            shopShiftService.create(newShop.getId(), shift.getClosingTime(), shift.getOpeningTime(), shift.getDay());
                         }
+                    }
+
+
+                }
+                      /*  try (InputStream input = part.getInputStream()) {
+                            Files.copy(input, fileToSave.toPath());
+                        }*/
                 return responseWrapper.generateResponse(Response.Status.OK, newShop.getId());
 
             }
          catch (Exception e) {
             return responseWrapper.generateResponse(Response.Status.INTERNAL_SERVER_ERROR, "Something went wrong while registering shop");
         }
-        }catch(Exception e){
+      /*  }catch(Exception e){
             return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "upload an image!");
-        }
+        }*/
     }
 
 
@@ -155,18 +157,17 @@ public class ManageShopComponent {
      * @param username to check if the user is allowed to do such action
      * @return http response
      * */
-    public Response registerNewShiftShop(List < ShopShiftProto > shifts, String username) throws Exception {
+    public Response registerNewShiftShop(List < ShopShiftProto > shifts, String username, int shopid) throws Exception {
 
         List < ShopShift > shiftsnew = new ArrayList < > ();
 
         for (ShopShiftProto shift: shifts) {
             try {
-                if (aavEngine.isAuthorizedToAccessShop(shift.getShopid(), username) && (!checkIfCorruptedDataShift(shift))) {
-                    shiftsnew.add(shopShiftService.create(shift.getShopid(), shift.getClosingTime(), shift.getOpeningTime(), shift.getDay()));
+                if ((!checkIfCorruptedDataShift(shift))) {
+                    shiftsnew.add(shopShiftService.create(shopid, shift.getClosingTime(), shift.getOpeningTime(), shift.getDay()));
 
                 } else {
-                    userService.invalidateSessionToken(username);
-                    return responseWrapper.generateResponse(Response.Status.UNAUTHORIZED, "unauthorize, you are being logged out");
+                    return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "corrupted data");
                 }
             } catch (Exception e) {
                 userService.invalidateSessionToken(username);

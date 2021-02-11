@@ -116,7 +116,7 @@ public class Gateway {
                 response = responseWrapper.generateResponse(status, message);
                 return response;
             }
-            if (!avv.isAuthorized(username, sessionToken)&&(!avv.isAuthorizedToAccessTicket(ticketid, username))) {
+            if (!avv.isAuthorized(username, sessionToken) || (!avv.isAuthorizedToAccessTicket(ticketid, username))) {
                 message= "not authorized";
                 status = Response.Status.UNAUTHORIZED;
                 avv.invalidateSessionToken(username);
@@ -155,7 +155,7 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
-            if (!avv.isAuthorized(username, sessionToken) ){
+            if (!avv.isAuthorized(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)){
                 message= "Not authorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
@@ -238,7 +238,7 @@ public class Gateway {
         Response.Status status;
 
         try {
-            if (!avv.isAuthorized(username, sessionToken)&&!avv.isManager(sessionToken)) {
+            if (!avv.isAuthorized(username, sessionToken) || avv.isManager(sessionToken)){
                 message= "unauthorized";
                 avv.invalidateSessionToken(username);
                 status = Response.Status.BAD_REQUEST;
@@ -272,7 +272,7 @@ public class Gateway {
             @ApiResponse(code = 401, message = "non autorizzato", response = String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response registerNewShop(@Context HttpServletResponse httpHeader,@Context HttpServletRequest httpServletRequest, @HeaderParam("username") String username, @HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
+    public Response     registerNewShop(@Context HttpServletResponse httpHeader,@Context HttpServletRequest httpServletRequest, @HeaderParam("username") String username, @HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
         Response.Status status;
@@ -320,24 +320,25 @@ public class Gateway {
      * */
     @POST
     @ApiOperation(value = "register shop shifts")
-    @Path("/shopShifts")
+    @Path("/shopShifts/ {shopid}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Shops succefully registered the shifts", response = List.class),
+            @ApiResponse(code = 401, message = "unauthorized", response =String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response =String.class),
             @ApiResponse(code = 500, message = "We messed up", response =String.class)})
-    public Response registerNewShopShifts(@Context HttpServletResponse httpHeader,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
+    public Response registerNewShopShifts(@PathParam("shopid") int shopid,@HeaderParam("username") String username, @HeaderParam("session-token") String sessionToken, @Valid @RequestMap List<ShopShiftProto> shopShifts){
         String message;
         Response response;
         Response.Status status;
         try {
-            if (!avv.isAuthorizedAndManager(username, sessionToken)) {
+            if (!avv.isAuthorizedAndManager(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)) {
                 avv.invalidateSessionToken(username);
                 message= "unauthorized.";
                 status = Response.Status.UNAUTHORIZED;
             } else {
-                response = msc.registerNewShiftShop(shopShifts, username);
+                response = msc.registerNewShiftShop(shopShifts, username, shopid);
                 return response;
             }
         } catch (Exception e) {
