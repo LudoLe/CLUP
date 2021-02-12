@@ -116,8 +116,6 @@ const ShopManager = (props) => {
                     ""
             }
 
-            <GoToButton to="/TimeLine" content="Go to Time Line visualizer" />
-
         </div >
     );
 }

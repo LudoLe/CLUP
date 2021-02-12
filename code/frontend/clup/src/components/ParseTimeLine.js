@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import GoBackButton from './sub-components/GoBackButton';
 import TimeSlot from './sub-components/TimeSlot';
 
 const ParseTimeLine = (props) => {
@@ -11,6 +12,7 @@ const ParseTimeLine = (props) => {
 
     return (
         <div className="flexColumnCenter">
+            <GoBackButton />
             <div className="flexColumnCenter">
                 <label>Insert JSON to parse:</label>
                 <input onChange={getJSON} type="text"></input>

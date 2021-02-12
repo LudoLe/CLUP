@@ -3,12 +3,15 @@ import { axiosGET } from '../utils/httpRequest';
 import Searchsection from './sub-components/Searchsection';
 import ShopsList from './sub-components/ShopsList';
 import Navigation from './sub-components/Navigation';
+import Account from './sub-components/Account';
 
 const Shops = () => {
 
     const [state, setState] = useState({
         isLoadedShops: false,
+        isLoadedAccount: false,
         shops: null,
+        account: null
     });
 
     //fetch shops info
@@ -25,8 +28,23 @@ const Shops = () => {
         axiosGET("SSW", "/AllShops", {}, onOk, null, null, true, false, true);
     }, []);
 
+    //fetch account info
+    useEffect(() => {
+        const onOk = (response) => {
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    isLoadedAccount: true,
+                    account: response.data
+                }
+            });
+        }
+        axiosGET("AMW", "/userinfo", {}, onOk, null, null, true, false, true);
+    }, []);
+
     return (
-        <div className="flexColumnCenter">
+        <div >
+            <Account isLoaded={state.isLoadedAccount} account={state.account}/>
             <Navigation goBack={true} goHome={true} />
             <Searchsection />
             <ShopsList isLoaded={state.isLoadedShops} shops={state.shops} />

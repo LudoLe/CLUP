@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { dateToMinutes } from '../../utils/dateParser';
+import { axiosGET } from '../../utils/httpRequest';
+
 
 const TicketElement = (props) => {
 
@@ -14,24 +15,31 @@ const TicketElement = (props) => {
         history.push('/Shop/' + props.ticket.shop.id);
     }
 
+    const handleScan = () => {
+        const onOk = (response) => {
+            console.log(response);
+        }
+        axiosGET("QSW", "/scanTicket/" + props.ticket.id, {}, onOk, null, null, true, false, true);
+    }
+
     return (
-        <div className="flexColumnCenter card">
+        <div className={"flexColumnCenter card " + props.ticket.status}>
 
-            <bold>TICKET (ID: {props.ticket.id})</bold>
+            <div>TICKET (ID {props.ticket.id}) {props.ticket.status}</div>
 
-            <div className="clickable" onClick={handleOnClickTicket}>
+            {props.showShop ? <div className="bold"> {props.ticket.shop.name} </div> : ""}
 
-                <div> Status: {props.ticket.status} </div>
-
-                <div> Time To Reach The Shop: {dateToMinutes(props.ticket.timeToReachTheShop)} minutes </div>
-
-                <div> Declared duration of the Permanence: {dateToMinutes(props.ticket.expectedDuration)} minutes </div>
+            <div>
 
                 <div className="flexColumnCenter">
 
-                    {props.ticket.scheduledEnteringTime ? <div> Scheduled Entering Time: {props.ticket.scheduledEnteringTime} </div> : ""}
+                    {props.ticket.scheduledEnteringTime ? <div className="flexRowCenter"> <div className="bold spaceLeft">start</div> {props.ticket.scheduledEnteringTime} </div> : ""}
 
-                    {props.ticket.scheduledExitingTime ? <div> Scheduled Exiting Time: {props.ticket.scheduledExitingTime} </div> : ""}
+                    {props.ticket.scheduledExitingTime ? <div className="flexRowCenter"><div className="bold spaceLeft">end</div> {props.ticket.scheduledExitingTime} </div> : ""}
+
+                    {props.ticket.enterTime ? <div> Entering Time: {props.ticket.enteringTime} </div> : ""}
+
+                    {props.ticket.exitTime ? <div> Exit Time {props.ticket.exitTime} </div> : ""}
 
                 </div>
 
@@ -39,18 +47,17 @@ const TicketElement = (props) => {
 
             {
                 props.showShop ?
-                    <div className="flexColumnCenter clickable" onClick={handleOnClickShop}>
-
-                        <div> Shop Name {props.ticket.shop.name} </div>
-
-                        <div> Shop Position {props.ticket.shop.position} </div>
-
-                        <div> Shop Image {props.ticket.shop.image} </div>
-
+                    <div className="flexRowCenter">
+                        <button onClick={handleOnClickTicket} className="smallButton">Ticket info</button>
+                        <div>or</div>
+                        <button onClick={handleOnClickShop} className="smallButton">Shop info</button>
                     </div>
                     :
-                    ""
+                    <div className="flexRowCenter">
+                        <button onClick={handleScan} className="smallButton" > Scan ticket </button>
+                    </div>
             }
+
 
         </div>
     );

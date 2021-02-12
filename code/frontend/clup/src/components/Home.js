@@ -4,7 +4,6 @@ import TicketsList from './sub-components/TicketsList';
 import Account from './sub-components/Account';
 import { axiosGET } from '../utils/httpRequest.js';
 
-
 const Home = () => {
 
     const [state, setState] = useState({

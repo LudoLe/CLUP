@@ -10,8 +10,9 @@ const Searchsection = () => {
     }
     
     return(
-        <div>
-            <h3 onClick={handleClick}> Where do you want to go? </h3>
+        <div className="searchSectionContainer flexColumnCenter">
+            <h3> Where do you want to go? </h3>
+            <button onClick={handleClick} className="smallButton">Search a shop</button>
         </div>
     );  
 }

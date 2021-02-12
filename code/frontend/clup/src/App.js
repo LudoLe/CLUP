@@ -1,4 +1,7 @@
+import React from 'react';
 import './css/App.css';
+import 'fontsource-roboto';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Start from './components/Start';
 import Home from './components/Home';
@@ -17,23 +20,26 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
     return (
-        <Router>
-            <div id="App" className="App"> 
-                <Switch>
-                    <Route path="/" exact component={Start} /> {/* Login page */}
-                    <Route path="/Home" exact component={Home} /> {/* Home page for users */}
-                    <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
-                    <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
-                    <Route path="/Shop/:id" exact component={Shop} /> {/* Shop page for users */}
-                    <Route path="/Lineup/:id" exact component={Lineup} /> {/* Line up page */}
-                    <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
-                    <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
-                    <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
-                    <Route path="/ShopManager/:id" exact component={ShopManager} /> {/* Shop page for managers */}
-                    <Route path="/TimeLine" exact component={ParseTimeLine} />
-                </Switch>
-            </div>
-        </Router>
+        <React.Fragment>
+            <CssBaseline />
+            <Router>
+                <div id="App" className="App">
+                    <Switch>
+                        <Route path="/" exact component={Start} /> {/* Login page */}
+                        <Route path="/Home" exact component={Home} /> {/* Home page for users */}
+                        <Route path="/Search" exact component={Search} /> {/* Search a shop page */}
+                        <Route path="/Shops" exact component={Shops} /> {/* List of shops page */}
+                        <Route path="/Shop/:id" exact component={Shop} /> {/* Shop page for users */}
+                        <Route path="/Lineup/:id" exact component={Lineup} /> {/* Line up page */}
+                        <Route path="/Ticket/:id" exact component={Ticket} /> {/* Ticket page */}
+                        <Route path="/HomeManager" exact component={HomeManager} /> {/* Home page for managers */}
+                        <Route path="/NewShop" exact component={NewShop} /> {/* New shop page */}
+                        <Route path="/ShopManager/:id" exact component={ShopManager} /> {/* Shop page for managers */}
+                        <Route path="/TimeLine" exact component={ParseTimeLine} />
+                    </Switch>
+                </div>
+            </Router>
+        </React.Fragment>
 
     );
 }

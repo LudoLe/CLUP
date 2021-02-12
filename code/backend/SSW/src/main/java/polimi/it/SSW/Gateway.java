@@ -155,7 +155,7 @@ public class Gateway {
         Response response;
         Response.Status status;
         try {
-            if (!avv.isAuthorized(username, sessionToken) || !avv.isAuthorizedToAccessShop(shopid, username)){
+            if (!avv.isAuthorized(username, sessionToken) /*|| !avv.isAuthorizedToAccessShop(shopid, username)*/){
                 message= "Not authorized";
                 status = Response.Status.BAD_REQUEST;
                 avv.invalidateSessionToken(username);
@@ -272,10 +272,15 @@ public class Gateway {
             @ApiResponse(code = 401, message = "non autorizzato", response = String.class),
             @ApiResponse(code = 400, message = "Parametri errati", response = String.class),
             @ApiResponse(code = 500, message = "We messed up", response = String.class)})
-    public Response     registerNewShop(@Context HttpServletResponse httpHeader,@Context HttpServletRequest httpServletRequest, @HeaderParam("username") String username, @HeaderParam("sessionToken") String sessionToken, @Valid @RequestMap ShopProto shop){
+    public Response     registerNewShop(@Context HttpServletResponse httpHeader,
+                                        @Context HttpServletRequest httpServletRequest,
+                                        @HeaderParam("username") String username,
+                                        @HeaderParam("session-token") String sessionToken,
+                                        @Valid @RequestMap ShopProto shop){
         String message;
         Response response;
         Response.Status status;
+
         try {
             if (!avv.isAuthorizedAndManager(username, sessionToken)) {
                 message= "unauthorized.";
@@ -286,7 +291,6 @@ public class Gateway {
             } else {
                 try{
                     boolean bol = msc.checkIfCorruptedData(shop);
-                    System.out.println(bol);
                     if(bol){
                         message = "Corrupted Data";
                         status = Response.Status.BAD_REQUEST;

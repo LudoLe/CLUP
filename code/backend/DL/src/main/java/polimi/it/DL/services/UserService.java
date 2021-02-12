@@ -18,7 +18,7 @@ public class UserService {
 
     boolean test = false;
 
-    // I set this parameters to low, pretty unsafe values so login is faster
+    // parameters set to low values, it is an unsafe solution, but this way login is faster
     private static final int ARGON2_ITERATIONS = 2;
     private static final int ARGON2_MEMORY = 16384;
     private static final int ARGON2_PARALLELISM = 1;
@@ -40,10 +40,8 @@ public class UserService {
         if(!(user == null)){
             user.setSessionToken(null);
             em.flush();
-
         }
     }
-
 
     public String newSessionToken(String username){
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
@@ -55,7 +53,6 @@ public class UserService {
             return newSessionToken;
         }
         System.out.println("user not found in check session token");
-
         return null;
         }
 
@@ -64,7 +61,6 @@ public class UserService {
            if(user!=null) {
                user.setSessionToken(null);
                em.flush();
-
            }
     }
 
@@ -72,38 +68,49 @@ public class UserService {
         User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);
        if(user!=null) {
            return user.getIsManager();
-       }else return false;
+       }
+       else {
+           return false;
+       }
     }
 
     public Boolean isAuthorized(String username, String token) throws Exception{
-            User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+        User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+        System.out.println("USER TOKEN IS: " + token);
+        System.out.println("USERNAME IS: " + username);
         if(user!=null){
             if(user.getUsername().equals(username)){
+                System.out.println("USER FOUND");
                 return true;
-            }else
-            {
+            }
+            else{
+                System.out.println("USERNAME DO NOT MATCH");
                 user.setSessionToken(null);
                 em.flush();
                 return false;
             }
         }
         return false;
-
     }
 
     public Boolean isAuthorizedAndManager(String username, String token) throws Exception{
         User user = em.createNamedQuery("User.findByToken", User.class).setParameter(1, token).getResultList().stream().findFirst().orElse(null);;
+        System.out.println("USER TOKEN IS: " + token);
+        System.out.println("USERNAME IS: " + username);
         if(user!=null){
-           if(user.getUsername().equals(username)&&(user.getIsManager()))return true;
+           if(user.getUsername().equals(username)&&(user.getIsManager())){
+               System.out.println("USER FOUND");
+               return true;
+           }
            else{
+               System.out.println("USERNAME DO NOT MATCH");
                user.setSessionToken(null);
                em.flush();
                return false;
            }
-        }else return false;
+        }
+        return false;
     }
-
-
 
     public List<Ticket> getTicketsFromUS(String username) throws Exception{
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
@@ -112,13 +119,10 @@ public class UserService {
             em.refresh(user);
             tickets = user.getTickets();
        }
-
         return tickets;
     }
 
     public User findByUsername(String username) throws Exception{
-
-
         User user = em.createNamedQuery("User.findByUsername", User.class).setParameter(1, username).getResultList().stream().findFirst().orElse(null);
         if(user!=null){
             em.refresh(user);
@@ -147,7 +151,6 @@ public class UserService {
             user.setPhoneNumber(phoneNumber);
             em.persist(user);
             em.flush();
-
 
             return user;
         } catch (PersistenceException e) {

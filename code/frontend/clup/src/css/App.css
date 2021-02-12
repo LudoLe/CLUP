@@ -52,6 +52,10 @@ button{
     background-color: #EBEBEB;
     padding: 2vh 8vw;
     border-radius: 30px;
+
+    -webkit-box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
+    -moz-box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
+    box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
 }
 
 .cardWhite{
@@ -70,4 +74,87 @@ button{
 .simpleTitle{
     padding: 1vh;
     font-weight: bolder;
+}
+
+.accountButton{
+    border-radius: 50px;
+    width: initial;
+    padding: 0.2em 0.2em;
+    background-color: transparent;
+    position: fixed;
+    top: 10px;
+    right: 15px;
+}
+
+.accountIcon{
+    fill: white;
+    float: left;
+    max-width: 30px;
+    max-height: 30px;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.accountInfoContainer{
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+.smallButton{
+    padding: 10px 10px;
+    margin: 5px;
+    width: auto;
+}
+
+.searchSectionContainer{
+    height: 20vh;
+    background-color: #ebebeb;
+}
+
+.yourTicketTitle{
+    font-size: 1.5em;
+    margin-top: 1.5em;
+}
+
+.spaceLeft{
+    padding-right: 20px;
+}
+
+.topSpace{
+    padding-top: 1em;
+}
+
+.width80{
+    width: 80vw;
+}
+
+.expired{
+    border: 2px solid rgba(255, 0, 0, 0.618);
+}
+
+.valid{
+    border: 2px solid rgba(48, 230, 38, 0.631);
+}
+
+.invalid{
+    border: 2px solid rgba(255, 196, 0, 0.624);
+}
+
+.used{
+    border: 2px solid red;
+}
+
+.in_use{
+    border: 2px solid rgba(48, 230, 38, 0.631);
+}
+
+.shopImg{
+    fill: white;
+    float: left;
+    max-width: 80px;
+    padding-right: 5vw;
 }

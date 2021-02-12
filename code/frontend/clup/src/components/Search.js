@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import Navigation from './sub-components/Navigation';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 const Search = () => {
 
@@ -8,7 +11,7 @@ const Search = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("function not availble");
+        alert("function not availble...");
     }
 
     const handleAllShops = () => {
@@ -17,27 +20,21 @@ const Search = () => {
 
     return (
         <div className="flexColumnCenter">
-            
+
             <Navigation goBack={true} goHome={false} />
-            
-            <div className="flexRowCenter">
-            
-                <form onSubmit={handleSubmit}>
-            
-                    <input id="searchInput" name="searchInput" type="text" placeholder="search a shop"></input>
-            
-                    <button type="submit"> search </button>
-            
-                </form>
-            
+
+            <div className="width80 flexRowCenter">
+                <TextField id="standard-basic" label="Search a shop" fullWidth />
             </div>
-            
-            <div>
-            
-                <button onClick={handleAllShops}> ALL SHOPS </button>
-            
+
+
+            <div className="width80 topSpace">
+                <Button onClick={handleAllShops} size="medium" disabled variant="contained" color="secondary">Nearby</Button>
             </div>
-        
+
+            <div className="width80 topSpace">
+                <Button onClick={handleAllShops} size="medium" variant="contained" color="secondary">All shops</Button>
+            </div>
         </div>
     );
 }

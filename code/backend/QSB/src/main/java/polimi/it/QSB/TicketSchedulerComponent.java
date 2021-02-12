@@ -118,7 +118,7 @@ public class TicketSchedulerComponent {
     public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
         this.tickets = tickets;
         this.currentTime = new Date();
-        this.shop=tickets.get(0).getShop();
+        this.shop = tickets.get(0).getShop();
     }
 
     public List<Ticket> buildQueue() {
@@ -138,8 +138,6 @@ public class TicketSchedulerComponent {
         List<TicketTracker> ticketsInsideShop = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsToSchedule = new ArrayList<TicketTracker>();
         List<TicketTracker> ticketsExpired = new ArrayList<TicketTracker>();
-
-
         List<TicketTracker> ticketsUsed = new ArrayList<TicketTracker>();
         for (Ticket ticket : tickets) {
             switch (ticket.getStatus()) {
@@ -147,23 +145,21 @@ public class TicketSchedulerComponent {
                     ticketsToSchedule.add(new TicketTracker(ticket));
                     break;
                 case valid: //it could have entered the shop and become a in_use ticket
-                            //it could have expired (if its not entered and its scheduled time is "one time slot" before the current time)
-                            //it could be still valid and need to be rescheduled
-                    if(ticket.getEnterTime()!=null){
+                    //it could have expired (if its not entered and its scheduled time is "one time slot" before the current time)
+                    //it could be still valid and need to be rescheduled
+                    if (ticket.getEnterTime() != null) {
                         ticketsInsideShop.add(new TicketTracker(ticket));
-                    }
-                    else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - 60000L*timeSlotMinuteDuration))) {
+                    } else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - (60000L * timeSlotMinuteDuration)))) {
                         ticketsExpired.add(new TicketTracker(ticket));
                     } else {
                         ticketsToSchedule.add(new TicketTracker(ticket));
                     }
                     break;
                 case in_use: //it could have exit the shop and become used
-                             //it could still be in_use
-                    if (ticket.getExitTime() != null){
+                    //it could still be in_use
+                    if (ticket.getExitTime() != null) {
                         ticketsUsed.add(new TicketTracker(ticket));
-                    }
-                    else{
+                    } else {
                         TicketTracker ticketInsideShop = new TicketTracker(ticket);
                         Ticket placeHolderTicket = new Ticket();
                         placeHolderTicket.setStatus(placeholder);
@@ -358,12 +354,6 @@ public class TicketSchedulerComponent {
                         getTimeSlot(timeSlot.getId() + 1).getTickets().add(chosenTicket);
                         System.out.println("                                        chosen ticket set in entering tickets of time slot " + (timeSlot.getId() + 1));
 
-
-                        // insert the chosen ticket in the list of exiting tickets of the correct timeslot
-                        if(chosenTicket.getTicket().getExpectedDuration() == null){
-                            System.out.println("ERROR: the chosen ticket has no expectedDuration, printing the chosen ticket...");
-                            printTicketTracker(chosenTicket);
-                        }
                         long sum = getTimeSlot(timeSlot.getId() + 1).getStartingTime().getTime()
                                 + chosenTicket.getTicket().getExpectedDuration().getTime();
                         Date expectedExitingTime = new Date(sum);
@@ -413,7 +403,6 @@ public class TicketSchedulerComponent {
                     getTimeSlot(expectedEnteringTimeSlotId).getTickets().add(chosenTicket);
                     System.out.println("                                        chosen ticket set in entering tickets of time slot " + expectedEnteringTimeSlotId);
 
-
                     // insert the chosen ticket in the list of exiting tickets of the correct timeslot
                     sum = getTimeSlot(expectedEnteringTimeSlotId).getStartingTime().getTime()
                             + chosenTicket.getTicket().getExpectedDuration().getTime();
@@ -446,17 +435,21 @@ public class TicketSchedulerComponent {
         System.out.println("****************************ENDTIMELINE*************************************");
 
 
+        System.out.println("\nRESULT:\n");
+
         // update all scheduledEnteringTime and scheduledExitingTime
         for (TimeSlot timeslot : timeLine) {
             for (TicketTracker ticketTracker : timeslot.getTickets()) {
                 Ticket t = ticketTracker.getTicket();
                 Date d = timeslot.getStartingTime();
                 t.setScheduledEnteringTime(d);
+                System.out.println("Ticket (ID: " + t.getId() + ") scheduledEnteringTime set to " + d);
             }
             for (TicketTracker ticketTracker : timeslot.getExpectedExitingTickets()) {
                 Ticket t = ticketTracker.getTicket();
                 Date d = timeslot.getStartingTime();
                 t.setScheduledExitingTime(d);
+                System.out.println("Ticket (ID: " + t.getId() + ") scheduledExitingTime set to " + d);
             }
         }
 
@@ -464,9 +457,10 @@ public class TicketSchedulerComponent {
         // arrivalTime = scheduledEnteringTime
         // obviously the scheduledEnteringTime has just been updated in previous for loop, and the status is still invalid because
         // it is being changed in the next loop
-        for (Ticket t : this.tickets ) {
-            if(t.getStatus().equals(invalid)){
+        for (Ticket t : this.tickets) {
+            if (t.getStatus().equals(invalid)) {
                 t.setArrivalTime(t.getScheduledEnteringTime());
+                System.out.println("Ticket (ID:" + t.getId() + ") arrivalTime set to " + t.getScheduledEnteringTime());
             }
         }
 
@@ -475,62 +469,56 @@ public class TicketSchedulerComponent {
         // (exipired)
         // (used)
         // (in use)
-        for(TicketTracker t : ticketsToSchedule){
-            if(t.getTicket().getStatus().equals(invalid)){
+        for (TicketTracker t : ticketsToSchedule) {
+            if (t.getTicket().getStatus().equals(invalid)) {
                 t.getTicket().setStatus(valid);
+                System.out.println("Ticket (ID:" + t.getTicket().getId() + ") status changed: " +
+                        " [invalid] => [valid]");
             }
         }
-        for (TicketTracker t : ticketsInsideShop){
-            if(t.getTicket().getStatus().equals(valid)){
+        for (TicketTracker t : ticketsInsideShop) {
+            if (t.getTicket().getStatus().equals(valid)) {
                 t.getTicket().setStatus(in_use);
+                System.out.println("Ticket (ID:" + t.getTicket().getId() + ") status changed: " +
+                        " [valid] => [in_use]");
             }
         }
-        for (TicketTracker t : ticketsExpired){
+        for (TicketTracker t : ticketsExpired) {
             t.getTicket().setStatus(expired);
+            System.out.println("Ticket (ID:" + t.getTicket().getId() + ") status changed: " +
+                    " [expired]");
         }
-        for (TicketTracker t : ticketsUsed){
+        for (TicketTracker t : ticketsUsed) {
             t.getTicket().setStatus(used);
+            System.out.println("Ticket (ID:" + t.getTicket().getId() + ") status changed: " +
+                    " [used]");
         }
 
+        /*
         System.out.println("******************************TICKETS UPDATED***********************************");
         printTicketList(this.tickets);
         System.out.println("****************************END TICKETS UPDATED*************************************");
+        */
+
+        //TODO: non mi segna i ticket expired
+        //todo: capisci cosa altro non va ciao
 
         return this.tickets;
-
-        //TODO: appunto per capire quando può entrare un ticket
-        // a ticket can enter during time slot 0 if its a valid ticket and if his previous matching ticket
-        // is a palceholder.
-
-        //TODO: appunto per la parte web:
-        // nel caso di /lineup, dopo aver fatto andare l'algoritmo bisogna informare l'utente se il biglietto è
-        // stato validato oppure è rimasto invalido. Se è rimasto invalido bisogna anche toglierlo dal database.
-        // in realtà queto caso non si verifica mai perchè ogni t icket trova posto siccome non sono considerati gli
-        // shift dei negozi
-
-        //TODO: cosa fare per scan to enter
-
-        //TODO: cosa fare per scan to exit
-
-        //TODO: cosa fare per dequeue
-
-        //TODO: ci sono altre azioni da gestire?
     }
 
-    private Date getArrivalTime(Ticket ticket){
-        if(ticket.getStatus().equals(invalid)){
+    private Date getArrivalTime(Ticket ticket) {
+        if (ticket.getStatus().equals(invalid)) {
             long sum = currentTime.getTime() + ticket.getTimeToReachTheShop().getTime();
             return new Date(sum);
-        }
-        else{
+        } else {
             return ticket.getArrivalTime();
         }
     }
 
-    private TicketTracker getShortestExitingTime(List<TicketTracker> ticketTrackers){
+    private TicketTracker getShortestExitingTime(List<TicketTracker> ticketTrackers) {
         TicketTracker shortest = ticketTrackers.get(0);
-        for (TicketTracker tt: ticketTrackers) {
-            if(getArrivalTime(tt.getTicket()).before(getArrivalTime(shortest.getTicket()))){
+        for (TicketTracker tt : ticketTrackers) {
+            if (getArrivalTime(tt.getTicket()).before(getArrivalTime(shortest.getTicket()))) {
                 shortest = tt;
             }
         }
@@ -539,7 +527,8 @@ public class TicketSchedulerComponent {
 
     // if the time slot exists in the timeline, returns the position of the time slot in the ArrayList of the
     // time line
-    // else returns the index in the time line of the next time slot or -1 if it has no successor.
+    // else returns the index in the time line of the next time slot or -999999 if it has no
+    // successor.
     private int existTimeSlot(int timeSlotId) {
         for (int i = 0, timeLineSize = timeLine.size(); i < timeLineSize; i++) {
             TimeSlot timeSlot = timeLine.get(i);
@@ -549,7 +538,7 @@ public class TicketSchedulerComponent {
                 return i;
             }
         }
-        return -1;
+        return -999999;
     }
 
     // returns the time slot with the corresponding id from the timeLine ;
@@ -557,7 +546,7 @@ public class TicketSchedulerComponent {
     private TimeSlot getTimeSlot(int timeSlotId) {
         TimeSlot returnValue;
         int timeLineIndex = existTimeSlot(timeSlotId);
-        if (timeLineIndex == -1) {
+        if (timeLineIndex == -999999) {
             returnValue = new TimeSlot(timeSlotId);
             timeLine.add(returnValue);
         } else {
@@ -587,24 +576,38 @@ public class TicketSchedulerComponent {
             return -1;
         }
 
+        if (date.getTime() == currentTime.getTime()) {
+            return 0;
+        }
+
+        int timeSlotId;
+
+        long millisencondFromCurrentTime = date.getTime() - currentTime.getTime(); //surely > 0
+        long timeSlotIdLong = millisencondFromCurrentTime / timeSlotDurationInMilliSeconds;
+        timeSlotId = (int) Math.abs(timeSlotIdLong);
+
+
+        /*
         int timeSlotId;
         int counter = 0;
-        Date startTimeSlot = new Date();
+        Date startTimeSlot = new Date(currentTime.getTime());
         Date endTimeSlot = new Date(startTimeSlot.getTime() + timeSlotDurationInMilliSeconds);
-        while (true) {
-            if (date.after(startTimeSlot) && date.before(endTimeSlot)) {
-                timeSlotId = counter;
-                break;
-            }
+        while (!(date.after(startTimeSlot) && date.before(endTimeSlot)) || date.getTime() == startTimeSlot.getTime() || date.getTime() == endTimeSlot.getTime()) {
             counter++;
             startTimeSlot = new Date(startTimeSlot.getTime() + timeSlotDurationInMilliSeconds);
             endTimeSlot = new Date(startTimeSlot.getTime() + timeSlotDurationInMilliSeconds);
+            System.out.println("Calculating if in time slot: " + counter);
+            if (counter == 5000) {
+                break;
+            }
         }
+        timeSlotId = counter;
+        */
 
         return timeSlotId;
     }
 
-    /* TODO:
+    /*
     private boolean checkIfInsideShift(Ticket ticket) {
         // given a ticket it checks if its scheduledEnterignTime and scheduledExitingTime are compatible with at least
         // one shopShift.
@@ -612,12 +615,12 @@ public class TicketSchedulerComponent {
     }
     */
 
-    public Date getQueueTime () {
+    public Date getQueueTime() {
         Date queueTime = null;
 
-        for (TimeSlot ts : timeLine){
-            for (TicketTracker tt : ts.getExpectedExitingTickets()){
-                if(tt.getMatchingFollowingTicket() == null){
+        for (TimeSlot ts : timeLine) {
+            for (TicketTracker tt : ts.getExpectedExitingTickets()) {
+                if (tt.getMatchingFollowingTicket() == null) {
                     queueTime = tt.getTicket().getScheduledExitingTime();
                     return queueTime;
                 }
@@ -625,6 +628,38 @@ public class TicketSchedulerComponent {
         }
 
         return queueTime;
+    }
+
+    private Date getMaxEnterTime() {
+        return getTimeSlot(0).getEndingTime();
+    }
+
+    public boolean canEnter(int id) {
+        //find the ticket tracker
+        TicketTracker tt = null;
+        for (TimeSlot ts : timeLine) {
+            for (TicketTracker titr : ts.getTickets()) {
+                if (titr.getTicket().getId() == id) {
+                    tt = titr;
+                    break;
+                }
+            }
+            if (tt != null) {
+                break;
+            }
+        }
+        if (tt == null) {
+            return false;
+        }
+
+        //check if it can enter
+        if (tt.getMatchingPreviousTicket().getStatus().equals(placeholder)
+                && tt.getTicket().getStatus().equals(valid)
+                && tt.getTicket().getScheduledEnteringTime().before(getMaxEnterTime())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*auxiliar methods for debugging*/

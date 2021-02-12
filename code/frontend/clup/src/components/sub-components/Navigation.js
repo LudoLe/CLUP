@@ -1,7 +1,6 @@
 import React from 'react';
 import GoBackButton from './GoBackButton';
 import GoHomeButton from './GoHomeButton';
-import Account from './Account';
 
 const Navigation = (props) => {
 

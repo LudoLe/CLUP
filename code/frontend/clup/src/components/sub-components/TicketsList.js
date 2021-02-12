@@ -7,10 +7,11 @@ const TicketsList = (props) => {
     if (props.isLoaded) { 
         return (
             <div className="flexColumnCenter">
+                <div className="bold yourTicketTitle">YOUR TICKETS:</div>
                 {(props.tickets !== null && props.tickets.length !== 0) ?
                     (props.tickets).map(ticket => <TicketElement key={ticket.id} ticket={ticket} showShop={true}/>)
                     :
-                    "You have no tickets."
+                    <div>You have no tickets.</div>
                 }
             </div>
         );
