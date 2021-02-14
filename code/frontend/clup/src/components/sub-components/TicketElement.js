@@ -17,10 +17,12 @@ const TicketElement = (props) => {
 
     const handleScan = () => {
         const onOk = (response) => {
-            console.log(response);
+            alert("please reload page to see the changes !")
         }
         axiosGET("QSW", "/scanTicket/" + props.ticket.id, {}, onOk, null, null, true, false, true);
     }
+
+    console.log(props.ticket);
 
     return (
         <div className={"flexColumnCenter card " + props.ticket.status}>
@@ -35,11 +37,11 @@ const TicketElement = (props) => {
 
                     {props.ticket.scheduledEnteringTime ? <div className="flexRowCenter"> <div className="bold spaceLeft">start</div> {props.ticket.scheduledEnteringTime} </div> : ""}
 
-                    {props.ticket.scheduledExitingTime ? <div className="flexRowCenter"><div className="bold spaceLeft">end</div> {props.ticket.scheduledExitingTime} </div> : ""}
+                    {props.ticket.scheduledExitingTime ? <div className="flexRowCenter"><div className="bold spaceLeft">expected end</div> {props.ticket.scheduledExitingTime} </div> : ""}
 
-                    {props.ticket.enterTime ? <div> Entering Time: {props.ticket.enteringTime} </div> : ""}
+                    {props.ticket.enterTime ? <div> <br /> actual enter time: {props.ticket.enterTime} </div> : ""}
 
-                    {props.ticket.exitTime ? <div> Exit Time {props.ticket.exitTime} </div> : ""}
+                    {props.ticket.exitTime ? <div> actual exit time: {props.ticket.exitTime} </div> : ""}
 
                 </div>
 

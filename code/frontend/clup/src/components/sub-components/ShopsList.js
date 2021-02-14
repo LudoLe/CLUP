@@ -7,6 +7,12 @@ const ShopsList = (props) => {
         return (
             <div className="flexColumnCenter">
                 <div className="bold yourTicketTitle">ALL SHOPS:</div>
+                <div class="tooltip">Info
+                    <span class="tooltiptext">
+                        Here are listed all the shops in the database. <br />
+                        For each shop you can see the shop name, the shop position, and a more info button to check all the informations about the shop.
+                </span>
+                </div>
                 {(props.shops !== null && props.shops.length !== 0) ?
                     (props.shops).map(shop => <ShopElement key={shop.id} shop={shop} />)
                     :

@@ -22,14 +22,21 @@ const Search = () => {
         <div className="flexColumnCenter">
 
             <Navigation goBack={true} goHome={false} />
+            <div class="tooltip">info
+                    <span class="tooltiptext">
+                    In this section you can search for a shop.<br />
+                    Currently the prototype does not allow the users to search for a specific shop or to check the nearby ones, but only to
+                    retrieve all the shops in the database.
+                </span>
+            </div>
 
             <div className="width80 flexRowCenter">
                 <TextField id="standard-basic" label="Search a shop" fullWidth />
+                <Button onClick={handleSubmit} size="medium" disabled variant="contained" color="secondary">Search</Button>
             </div>
 
-
             <div className="width80 topSpace">
-                <Button onClick={handleAllShops} size="medium" disabled variant="contained" color="secondary">Nearby</Button>
+                <Button onClick={handleSubmit} size="medium" disabled variant="contained" color="secondary">Nearby</Button>
             </div>
 
             <div className="width80 topSpace">

@@ -47,49 +47,64 @@ const Shop = (props) => {
         <div className="flexColumnCenter">
 
             <Navigation goBack={true} goHome={true} />
-            
+            <div class="tooltip">Info
+                    <span class="tooltiptext">
+                    This is the page of a shop. <br />
+                        This page contains: <br />
+                        - shop name <br />
+                        - shop description <br />
+                        - shop position <br />
+                        - the expected queue duration field represents the maximum awiting time you can have by enqueuing in this moment <br />
+                        - the enqueue button
+                </span>
+            </div>
+
             {state.isLoadedShop ?
 
-                <div className="flexColumnCenter card">
+            
+                <div className="flexColumnCenter">
 
-                    <div className="flexColumnCenter">
+                    <div className="flexColumnCenter card">
 
-                        <div> {state.shop.name} </div>
+                        <div className="flexColumnCenter">
 
-                        <div> {state.shop.image} </div>
+                            <div className="bold"> {state.shop.name} </div>
 
-                        <div> {state.shop.description} </div>
+                            <div> description: {state.shop.description} </div>
 
-                        <div> {state.shop.position} </div>
+                            <div> position: {state.shop.position} </div>
 
-                    </div>
+                        </div>
 
-                    <div className="flexColumnCenter">
+                        <div className="flexColumnCenter">
 
-                        {state.isLoadedQueueMaxDuration ?
-                            <div> Expected Queue duration: {state.queueMaxDuration}</div>
+                            {state.isLoadedQueueMaxDuration ?
+                                <div className="littleMargin"> <div className="bold"> Expected Queue duration </div> {state.queueMaxDuration} </div>
+                                :
+                                <WaveLoading style={{position: "relative"}}/>
+                            }
+
+                        </div>
+
+                        {state.shop.shifts ?
+                            (state.shop.shifts).map(shift =>
+                                <div className="flexColumnCenter">
+                                    <div> Day: {calcDay(shift.day)}</div>
+                                    <div>{shift.openingTime} - {shift.closingTime}</div>
+                                </div>
+                            )
                             :
-                            <WaveLoading style={{position: "relative"}}/>
+                            ""
                         }
 
+
                     </div>
-
-                    {state.shop.shifts ?
-                        (state.shop.shifts).map(shift =>
-                            <div className="flexColumnCenter">
-                                <div> Day: {calcDay(shift.day)}</div>
-                                <div>{shift.openingTime} - {shift.closingTime}</div>
-                            </div>
-                        )
-                        :
-                        ""
-                    }
-
-                    <GoToButton to={"/Lineup/" + state.shopId} content="Enqueue" />
-
+                    <div>
+                        <GoToButton to={"/Lineup/" + state.shopId} content="Enqueue" />
+                    </div>
                 </div>
                 :
-                <WaveLoading style={{position: "relative"}}/>
+                <WaveLoading style={{ position: "relative" }} />
             }
 
         </div >

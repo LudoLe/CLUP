@@ -9,6 +9,7 @@
         <class>polimi.it.DL.entities.ShopShift</class>
         <class>polimi.it.DL.entities.Ticket</class>
         <class>polimi.it.DL.entities.User</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/clup"/>
             <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

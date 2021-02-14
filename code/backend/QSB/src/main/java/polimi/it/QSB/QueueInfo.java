@@ -43,7 +43,7 @@ public class QueueInfo {
             response = responseWrapper.generateResponse(status, "no such shop");
         } else if (tickets.isEmpty()) {
             status = Response.Status.OK;
-            response = responseWrapper.generateResponse(status, new Date(0L));
+            response = responseWrapper.generateResponse(status, new Date());
         } else {
             TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shopid)));
             List<Ticket> lt = tsc.buildQueue();
@@ -64,10 +64,16 @@ public class QueueInfo {
         if (ticket == null) {
             return responseWrapper.generateResponse(Response.Status.BAD_REQUEST, "no such ticket");
         }
+
         //build the queue in order to access it later
         TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(ticket.getShop().getId())));
         List<Ticket> lt = tsc.buildQueue();
         ticketService.mergeAllTickets(lt);
+
+        //TODO: le prosssime righe boh..
+
+        //refetching the ticket after the buildQueue method
+        ticket = ticketService.find(ticketid);
 
         //checking for ticket that wants to exit the shop
         if (ticket.getStatus().equals("in_use")) {

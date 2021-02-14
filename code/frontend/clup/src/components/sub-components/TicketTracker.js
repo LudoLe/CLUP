@@ -9,7 +9,6 @@ const TicketTracker = (props) => {
             <div> TICKET (ID: {ticketTracker.Ticket.id}) </div>
             <div> status {ticketTracker.Ticket.status}</div>
             <div> prev: {ticketTracker.previousMatchingTicket}, follow: {ticketTracker.followingMatchingTicket} </div>
-
         </div>
     );
 }
