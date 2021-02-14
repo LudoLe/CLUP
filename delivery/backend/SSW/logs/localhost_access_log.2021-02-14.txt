@@ -1,0 +1,2 @@
+0:0:0:0:0:0:0:1 - - [14/Feb/2021:22:34:16 +0100] "OPTIONS /SSW-1.0-SNAPSHOT/api/SSW/tickets HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [14/Feb/2021:22:34:16 +0100] "GET /SSW-1.0-SNAPSHOT/api/SSW/tickets HTTP/1.1" 200 2
