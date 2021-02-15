@@ -157,6 +157,7 @@ public class TicketSchedulerComponent {
                     if (ticket.getEnterTime() != null) {
                         System.out.println("insert in entering");
                         ticketsInsideShop.add(new TicketTracker(ticket));
+                        //TODO
                     } else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - (60000L * timeSlotMinuteDuration)))) {
                         System.out.println("insert in expired");
                         ticketsExpired.add(new TicketTracker(ticket));

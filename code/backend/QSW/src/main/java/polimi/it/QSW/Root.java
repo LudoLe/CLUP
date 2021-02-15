@@ -16,8 +16,8 @@ public class Root extends Application {
         beanConfig.setHost("localhost:8089");
         beanConfig.setBasePath("/QSW-1.0-SNAPSHOT/api");
         beanConfig.setResourcePackage(Gateway.class.getPackage().getName());
-        beanConfig.setTitle("Information Service");
-        beanConfig.setDescription("A simple information service");
+        beanConfig.setTitle("Queue Service");
+        beanConfig.setDescription("Service that manages the queue");
         beanConfig.setScan(true);
     }
 
