@@ -4,7 +4,6 @@ import { calcDay } from '../utils/dateParser.js';
 import { axiosGET } from '../utils/httpRequest.js';
 import Queue from './sub-components/Queue.js';
 import Navigation from './sub-components/Navigation';
-import GoToButton from './sub-components/GoToButton';
 
 const ShopManager = (props) => {
 
@@ -59,42 +58,42 @@ const ShopManager = (props) => {
 
             <Navigation goBack={true} goHome={true} />
 
+            <div class="tooltip">info
+                    <span class="tooltiptext">
+                    This is the page of a shop: <br />
+                    In this page you can see the following informations:<br/>
+                    -shop name<br/>
+                    -shop description <br/>
+                    -shop position <br/>
+                    -button to show all the tickets of the shop <br/>
+                    -informations about the tickets (...) <br/>
+                    -the "scan ticket" button: this button is here to show what would happen if a customer scanned the ticket to enter or exit a shop
+                </span>
+            </div>
+
             {state.isLoadedShop ?
 
                 <div className="flexColumnCenter card">
 
                     <div className="flexColumnCenter">
 
-                        <div> {state.shop.name} </div>
+                        <div className="bold"> {state.shop.name} </div>
 
-                        <div> {state.shop.image} </div>
+                        <div> description: {state.shop.description} </div>
 
-                        <div> {state.shop.description} </div>
-
-                        <div> {state.shop.position} </div>
+                        <div> position: {state.shop.position} </div>
 
                     </div>
 
                     <div className="flexColumnCenter">
 
                         {state.isLoadedQueueMaxDuration ?
-                            <div> Expected Queue duration: {state.queueMaxDuration}</div>
+                            <div className="littleMargin"> <div className="bold"> Expected Queue duration </div> {state.queueMaxDuration} </div>
                             :
                             <WaveLoading style={{ position: "relative" }} />
                         }
 
                     </div>
-
-                    {state.shop.shifts ?
-                        (state.shop.shifts).map(shift =>
-                            <div className="flexColumnCenter">
-                                <div> Day: {calcDay(shift.day)}</div>
-                                <div>{shift.openingTime} - {shift.closingTime}</div>
-                            </div>
-                        )
-                        :
-                        ""
-                    }
 
                 </div>
                 :
@@ -104,10 +103,11 @@ const ShopManager = (props) => {
             {
                 state.isLoadedShop ?
                     <div className="flexColumnCenter">
+                        
                         < button onClick={triggerQueue}>{state.queueTrigger ? "Hide" : "Show"} tickets</button>
                         {
                             state.queueTrigger ?
-                                <Queue tickets={state.tickets} />
+                                <Queue shopId={state.shopId} tickets={state.tickets} />
                                 :
                                 ""
                         }

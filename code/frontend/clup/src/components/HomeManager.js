@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Account from './sub-components/Account';
 import { axiosGET } from '../utils/httpRequest.js';
 import ShopsListManager from './sub-components/ShopsListManager';
@@ -15,38 +15,40 @@ const HomeManager = () => {
     });
 
     //fetch shops info
-     useEffect(()=>{
-        const onOk = (response) =>{
-            setState(prevState =>{
-                return{
-                     ...prevState,
-                     isLoadedShops : true,
-                     shops : response.data
+    useEffect(() => {
+        const onOk = (response) => {
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    isLoadedShops: true,
+                    shops: response.data
                 }
-             });
+            });
         }
-        axiosGET("SSW", "/shops", {}, onOk, null , null, true, false, true);
+        axiosGET("SSW", "/shops", {}, onOk, null, null, true, false, true);
     }, []);
 
     //fetch account info
-    useEffect(()=>{
-        const onOk = (response) =>{
-            setState(prevState =>{
-                return{
-                     ...prevState,
-                     isLoadedAccount : true,
-                     account: response.data
+    useEffect(() => {
+        const onOk = (response) => {
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    isLoadedAccount: true,
+                    account: response.data
                 }
-             });
+            });
         }
         axiosGET("AMW", "/userinfo", {}, onOk, null, null, true, false, true);
-    }, []); 
+    }, []);
 
     return (
         <div className="flexColumnCenter">
             <Account isLoaded={state.isLoadedAccount} account={state.account} />
-            <GoToButton to="/TimeLine" content="Go to Time Line visualizer" />
-            <GoToButton to="/NewShop" content="New shop" />
+            <div className="flexRowCenter width80 topSpace">
+                <GoToButton to="/TimeLine" content="Time Line" />
+                <GoToButton to="/NewShop" content="New shop" />
+            </div>
             <ShopsListManager isLoaded={state.isLoadedShops} shops={state.shops} />
         </div>
     );

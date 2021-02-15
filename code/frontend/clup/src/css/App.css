@@ -1,8 +1,4 @@
 *{
-    border: 1px solid red;
-}
-
-*{
     font-family: 'Roboto', sans-serif;
 }
 
@@ -157,4 +153,63 @@ button{
     float: left;
     max-width: 80px;
     padding-right: 5vw;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border: 1px dotted black;
+    padding: 0px 5px;
+    border-radius: 50%;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    color: white;
+    background-color: black;
+    text-align: center;
+    border-radius: 6px;
+    width: auto;
+    position: absolute;
+    z-index: 1;
+    width: 270px;
+    left: -123px;
+    top: 20px;
+
+    padding: 5px;
+
+    -webkit-box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
+    -moz-box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
+    box-shadow: -4px 6px 28px -12px rgba(0,0,0,0.61);
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.littleMargin{
+    margin: 10px;
+}
+
+.inputTextField{
+    padding: 6px 5px;
+    margin: 10px;
+    border: none;
+    font-size: 1.3em;
+}
+
+.navContainer{
+
+}
+.navigationButton{
+    background-color: white;
+    color: #EB1E4E;
+    border: 3px solid #EB1E4E;
+    padding: 0.3em 0.5em;
+    width: auto;
+    margin: 1em;
+}
+.topSpace{
+    margin-top: 4vh;
+}
+.yourShopsTitle{
+    font-size: 1.5em;
 }

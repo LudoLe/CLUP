@@ -41,48 +41,59 @@ const Ticket = (props) => {
     }
 
     return (
-        <div className="flexColumnCenter card">
+        <div className="flexColumnCenter">
             <Navigation goBack={true} goHome={true} />
             {state.isLoadedTicket ?
                 <div className="flexColumnCenter">
+                    <div class="tooltip">Info
+                        <span class="tooltiptext">
+                            This is the page of a ticket. <br />
+                            This page contains: <br />
+                            - status: ticket status (also the color of the border is based on the status) <br/>
+                            - the time needed to reach the shop<br/>
+                            - the duration of the permanence inside the shop<br/>
+                            - enter time: if available the actual time the ticket was scanned to enter the shop<br/>
+                            - exit time: if available the actual time the ticket was scanned to exit the shop<br/>
+                            - start the starting time to scan the ticket to enter the shop<br/>
+                            - expected end: the expected time you'll scan the ticket to exit the shop<br/>
+                            - a button to check the shop this ticket is enqueued in<br/>
+                            - a button to delete the ticket
+                        </span>
+                    </div>
 
-                    <div>
+                    <div className="bold yourTicketTitle">TICKET (ID: {state.ticket.id})</div>
+                   
+                    <div className={"flexColumnCenter card " + state.ticket.status}>
 
-                        <div> Status: {state.ticket.status} </div>
+                        <div> <div className="bold">Status </div> {state.ticket.status} </div>
 
-                        <div> Time To Reach The Shop: {dateToMinutes(state.ticket.timeToReachTheShop)} minutes </div>
+                        <div> <div className="bold">Time To Reach The Shop </div> {dateToMinutes(state.ticket.timeToReachTheShop)} minutes </div>
 
-                        <div> Declared duration of the Permanence: {dateToMinutes(state.ticket.expectedDuration)} minutes </div>
+                        <div> <div className="bold">Declared duration of the Permanence </div> {dateToMinutes(state.ticket.expectedDuration)} minutes </div>
 
                         <div className="flexColumnCenter">
 
-                            {state.ticket.enterTime ? <div> Entering Time: {state.ticket.enteringTime} </div> : ""}
+                            {state.ticket.enterTime ? <div> <div className="bold">Enter Time </div> {state.ticket.enterTime} </div> : ""}
 
-                            {state.ticket.exitTime ? <div> Exit Time {state.ticket.exitTime} </div> : ""}
+                            {state.ticket.exitTime ? <div> <div className="bold">Exit Time </div> {state.ticket.exitTime} </div> : ""}
 
-                            {state.ticket.scheduledEnteringTime ? <div> Scheduled Entering Time: {state.ticket.scheduledEnteringTime} </div> : ""}
+                            {state.ticket.scheduledEnteringTime ? <div> <div className="bold">start </div> {state.ticket.scheduledEnteringTime} </div> : ""}
 
-                            {state.ticket.scheduledExitingTime ? <div> Scheduled Exiting Time: {state.ticket.scheduledExitingTime} </div> : ""}
+                            {state.ticket.scheduledExitingTime ? <div> <div className="bold">expected end </div> {state.ticket.scheduledExitingTime} </div> : ""}
 
                         </div>
 
                     </div>
 
-                    <div className="flexColumnCenter clickable" onClick={handleOnClickShop}>
-
-                        <div> Shop Name {state.ticket.shop.name} </div>
-
-                        <div> Shop Position {state.ticket.shop.position} </div>
-
-                        <div> Shop Image {state.ticket.shop.image} </div>
-
-                    </div>
-
-                    <button onClick={handleDequeue}> Dequeue </button>
+                    <div className="flexRowCenter">
+                        <button className="smallButton" onClick={handleOnClickShop}>Check shop</button> 
+                        or
+                        <button className="smallButton" onClick={handleDequeue}> Dequeue </button>
+                    </ div>
 
                 </div>
                 :
-                <WaveLoading style={{position: "relative"}}/>
+                <WaveLoading style={{ position: "relative" }} />
             }
         </div>
     );

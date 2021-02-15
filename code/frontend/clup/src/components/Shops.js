@@ -43,9 +43,11 @@ const Shops = () => {
     }, []);
 
     return (
-        <div >
+        <div>
             <Account isLoaded={state.isLoadedAccount} account={state.account}/>
+            <div className="flexRowCenter">
             <Navigation goBack={true} goHome={true} />
+            </div>
             <Searchsection />
             <ShopsList isLoaded={state.isLoadedShops} shops={state.shops} />
         </div>

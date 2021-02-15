@@ -5,7 +5,7 @@ import GoHomeButton from './GoHomeButton';
 const Navigation = (props) => {
 
     return (
-        <div className="flexRowCenter">
+        <div className="navContainer">
             {props.goBack ? <GoBackButton /> : ""}
             {props.goHome ? <GoHomeButton /> : ""} 
         </div>

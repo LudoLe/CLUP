@@ -58,17 +58,24 @@ const Lineup = (props) => {
     return (
         <div className="flexColumnCenter">
             <Navigation goBack={true} goHome={true}/>
-            <form id="lineUp" onSubmit={handleLineupSubmit} autoComplete="off">
-                <div>
-                    <label>Time to reach the shop (in minutes)</label>
-                    <input onChange={handleChange}
+            <div class="tooltip">Info
+                    <span class="tooltiptext">
+                        This page is used to enqueue in a shop. <br />
+                        You just need to indicate the time you'll need to reach the shop and the expected duration of you permanence inside the shop < br/>
+                        These two value will be used to position you in the queue correctly, to have a great expirience with our application please insert true values and respect them.
+                </span>
+            </div>
+            <form className="flexColumnCenter card" id="lineUp" onSubmit={handleLineupSubmit} autoComplete="off">
+                <div className="flexColumnCenter littleMargin">
+                    <label className="bold">Time to reach the shop (in minutes)</label>
+                    <input className="inputTextField" onChange={handleChange}
                         value={state.ttr}
                         id="ttr"
-                        type='number' placeholder="10" name="ttr" required />
+                        type='number' placeholder="10" name="ttr" required /> 
                 </div>
-                <div>
-                    <label>Duration of the permanence (in minutes)</label>
-                    <input onChange={handleChange}
+                <div className="flexColumnCenter littleMargin">
+                    <label className="bold">Duration of the permanence (in minutes)</label>
+                    <input className="inputTextField" onChange={handleChange}
                         value={state.duration}
                         id="duration"
                         type='number' placeholder="15" name="duration" required />

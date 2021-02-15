@@ -12,7 +12,7 @@ const ShopElement = (props) => {
 
     return (
 
-        <div className="flexColumnCenter card" onClick={handleOnClick}>
+        <div className="flexColumnCenter card">
             <div className="flexRowCenter">
                 <div>
                     <img
@@ -22,7 +22,7 @@ const ShopElement = (props) => {
                 </div>
                 <div className="flexColumnCenter">
                     <div className="bold"> {props.shop.name} </div>
-                    <button className="smallButton">More info</button>
+                    <button className="smallButton" onClick={handleOnClick}>More info</button>
                     <div> {props.shop.position} </div>
                 </div>
             </div>

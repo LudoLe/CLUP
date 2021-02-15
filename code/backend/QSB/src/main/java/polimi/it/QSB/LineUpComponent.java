@@ -92,9 +92,11 @@ public class LineUpComponent {
             */
             Shop shop = shopService.find(enqueueData.getShopid());
             ticket = ticketService.create(shop, userService.findByUsername(username), enqueueData.getPermanence(), enqueueData.getTimeToGetToTheShop());
+
             TicketSchedulerComponent tsc = (new TicketSchedulerComponent(ticketService.findAllTicketsForShopAndDetach(shop.getId())));
             List<Ticket> tickets = tsc.buildQueue();
             ticketService.mergeAllTickets(tickets);
+
         } catch (Exception e) {
             status = Response.Status.INTERNAL_SERVER_ERROR;
             response = responseWrapper.generateResponse(status, new StringResponse("Something went wrong retry later"));

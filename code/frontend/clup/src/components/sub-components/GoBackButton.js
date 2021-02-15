@@ -6,7 +6,7 @@ const GoBackButton = () => {
     const history = useHistory();
 
     return (
-        <button onClick={() => { history.goBack() }}> Go back </button>
+        <button className="navigationButton" onClick={() => { history.goBack() }}> Go back </button>
     );
 }
 

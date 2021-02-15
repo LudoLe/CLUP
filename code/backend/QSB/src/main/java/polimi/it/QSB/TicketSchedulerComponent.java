@@ -118,6 +118,10 @@ public class TicketSchedulerComponent {
     public TicketSchedulerComponent(List<Ticket> tickets) throws Exception {
         this.tickets = tickets;
         this.currentTime = new Date();
+        if (tickets.isEmpty()) {
+            throw new Exception("Trying to use TicektSchedulerComponent with no " +
+                    "tickets in the constructor");
+        }
         this.shop = tickets.get(0).getShop();
     }
 
@@ -141,22 +145,29 @@ public class TicketSchedulerComponent {
         List<TicketTracker> ticketsUsed = new ArrayList<TicketTracker>();
         for (Ticket ticket : tickets) {
             switch (ticket.getStatus()) {
-                case invalid: //must be scheduled and at the end it will become a valid ticket
+                case invalid:
+                    //must be scheduled and become a valid ticket
                     ticketsToSchedule.add(new TicketTracker(ticket));
                     break;
-                case valid: //it could have entered the shop and become a in_use ticket
+                case valid:
+                    //it could have entered the shop and become a in_use ticket
                     //it could have expired (if its not entered and its scheduled time is "one time slot" before the current time)
-                    //it could be still valid and need to be rescheduled
+                    //it could be still valid and need to be
+                    System.out.println("Found a valid ticket (ID: " + ticket.getId() + ")");
                     if (ticket.getEnterTime() != null) {
+                        System.out.println("insert in entering");
                         ticketsInsideShop.add(new TicketTracker(ticket));
                         //TODO
                     } else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - (60000L * timeSlotMinuteDuration)))) {
+                        System.out.println("insert in expired");
                         ticketsExpired.add(new TicketTracker(ticket));
                     } else {
+                        System.out.println("insert in to schedule");
                         ticketsToSchedule.add(new TicketTracker(ticket));
                     }
                     break;
-                case in_use: //it could have exit the shop and become used
+                case in_use:
+                    //it could have exit the shop and become used
                     //it could still be in_use
                     if (ticket.getExitTime() != null) {
                         ticketsUsed.add(new TicketTracker(ticket));
@@ -501,9 +512,6 @@ public class TicketSchedulerComponent {
         System.out.println("****************************END TICKETS UPDATED*************************************");
         */
 
-        //TODO: non mi segna i ticket expired
-        //todo: capisci cosa altro non va ciao
-
         return this.tickets;
     }
 
@@ -623,10 +631,17 @@ public class TicketSchedulerComponent {
             for (TicketTracker tt : ts.getExpectedExitingTickets()) {
                 if (tt.getMatchingFollowingTicket() == null) {
                     queueTime = tt.getTicket().getScheduledExitingTime();
+                    System.out.println("\nEXPECTED QUEUE TIME IS: ");
+                    System.out.println(queueTime.toString());
                     return queueTime;
                 }
             }
         }
+
+        //This should never run, but for sureness:
+        queueTime = currentTime;
+        System.out.println("\nEXPECTED QUEUE TIME IS: ");
+        System.out.println(queueTime.toString());
 
         return queueTime;
     }
