@@ -149,6 +149,7 @@ public class TicketSchedulerComponent {
                     //it could be still valid and need to be rescheduled
                     if (ticket.getEnterTime() != null) {
                         ticketsInsideShop.add(new TicketTracker(ticket));
+                        //TODO
                     } else if (ticket.getScheduledEnteringTime().before(new Date(currentTime.getTime() - (60000L * timeSlotMinuteDuration)))) {
                         ticketsExpired.add(new TicketTracker(ticket));
                     } else {
