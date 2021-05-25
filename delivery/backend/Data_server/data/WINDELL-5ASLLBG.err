@@ -10,3 +10,116 @@
 2021-02-14T21:33:21.480678Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
 2021-02-14T21:33:21.482450Z 0 [ERROR] [MY-010119] [Server] Aborting
 2021-02-14T21:33:23.379284Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
+2021-02-15T14:33:33.903251Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 15596
+2021-02-15T14:33:34.242043Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T14:33:37.629126Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T14:33:40.363417Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T14:33:43.483626Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T14:33:43.484630Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T14:33:43.495616Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). 
+2021-02-15T14:33:43.497326Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2021-02-15T14:33:43.498782Z 0 [ERROR] [MY-010119] [Server] Aborting
+2021-02-15T14:33:48.674447Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
+2021-02-15T15:34:34.665763Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 9212
+2021-02-15T15:34:34.764660Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T15:34:38.829307Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T15:34:40.966046Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T15:34:43.759931Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T15:34:43.762177Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T15:34:44.125693Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T16:33:27.463347Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 23936
+2021-02-15T16:33:27.521342Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T16:33:30.798095Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T16:33:32.741317Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T16:33:33.530618Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T16:33:33.546233Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T16:33:36.417541Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T16:33:36.418800Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T16:33:36.426306Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). 
+2021-02-15T16:33:36.428401Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2021-02-15T16:33:36.430466Z 0 [ERROR] [MY-010119] [Server] Aborting
+2021-02-15T16:33:41.890111Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
+2021-02-15T16:37:21.966125Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 9288
+2021-02-15T16:37:22.003092Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T16:37:27.785242Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T16:37:30.222293Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T16:37:30.686175Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T16:37:30.687307Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T16:37:30.779353Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T17:22:52.478085Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 24624
+2021-02-15T17:22:52.538739Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T17:22:55.507372Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T17:22:56.623185Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T17:22:56.870308Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T17:22:56.881870Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T17:22:58.251787Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T17:22:58.252782Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T17:22:58.360349Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T18:05:07.179186Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 11132
+2021-02-15T18:05:07.246921Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T18:05:09.208363Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T18:05:10.506863Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T18:05:10.715422Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T18:05:10.744046Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T18:05:12.479340Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T18:05:12.480422Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T18:05:12.655233Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T18:06:26.014779Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 24316
+2021-02-15T18:06:26.079512Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T18:06:28.284748Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T18:06:28.904447Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T18:06:28.996708Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T18:06:29.009477Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T18:06:29.404943Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T18:06:29.405965Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T18:06:29.614830Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T18:08:54.620286Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 16396
+2021-02-15T18:08:54.664695Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T18:08:56.468866Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T18:08:57.303164Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T18:08:57.985248Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T18:08:58.001231Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T18:08:59.031180Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T18:08:59.032296Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T18:08:59.305606Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-15T18:28:10.539325Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 28628
+2021-02-15T18:28:10.577222Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-15T18:28:13.207552Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-15T18:28:14.877579Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-15T18:28:15.453813Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-15T18:28:15.466024Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-15T18:28:16.694002Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-15T18:28:16.694959Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-15T18:28:17.070409Z 0 [System] [MY-010931] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: ready for connections. Version: '8.0.22'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2021-02-16T05:34:23.301905Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 6320
+2021-02-16T05:34:23.468680Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-16T05:34:26.780250Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-16T05:34:27.553542Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-16T05:34:27.836623Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2021-02-16T05:34:27.860473Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2021-02-16T05:34:28.236040Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-16T05:34:28.237405Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-16T05:34:28.251661Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). 
+2021-02-16T05:34:28.253648Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2021-02-16T05:34:28.255540Z 0 [ERROR] [MY-010119] [Server] Aborting
+2021-02-16T05:34:29.043986Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
+2021-02-17T07:53:45.327837Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 14548
+2021-02-17T07:53:45.547835Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-17T07:53:47.733861Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-17T07:53:48.481338Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-17T07:53:49.397743Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-17T07:53:49.398697Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-17T07:53:49.429404Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). 
+2021-02-17T07:53:49.430981Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2021-02-17T07:53:49.432421Z 0 [ERROR] [MY-010119] [Server] Aborting
+2021-02-17T07:53:51.469289Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
+2021-02-17T08:29:35.130137Z 0 [System] [MY-010116] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe (mysqld 8.0.22) starting as process 1604
+2021-02-17T08:29:35.223578Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2021-02-17T08:29:37.879318Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2021-02-17T08:29:38.562608Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2021-02-17T08:29:39.042527Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2021-02-17T08:29:39.043649Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2021-02-17T08:29:39.050145Z 0 [ERROR] [MY-010262] [Server] Can't start server: Bind on TCP/IP port: Di norma è consentito un solo utilizzo di ogni indirizzo di socket (protocollo/indirizzo di rete/porta). 
+2021-02-17T08:29:39.051933Z 0 [ERROR] [MY-010257] [Server] Do you already have another mysqld server running on port: 3306 ?
+2021-02-17T08:29:39.053603Z 0 [ERROR] [MY-010119] [Server] Aborting
+2021-02-17T08:29:40.492392Z 0 [System] [MY-010910] [Server] C:\Users\Federico\Desktop\Progetto software engineering 2\LermaMainettiGambera\delivery\backend\Data_server\bin\mysqld.exe: Shutdown complete (mysqld 8.0.22)  MySQL Community Server - GPL.
