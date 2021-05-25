@@ -32,13 +32,33 @@ possibility to immediately customize every aspect of a shop.
 
 link here: [RASD.pdf](https://github.com/LudoLe/LermaMainettiGambera/blob/master/delivery/RASD.pdf)
 
+CONTENT:
+- OVERALL DESCRIPTION
+- REQUIREMENTS
+- FORMAL ANALYSIS USING ALLOY
+
 ## DESIGN DOCUMENT (DD)
 
 link here: [DD.pdf](https://github.com/LudoLe/LermaMainettiGambera/blob/master/delivery/DD2.pdf)
 
+CONTENT:
+- ARCHITECTURAL DESIGN
+- QUEUE ALGORITHM
+- USER INTERFACES DESIGN (mockups)
+- REQUIREMENTS TRACEABILITY
+- IMPLEMENTATION, INTEGRATION AND TEST PLAN
+
 ## IMPLEMENTATION AND TESTING DOCUMENT (I&T)
 
 link here: [I&T.pdf](https://github.com/LudoLe/LermaMainettiGambera/blob/master/delivery/I%26T.pdf)
+
+CONTENT:
+- REQUIREMENTS MAPPING
+- DEVELOPMENT FRAMEWORKS
+- SCTRUCTURE OF THE SOURCE CODE
+- INSTALLATION INSTRUCTION
+- TESTING
+
 
 ## Installation instructions
 
@@ -52,12 +72,12 @@ containing this file (cd repo_location\LermaMainettiGambera\delivery)
 3. Go to /backend (cd backend) and run the clup.bat script (.\clup.bat).
 Now a lot of terminal should open, let them do (you can tell they have finished when
 the last word printed is “milliseconds”).
-At this point the server is running on your machine and should be reachable at the
+At this point the servers are running on your machine and should be reachable at the
 addresses:
   - http://localhost:8082/
   - http://localhost:8081/
   - http://localhost:8089/
-Also the script should have started an SQL server at the port 3306
+  - Also the script should have started an SQL server at the port 3306
 4. To see if the services have been correctly started run swagger.bat script
 (.\swagger.bat). It will open three swagger pages, one for each service, on your
 predefined browser.
