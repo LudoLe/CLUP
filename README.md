@@ -54,9 +54,9 @@ Now a lot of terminal should open, let them do (you can tell they have finished 
 the last word printed is “milliseconds”).
 At this point the server is running on your machine and should be reachable at the
 addresses:
-  a. http://localhost:8082/
-  b. http://localhost:8081/
-  c. http://localhost:8089/
+  - http://localhost:8082/
+  - http://localhost:8081/
+  - http://localhost:8089/
 Also the script should have started an SQL server at the port 3306
 4. To see if the services have been correctly started run swagger.bat script
 (.\swagger.bat). It will open three swagger pages, one for each service, on your
@@ -83,8 +83,8 @@ hosted) that you can visit on the browser to see the React web app.
 
 5. The web app was build for mobile, so we encourage to use it with smartphone
 screen sizes. There are two options:
-  a. [for google chrome]: open the developer tools (three dots in the top
+  - [for google chrome]: open the developer tools (three dots in the top
   right corner > other instruments > developer tool) and click on the
   “smartphone/tablet” icon:
   Also from the drop down menu select the “iphone x” option:
-  b. Just resize the browser window to be smartphone-like.
+  - Just resize the browser window to be smartphone-like.
