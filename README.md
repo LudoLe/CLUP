@@ -28,6 +28,10 @@ the shops that will decide to adherit to our service.
 Also, CLup will be a convinient way to keep up with the evolving rules and law, giving managers the
 possibility to immediately customize every aspect of a shop.
 
+![mockups1](https://github.com/LudoLe/LermaMainettiGambera/blob/master/images/mockups1.JPG "mockups1")
+![mockups2](https://github.com/LudoLe/LermaMainettiGambera/blob/master/images/mockups2.JPG "mockups2")
+
+
 ## REQUIREMENT ANALYSIS AND SPECIFICATION DOCUMENT (RASD)
 
 link here: [RASD.pdf](https://github.com/LudoLe/LermaMainettiGambera/blob/master/delivery/RASD.pdf)
