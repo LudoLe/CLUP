@@ -62,9 +62,11 @@ CONTENT:
 
 ## Installation instructions
 
-### Server
+Further details can be found in the [I&T.pdf](https://github.com/LudoLe/LermaMainettiGambera/blob/master/delivery/I%26T.pdf) document.
 
 [Instructions for a windows machine]
+
+### Server
 
 1. Install Java 15 (or higher).
 2. Open a powershell window with admin privileges and navigate to the folder
