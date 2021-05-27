@@ -7,16 +7,16 @@ a relevant threat to public health. Nethertheless, grocery shopping still remain
 has to be carried out: being so, avoiding crowding up either inside and outside of grocery shops to avoid
 any source of hazards uprises as a new main issue to focus on.
 
-CLup is a software application that will be implemented in order to face this issue. The application
+CLup is a software application that will face this issue. The application
 proposes itself to help either the grocery shop owners to adequate to the new governmental rules and
 grocery shop customers to protect their own health.
 
-In fact, Clup allows customers to book online their shopping sessions when and for how long they
+In fact, Clup allows customers to **book** online their **shopping sessions** when and for how long they
 desire, letting them even specify the categories of items they are willing to buy: in this way the system
 will be able to grant the rules of social distancing more accurately and let the clients have an even safer
 experience through their shopping session.
 
-Clup also allows those clients who are not much of a planner to join virtual queues, which are meant
+Clup also allows those clients who are not much of a planner to join **virtual queues**, which are meant
 to substitute the physical ones, for their last minute shopping sessions. The system will permit them to
 monitor the queue and will even alert them when it’s time to leave in order to reach the shop in time for
 their turn.
@@ -30,6 +30,8 @@ possibility to immediately customize every aspect of a shop.
 
 ![mockups1](https://github.com/LudoLe/LermaMainettiGambera/blob/master/images/mockups1.JPG "mockups1")
 ![mockups2](https://github.com/LudoLe/LermaMainettiGambera/blob/master/images/mockups2.JPG "mockups2")
+
+For more information about CLUP and its development process check the following documents:
 
 
 ## REQUIREMENT ANALYSIS AND SPECIFICATION DOCUMENT (RASD)
