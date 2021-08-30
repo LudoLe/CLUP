@@ -1,10 +1,9 @@
-A full-stack application developed in a team of two over the course of 6 months. The Goal of this project is 
-to avoid crowding up either inside and outside of shops during the COVID-19 pandemic.
-
-Particular effort has been put in the software development process by writing design
-and analysis documents.
-
-Main topics: JavaEE, API, SQL database, Javascript, ReactJS, teamwork.
+        TLDR:
+        A full-stack application developed in a team of two over the course of 6 months. The Goal of this project is
+        to avoid crowding up either inside and outside of shops during the COVID-19 pandemic.
+        Particular effort has been put in the software development process by writing design
+        and analysis documents.
+        Main topics: JavaEE, API, SQL database, Javascript, ReactJS, teamwork.
 
 # CLUP - CUSTOMER LINE UP
 
